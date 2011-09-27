@@ -25,7 +25,8 @@ public:
 	int stopPid();
 	int setAVSync(int val);
 #else
-	int startPid(int pid, int type);
+	int setPid(int pid, int type);
+	int start();
 #endif
 	void flush();
 	void freeze();
@@ -58,7 +59,8 @@ public:
 	int start();
 	int stopPid();
 #else
-	int startPid(int pid, int type=MPEG2);
+	int setPid(int pid, int type=MPEG2);
+	int start();
 #endif
 	void flush();
 	void freeze();

@@ -69,8 +69,10 @@ protected:
 		{
 			TABLE_eDebug("done!");
 			return 1;
-		} else
+		} else {
+			TABLE_eDebug("It's not the table's last section!");
 			return 0;
+		}
 	}
 public:
 	std::vector<Section*> &getSections() { return sections; }

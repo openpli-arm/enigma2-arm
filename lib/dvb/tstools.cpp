@@ -641,6 +641,7 @@ int eDVBTSTools::findPMT(int &pmt_pid, int &service_id)
 		{
 			pmt_pid = pid;
 			service_id = (sec[4] << 8) | sec[5];
+			eDebug("pmt_pid:%x, service_id:%d", pmt_pid, service_id);
 			return 0;
 		}
 	}

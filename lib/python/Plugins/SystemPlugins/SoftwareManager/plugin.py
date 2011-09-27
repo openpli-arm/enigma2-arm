@@ -24,7 +24,6 @@ from Components.About import about
 from Components.DreamInfoHandler import DreamInfoHandler
 from Components.Language import language
 from Components.AVSwitch import AVSwitch
-from Components.Network import iNetwork
 from Tools.Directories import pathExists, fileExists, resolveFilename, SCOPE_PLUGINS, SCOPE_CURRENT_PLUGIN, SCOPE_CURRENT_SKIN, SCOPE_METADIR
 from Tools.LoadPixmap import LoadPixmap
 from Tools.NumericalTextInput import NumericalTextInput
@@ -185,6 +184,23 @@ class UpdatePluginMenu(Screen):
 		self.backupfile = getBackupFilename()
 		self.fullbackupfilename = self.backuppath + "/" + self.backupfile
 		self.onShown.append(self.setWindowTitle)
+		self.onChangedEntry = []
+		self["menu"].onSelectionChanged.append(self.selectionChanged)
+
+	def createSummary(self):
+		from Screens.PluginBrowser import PluginBrowserSummary
+		return PluginBrowserSummary
+
+	def selectionChanged(self):
+		item = self["menu"].getCurrent()
+		if item:
+			name = item[1]
+			desc = item[2]
+		else:
+			name = "-"
+			desc = ""
+		for cb in self.onChangedEntry:
+			cb(name, desc)
 
 	def layoutFinished(self):
 		idx = 0
@@ -194,7 +210,6 @@ class UpdatePluginMenu(Screen):
 		self.setTitle(_("Software management"))
 
 	def cleanup(self):
-		iNetwork.stopPingConsole()
 		iSoftwareTools.cleanupSoftwareTools()
 
 	def getUpdateInfos(self):
@@ -1346,7 +1361,7 @@ class UpdatePlugin(Screen):
 		self["activityslider"] = self.activityslider
 		self.status = StaticText(_("Please wait..."))
 		self["status"] = self.status
-		self.package = StaticText(_("Verifying your internet connection..."))
+		self.package = StaticText(_("Package list update"))
 		self["package"] = self.package
 		self.oktext = _("Press OK on your remote control to continue.")
 
@@ -1370,24 +1385,9 @@ class UpdatePlugin(Screen):
 			"back": self.exit
 		}, -1)
 		
-		iNetwork.checkNetworkState(self.checkNetworkCB)
-		self.onClose.append(self.cleanup)
-		
-	def cleanup(self):
-		iNetwork.stopPingConsole()
-
-	def checkNetworkCB(self,data):
-		if data is not None:
-			if data <= 2:
-				self.updating = True
-				self.activityTimer.start(100, False)
-				self.package.setText(_("Package list update"))
-				self.status.setText(_("Upgrading Dreambox... Please wait"))
-				self.ipkg.startCmd(IpkgComponent.CMD_UPDATE)
-			else:
-				self.package.setText(_("Your network is not working. Please try again."))
-				self.status.setText(self.oktext)
-
+		self.updating = True
+		self.activityTimer.start(100, False)
+		self.ipkg.startCmd(IpkgComponent.CMD_UPDATE)
 
 	def doActivityTimer(self):
 		self.activity += 1

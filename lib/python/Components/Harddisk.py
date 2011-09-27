@@ -248,10 +248,18 @@ class Harddisk:
 		res = system(cmd)
 		return (res >> 8)
 
+	def killPartitionTable(self):
+		zero = 512 * '\0'
+		h = open(self.dev_path, 'wb')
+		# delete first 9 sectors, which will likely kill the first partition too
+		for i in range(9):
+			h.write(zero)
+		h.close()
+
 	def killPartition(self, n):
+		zero = 512 * '\0'
 		part = self.partitionPath(n)
 		h = open(part, 'wb')
-		zero = 512 * '\0'
 		for i in range(3):
 			h.write(zero)
 		h.close()
@@ -261,22 +269,29 @@ class Harddisk:
 	def createInitializeJob(self):
 		job = Task.Job(_("Initializing storage device..."))
 
-		task =  UnmountTask(job, self)
+		task = UnmountTask(job, self)
 
-		task = Task.PythonTask(job, _("Kill partition"))
-		task.work = lambda: self.killPartition("1")
+		task = Task.PythonTask(job, _("Kill partition table"))
+		task.work = self.killPartitionTable
 		task.weighting = 1
 
+		size = self.diskSize()
+		print "[HD] size: %s MB" % size
 		task = Task.LoggingTask(job, _("Create Partition"))
 		task.weighting = 5
 		task.setTool('sfdisk')
 		task.args.append('-f')
 		task.args.append(self.disk_path)
-		task.initial_input = "0,\n;\n;\n;\ny\n"
-		
+		if size > 1000000:
+			# Start at sector 8 to better support 4k aligned disks
+			print "[HD] Detected >1TB disk, using 4k alignment"
+			task.initial_input = "8,\n;0,0\n;0,0\n;0,0\ny\n"
+		else:
+			# Smaller disks don't need that
+			task.initial_input = "0,\n;\n;\n;\ny\n"
 		task = MkfsTask(job, _("Create Filesystem"))
 		task.setTool("mkfs.ext3")
-		size = self.diskSize()
+
 		if size > 16 * 1024:
 			task.args += ["-T", "largefile", "-O", "sparse_super"]
 		elif size > 2 * 1024:
@@ -729,7 +744,9 @@ class MkfsTask(Task.LoggingTask):
 		elif self.fsck_state == 'inode':
 			if '/' in data:
 				try:
-					d = data.strip(' \x08\r\n').split('/')
+					d = data.strip(' \x08\r\n').split('/',1)
+					if ('\x08' in d[1]):
+						d[1] = d[1].split('\x08',1)[0]
 					self.setProgress(80*int(d[0])/int(d[1]))
 				except Exception, e:
 					print "[Mkfs] E:", e

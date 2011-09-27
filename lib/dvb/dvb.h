@@ -28,6 +28,7 @@ class eDVBRegisteredFrontend: public iObject, public Object
 	ePtr<eTimer> disable;
 	void closeFrontend()
 	{
+		eDebug("dvb close frontend");
 		if (!m_inuse && m_frontend->closeFrontend()) // frontend busy
 			disable->start(60000, true);  // retry close in 60secs
 	}

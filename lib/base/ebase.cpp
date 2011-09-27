@@ -390,8 +390,10 @@ int eMainloop::iterate(unsigned int twisted_timeout, PyObject **res, ePyObject d
 
 int eMainloop::runLoop()
 {
-	while (!app_quit_now)
+	while (!app_quit_now) {
+		eDebug("app_quit_now(%d)", app_quit_now);
 		iterate();
+	}
 	return retval;
 }
 

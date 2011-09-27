@@ -108,6 +108,7 @@ int fbClass::SetMode(unsigned int nxRes, unsigned int nyRes, unsigned int nbpp)
 	screeninfo.width=0;
 	screeninfo.xoffset=screeninfo.yoffset=0;
 	screeninfo.bits_per_pixel=nbpp;
+	screeninfo.activate = FB_ACTIVATE_NOW;
 
 	switch (nbpp) {
 	case 16:
@@ -170,11 +171,15 @@ int fbClass::SetMode(unsigned int nxRes, unsigned int nyRes, unsigned int nbpp)
 	}
 	stride=fix.line_length;
 	memset(lfb, 0, stride*yRes);
+
+	eDebug("stride(%d), xRes(%d), yRes(%d)", stride, xRes, yRes);
+
 	return 0;
 }
 
 int fbClass::setOffset(int off)
 {
+	eDebug("SetOffset(%d)", off);
 	screeninfo.xoffset = 0;
 	screeninfo.yoffset = off;
 	return ioctl(fbFd, FBIOPAN_DISPLAY, &screeninfo);

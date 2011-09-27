@@ -18,8 +18,10 @@
 #include <lib/python/python.h>
 #include <errno.h>
 
-#define SCAN_eDebug(x...) do { if (m_scan_debug) eDebug(x); } while(0)
-#define SCAN_eDebugNoNewLine(x...) do { if (m_scan_debug) eDebugNoNewLine(x); } while(0)
+//#define SCAN_eDebug(x...) do { if (m_scan_debug) eDebug(x); } while(0)
+//#define SCAN_eDebugNoNewLine(x...) do { if (m_scan_debug) eDebugNoNewLine(x); } while(0)
+#define SCAN_eDebug(x...) do { eDebug(x); } while(0)
+#define SCAN_eDebugNoNewLine(x...) do { eDebugNoNewLine(x); } while(0)
 
 DEFINE_REF(eDVBScan);
 
@@ -250,8 +252,10 @@ RESULT eDVBScan::startFilter()
 	}
 
 	m_SDT = 0;
+	eDebug("m_ready_all = %x, m_ready = %x", m_ready_all, m_ready);
 	if (startSDT && (m_ready_all & readySDT))
 	{
+		eDebug("start SDT...");
 		m_SDT = new eTable<ServiceDescriptionSection>(m_scan_debug);
 		int tsid=-1;
 		if (m_ready & readyPAT && m_ready & validPAT)
@@ -261,12 +265,20 @@ RESULT eDVBScan::startFilter()
 			ASSERT(i != m_PAT->getSections().end());
 			tsid = (*i)->getTableIdExtension(); // in PAT this is the transport stream id
 			m_pat_tsid = eTransportStreamID(tsid);
+
+			eDebug("tsid = %d\n", tsid);
 			for (; i != m_PAT->getSections().end(); ++i)
 			{
 				const ProgramAssociationSection &pat = **i;
 				ProgramAssociationConstIterator program = pat.getPrograms()->begin();
 				for (; program != pat.getPrograms()->end(); ++program)
-					m_pmts_to_read.insert(std::pair<unsigned short, service>((*program)->getProgramNumber(), service((*program)->getProgramMapPid())));
+				{
+					unsigned short pn, pmpid;
+					pn = (*program)->getProgramNumber();
+					pmpid = (*program)->getProgramMapPid();
+					eDebug("pn = %d, pmpid = %d", pn, pmpid);
+					m_pmts_to_read.insert(std::pair<unsigned short, service>(pn, service(pmpid)));
+				}
 			}
 			m_PMT = new eTable<ProgramMapSection>(m_scan_debug);
 			CONNECT(m_PMT->tableReady, eDVBScan::PMTready);
@@ -286,42 +298,53 @@ RESULT eDVBScan::startFilter()
 				}
 			}
 		}
+
+		eDebug("tsid = %d", tsid);
 		if (tsid == -1)
 		{
 			if (m_SDT->start(m_demux, eDVBSDTSpec()))
 				return -1;
 		}
-		else if (m_SDT->start(m_demux, eDVBSDTSpec(tsid, true)))
+		else if (m_SDT->start(m_demux, eDVBSDTSpec(tsid, false)))
 			return -1;
+		eDebug("tsid = xxx");
 		CONNECT(m_SDT->tableReady, eDVBScan::SDTready);
 	}
 
 	if (!(m_ready & readyPAT))
 	{
+		eDebug("has no PAT ready...");
 		m_PAT = 0;
 		if (m_ready_all & readyPAT)
 		{
+			eDebug("Ready PAT...");
 			m_PAT = new eTable<ProgramAssociationSection>(m_scan_debug);
 			if (m_PAT->start(m_demux, eDVBPATSpec(4000)))
 				return -1;
+
+			eDebug("set table Ready\n");
 			CONNECT(m_PAT->tableReady, eDVBScan::PATready);
 		}
 
 		m_NIT = 0;
 		if (m_ready_all & readyNIT)
 		{
+			eDebug("Ready NIT...");
 			m_NIT = new eTable<NetworkInformationSection>(m_scan_debug);
 			if (m_NIT->start(m_demux, eDVBNITSpec(m_networkid)))
 				return -1;
+			eDebug("set table Ready\n");
 			CONNECT(m_NIT->tableReady, eDVBScan::NITready);
 		}
 
 		m_BAT = 0;
 		if (m_ready_all & readyBAT)
 		{
+			eDebug("Ready BAT...");
 			m_BAT = new eTable<BouquetAssociationSection>(m_scan_debug);
 			if (m_BAT->start(m_demux, eDVBBATSpec()))
 				return -1;
+			eDebug("set table Ready\n");
 			CONNECT(m_BAT->tableReady, eDVBScan::BATready);
 		}
 	}
@@ -348,7 +371,7 @@ void eDVBScan::NITready(int err)
 
 void eDVBScan::BATready(int err)
 {
-	SCAN_eDebug("got bat");
+	SCAN_eDebug("got bat %d", err);
 	m_ready |= readyBAT;
 	if (!err)
 		m_ready |= validBAT;
@@ -357,7 +380,7 @@ void eDVBScan::BATready(int err)
 
 void eDVBScan::PATready(int err)
 {
-	SCAN_eDebug("got pat");
+	SCAN_eDebug("got pat %d", err);
 	m_ready |= readyPAT;
 	if (!err)
 		m_ready |= validPAT;
@@ -492,9 +515,16 @@ void eDVBScan::PMTready(int err)
 	}
 
 	if (m_pmt_in_progress != m_pmts_to_read.end())
+	{
+		int pid, sid;
+		pid = m_pmt_in_progress->second.pmtPid;
+		sid = m_pmt_in_progress->first;
+		eDebug("m_PMT->start, pid = %d, sid = %d", pid, sid);
 		m_PMT->start(m_demux, eDVBPMTSpec(m_pmt_in_progress->second.pmtPid, m_pmt_in_progress->first, 4000));
+	}
 	else
 	{
+		eDebug("m_PMT stop");
 		m_PMT = 0;
 		m_pmt_running = false;
 		channelDone();
