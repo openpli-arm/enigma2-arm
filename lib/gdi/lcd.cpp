@@ -71,6 +71,7 @@ eDBoxLCD::eDBoxLCD()
 {
 	int xres=132, yres=64, bpp=8;
 	is_oled = 0;
+        eDebug("------->eDBoxLCD");
 #ifndef NO_LCD
 	lcdfd = open("/dev/dbox/oled0", O_RDWR);
 	if (lcdfd < 0)
@@ -115,6 +116,8 @@ eDBoxLCD::eDBoxLCD()
 				{
 					if (fscanf(f, "%x", &tmp) == 1)
 						bpp = tmp;
+
+						
 					fclose(f);
 				}
 			}
@@ -123,6 +126,11 @@ eDBoxLCD::eDBoxLCD()
 	}
 #endif
 	instance=this;
+
+	xres=96; 
+	yres=64; 
+	bpp=8;
+	is_oled = 2;
 
 	setSize(xres, yres, bpp);
 }
@@ -203,24 +211,46 @@ void eDBoxLCD::update()
 	{
 		if (!is_oled || is_oled == 2)
 		{
-			unsigned char raw[132*8];
+			unsigned char raw[96*8];
 			int x, y, yy;
 			for (y=0; y<8; y++)
 			{
-				for (x=0; x<132; x++)
+				for (x=0; x<96; x++)
 				{
 					int pix=0;
 					for (yy=0; yy<8; yy++)
 					{
-						pix|=(_buffer[(y*8+yy)*132+x]>=108)<<yy;
+						pix|=(_buffer[(y*8+yy)*96+x]>=108)<<yy;
 					}
-					raw[y*132+x]=(pix^inverted);
+					raw[y*96+x]=(pix^inverted);
 				}
 			}
-			write(lcdfd, raw, 132*8);
+			//write(lcdfd, raw, 132*8);
+#if 0
+		   eDebug("eDBoxLCD update size = %d\n", _stride * res.height());   
+                for (int ii = 0; ii < 96*8; ii++)
+                {
+                    if(ii%96 == 0)
+                        printf("\noled[%d-%d]", ii, ii +96);
+                    printf("%02X ", raw[ii]);
+                }
+                printf("\n");
+                
+#endif                
+			write(lcdfd, raw, 96*8);
 		}
 		else if (is_oled == 3)
-			write(lcdfd, _buffer, _stride * res.height());
+            {   
+                eDebug("eDBoxLCD update size = %d\n", _stride * res.height());   
+                for (int ii = 0; ii < _stride*res.height(); ii++)
+                {
+                    if(ii%100 == 0)
+                        printf("\noled[%d-%d]", ii, ii +20);
+                    printf("%02X ", _buffer[ii]);
+                }
+                printf("\n");
+                write(lcdfd, _buffer, _stride * res.height());
+            }
 		else
 		{
 			unsigned char raw[64*64];

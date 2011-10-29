@@ -44,10 +44,13 @@ void gLCDDC::exec(const gOpcode *o)
 		delete o->parm.renderText;
 		break;
 #endif
+
 	case gOpcode::flush:
 //		if (update)
+//                    eDebug("<archer>gOpcode::flush");
 			lcd->update();
 	default:
+//eDebug("<archer>gOpcode::exec, opcode = %d", o->opcode);
 		gDC::exec(o);
 		break;
 	}

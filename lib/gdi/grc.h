@@ -43,7 +43,7 @@ struct gOpcode
 		
 		line,
 		
-		setBackgroundColor,
+		setBackgroundColor, //10
 		setForegroundColor,
 		
 		setBackgroundColorRGB,
