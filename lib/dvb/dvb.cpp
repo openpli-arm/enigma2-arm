@@ -88,27 +88,7 @@ eDVBResourceManager::eDVBResourceManager()
 	if (fd >= 0)
 		close(fd);
 
-	if (!strncmp(tmp, "dm7025\n", rd))
-		m_boxtype = DM7025;
-	else if (!strncmp(tmp, "dm8000\n", rd))
-		m_boxtype = DM8000;
-	else if (!strncmp(tmp, "dm800\n", rd))
-		m_boxtype = DM800;
-	else if (!strncmp(tmp, "dm500hd\n", rd))
-		m_boxtype = DM500HD;
-	else if (!strncmp(tmp, "dm800se\n", rd))
-		m_boxtype = DM800SE;
-	else if (!strncmp(tmp, "dm7020hd\n", rd))
-		m_boxtype = DM7020HD;
-	else {
-		eDebug("boxtype detection via /proc/stb/info not possible... use fallback via demux count!\n");
-		if (m_demux.size() == 3)
-			m_boxtype = DM800;
-		else if (m_demux.size() < 5)
-			m_boxtype = DM7025;
-		else
-			m_boxtype = DM8000;
-	}
+	m_boxtype = DM800;
 
 	eDebug("found %zd adapter, %zd frontends(%zd sim) and %zd demux, boxtype %d",
 		m_adapter.size(), m_frontend.size(), m_simulate_frontend.size(), m_demux.size(), m_boxtype);
@@ -470,82 +450,57 @@ RESULT eDVBResourceManager::allocateDemux(eDVBRegisteredFrontend *fe, ePtr<eDVBA
 
 	ePtr<eDVBRegisteredDemux> unused;
 
-	if (m_boxtype == DM7025) // ATI
+	iDVBAdapter *adapter = fe ? fe->m_adapter : m_adapter.begin(); /* look for a demux on the same adapter as the frontend, or the first adapter for dvr playback */
+	int source = fe ? fe->m_frontend->getDVBID() : -1;
+	cap |= capHoldDecodeReference; // this is checked in eDVBChannel::getDemux
+	if (!fe)
 	{
-		/* FIXME: hardware demux policy */
-		int n=0;
-		if (!(cap & iDVBChannel::capDecode))
-		{
-			if (m_demux.size() > 2)  /* assumed to be true, otherwise we have lost anyway */
-			{
-				++i, ++n;
-				++i, ++n;
-			}
-		}
-
-		for (; i != m_demux.end(); ++i, ++n)
-		{
-			int is_decode = n < 2;
-
-			int in_use = is_decode ? (i->m_demux->getRefCount() != 2) : i->m_inuse;
-
-			if ((!in_use) && ((!fe) || (i->m_adapter == fe->m_adapter)))
-			{
-				if ((cap & iDVBChannel::capDecode) && !is_decode)
-					continue;
-				unused = i;
-				break;
-			}
-		}
+		/*
+		 * For pvr playback, start with the last demux.
+		 * On some hardware, we have less ca devices than demuxes,
+		 * so we should try to leave the first demuxes for live tv,
+		 * and start with the last for pvr playback
+		 */
+		i = m_demux.end();
+		--i;
 	}
-	else
+	while (i != m_demux.end())
 	{
-		iDVBAdapter *adapter = fe ? fe->m_adapter : m_adapter.begin(); /* look for a demux on the same adapter as the frontend, or the first adapter for dvr playback */
-		int source = fe ? fe->m_frontend->getDVBID() : -1;
-		cap |= capHoldDecodeReference; // this is checked in eDVBChannel::getDemux
-		if (!fe)
+		if (i->m_adapter == adapter)
 		{
-			/*
-			 * For pvr playback, start with the last demux.
-			 * On some hardware, we have less ca devices than demuxes,
-			 * so we should try to leave the first demuxes for live tv,
-			 * and start with the last for pvr playback
-			 */
-			i = m_demux.end();
-			--i;
-		}
-		while (i != m_demux.end())
-		{
-			if (i->m_adapter == adapter)
+			if (!i->m_inuse)
 			{
-				if (!i->m_inuse)
-				{
-					/* mark the first unused demux, we'll use that when we do not find a better match */
-					if (!unused) unused = i;
-				}
-				else
-				{
-					/* demux is in use, see if we can share it */
-					if (i->m_demux->getSource() == source)
-					{
-						/*
-						 * TODO: when allocating a dvr demux, we cannot share a used demux.
-						 * We should probably always pick a free demux, to start a new pvr playback.
-						 * Each demux is fed by its own dvr device, so each has a different memory source
-						 */
-						demux = new eDVBAllocatedDemux(i);
-						return 0;
-					}
-				}
-			}
-			if (fe)
-			{
-				++i;
+				/* mark the first unused demux, we'll use that when we do not find a better match */
+				if ((!unused) && (!i->m_demux->dvrBusy()))
+					unused = i;
 			}
 			else
 			{
-				--i;
+				/* We can't record with the demux when we are liveplay(ing) on it,
+				 * so we have to select free one 
+				 */
+#if 1
+				/* demux is in use, see if we can share it */
+				if ((i->m_demux->getSource() == source) && (!i->m_demux->dvrBusy()))
+				{
+					/*
+					 * TODO: when allocating a dvr demux, we cannot share a used demux.
+					 * We should probably always pick a free demux, to start a new pvr playback.
+					 * Each demux is fed by its own dvr device, so each has a different memory source
+					 */
+					demux = new eDVBAllocatedDemux(i);
+					return 0;
+				}
+#endif
 			}
+		}
+		if (fe)
+		{
+			++i;
+		}
+		else
+		{
+			--i;
 		}
 	}
 
@@ -675,15 +630,12 @@ void eDVBResourceManager::DVBChannelStateChanged(iDVBChannel *chan)
 		case iDVBChannel::state_release:
 		case iDVBChannel::state_ok:
 		{
-			eDebug("stop release channel timer");
 			m_releaseCachedChannelTimer->stop();
-			eDebug("stop release channel timer finish");
 			break;
 		}
 		case iDVBChannel::state_last_instance:
 		{
-			eDebug("start release channel timer");
-			m_releaseCachedChannelTimer->start(10000, true);
+			m_releaseCachedChannelTimer->start(750, true);
 			break;
 		}
 		default: // ignore all other events
@@ -1149,13 +1101,11 @@ eDVBChannel::eDVBChannel(eDVBResourceManager *mgr, eDVBAllocatedFrontend *fronte
 
 eDVBChannel::~eDVBChannel()
 {
-	eDebug("~eDVBChannel #1");
+	eDebug("~eDVBChannel");
 	if (m_channel_id)
 		m_mgr->removeChannel(this);
 
-	eDebug("~eDVBChannel #2");
 	stopFile();
-	eDebug("~eDVBChannel #3");
 }
 
 void eDVBChannel::frontendStateChanged(iDVBFrontend*fe)
@@ -1173,6 +1123,7 @@ void eDVBChannel::frontendStateChanged(iDVBFrontend*fe)
 	{
 		eDebug("OURSTATE: ok");
 		ourstate = state_ok;
+
 	} else if (state == iDVBFrontend::stateTuning)
 	{
 		eDebug("OURSTATE: tuning");
@@ -1728,6 +1679,9 @@ RESULT eDVBChannel::requestTsidOnid(ePyObject callback)
 RESULT eDVBChannel::getDemux(ePtr<iDVBDemux> &demux, int cap)
 {
 	ePtr<eDVBAllocatedDemux> &our_demux = (cap & capDecode) ? m_decoder_demux : m_demux;
+
+	if (our_demux && our_demux->get().dvrBusy())
+		our_demux = 0;
 
 	if (!our_demux)
 	{

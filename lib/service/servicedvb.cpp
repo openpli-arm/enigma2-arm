@@ -1949,7 +1949,7 @@ int eDVBServicePlay::selectAudioStream(int i)
 			{
 				m_rds_decoder = new eDVBRdsDecoder(data_demux, different_pid);
 				m_rds_decoder->connectEvent(slot(*this, &eDVBServicePlay::rdsDecoderEvent), m_rds_decoder_event_connection);
-				m_rds_decoder->start(rdsPid);
+				//m_rds_decoder->start(rdsPid);
 			}
 		}
 	}

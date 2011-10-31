@@ -12,7 +12,14 @@
 #include <lib/service/servicemp3.h>
 #include <lib/service/service.h>
 
-#include <string>
+#include <string.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <sys/ioctl.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <errno.h>
+
 
 #include <gst/gst.h>
 #include <gst/pbutils/missing-plugins.h>
@@ -37,19 +44,19 @@ eServiceFactoryMP3::eServiceFactoryMP3()
 		extensions.push_back("mp3");
 		extensions.push_back("aac");
 		extensions.push_back("ac3");
-		//extensions.push_back("ogg");
-		//extensions.push_back("mpg");
+		extensions.push_back("ogg");
+		extensions.push_back("mpg");
 		//extensions.push_back("vob");
 		//extensions.push_back("wav");
 		//extensions.push_back("wave");
 		//extensions.push_back("m4v");
-		//extensions.push_back("mkv");
+		extensions.push_back("mkv");
 		extensions.push_back("avi");
-		//extensions.push_back("divx");
+		extensions.push_back("divx");
 		//extensions.push_back("dat");
 		//extensions.push_back("flac");
 		//extensions.push_back("flv");
-		//extensions.push_back("mp4");
+		extensions.push_back("mp4");
 		extensions.push_back("mov");
 		//extensions.push_back("m4a");
 		//extensions.push_back("mts");
@@ -484,8 +491,20 @@ RESULT eServiceMP3::getLength(pts_t &pts)
 
 RESULT eServiceMP3::seekToImpl(pts_t to)
 {
+	long  time_usecs = 0;
+	int fd;
+
 		/* convert pts to nanoseconds */
 	gint64 time_nanoseconds = to * 11111LL;
+	time_usecs = (long)(time_nanoseconds / 1000);
+
+	fd = open("/dev/dvb/adapter0/audio0", O_RDWR);
+	if (fd != -1) 
+	{
+		::ioctl(fd, 0xff01, &time_usecs);
+		close(fd);
+	}
+
 	if (!gst_element_seek (m_gst_playbin, m_currentTrickRatio, GST_FORMAT_TIME, GST_SEEK_FLAG_FLUSH,
 		GST_SEEK_TYPE_SET, time_nanoseconds,
 		GST_SEEK_TYPE_NONE, GST_CLOCK_TIME_NONE))
