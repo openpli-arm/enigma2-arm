@@ -16,8 +16,7 @@ public:
 	
 	RESULT setSourceFrontend(int fenum);
 	int getSource();
-	int getSourceDev();
-	int dvrBusy() { return m_dvr_busy; }
+	int getSourceID();
 	RESULT setSourcePVR(int pvrnum);
 	
 	RESULT createSectionReader(eMainloop *context, ePtr<iDVBSectionReader> &reader);
@@ -124,7 +123,7 @@ private:
 	
 	ePtr<eDVBDemux> m_demux;
 	
-	int m_running, m_target_fd, m_source_fd;
+	int m_running, m_target_fd, m_source_fd, m_vf_fd, m_af_fd;
 	std::string m_target_filename;
 };
 
