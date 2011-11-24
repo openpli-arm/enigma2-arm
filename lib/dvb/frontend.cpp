@@ -1121,10 +1121,10 @@ static void fillDictWithSatelliteData(ePyObject dict, const FRONTENDPARAMETERS &
 	{
 		switch (p[2].u.data)
 		{
-		default: eDebug("got unsupported rolloff from frontend! report as 0_20!");
 		case ROLLOFF_20: tmp = eDVBFrontendParametersSatellite::RollOff_alpha_0_20; break;
 		case ROLLOFF_25: tmp = eDVBFrontendParametersSatellite::RollOff_alpha_0_25; break;
 		case ROLLOFF_35: tmp = eDVBFrontendParametersSatellite::RollOff_alpha_0_35; break;
+		case ROLLOFF_AUTO: tmp = eDVBFrontendParametersSatellite::RollOff_auto; break;
 		}
 		PutToDict(dict, "rolloff", tmp);
 
@@ -1201,7 +1201,7 @@ static void fillDictWithSatelliteData(ePyObject dict, const FRONTENDPARAMETERS &
 	{
 		switch(parm_inversion & 0xc)
 		{
-		default: // unknown rolloff
+		default: tmp = eDVBFrontendParametersSatellite::RollOff_auto; break;
 		case 0: tmp = eDVBFrontendParametersSatellite::RollOff_alpha_0_35; break;
 		case 4: tmp = eDVBFrontendParametersSatellite::RollOff_alpha_0_25; break;
 		case 8: tmp = eDVBFrontendParametersSatellite::RollOff_alpha_0_20; break;
@@ -1975,6 +1975,7 @@ void eDVBFrontend::setFrontend(bool recvEvents)
 			case eDVBFrontendParametersSatellite::RollOff_alpha_0_20: rolloff = ROLLOFF_20; break;
 			case eDVBFrontendParametersSatellite::RollOff_alpha_0_25: rolloff = ROLLOFF_25; break;
 			case eDVBFrontendParametersSatellite::RollOff_alpha_0_35: rolloff = ROLLOFF_35; break;
+			case eDVBFrontendParametersSatellite::RollOff_auto: rolloff = ROLLOFF_AUTO; break;
 			};
 			struct dtv_property p[10];
 			struct dtv_properties cmdseq;
