@@ -935,6 +935,12 @@ int eDVBFrontend::readFrontendData(int type)
 					default: break;
 				}
 			}
+			else if (!strcmp(m_description, "Typhoon(internal)"))
+			{
+			    //eDebug("typhon read snr = %d\n", snr);
+			    ret = (int)snr * 10; //snr unit is x10 db, change it to x100 db.
+			    sat_max = 1600; // we assume a max of 16db here
+			}
 
 			if (type == signalQuality)
 			{
