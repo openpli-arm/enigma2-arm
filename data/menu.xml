@@ -93,16 +93,6 @@ def msgClosed(ret):
 self.session.openWithCallback(msgClosed, FactoryReset)
 </code>
 			</item>
-			<item weight="25" level="0" text="Change System" entryID="change_system">
-				<code>
-from Screens.changesystem import changesystem
-def msgClosed(ret):
-	if ret:
-		from os import system, _exit
-		_exit(10)
-self.session.openWithCallback(msgClosed, changesystem)
-</code>
-			</item>	
 			<!--<item text="Parental Control"><setup id="parental" /></item>-->
 			<!--<item text="Expert -disabled-"><setup id="expert" /></item>-->
 		</menu>
@@ -115,6 +105,16 @@ self.session.openWithCallback(msgClosed, changesystem)
 			<item text="Restart" entryID="restart"><screen module="Standby" screen="TryQuitMainloop">2</screen></item>
 			<item text="Restart enigma" entryID="restart_enigma"><screen module="Standby" screen="TryQuitMainloop">3</screen></item>
 			<item text="Deep Standby" requires="DeepstandbySupport" entryID="deep_standby"><screen module="Standby" screen="TryQuitMainloop">1</screen></item>
+			<item weight="25" level="0" text="Enter Andriod system" entryID="change_system">
+				<code>
+from Screens.changesystem import changesystem
+def msgClosed(ret):
+	if ret:
+		from os import system, _exit
+		_exit(10)
+self.session.openWithCallback(msgClosed, changesystem)
+</code>
+			</item>	
 			<item text="Shutdown" requires="!DeepstandbySupport" entryID="deep_standby"><screen module="Standby" screen="TryQuitMainloop">1</screen></item>
 		</menu>
 </menu>
