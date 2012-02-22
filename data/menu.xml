@@ -93,6 +93,16 @@ def msgClosed(ret):
 self.session.openWithCallback(msgClosed, FactoryReset)
 </code>
 			</item>
+			<item weight="25" level="0" text="Change System" entryID="change_system">
+				<code>
+from Screens.changesystem import changesystem
+def msgClosed(ret):
+	if ret:
+		from os import system, _exit
+		_exit(10)
+self.session.openWithCallback(msgClosed, changesystem)
+</code>
+			</item>	
 			<!--<item text="Parental Control"><setup id="parental" /></item>-->
 			<!--<item text="Expert -disabled-"><setup id="expert" /></item>-->
 		</menu>
