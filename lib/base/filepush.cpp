@@ -150,8 +150,6 @@ void eFilePushThread::thread()
 			{
 				if (w < 0 && (errno == EINTR || errno == EAGAIN || errno == EBUSY))
 					continue;
-				if (w < 0)
-					continue;
 				eDebug("eFilePushThread WRITE ERROR");
 				sendEvent(evtWriteError);
 				break;
