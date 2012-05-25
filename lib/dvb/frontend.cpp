@@ -2398,7 +2398,7 @@ RESULT eDVBFrontend::prepare_terrestrial(const eDVBFrontendParametersTerrestrial
 
 RESULT eDVBFrontend::tune(const iDVBFrontendParameters &where)
 {
-	unsigned int timeout = 30000;
+	unsigned int timeout = 5000;//30000ms too long
 	eDebugNoSimulate("(%d)tune", m_dvbid);
 
 	m_timeout->stop();
