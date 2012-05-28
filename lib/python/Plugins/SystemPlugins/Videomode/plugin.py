@@ -103,9 +103,10 @@ class VideoSetup(Screen, ConfigListScreen):
 				getConfigListEntry(_("General AC3 Delay"), config.av.generalAC3delay),
 				getConfigListEntry(_("General PCM Delay"), config.av.generalPCMdelay)
 			))
-
-		if SystemInfo["CanChangeOsdAlpha"]:
-			self.list.append(getConfigListEntry(_("OSD visibility"), config.av.osd_alpha))
+		#This feature is not implemented. <<Open this function when Trident suport!!!>>
+		
+		#if SystemInfo["CanChangeOsdAlpha"]:
+		#	self.list.append(getConfigListEntry(_("OSD visibility"), config.av.osd_alpha))
 
 		if not isinstance(config.av.scaler_sharpness, ConfigNothing):
 			self.list.append(getConfigListEntry(_("Scaler sharpness"), config.av.scaler_sharpness))
