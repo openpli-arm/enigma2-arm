@@ -109,12 +109,12 @@ self.session.openWithCallback(msgClosed, FactoryReset)
 		</menu>
 		<item text="Go to Android" entryID="android_system">
 				<code>
-from Screens.changesystem import changesystem
+from Screens.ChangeSystem import ChangeSystem
 def msgClosed(ret):
 	if ret:
 		from os import system, _exit
 		_exit(10)
-self.session.openWithCallback(msgClosed, changesystem)
+self.session.openWithCallback(msgClosed, ChangeSystem)
 </code>
 		</item>	
 </menu>
