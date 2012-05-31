@@ -107,7 +107,7 @@ self.session.openWithCallback(msgClosed, FactoryReset)
 			<item text="Deep Standby" requires="DeepstandbySupport" entryID="deep_standby"><screen module="Standby" screen="TryQuitMainloop">1</screen></item>
 			<item text="Shutdown" requires="!DeepstandbySupport" entryID="deep_standby"><screen module="Standby" screen="TryQuitMainloop">1</screen></item>
 		</menu>
-		<item text="Go to Android" entryID="change_system">
+		<item text="Go to Android" entryID="android_system">
 				<code>
 from Screens.changesystem import changesystem
 def msgClosed(ret):
