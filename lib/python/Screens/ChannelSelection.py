@@ -916,6 +916,14 @@ class ChannelSelectionBase(Screen):
 				self.setTitle(titleStr)
 
 	def moveUp(self):
+#fix service content can not sen after scan,update servicelist
+		refstr = '%s ORDER BY name'%(self.service_types)
+		if not self.preEnterPath(refstr):
+			ref = eServiceReference(refstr)
+			currentRoot = self.getRoot()
+			if currentRoot is None or currentRoot == ref:
+				self.clearPath()
+				self.enterPath(ref)
 		self.servicelist.moveUp()
 
 	def moveDown(self):
