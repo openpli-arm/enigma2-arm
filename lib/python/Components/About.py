@@ -1,6 +1,7 @@
 from Tools.Directories import resolveFilename, SCOPE_SYSETC
 from enigma import getEnigmaVersionString
-from os import popen
+from os import popen, stat
+import time
 
 class About:
 	def __init__(self):
@@ -11,29 +12,20 @@ class About:
 
 	def getImageVersionString(self):
 		try:
-			file = open(resolveFilename(SCOPE_SYSETC, 'image-version'), 'r')
-			lines = file.readlines()
-			for x in lines:
-				splitted = x.split('=')
-				if splitted[0] == "version":
-					#     YYYY MM DD hh mm
-					#0120 2005 11 29 01 16
-					#0123 4567 89 01 23 45
-					version = splitted[1]
-					year = version[-13:-9]
-					month = version[-9:-7]
-					day = version[-7:-5]
-					name = version[1:-13]
-
-					return '-'.join(([name, year, month, day]))
-			file.close()
-		except IOError:
+			st = stat('/usr/lib/ipkg/status')
+			tm = time.localtime(st.st_mtime)
+			if tm.tm_year >= 2011:
+				return time.strftime("%b %e %Y %H:%M:%S", tm)
+		except:
 			pass
 
 		return "unavailable"
 
 	def getEnigmaVersionString(self):
-		return getEnigmaVersionString()
+		enigma_version = getEnigmaVersionString()
+		if '-(no branch)' in enigma_version:
+			enigma_version = enigma_version [:-12]
+		return enigma_version
 
 	def getKernelVersionString(self):
 		try:
