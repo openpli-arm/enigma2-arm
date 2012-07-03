@@ -307,7 +307,9 @@ class VideoHardware:
 				aspect = "16:9"
 			else:
 				aspect = {"16_9": "16:9", "16_10": "16:10"}[config.av.aspect.value]
-			policy = {"pillarbox": "panscan", "panscan": "letterbox", "nonlinear": "nonlinear", "scale": "bestfit"}[config.av.policy_43.value]
+			#policy = {"pillarbox": "panscan", "panscan": "letterbox", "nonlinear": "nonlinear", "scale": "bestfit"}[config.av.policy_43.value]
+			#With su980 pillarbox is pillarbox, panscan is letterbox and no nonlinear mode. 
+			policy = {"pillarbox": "letterbox", "panscan": "panscan", "scale": "bestfit"}[config.av.policy_43.value]
 			policy2 = {"letterbox": "letterbox", "panscan": "panscan", "scale": "bestfit"}[config.av.policy_169.value]
 		elif is_auto:
 			aspect = "any"
