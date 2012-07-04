@@ -7,6 +7,7 @@ class ServiceScan:
 	Running = 2
 	Done = 3
 	Error = 4
+	scansuccess = 0
 	
 	Errors = { 
 		0: "error starting scanning",
@@ -96,7 +97,7 @@ class ServiceScan:
 				self.text.setText(_("scan done!") + ' ' + _("%d services found!") % 0 )
 			else:
 				self.text.setText(_("scan done!") + ' ' + _("%d services found!") % (self.foundServices + self.scan.getNumServices()))
-		
+				ServiceScan.scansuccess = 1
 		if self.state == self.Error:
 			self.text.setText(_("ERROR - failed to scan (%s)!") % (self.Errors[self.errorcode]) )
 			
