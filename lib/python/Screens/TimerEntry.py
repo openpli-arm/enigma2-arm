@@ -18,6 +18,7 @@ from RecordTimer import AFTEREVENT
 from enigma import eEPGCache, eServiceReference
 from time import localtime, mktime, time, strftime
 from datetime import datetime
+from Tools.Directories import fileExists,isMount
 
 class TimerEntry(Screen, ConfigListScreen):
 	def __init__(self, session, timer):
@@ -216,7 +217,7 @@ class TimerEntry(Screen, ConfigListScreen):
 			ConfigListScreen.keyRight(self)
 			self.newConfig()
 
-	def keySelect(self):
+	def keySelect(self):	
 		cur = self["config"].getCurrent()
 		if cur == self.channelEntry:
 			self.session.openWithCallback(
@@ -278,6 +279,13 @@ class TimerEntry(Screen, ConfigListScreen):
 			self.keyGo()
 
 	def keyGo(self, result = None):
+	#check record path
+		print "self.timerentry_dirname.value:",self.timerentry_dirname.value
+		if self.timerentry_justplay.value == "record":
+			if not isMount(self.timerentry_dirname.value) or self.timerentry_dirname.value == "/":
+				self.session.open(MessageBox, _("Record Path: ") + self.timerentry_dirname.value + "\n" + _("Please check is inserted an external storage device and  select the right record Directory?\nUSB storage device: /media/usb\n"), MessageBox.TYPE_ERROR)
+				return
+				
 		if not self.timerentry_service_ref.isRecordable():
 			self.session.openWithCallback(self.selectChannelSelector, MessageBox, _("You didn't select a channel to record from."), MessageBox.TYPE_ERROR)
 			return
