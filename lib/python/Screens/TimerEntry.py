@@ -283,10 +283,13 @@ class TimerEntry(Screen, ConfigListScreen):
 		print "self.timerentry_dirname.value:",self.timerentry_dirname.value
 		if self.timerentry_justplay.value == "record":
 			if not isMount(self.timerentry_dirname.value) or self.timerentry_dirname.value == "/":
+				self["config"].setCurrentIndex(8)
 				self.session.open(MessageBox, _("Record Path: ") + self.timerentry_dirname.value + "\n" + _("Please check is inserted an external storage device and  select the right record Directory?\nUSB storage device: /media/usb\n"), MessageBox.TYPE_ERROR)
 				return
 				
 		if not self.timerentry_service_ref.isRecordable():
+			#remove input helpbar
+			self["config"].setCurrentIndex(7)
 			self.session.openWithCallback(self.selectChannelSelector, MessageBox, _("You didn't select a channel to record from."), MessageBox.TYPE_ERROR)
 			return
 		self.timer.name = self.timerentry_name.value
