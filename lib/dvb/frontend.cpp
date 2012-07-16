@@ -935,7 +935,7 @@ int eDVBFrontend::readFrontendData(int type)
 					default: break;
 				}
 			}
-			else if (!strcmp(m_description, "Typhoon(internal)"))
+			else if (!strcmp(m_description, "Typhoon(internal)") || !strcmp(m_description, "DS3103"))
 			{
 			    //eDebug("typhon read snr = %d\n", snr);
 			    ret = (int)snr * 10; //snr unit is x10 db, change it to x100 db.
