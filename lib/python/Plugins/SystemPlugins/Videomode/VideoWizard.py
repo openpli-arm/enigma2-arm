@@ -8,7 +8,7 @@ from Components.config import config, ConfigBoolean, configfile
 
 from Tools.Directories import resolveFilename, SCOPE_PLUGINS
 from Tools.HardwareInfo import HardwareInfo
-from Plugins.SystemPlugins.FactoryTest.plugin import FactoryTestMenu
+from Plugins.SystemPlugins.OscamStatus.plugin import FactoryTestMenu
 config.misc.showtestcard = ConfigBoolean(default = False)
 
 class VideoWizardSummary(WizardSummary):
