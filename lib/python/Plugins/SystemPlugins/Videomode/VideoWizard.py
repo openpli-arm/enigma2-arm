@@ -2,13 +2,13 @@ from Screens.Wizard import WizardSummary
 from Screens.WizardLanguage import WizardLanguage
 from Screens.Rc import Rc
 from VideoHardware import video_hw
-
+from Components.ActionMap import ActionMap
 from Components.Pixmap import Pixmap, MovingPixmap, MultiPixmap
 from Components.config import config, ConfigBoolean, configfile
 
 from Tools.Directories import resolveFilename, SCOPE_PLUGINS
 from Tools.HardwareInfo import HardwareInfo
-
+from Plugins.SystemPlugins.FactoryTest.plugin import FactoryTestMenu
 config.misc.showtestcard = ConfigBoolean(default = False)
 
 class VideoWizardSummary(WizardSummary):
@@ -67,11 +67,19 @@ class VideoWizard(WizardLanguage, Rc):
 		Rc.__init__(self)
 		self["wizard"] = Pixmap()
 		self["portpic"] = Pixmap()
-		
+
+		self["helpActions"] = ActionMap( [ "HelpActions" ],
+			{
+				"displayHelp": self.FactoryTest,
+			})
+			
 		self.port = None
 		self.mode = None
 		self.rate = None
 		
+	def FactoryTest(self):
+		print "FacotyTest"
+		self.session.open(FactoryTestMenu)
 		
 	def createSummary(self):
 		print "++++++++++++***++**** VideoWizard-createSummary"

@@ -52,7 +52,7 @@ class FactoryTest:
 	def __init__(self,testlist,session):
 		self.factoryTestList = testlist
 		self.session = session
-		self.path = "/usr/lib/enigma2/python/Plugins/SystemPlugins/FactoryTest"
+		self.path = "/usr/lib/enigma2/python/Plugins/Extensions/FactoryTest"
 	def test(self,testitem):
 		currentitem = self.factoryTestList.index(testitem)
 #		print  "[FactoryTest]->currentitem:",currentitem
@@ -139,7 +139,7 @@ class FactoryTest:
 				testitem.setTestResult(FactoryTestItem.TESTRESULT_ERROR)
 				
 		elif testitem.testType == FactoryTest.FACTORYTEST_NETWORK:
-			NetworkTest().monitoring()
+			self.session.open(NetworkTest,testitem)
 		else:
 			pass
 		return self.factoryTestList
@@ -170,7 +170,7 @@ class FactoryTestMenu(Screen):
 	def __init__(self, session):
 		Screen.__init__(self, session)
 #		global plugin_path = "/usr/lib/enigma2/python/Plugins/SystemPlugins/FactoryTest"
-		self.plug_path = "/usr/lib/enigma2/python/Plugins/SystemPlugins/FactoryTest"
+		self.plug_path = "/usr/lib/enigma2/python/Plugins/Extensions/FactoryTest"
 		print "path:",self.plug_path
 		self.list = []
 		self["list"] = PluginList(self.list)
@@ -251,6 +251,7 @@ class FactoryTestMenu(Screen):
 #def main(menuid, **kwargs):
 #	if menuid == "mainmenu":
 #		return [(_("Factory Test"), factoryTestStart, "factory_test", 50)]
+#
 #	return []
 #
 #def Plugins(path,**kwargs):

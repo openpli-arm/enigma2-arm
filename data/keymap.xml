@@ -640,4 +640,17 @@
 		<key id="KEY_FILE" mapto="nextBouquet" flags="m" />
 		<key id="KEY_LIST" mapto="prevBouquet" flags="m" />
 	</map>
+	<map context="FrontPanelTest">
+		<device name="sen5 frontpanel keyboard">
+			<key id="KEY_LEFT" mapto="panelchdown" flags="m" />
+			<key id="KEY_RIGHT" mapto="panelchup" flags="m" />
+			<key id="KEY_VOLUMEUP" mapto="panelvolup" flags="m" />
+			<key id="KEY_VOLUMEDOWN" mapto="panelvoldown" flags="m" />
+			<key id="KEY_MENU" mapto="panelmenu" flags="m" />
+			<key id="KEY_OK" mapto="panelok" flags="m" />
+		</device>
+		<device name="dreambox remote control (native)">
+			<key id="KEY_OK" mapto="cancel" flags="m" />
+		</device>
+	</map>
 </keymap>

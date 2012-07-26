@@ -111,8 +111,8 @@ class globalsConfigScreen(Screen, ConfigListScreen):
 class oscamServer:
 	serverName = "localhost"
 	serverIP   = "127.0.0.1"
-	serverPort = "16001"
-	username   = "username"
+	serverPort = "16200"
+	username   = "user"
 	password   = "password"
 	useSSL     = False
 
