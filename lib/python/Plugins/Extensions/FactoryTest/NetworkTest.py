@@ -40,7 +40,7 @@ class NetworkTest(Screen):
 		self["actions"] = ActionMap(["SetupActions", "ColorActions"], 
 			{
 				"green": self.startTest,
-				"ok": self.close
+				"ok": self.doclose
 			})
 			
 	def startTest(self):
@@ -50,6 +50,16 @@ class NetworkTest(Screen):
 		else:
 		   self.pingServer()
 		   
+	def doclose(self):
+		self.updeteResult()
+		self.close()
+		
+	def updeteResult(self):
+		if self.result:
+			self.testitem.setTestResult(FactoryTestItem.TESTRESULT_OK)
+		else:
+			self.testitem.setTestResult(FactoryTestItem.TESTRESULT_ERROR)
+			
 	def test(self):
 		self._runing = True
 		print "test"

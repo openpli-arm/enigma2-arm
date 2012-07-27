@@ -43,10 +43,10 @@ def FactoryTestEntryComponent(listitem,path,width = 700):
 	
 	return [
 		listitem,
-		MultiContentEntryText(pos=(120, 5), size=(300, 25), font=0, text=listitem.itemDisplayName),
-		MultiContentEntryText(pos=(120, 26), size=(300, 17), font=1, text=listitem.description),
-		MultiContentEntryPixmapAlphaTest(pos=(10, 5), size=(100, 40), png = indexpng),
-		MultiContentEntryPixmapAlphaTest(pos=(600, 5), size=(40, 40), png = stateicon)
+		MultiContentEntryText(pos=(60, 5), size=(300, 25), font=0, text=listitem.itemDisplayName),
+		MultiContentEntryText(pos=(60, 32), size=(300, 17), font=1, text=listitem.description),
+		MultiContentEntryPixmapAlphaTest(pos=(5,5), size=(40, 40), png = indexpng),
+		MultiContentEntryPixmapAlphaTest(pos=(370, 10), size=(25, 24), png = stateicon)
 	]
 
 def FactoryTestResultComponent(result,path,width = 700):

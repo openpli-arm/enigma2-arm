@@ -91,13 +91,13 @@ class LnbTest:
 			print "close 22K result:",test
 			time.sleep(0.025)
 			
-#			print "set ston sleep 25ms"
-#			buff = array.array('B', [0xe0,0x00,0x00,0x00,0x00,0x00,0x03])
-#			test  = fcntl.ioctl(lnbfd.fileno(),LnbTest.FE_DISEQC_SEND_MASTER_CMD,buff,True)
-#			time.sleep(1)
-#			buff = array.array('B', [0xe0,0x00,0x03,0x00,0x00,0x00,0x03])
-#			test  = fcntl.ioctl(lnbfd.fileno(),LnbTest.FE_DISEQC_SEND_MASTER_CMD,buff,True)
-#			time.sleep(1)
+			if LnbTest.diseqcstep == 1:
+				buffreset = array.array('B', [0xe0,0x00,0x00,0x00,0x00,0x00,0x03])
+				test  = fcntl.ioctl(lnbfd.fileno(),LnbTest.FE_DISEQC_SEND_MASTER_CMD,buffreset,True)
+				time.sleep(0.05)
+				buffvoltage = array.array('B', [0xe0,0x00,0x03,0x00,0x00,0x00,0x03])
+				test  = fcntl.ioctl(lnbfd.fileno(),LnbTest.FE_DISEQC_SEND_MASTER_CMD,buffvoltage,True)
+				time.sleep(0.15)
 
 			buffport1 = array.array('B', [0xe0,0x10,0x38,0xF3,0x00,0x00,0x04])
 			buffport2 = array.array('B', [0xe0,0x10,0x38,0xF7,0x00,0x00,0x04])
@@ -106,12 +106,11 @@ class LnbTest:
 			buff = [buffport1,buffport2,buffport3,buffport4]
 			
 			test  = fcntl.ioctl(lnbfd.fileno(),LnbTest.FE_DISEQC_SEND_MASTER_CMD,buff[port],True)
-			time.sleep(0.15)
+			time.sleep(0.05)
 			
+			lnbfd.close()
 		except IOError:
 			print "Fail"
-		lnbfd.close()
-		
 		if test == 0:
 			return "22K Off port%d" %(port+1)
 		else:

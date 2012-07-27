@@ -53,6 +53,7 @@ class FactoryTest:
 		self.factoryTestList = testlist
 		self.session = session
 		self.path = "/usr/lib/enigma2/python/Plugins/Extensions/FactoryTest"
+		
 	def test(self,testitem):
 		currentitem = self.factoryTestList.index(testitem)
 #		print  "[FactoryTest]->currentitem:",currentitem
@@ -66,17 +67,20 @@ class FactoryTest:
 				testitem.setTestResult(FactoryTestItem.TESTRESULT_TESTED)
 			else:
 				testitem.setTestResult(FactoryTestItem.TESTRESULT_NOFINISH)
-				
+			return resultstring
+			
 		elif testitem.testType == FactoryTest.FACTORYTEST_FRONTPANEL:
 			self.session.open(FrontPanelTest,testitem,self.path)
-			
+			return "FrontPanel Test Finish"
 		elif testitem.testType == FactoryTest.FACTORYTEST_USB:
 			from UsbTest import *
 			if checkUsbAvailable("/dev/sda"):
 				self.session.open(UsbTest,testitem)
+				return "USB OK"
 			else:
 				testitem.setTestResult(FactoryTestItem.TESTRESULT_ERROR)
 				print "input device"
+				return "Check USB and hardware"
 				
 		elif testitem.testType == FactoryTest.FACTORYTEST_LNB:
 			lnbTestInstance = LnbTest(0)
@@ -86,6 +90,7 @@ class FactoryTest:
 				testitem.setTestResult(FactoryTestItem.TESTRESULT_TESTED)
 			else:
 				testitem.setTestResult(FactoryTestItem.TESTRESULT_NOFINISH)
+			return resultstring
 				
 		elif testitem.testType == FactoryTest.FACTORYTEST_LNB2:
 			lnbTestInstance = LnbTest(1)
@@ -95,7 +100,8 @@ class FactoryTest:
 				testitem.setTestResult(FactoryTestItem.TESTRESULT_TESTED)
 			else:
 				testitem.setTestResult(FactoryTestItem.TESTRESULT_NOFINISH)
-				
+			return resultstring
+			
 		elif testitem.testType == FactoryTest.FACTORYTEST_DISEQC:
 			diseqcTestInstance = LnbTest(0)
 			resultstring =diseqcTestInstance.testDiSEqC(FactoryTest.retest)
@@ -104,7 +110,8 @@ class FactoryTest:
 				testitem.setTestResult(FactoryTestItem.TESTRESULT_TESTED)
 			else:
 				testitem.setTestResult(FactoryTestItem.TESTRESULT_NOFINISH)
-
+			return resultstring
+			
 		elif testitem.testType == FactoryTest.FACTORYTEST_DISEQC2:
 			diseqcTestInstance = LnbTest(1)
 			resultstring =diseqcTestInstance.testDiSEqC(FactoryTest.retest)
@@ -112,12 +119,16 @@ class FactoryTest:
 			if diseqcTestInstance.checkDiSEqCTestFinish():
 				testitem.setTestResult(FactoryTestItem.TESTRESULT_TESTED)
 			else:
-				testitem.setTestResult(FactoryTestItem.TESTRESULT_NOFINISH)				
+				testitem.setTestResult(FactoryTestItem.TESTRESULT_NOFINISH)
+			return resultstring
+			
 		elif testitem.testType == FactoryTest.FACTORYTEST_EEPROM:
 			if EepromTest().checkEeprom():
 				testitem.setTestResult(FactoryTestItem.TESTRESULT_OK)
+				return "Eeprom OK"
 			else:
 				testitem.setTestResult(FactoryTestItem.TESTRESULT_ERROR)
+				return "Eeprom test Error!! Check hardware"
 				
 		elif testitem.testType == FactoryTest.FACTORYTEST_CA:
 #			self.session.open(StatusDataScreen)
@@ -126,6 +137,8 @@ class FactoryTest:
 			if index+1 > len(oscamServers):
 				index = 0
 			self.session.open(StatusDataScreen, "readers", "status", oscamServers[index])
+			testitem.setTestResult(FactoryTestItem.TESTRESULT_TESTED)
+			return "CA cardreader test finish"
 		elif testitem.testType == FactoryTest.FACTORYTEST_RS232:
 			print "test"
 #			recive = "test\n"
@@ -140,9 +153,9 @@ class FactoryTest:
 				
 		elif testitem.testType == FactoryTest.FACTORYTEST_NETWORK:
 			self.session.open(NetworkTest,testitem)
+			return "Network test finish"
 		else:
-			pass
-		return self.factoryTestList
+			return resultstring
 		
 	def reportResult():
 		pass
@@ -161,22 +174,27 @@ class FactoryTestMenu(Screen):
 				<convert type="ClockToText">Format:%d.%m.%Y</convert>
 			</widget>
 		    <eLabel text="Factory test" position="270,20" size="540,43" font="Regular;35" halign="right" foregroundColor="black" backgroundColor="grey" transparent="1" />
-			<widget name="list" position="30,90" size="780,450" scrollbarMode="showOnDemand" backgroundColor="transpBlack" selectionPixmap="DMConcinnity-HD-Transp/menu/sel800x50.png" transparent="1" />
+			<widget name="list" position="330,90" size="480,450" scrollbarMode="showOnDemand" backgroundColor="transpBlack" selectionPixmap="DMConcinnity-HD-Transp/menu/sel800x50.png" transparent="1" />
+			<widget source="infotitle" render="Label" position="40,90" size="250,35" font="Regular;26" foregroundColor="yellow" backgroundColor="transpBlack" transparent="1" />
+			<widget source="testinfo" render="Label" position="40,150" size="250,380" font="Regular;24" backgroundColor="transpBlack" transparent="1" />
 
-			<ePixmap pixmap="DMConcinnity-HD-Transp/buttons/green.png" position="30,570" size="35,27" alphatest="blend" />
-			<eLabel text="TestReport" position="80,573" size="200,26" zPosition="1" font="Regular;22" halign="left" foregroundColor="black" backgroundColor="grey" transparent="1" />
   		</screen>"""
-  		
+#<ePixmap pixmap="DMConcinnity-HD-Transp/buttons/green.png" position="30,570" size="35,27" alphatest="blend" />
+#<eLabel text="TestReport" position="80,573" size="200,26" zPosition="1" font="Regular;22" halign="left" foregroundColor="black" backgroundColor="grey" transparent="1" />	
+
 	def __init__(self, session):
 		Screen.__init__(self, session)
 #		global plugin_path = "/usr/lib/enigma2/python/Plugins/SystemPlugins/FactoryTest"
 		self.plug_path = "/usr/lib/enigma2/python/Plugins/Extensions/FactoryTest"
 		print "path:",self.plug_path
+		
 		self.list = []
 		self["list"] = PluginList(self.list)
 		self.creatTestList() #creat testlist item
-
+		self.testinfo = None
 		self.lastSelect = None
+		self["infotitle"] =	StaticText("Test Info:")
+		self["testinfo"] = StaticText("Select list press OK start test")
 		
 		self.testInstance = FactoryTest(self.testlist,session)
 		
@@ -195,17 +213,17 @@ class FactoryTestMenu(Screen):
 #create test list 		
 	def creatTestList(self):
 		self.testlist = []
-		self.testlist.append(FactoryTestItem("Led Test",FactoryTest.FACTORYTEST_LED,"led.png","display Blank,display write(all)"))
-		self.testlist.append(FactoryTestItem("FrontPanel Test",FactoryTest.FACTORYTEST_FRONTPANEL,"led.png","press frontpanel key to test.."))
-		self.testlist.append(FactoryTestItem("USB Test",FactoryTest.FACTORYTEST_USB,"led.png","in put usb"))
-		self.testlist.append(FactoryTestItem("LNB Test",FactoryTest.FACTORYTEST_LNB,"led.png","13V,18V"))
-		self.testlist.append(FactoryTestItem("Diseqc Test",FactoryTest.FACTORYTEST_DISEQC,"led.png","port1,port2,port3,port4"))
-		self.testlist.append(FactoryTestItem("LNB2 Test",FactoryTest.FACTORYTEST_LNB2,"led.png","13V,18V"))
-		self.testlist.append(FactoryTestItem("Diseqc2 Test",FactoryTest.FACTORYTEST_DISEQC2,"led.png","port1,port2,port3,port4"))
-		self.testlist.append(FactoryTestItem("Eeprom Test",FactoryTest.FACTORYTEST_EEPROM,"led.png","Eeprom Test"))
+		self.testlist.append(FactoryTestItem("Led Test",FactoryTest.FACTORYTEST_LED,"led.png","display Blank,display White(all)"))
+		self.testlist.append(FactoryTestItem("FrontPanel Test",FactoryTest.FACTORYTEST_FRONTPANEL,"frontpanel.png","jump to frontpanel test menu"))
+		self.testlist.append(FactoryTestItem("USB Test",FactoryTest.FACTORYTEST_USB,"usb.png","in put usb"))
+		self.testlist.append(FactoryTestItem("LNB Test",FactoryTest.FACTORYTEST_LNB,"lnb.png","13V,18V"))
+		self.testlist.append(FactoryTestItem("Diseqc Test",FactoryTest.FACTORYTEST_DISEQC,"diseqc.png","port1,port2,port3,port4"))
+		self.testlist.append(FactoryTestItem("LNB2 Test",FactoryTest.FACTORYTEST_LNB2,"lnb.png","13V,18V"))
+		self.testlist.append(FactoryTestItem("Diseqc2 Test",FactoryTest.FACTORYTEST_DISEQC2,"diseqc.png","port1,port2,port3,port4"))
+		self.testlist.append(FactoryTestItem("Eeprom Test",FactoryTest.FACTORYTEST_EEPROM,"eeprom.png","Eeprom Test"))
 #		self.testlist.append(FactoryTestItem("RS232 Test",FactoryTest.FACTORYTEST_RS232,"led.png","RS232 Test"))
-		self.testlist.append(FactoryTestItem("Network Test",FactoryTest.FACTORYTEST_NETWORK,"led.png","jump network Test"))
-		self.testlist.append(FactoryTestItem("CA Test",FactoryTest.FACTORYTEST_CA,"led.png","CA oscam status.."))
+		self.testlist.append(FactoryTestItem("Network Test",FactoryTest.FACTORYTEST_NETWORK,"wired.png","jump network Test"))
+		self.testlist.append(FactoryTestItem("CA Test",FactoryTest.FACTORYTEST_CA,"ca.png","CA oscam status.."))
 		
 #update test result ,menu Refresh
 	def updateList(self):
@@ -223,8 +241,10 @@ class FactoryTestMenu(Screen):
 		else:
 			FactoryTest.retest = False
 			print "test nextstape"
-		self.testlist = self.testInstance.test(currentitem)
+		self.testinfo = self.testInstance.test(currentitem)
+		self["testinfo"].setText(self.testinfo)
 		self.updateList()
+		
 
 #display menu text on Led
 	def createSummary(self):
