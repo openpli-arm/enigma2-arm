@@ -33,23 +33,22 @@ class LedTest:
 			
 	def displayBlank(self):
 		print "start displayBlank"
-		ledfd = open('/dev/dbox/oled0','wb')
 		try:
+			ledfd = open('/dev/dbox/oled0','wb')
 			ledbuff = "\x00"*128*8
 #			print "ledbuff:",ledbuff
 			ledfd.write(ledbuff)
 			ledfd.close()
-			print "displayBlank end"
 		except IOError:
 			return "Fail"
 		return "Display Blank"
 		
 	def displayWhite(self):
 		print "test Led display white ..."
-		ledfd = open('/dev/dbox/oled0','wb')
-		ledbuff = "\xff"*128*8
 #		print "ledbuff:",ledbuff
 		try:
+			ledfd = open('/dev/dbox/oled0','wb')
+			ledbuff = "\xff"*128*8
 			ledfd.write(ledbuff)
 			ledfd.close()
 		except IOError:

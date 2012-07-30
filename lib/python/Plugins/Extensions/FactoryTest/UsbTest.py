@@ -39,6 +39,7 @@ class UsbTest(Screen):
 #		self.usbfreesize = self.usbdevice.free()
 		
 		stat = statvfs("/media/usb")
+		
 		self.usbfreesize = (stat.f_bfree/1000) * (stat.f_bsize/1000)
 		
 		print "usbdevicename:",self.usbdevicename

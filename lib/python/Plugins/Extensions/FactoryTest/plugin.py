@@ -90,6 +90,8 @@ class FactoryTest:
 				testitem.setTestResult(FactoryTestItem.TESTRESULT_TESTED)
 			else:
 				testitem.setTestResult(FactoryTestItem.TESTRESULT_NOFINISH)
+			if resultstring == "Fail,Check hardware!!":
+				testitem.setTestResult(FactoryTestItem.TESTRESULT_ERROR)
 			return resultstring
 				
 		elif testitem.testType == FactoryTest.FACTORYTEST_LNB2:
@@ -100,6 +102,8 @@ class FactoryTest:
 				testitem.setTestResult(FactoryTestItem.TESTRESULT_TESTED)
 			else:
 				testitem.setTestResult(FactoryTestItem.TESTRESULT_NOFINISH)
+			if resultstring == "Fail,Check hardware!!":
+				testitem.setTestResult(FactoryTestItem.TESTRESULT_ERROR)
 			return resultstring
 			
 		elif testitem.testType == FactoryTest.FACTORYTEST_DISEQC:
@@ -110,6 +114,8 @@ class FactoryTest:
 				testitem.setTestResult(FactoryTestItem.TESTRESULT_TESTED)
 			else:
 				testitem.setTestResult(FactoryTestItem.TESTRESULT_NOFINISH)
+			if resultstring == "Fail,Check hardware!!":
+				testitem.setTestResult(FactoryTestItem.TESTRESULT_ERROR)
 			return resultstring
 			
 		elif testitem.testType == FactoryTest.FACTORYTEST_DISEQC2:
@@ -120,6 +126,8 @@ class FactoryTest:
 				testitem.setTestResult(FactoryTestItem.TESTRESULT_TESTED)
 			else:
 				testitem.setTestResult(FactoryTestItem.TESTRESULT_NOFINISH)
+			if resultstring == "Fail,Check hardware!!":
+				testitem.setTestResult(FactoryTestItem.TESTRESULT_ERROR)
 			return resultstring
 			
 		elif testitem.testType == FactoryTest.FACTORYTEST_EEPROM:

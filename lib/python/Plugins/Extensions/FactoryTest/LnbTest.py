@@ -43,29 +43,31 @@ class LnbTest:
 		
 	def setVoltage13(self):
 		print "set Voltage 13V"
-		lnbfd = open(self.lnvdev,'wb')
+		test = -1
 		try:
+			lnbfd = open(self.lnvdev,'wb')
 			test  = fcntl.ioctl(lnbfd.fileno(),LnbTest.FE_SET_VOLTAGE,0)
+			lnbfd.close()
 		except IOError:
-			return "Fail"
-		lnbfd.close()
+			print "Fail,Check hardware!!"
 		if test == 0:
 			return "set Voltage 13V"
 		else:
-			return "Fail"
+			return "Fail,Check hardware!!"
 		
 	def setVoltage18(self):
 		print "set Voltage 18V"
-		lnbfd = open(self.lnvdev,'wb')
+		test = -1
 		try:
+			lnbfd = open(self.lnvdev,'wb')
 			test  = fcntl.ioctl(lnbfd.fileno(),LnbTest.FE_SET_VOLTAGE,1)
+			lnbfd.close()
 		except IOError:
-			return "Fail"
-		lnbfd.close()
+			print "Fail,Check hardware!!"
 		if test == 0:
 			return "set Voltage 18V"
 		else:
-			return "Fail"
+			return "Fail,Check hardware!!"
 			
 	def checkDiSEqCTestFinish(self):
 		if LnbTest.diseqcstep in [0,1,2,3]:
@@ -84,9 +86,10 @@ class LnbTest:
 		return self.diseqcTestList[step](step)
 		
 	def setDiSEqC(self,port):
-	  	lnbfd = open(self.lnvdev,'wb')
+	  	test = -1
 		try:
 			#close 22K		
+			lnbfd = open(self.lnvdev,'wb')
 			test  = fcntl.ioctl(lnbfd.fileno(),LnbTest.FE_SET_TONE,1)
 			print "close 22K result:",test
 			time.sleep(0.025)
@@ -107,19 +110,21 @@ class LnbTest:
 			
 			test  = fcntl.ioctl(lnbfd.fileno(),LnbTest.FE_DISEQC_SEND_MASTER_CMD,buff[port],True)
 			time.sleep(0.05)
-			
 			lnbfd.close()
 		except IOError:
-			print "Fail"
+			print "Fail,Check hardware!!"
 		if test == 0:
 			return "22K Off port%d" %(port+1)
 		else:
-			return "Fail"
+			return "Fail,Check hardware!!"
 	
 	def setSton(self):
-		lnbfd = open(self.lnvdev,'wb')
-		test  = fcntl.ioctl(lnbfd.fileno(),LnbTest.FE_SET_TONE,1)
-		print "test :",test
-		time.sleep(3)
-		test  = fcntl.ioctl(lnbfd.fileno(),LnbTest.FE_SET_TONE,0)
-		lnbfd.close()
+		try:
+			lnbfd = open(self.lnvdev,'wb')
+			test  = fcntl.ioctl(lnbfd.fileno(),LnbTest.FE_SET_TONE,1)
+			print "test :",test
+			time.sleep(3)
+			test  = fcntl.ioctl(lnbfd.fileno(),LnbTest.FE_SET_TONE,0)
+			lnbfd.close()
+		except:
+			pass

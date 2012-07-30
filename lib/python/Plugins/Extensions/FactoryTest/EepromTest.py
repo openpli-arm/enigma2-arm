@@ -8,8 +8,8 @@ import os
 
 class EepromTest:
 
-	MACADDRPRE = "00:25:8F"
-	
+	MACADDRESS = "00:25:8F"
+
 	def __init__(self):
 		self.eepromFile = "/proc/stb/info/eeprom/mac_address"
 		self.readMacaddrbuff = []
@@ -22,14 +22,14 @@ class EepromTest:
 			return False
 			
 	def readMacaddr(self):
-		fd = open(self.eepromFile,'r')	
+		print "read maccaddress from eeprom"
 		try:
+			fd = open(self.eepromFile,'r')	
 			self.readMacaddrbuff = fd.read(8)
 			print self.readMacaddrbuff
-		except IOError:
 			fd.close()
+		except IOError:
 			return False
-		fd.close()
 		return True	
 			
 	def checkEeprom(self):
@@ -45,8 +45,8 @@ class EepromTest:
 			
 	def checkMacaddr(self):
 		print "self.readMacaddrbuff:",self.readMacaddrbuff
-		print "MACADDRPRE:",EepromTest.MACADDRPRE
-		if EepromTest.MACADDRPRE == self.readMacaddrbuff:
+		print "MACADDRESS:",EepromTest.MACADDRESS
+		if EepromTest.MACADDRESS == self.readMacaddrbuff:
 			return True
 		else:
 			return False
