@@ -23,7 +23,7 @@ from LedTest import LedTest
 from EepromTest import EepromTest
 from NetworkTest import NetworkTest
 from FrontPanelTest import FrontPanelTest
-
+from Rs232Test import Rs232Test
 from Plugins.Extensions.OscamStatus.plugin import *
 from Plugins.Extensions.OscamStatus.OscamStatusSetup import readCFG,LASTSERVER
 
@@ -148,16 +148,14 @@ class FactoryTest:
 			testitem.setTestResult(FactoryTestItem.TESTRESULT_TESTED)
 			return "CA cardreader test finish"
 		elif testitem.testType == FactoryTest.FACTORYTEST_RS232:
-			print "test"
-#			recive = "test\n"
-			recive = raw_input()
-			fd = open("/retest",'w')
-			fd.write(recive)
-			fd.close()
-			if recive == "test":
+#			print "test RS232"
+			rs232 = Rs232Test()
+			if rs232.StartTest():
 				testitem.setTestResult(FactoryTestItem.TESTRESULT_OK)
+				return "RS232 OK"
 			else:
 				testitem.setTestResult(FactoryTestItem.TESTRESULT_ERROR)
+				return "RS232 test Error!! Check hardware"
 				
 		elif testitem.testType == FactoryTest.FACTORYTEST_NETWORK:
 			self.session.open(NetworkTest,testitem)
@@ -229,9 +227,9 @@ class FactoryTestMenu(Screen):
 		self.testlist.append(FactoryTestItem("LNB2 Test",FactoryTest.FACTORYTEST_LNB2,"lnb.png","13V,18V"))
 		self.testlist.append(FactoryTestItem("Diseqc2 Test",FactoryTest.FACTORYTEST_DISEQC2,"diseqc.png","port1,port2,port3,port4"))
 		self.testlist.append(FactoryTestItem("Eeprom Test",FactoryTest.FACTORYTEST_EEPROM,"eeprom.png","Eeprom Test"))
-#		self.testlist.append(FactoryTestItem("RS232 Test",FactoryTest.FACTORYTEST_RS232,"led.png","RS232 Test"))
 		self.testlist.append(FactoryTestItem("Network Test",FactoryTest.FACTORYTEST_NETWORK,"wired.png","jump network Test"))
 		self.testlist.append(FactoryTestItem("CA Test",FactoryTest.FACTORYTEST_CA,"ca.png","CA oscam status.."))
+		self.testlist.append(FactoryTestItem("RS232 Test",FactoryTest.FACTORYTEST_RS232,"rs232.png","press again after finish Test"))
 		
 #update test result ,menu Refresh
 	def updateList(self):
