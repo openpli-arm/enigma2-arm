@@ -11,6 +11,7 @@ install_PYTHON =	\
 	LedTest.py \
 	LnbTest.py \
 	NetworkTest.py \
+	Rs232Test.py \
 	UsbTest.py
 
  
