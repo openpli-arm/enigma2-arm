@@ -271,17 +271,17 @@ class FactoryTestMenu(Screen):
 
 			
 #plugin 			
-#def factoryTestStart(session, **kwargs):
-#	session.open(FactoryTestMenu)
+def factoryTestStart(session, **kwargs):
+	session.open(FactoryTestMenu)
 	
-#def main(menuid, **kwargs):
-#	if menuid == "mainmenu":
-#		return [(_("Factory Test"), factoryTestStart, "factory_test", 50)]
-#
-#	return []
-#
-#def Plugins(path,**kwargs):
+def main(menuid, **kwargs):
+	if menuid == "mainmenu":
+		return [(_("Factory Test"), factoryTestStart, "factory_test", 50)]
+
+	return []
+
+def Plugins(path,**kwargs):
 #	global plugin_path
 #	plugin_path = path
-#	return PluginDescriptor(name = "FactoryTest",description = "plugin for factory test in produce", where = PluginDescriptor.WHERE_MENU, needsRestart = False, fnc = main)
+	return PluginDescriptor(name = "FactoryTest",description = "plugin for factory test in produce", where = PluginDescriptor.WHERE_MENU, needsRestart = False, fnc = main)
 
