@@ -20,6 +20,16 @@ def getProcMounts():
 		return []
 	return [line.strip().split(' ') for line in mounts]
 
+def isFileSystemSupported(filesystem):
+	try:
+		for fs in open('/proc/filesystems', 'r'):
+			if fs.strip().endswith(filesystem):
+				return True
+		return False
+	except Exception, ex:
+		print "[Harddisk] Failed to read /proc/filesystems:", ex
+		
+
 DEVTYPE_UDEV = 0
 DEVTYPE_DEVFS = 1
 
@@ -271,39 +281,84 @@ class Harddisk:
 
 		task = UnmountTask(job, self)
 
+		print "UnmountTask end!!!"
+		
 		task = Task.PythonTask(job, _("Kill partition table"))
 		task.work = self.killPartitionTable
 		task.weighting = 1
+		print "Kill partition table end!!"
+
+		task = Task.LoggingTask(job, _("Reread partition table"))
+		task.weighting = 1
+		task.setTool('sfdisk')
+		task.args.append('-R')
+		task.args.append(self.disk_path)
+
+		task = Task.ConditionTask(job, _("Wait for partition"), timeoutCount=20)
+		task.check = lambda: not path.exists(self.partitionPath("1"))
+		task.weighting = 1
+		
+		size = self.diskSize()
+		print "[HD] size: %s MB" % size
+
+		task = Task.LoggingTask(job, _("Reread partition table"))
+		task.weighting = 1
+		task.setTool('sfdisk')
+		task.args.append('-R')
+		task.args.append(self.disk_path)
 
 		size = self.diskSize()
 		print "[HD] size: %s MB" % size
+		
 		task = Task.LoggingTask(job, _("Create Partition"))
 		task.weighting = 5
 		task.setTool('sfdisk')
 		task.args.append('-f')
+		task.args.append('-uS')
 		task.args.append(self.disk_path)
-		if size > 1000000:
+		if size > 128000:
 			# Start at sector 8 to better support 4k aligned disks
-			print "[HD] Detected >1TB disk, using 4k alignment"
+			print "[HD] Detected >128GB disk, using 4k alignment"
 			task.initial_input = "8,\n;0,0\n;0,0\n;0,0\ny\n"
 		else:
-			# Smaller disks don't need that
+			# Smaller disks (CF cards, sticks etc) don't need that
 			task.initial_input = "0,\n;\n;\n;\ny\n"
-		task = MkfsTask(job, _("Create Filesystem"))
-		task.setTool("mkfs.ext3")
 
-		if size > 16 * 1024:
+		task = Task.ConditionTask(job, _("Wait for partition"))
+		task.check = lambda: path.exists(self.partitionPath("1"))
+		task.weighting = 1
+
+		task = MkfsTask(job, _("Create Filesystem"))
+		if isFileSystemSupported("ext4"):
+			task.setTool("mkfs.ext4")
+			if size > 20000:
+				version = open("/proc/version","r").read().split(' ', 4)[2].split('.',2)[:2]
+				if (version[0] > 3) or ((version[0] > 2) and (version[1] >= 2)):
+					# Linux version 3.2 supports bigalloc and -C option, use 256k blocks
+					task.args += ["-O", "bigalloc", "-C", "262144"]
+		else:
+			task.setTool("mkfs.ext3")
+		if size > 250000:
+			# No more than 256k i-nodes (prevent problems with fsck memory requirements)
+			task.args += ["-T", "largefile", "-O", "sparse_super", "-N", "262144"]
+		elif size > 16384:
+			# between 16GB and 250GB: 1 i-node per megabyte
 			task.args += ["-T", "largefile", "-O", "sparse_super"]
-		elif size > 2 * 1024:
+		elif size > 2048:
+			# Over 2GB: 32 i-nodes per megabyte
 			task.args += ["-T", "largefile", "-N", str(size * 32)]
 		task.args += ["-m0", "-O", "dir_index", self.partitionPath("1")]
 
 		task = MountTask(job, self)
-		task.weighting = 5
+		task.weighting = 3
+
+		task = Task.ConditionTask(job, _("Wait for mount"), timeoutCount=20)
+		task.check = self.mountDevice
+		task.weighting = 1
 
 		task = Task.PythonTask(job, _("Create movie directory"))
 		task.weighting = 1
-		task.work = self.createMovieFolder
+		task.work = createMovieFolder
 
 		return job
 
