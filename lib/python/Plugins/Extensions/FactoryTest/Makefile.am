@@ -12,6 +12,7 @@ install_PYTHON =	\
 	LnbTest.py \
 	NetworkTest.py \
 	Rs232Test.py \
-	UsbTest.py
+	UsbTest.py \
+	SDCardTest.py
 
  

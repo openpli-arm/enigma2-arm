@@ -24,6 +24,7 @@ from EepromTest import EepromTest
 from NetworkTest import NetworkTest
 from FrontPanelTest import FrontPanelTest
 from Rs232Test import Rs232Test
+from SDCardTest import SDCardTest
 from Plugins.Extensions.OscamStatus.plugin import *
 from Plugins.Extensions.OscamStatus.OscamStatusSetup import readCFG,LASTSERVER
 
@@ -47,6 +48,7 @@ class FactoryTest:
 	FACTORYTEST_RS232 = 9
 	FACTORYTEST_NETWORK = 10
 	FACTORYTEST_CA = 11
+	FACTORYTEST_SDCARD = 12
 	retest = True
 	
 	def __init__(self,testlist,session):
@@ -72,6 +74,7 @@ class FactoryTest:
 		elif testitem.testType == FactoryTest.FACTORYTEST_FRONTPANEL:
 			self.session.open(FrontPanelTest,testitem,self.path)
 			return "FrontPanel Test Finish"
+			
 		elif testitem.testType == FactoryTest.FACTORYTEST_USB:
 			from UsbTest import *
 			if checkUsbAvailable("/dev/sda"):
@@ -81,6 +84,16 @@ class FactoryTest:
 				testitem.setTestResult(FactoryTestItem.TESTRESULT_ERROR)
 				print "input device"
 				return "Check USB and hardware"
+				
+		elif testitem.testType == FactoryTest.FACTORYTEST_SDCARD:
+			from UsbTest import *
+			if checkUsbAvailable("/dev/mmcblk0"):
+				self.session.open(SDCardTest,testitem)
+				return "SDCard OK"
+			else:
+				testitem.setTestResult(FactoryTestItem.TESTRESULT_ERROR)
+				print "input device"
+				return "Check SDCard and hardware"
 				
 		elif testitem.testType == FactoryTest.FACTORYTEST_LNB:
 			lnbTestInstance = LnbTest(0)
@@ -222,6 +235,7 @@ class FactoryTestMenu(Screen):
 		self.testlist.append(FactoryTestItem("Led Test",FactoryTest.FACTORYTEST_LED,"led.png","display Blank,display White(all)"))
 		self.testlist.append(FactoryTestItem("FrontPanel Test",FactoryTest.FACTORYTEST_FRONTPANEL,"frontpanel.png","jump to frontpanel test menu"))
 		self.testlist.append(FactoryTestItem("USB Test",FactoryTest.FACTORYTEST_USB,"usb.png","in put usb"))
+		self.testlist.append(FactoryTestItem("SDCard Test",FactoryTest.FACTORYTEST_SDCARD,"sd.png","in put SDCard"))
 		self.testlist.append(FactoryTestItem("LNB Test",FactoryTest.FACTORYTEST_LNB,"lnb.png","13V,18V"))
 		self.testlist.append(FactoryTestItem("Diseqc Test",FactoryTest.FACTORYTEST_DISEQC,"diseqc.png","port1,port2,port3,port4"))
 		self.testlist.append(FactoryTestItem("LNB2 Test",FactoryTest.FACTORYTEST_LNB2,"lnb.png","13V,18V"))

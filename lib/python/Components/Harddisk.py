@@ -133,6 +133,10 @@ class Harddisk:
 				vendor = readFile(self.sysfsPath('device/vendor'))
 				model = readFile(self.sysfsPath('device/model'))
 				return vendor + '(' + model + ')'
+			elif self.device[:3] == "mmc":
+				devicetype = readFile(self.sysfsPath('device/type'))
+				devicename = readFile(self.sysfsPath('device/name'))
+				return devicetype +"(" +devicename+")"
 			else:
 				raise Exception, "no hdX or sdX" 
 		except Exception, e:
@@ -642,22 +646,41 @@ class HarddiskManager:
 	def addHotplugPartition(self, device, physdev = None):
 		# device is the device name, without /dev
 		# physdev is the physical device path, which we (might) use to determine the userfriendly name
+#		print "[Harddisk].addHotplugPartition().device:",device
 		if not physdev:
 			dev, part = self.splitDeviceName(device)
+#			print "[Harddisk].addHotplugPartition().dev:",dev
+#			print "[Harddisk].addHotplugPartition().part:",part
 			try:
 				physdev = path.realpath('/sys/block/' + dev + '/device')[4:]
 			except OSError:
 				physdev = dev
-				print "couldn't determine blockdev physdev for device", device
+#				print "couldn't determine blockdev physdev for device", device
 		error, blacklisted, removable, is_cdrom, partitions, medium_found = self.getBlockDevInfo(device)
+#		print "[Harddisk].addHotplugPartition().error:",error
+#		print "[Harddisk].addHotplugPartition().blacklisted:",blacklisted
+#		print "[Harddisk].addHotplugPartition().removable:",removable
+#		print "[Harddisk].addHotplugPartition().is_cdrom:",is_cdrom
+#		print "[Harddisk].addHotplugPartition().partitions:",partitions
+#		print "[Harddisk].addHotplugPartition().medium_found:",medium_found
+		
 		if not blacklisted and not is_cdrom and medium_found:
 			description = self.getUserfriendlyDeviceName(device, physdev)
+#			print "[Harddisk].addHotplugPartition().description:",description
 			p = Partition(mountpoint = self.getAutofsMountpoint(device), description = description, force_mounted = True, device = device)
 			self.partitions.append(p)
 			self.on_partition_list_change("add", p)
 			# see if this is a harddrive
 			l = len(device)
+#			print "[Harddisk].addHotplugPartition().l:",l
+#			print "[Harddisk].addHotplugPartition().device[l-1].isdigit():",device[l-1].isdigit()
 			if l and not device[l-1].isdigit():
+				print "add Storage device!!"
+				self.hdd.append(Harddisk(device))
+				self.hdd.sort()
+				SystemInfo["Harddisk"] = len(self.hdd) > 0
+			if device == "mmcblk0": #add sdcard. saifei.xaio
+				print "add Storage device!!"
 				self.hdd.append(Harddisk(device))
 				self.hdd.sort()
 				SystemInfo["Harddisk"] = len(self.hdd) > 0
@@ -677,7 +700,14 @@ class HarddiskManager:
 					self.hdd.remove(hdd)
 					break
 			SystemInfo["Harddisk"] = len(self.hdd) > 0
-
+		elif device == "mmcblk0":
+			for hdd in self.hdd:
+				if hdd.device == device:
+					hdd.stop()
+					self.hdd.remove(hdd)
+					break
+			SystemInfo["Harddisk"] = len(self.hdd) > 0
+			
 	def HDDCount(self):
 		return len(self.hdd)
 
