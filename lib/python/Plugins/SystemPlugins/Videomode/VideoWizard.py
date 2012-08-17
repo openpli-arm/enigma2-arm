@@ -94,6 +94,7 @@ class VideoWizard(WizardLanguage, Rc):
 	def listInputChannels(self):
 		hw_type = HardwareInfo().get_device_name()
 		has_hdmi = HardwareInfo().has_hdmi()
+		has_cvbs = HardwareInfo().has_cvbs()
 		list = []
 
 		for port in self.hw.getPortList():
@@ -101,9 +102,11 @@ class VideoWizard(WizardLanguage, Rc):
 				descr = port
 				if descr == 'DVI' and has_hdmi:
 					descr = 'HDMI'
+				if descr == 'Scart' and has_cvbs:
+					descr = 'CVBS'
 				if port != "DVI-PC":
 					list.append((descr,port))
-		list.sort(key = lambda x: x[0])
+		list.sort(key = lambda x: x[1])
 		print "listInputChannels:", list
 		return list
 

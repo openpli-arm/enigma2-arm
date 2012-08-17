@@ -122,7 +122,6 @@ class VideoHardware:
 #		self.timer = eTimer()
 #		self.timer.callback.append(self.readPreferredModes)
 #		self.timer.start(1000)
-
 	def readAvailableModes(self):
 		try:
 			modes = open("/proc/stb/video/videomode_choices").read()[:-1]
@@ -131,7 +130,6 @@ class VideoHardware:
 			self.modes_available = [ ]
 			return
 		self.modes_available = modes.split(' ')
-
 	def readPreferredModes(self):
 		try:
 			modes = open("/proc/stb/video/videomode_preferred").read()[:-1]
@@ -167,9 +165,10 @@ class VideoHardware:
 		self.current_mode = mode
 		self.current_port = port
 		modes = self.rates[mode][rate]
-
+		
 		mode_50 = modes.get(50)
 		mode_60 = modes.get(60)
+
 		if mode_50 is None or force == 60:
 			mode_50 = mode_60
 		if mode_60 is None or force == 50: 
@@ -193,17 +192,34 @@ class VideoHardware:
 		self.updateAspect(None)
 
 	def saveMode(self, port, mode, rate):
-		print "saveMode", port, mode, rate
 		config.av.videoport.value = port
 		config.av.videoport.save()
 		config.av.videomode[port].value = mode
 		config.av.videomode[port].save()
 		config.av.videorate[mode].value = rate
 		config.av.videorate[mode].save()
-
 	def isPortAvailable(self, port):
 		# fixme
-		return True
+		# add saifei.xiao
+#		print "isPortAvailable port:",port
+#		modes["Scart"] = ["PAL", "NTSC", "Multi"]
+#		modes["YPbPr"] = ["720p", "1080i", "576p", "480p", "576i", "480i"]
+#		modes["DVI"] = ["720p", "1080i", "576p", "480p", "576i", "480i"]
+#		modes["DVI-PC"] = ["PC"]
+		has_hdmi = HardwareInfo().has_hdmi()
+#		has_scart = HardwareInfo().has_scart()
+		has_ypbpy = HardwareInfo().has_ypbpy()
+		has_dvi_pc = HardwareInfo().has_dvi_pc()
+		if port == "Scart":
+			return True
+		elif port == "YPbPr":
+			return has_ypbpy
+		elif port == "DVI":
+			return has_hdmi
+		elif port == "DVI-PC":
+			return has_dvi_pc
+		
+		return False
 
 	def isPortUsed(self, port):
 		if port == "DVI":
@@ -217,7 +233,6 @@ class VideoHardware:
 
 	# get a list with all modes, with all rates, for a given port.
 	def getModeList(self, port):
-		print "getModeList for port", port
 		res = [ ]
 		for mode in self.modes[port]:
 			# list all rates which are completely valid
@@ -231,6 +246,7 @@ class VideoHardware:
 	def createConfig(self, *args):
 		hw_type = HardwareInfo().get_device_name()
 		has_hdmi = HardwareInfo().has_hdmi()
+		has_cvbs = HardwareInfo().has_cvbs()
 		lst = []
 
 		config.av.videomode = ConfigSubDict()
@@ -242,6 +258,8 @@ class VideoHardware:
 			descr = port
 			if descr == 'DVI' and has_hdmi:
 				descr = 'HDMI'
+			elif descr == 'Scart' and has_cvbs:
+				descr = 'CVBS'
 			elif descr == 'DVI-PC' and has_hdmi:
 				descr = 'HDMI-PC'
 			lst.append((port, descr))
@@ -289,14 +307,16 @@ class VideoHardware:
 		#     panscan         use letterbox  ("panscan" is just a bad term, it's inverse-panscan)
 		#     nonlinear       use nonlinear
 		#     scale           use bestfit
-
+#		print "[VideoHardware].updateAspect() start:"
 		port = config.av.videoport.value
+#		print "port:",port
+#		print "system videomode:",config.av.videomode
 		if port not in config.av.videomode:
-			print "current port not available, not setting videomode"
+#			print "current port not available, not setting videomode"
 			return
 		mode = config.av.videomode[port].value
-
-		force_widescreen = self.isWidescreenMode(port, mode)
+#		print "mode :",mode
+		force_widescreen = self.isWidescreenMode(port, mode)#720P 1080I
 
 		is_widescreen = force_widescreen or config.av.aspect.value in ("16_9", "16_10")
 		is_auto = config.av.aspect.value == "auto"
@@ -323,7 +343,7 @@ class VideoHardware:
 		else:
 			wss = "auto"
 
-		print "-> setting aspect, policy, policy2, wss", aspect, policy, policy2, wss
+#		print "-> setting aspect, policy, policy2, wss", aspect, policy, policy2, wss
 		open("/proc/stb/video/aspect", "w").write(aspect)
 		open("/proc/stb/video/policy", "w").write(policy)
 		open("/proc/stb/denc/0/wss", "w").write(wss)
