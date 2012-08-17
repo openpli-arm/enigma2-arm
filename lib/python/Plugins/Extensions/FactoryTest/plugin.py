@@ -25,6 +25,7 @@ from NetworkTest import NetworkTest
 from FrontPanelTest import FrontPanelTest
 from Rs232Test import Rs232Test
 from SDCardTest import SDCardTest
+from UsbTest import *
 from Plugins.Extensions.OscamStatus.plugin import *
 from Plugins.Extensions.OscamStatus.OscamStatusSetup import readCFG,LASTSERVER
 
@@ -76,17 +77,10 @@ class FactoryTest:
 			return "FrontPanel Test Finish"
 			
 		elif testitem.testType == FactoryTest.FACTORYTEST_USB:
-			from UsbTest import *
-			if checkUsbAvailable("/dev/sda"):
-				self.session.open(UsbTest,testitem)
-				return "USB OK"
-			else:
-				testitem.setTestResult(FactoryTestItem.TESTRESULT_ERROR)
-				print "input device"
-				return "Check USB and hardware"
+			self.session.open(UsbTest,testitem)
+			return "USB Tested"
 				
 		elif testitem.testType == FactoryTest.FACTORYTEST_SDCARD:
-			from UsbTest import *
 			if checkUsbAvailable("/dev/mmcblk0"):
 				self.session.open(SDCardTest,testitem)
 				return "SDCard OK"
