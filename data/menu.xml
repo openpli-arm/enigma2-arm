@@ -107,14 +107,5 @@ self.session.openWithCallback(msgClosed, FactoryReset)
 			<item text="Deep Standby" requires="DeepstandbySupport" entryID="deep_standby"><screen module="Standby" screen="TryQuitMainloop">1</screen></item>
 			<item text="Shutdown" requires="!DeepstandbySupport" entryID="deep_standby"><screen module="Standby" screen="TryQuitMainloop">1</screen></item>
 		</menu>
-		<item text="Go to Android" entryID="android_system">
-				<code>
-from Screens.ChangeSystem import ChangeSystem
-def msgClosed(ret):
-	if ret:
-		from os import system, _exit
-		_exit(10)
-self.session.openWithCallback(msgClosed, ChangeSystem)
-</code>
-		</item>	
+		<item text="Go to Android" entryID="android_system"><screen module="ChangeSystem" screen="SwicthSystem"></screen></item>	
 </menu>

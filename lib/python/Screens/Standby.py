@@ -104,11 +104,34 @@ from Screens.MessageBox import MessageBox
 from time import time
 from Components.Task import job_manager
 
+class QuitMainloopScreen(Screen):
+	def __init__(self, session, retvalue=1):
+#		next skin not support now
+#		self.skin = """<screen name="QuitMainloopScreen" position="fill" flags="wfNoBorder">
+#				<ePixmap pixmap="skin_default/icons/input_info.png" position="c-27,c-60" size="53,53" alphatest="on" />
+#				<widget name="text" position="center,c+5" size="720,100" font="Regular;22" halign="center" />
+#			</screen>"""
+		self.skin = """
+			<screen name="QuitMainloopScreen" position="0,0" size="1500,720" title="QuitMainloopScreen" flags="wfNoBorder">
+				<ePixmap pixmap="skin_default/icons/input_info.png" position="c-127,c-140" size="53,53" alphatest="on" />
+				<widget name="text" position="c-460,c-90" size="720,100" font="Regular;22" halign="center" />
+			</screen>"""
+		Screen.__init__(self, session)
+		from Components.Label import Label
+		text = { 1: _("Your receiver is shutting down"),
+			2: _("Your receiver is rebooting"),
+			3: _("The User Interface of your receiver is restarting"),
+			4: _("Your frontprocessor will be upgraded\nPlease wait until your receiver reboots\nThis may take a few minutes"),
+			5: _("The User Interface of your receiver is restarting\ndue to an error in mytest.py"),
+			6: _("your receiver switching to Android system"),
+			42: _("Unattended upgrade in progress\nPlease wait until your receiver reboots\nThis may take a few minutes") }.get(retvalue) 
+		self["text"] = Label(text)
+		
 inTryQuitMainloop = False
 
 class TryQuitMainloop(MessageBox):
 	def __init__(self, session, retvalue=1, timeout=-1, default_yes = True):
-		self.retval=retvalue
+		self.retval = retvalue
 		recordings = session.nav.getRecordings()
 		jobs = len(job_manager.getPendingJobs())
 		self.connected = False
@@ -125,23 +148,22 @@ class TryQuitMainloop(MessageBox):
 			else:
 				reason += (_("%d jobs are running in the background!") % jobs) + '\n'
 		if reason:
-			if retvalue == 1:
-				MessageBox.__init__(self, session, reason+_("Really shutdown now?"), type = MessageBox.TYPE_YESNO, timeout = timeout, default = default_yes)
-			elif retvalue == 2:
-				MessageBox.__init__(self, session, reason+_("Really reboot now?"), type = MessageBox.TYPE_YESNO, timeout = timeout, default = default_yes)
-			elif retvalue == 4:
-				pass
-			else:
-				MessageBox.__init__(self, session, reason+_("Really restart now?"), type = MessageBox.TYPE_YESNO, timeout = timeout, default = default_yes)
-			self.skinName = "MessageBox"
-			session.nav.record_event.append(self.getRecordEvent)
-			self.connected = True
-			self.onShow.append(self.__onShow)
-			self.onHide.append(self.__onHide)
-		else:
-			self.skin = """<screen position="0,0" size="0,0"/>"""
-			Screen.__init__(self, session)
-			self.close(True)
+			text = { 1: _("Really shutdown now?"), 
+				2: _("Really reboot now?"),
+				3: _("Really restart now?"),
+				4: _("Really upgrade the frontprocessor and reboot now?"),
+				42: _("Really upgrade your settop box and reboot now?") }.get(retvalue)
+			if text:
+				MessageBox.__init__(self, session, reason+text, type = MessageBox.TYPE_YESNO, timeout = timeout, default = default_yes)
+				self.skinName = "MessageBox"
+				session.nav.record_event.append(self.getRecordEvent)
+				self.connected = True
+				self.onShow.append(self.__onShow)
+				self.onHide.append(self.__onHide)
+				return
+		self.skin = """<screen position="0,0" size="0,0"/>"""
+		Screen.__init__(self, session)
+		self.close(True)
 
 	def getRecordEvent(self, recservice, event):
 		if event == iRecordableService.evEnd:
@@ -161,14 +183,16 @@ class TryQuitMainloop(MessageBox):
 			self.conntected=False
 			self.session.nav.record_event.remove(self.getRecordEvent)
 		if value:
-			# hack .. we dont like to show any other screens when this screen has closed
-			self.onClose = [self.__closed]
-			self.session.dialog_stack = []
-			self.session.summary_stack = [None]
-		MessageBox.close(self, True)
-
-	def __closed(self):
-		quitMainloop(self.retval)
+			self.hide()
+			if self.retval == 1:
+#				config.misc.DeepStandby.value = True
+				pass
+			self.session.nav.stopService()
+			self.quitScreen = self.session.instantiateDialog(QuitMainloopScreen,retvalue=self.retval)
+			self.quitScreen.show()
+			quitMainloop(self.retval)
+		else:
+			MessageBox.close(self, True)
 
 	def __onShow(self):
 		global inTryQuitMainloop
