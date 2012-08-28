@@ -1,7 +1,10 @@
 from Tools.Directories import resolveFilename, SCOPE_SYSETC
 from enigma import getEnigmaVersionString
 from os import popen, stat
+import sys
+import os
 import time
+
 
 class About:
 	def __init__(self):
@@ -36,5 +39,25 @@ class About:
 			pass
 
 		return "unknown"
+		
+	def getHardwareTypeString(self):
+		try:
+			if os.path.isfile("/proc/stb/info/boxtype"):
+				return open("/proc/stb/info/boxtype").read().strip().upper() + " (" + open("/proc/stb/info/board_revision").read().strip() + "-" + open("/proc/stb/info/version").read().strip() + ")"
+			if os.path.isfile("/proc/stb/info/vumodel"):
+				return "VU+" + open("/proc/stb/info/vumodel").read().strip().upper() + "(" + open("/proc/stb/info/version").read().strip().upper() + ")" 
+			if os.path.isfile("/proc/stb/info/model"):
+				return open("/proc/stb/info/model").read().strip().upper()
+		except:
+			pass
+		return _("unavailable")
+
+	def getImageTypeString(self):
+		try:
+			return open("/etc/issue").readlines()[-2].capitalize().strip()[:-6]
+		except:
+			pass
+		return _("undefined")
+
 
 about = About()
