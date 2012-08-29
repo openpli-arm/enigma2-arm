@@ -26,7 +26,7 @@ from FrontPanelTest import FrontPanelTest
 from Rs232Test import Rs232Test
 from SDCardTest import SDCardTest
 from UsbTest import *
-from Plugins.Extensions.OscamStatus.plugin import *
+from Plugins.Extensions.OscamStatus.plugin import StatusDataScreen
 from Plugins.Extensions.OscamStatus.OscamStatusSetup import readCFG,LASTSERVER
 
 #Factory Test class
