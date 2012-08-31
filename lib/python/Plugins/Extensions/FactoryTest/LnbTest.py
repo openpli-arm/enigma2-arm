@@ -47,27 +47,49 @@ class LnbTest:
 		try:
 			lnbfd = open(self.lnvdev,'wb')
 			test  = fcntl.ioctl(lnbfd.fileno(),LnbTest.FE_SET_VOLTAGE,0)
-			lnbfd.close()
 		except IOError:
 			print "Fail,Check hardware!!"
 		if test == 0:
-			return "set Voltage 13V"
+			testresult = "set:Voltage 13V,"
 		else:
-			return "Fail,Check hardware!!"
-		
+			return "set Voltage 13V fail,Check hardware!!"
+#22k off
+		try:
+			test  = fcntl.ioctl(lnbfd.fileno(),LnbTest.FE_SET_TONE,0)	
+			lnbfd.close()
+		except IOError:
+			print "Fail,Check hardware!!"
+			
+		if test == 0:
+			testresult += "22K on"
+			return testresult
+		else:
+			return "set 22K on fail,Check hardware!!"
+			
 	def setVoltage18(self):
 		print "set Voltage 18V"
 		test = -1
 		try:
 			lnbfd = open(self.lnvdev,'wb')
 			test  = fcntl.ioctl(lnbfd.fileno(),LnbTest.FE_SET_VOLTAGE,1)
-			lnbfd.close()
 		except IOError:
 			print "Fail,Check hardware!!"
 		if test == 0:
-			return "set Voltage 18V"
+			testresult = "set:Voltage 18V,"
 		else:
-			return "Fail,Check hardware!!"
+			return "set Voltage 18V fail,Check hardware!!"
+#set 22k on
+		try:
+			test  = fcntl.ioctl(lnbfd.fileno(),LnbTest.FE_SET_TONE,1)	
+			lnbfd.close()
+		except IOError:
+			print "Fail,Check hardware!!"
+			
+		if test == 0:
+			testresult += "22K off"
+			return testresult
+		else:
+			return "set 22K off fail,Check hardware!!"
 			
 	def checkDiSEqCTestFinish(self):
 		if LnbTest.diseqcstep in [0,1,2,3]:
