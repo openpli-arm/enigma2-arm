@@ -66,7 +66,8 @@ class About(Screen):
 		Screen.__init__(self, session)
 
 		
-		AboutText = _("Hardware: ") + about.getHardwareTypeString() + "\n"
+#		AboutText = _("Hardware: ") + about.getHardwareTypeString() + "\n"
+		AboutText = _("Hardware: ") + "Su980" + "\n"
 		AboutText += _("Image: ") + about.getImageTypeString() + "\n"
 		AboutText += _("Kernel Version: ") + about.getKernelVersionString() + "\n"
 		
