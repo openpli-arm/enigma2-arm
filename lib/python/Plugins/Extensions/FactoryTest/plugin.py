@@ -16,7 +16,7 @@ from Components.PluginList import *
 from FactoryTestPublic import *
 
 from LnbTest import *
-
+from os import listdir
 import time
 
 from LedTest import LedTest
@@ -28,9 +28,7 @@ from SDCardTest import SDCardTest
 from UsbTest import *
 from Plugins.Extensions.OscamStatus.plugin import StatusDataScreen
 from Plugins.Extensions.OscamStatus.OscamStatusSetup import readCFG,LASTSERVER
-
-#Factory Test class
-
+from Components.Network import iNetwork
 
 class FactoryTest:
 	"""Factory test class"""
@@ -50,6 +48,8 @@ class FactoryTest:
 	FACTORYTEST_NETWORK = 10
 	FACTORYTEST_CA = 11
 	FACTORYTEST_SDCARD = 12
+	FACTORYTEST_WIFI = 13
+	
 	retest = True
 	
 	def __init__(self,testlist,session):
@@ -167,6 +167,16 @@ class FactoryTest:
 		elif testitem.testType == FactoryTest.FACTORYTEST_NETWORK:
 			self.session.open(NetworkTest,testitem)
 			return "Network test finish"
+			
+		elif testitem.testType == FactoryTest.FACTORYTEST_WIFI:
+			interfaces = listdir('/sys/class/net')
+			if "wlan0" in interfaces:
+#				self.session.open(WifiTest,testitem)
+				testitem.setTestResult(FactoryTestItem.TESTRESULT_OK)
+				return "Wi-fi OK"
+			else:
+				testitem.setTestResult(FactoryTestItem.TESTRESULT_ERROR)
+				return "Check hardware"
 		else:
 			return resultstring
 		
@@ -190,7 +200,6 @@ class FactoryTestMenu(Screen):
 			<widget name="list" position="330,90" size="480,450" scrollbarMode="showOnDemand" backgroundColor="transpBlack" selectionPixmap="DMConcinnity-HD-Transp/menu/sel800x50.png" transparent="1" />
 			<widget source="infotitle" render="Label" position="40,90" size="250,35" font="Regular;26" foregroundColor="yellow" backgroundColor="transpBlack" transparent="1" />
 			<widget source="testinfo" render="Label" position="40,150" size="250,380" font="Regular;24" backgroundColor="transpBlack" transparent="1" />
-
   		</screen>"""
 #<ePixmap pixmap="DMConcinnity-HD-Transp/buttons/green.png" position="30,570" size="35,27" alphatest="blend" />
 #<eLabel text="TestReport" position="80,573" size="200,26" zPosition="1" font="Regular;22" halign="left" foregroundColor="black" backgroundColor="grey" transparent="1" />	
@@ -236,6 +245,8 @@ class FactoryTestMenu(Screen):
 		self.testlist.append(FactoryTestItem("Diseqc2 Test",FactoryTest.FACTORYTEST_DISEQC2,"diseqc.png","port1,port2,port3,port4"))
 		self.testlist.append(FactoryTestItem("Eeprom Test",FactoryTest.FACTORYTEST_EEPROM,"eeprom.png","Eeprom Test"))
 		self.testlist.append(FactoryTestItem("Network Test",FactoryTest.FACTORYTEST_NETWORK,"wired.png","jump network Test"))
+		self.testlist.append(FactoryTestItem("Wi-Fi Test",FactoryTest.FACTORYTEST_WIFI,"wireless.png","jump wireless network Test"))
+		
 		self.testlist.append(FactoryTestItem("CA Test",FactoryTest.FACTORYTEST_CA,"ca.png","CA oscam status.."))
 		self.testlist.append(FactoryTestItem("RS232 Test",FactoryTest.FACTORYTEST_RS232,"rs232.png","press again after finish Test"))
 		
