@@ -53,7 +53,7 @@ class LnbTest:
 			testresult = "set:Voltage 13V,"
 		else:
 			return "set Voltage 13V fail,Check hardware!!"
-#22k off
+#22k on
 		try:
 			test  = fcntl.ioctl(lnbfd.fileno(),LnbTest.FE_SET_TONE,0)	
 			lnbfd.close()
@@ -80,13 +80,13 @@ class LnbTest:
 			return "set Voltage 18V fail,Check hardware!!"
 #set 22k on
 		try:
-			test  = fcntl.ioctl(lnbfd.fileno(),LnbTest.FE_SET_TONE,1)	
+			test  = fcntl.ioctl(lnbfd.fileno(),LnbTest.FE_SET_TONE,0)	
 			lnbfd.close()
 		except IOError:
 			print "Fail,Check hardware!!"
 			
 		if test == 0:
-			testresult += "22K off"
+			testresult += "22K on"
 			return testresult
 		else:
 			return "set 22K off fail,Check hardware!!"
@@ -139,7 +139,7 @@ class LnbTest:
 			return "22K Off port%d" %(port+1)
 		else:
 			return "Fail,Check hardware!!"
-	
+#####
 	def setSton(self):
 		try:
 			lnbfd = open(self.lnvdev,'wb')
