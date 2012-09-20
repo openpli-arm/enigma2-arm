@@ -21,7 +21,7 @@ import time
 
 from LedTest import LedTest
 from EepromTest import EepromTest
-from NetworkTest import NetworkTest
+from NetworkTest import WifiTest
 from FrontPanelTest import FrontPanelTest
 from Rs232Test import Rs232Test
 from SDCardTest import SDCardTest
@@ -165,14 +165,13 @@ class FactoryTest:
 				return "RS232 test Error!! Check hardware"
 				
 		elif testitem.testType == FactoryTest.FACTORYTEST_NETWORK:
-			self.session.open(NetworkTest,testitem)
+			self.session.open(WifiTest,testitem,"eth0")
 			return "Network test finish"
 			
 		elif testitem.testType == FactoryTest.FACTORYTEST_WIFI:
 			interfaces = listdir('/sys/class/net')
 			if "wlan0" in interfaces:
-#				self.session.open(WifiTest,testitem)
-				testitem.setTestResult(FactoryTestItem.TESTRESULT_OK)
+				self.session.open(WifiTest,testitem,"wlan0")
 				return "Wi-fi OK"
 			else:
 				testitem.setTestResult(FactoryTestItem.TESTRESULT_ERROR)
@@ -206,7 +205,6 @@ class FactoryTestMenu(Screen):
 
 	def __init__(self, session):
 		Screen.__init__(self, session)
-#		global plugin_path = "/usr/lib/enigma2/python/Plugins/SystemPlugins/FactoryTest"
 		self.plug_path = "/usr/lib/enigma2/python/Plugins/Extensions/FactoryTest"
 		print "path:",self.plug_path
 		
