@@ -289,12 +289,12 @@ class WifiTest(Screen):
 		return '/etc/wpa_supplicant.' + iface + '.conf'
 		
 	def writeWifiConfig(self, iface):
-		essid = "Wifi-test"
+		essid = "wifi-test"
 		hiddenessid = False
 		encrypted = True
 		encryption = "WPA/WPA2"
 		wepkeytype = "ASCII"
-		psk = "t3e2s1t0"
+		psk = "12345678"
 		fp = file(self.getWlanConfigName(iface), 'w')
 		fp.write('#WPA Supplicant Configuration by enigma2\n')
 		fp.write('ctrl_interface=/var/run/wpa_supplicant\n')
