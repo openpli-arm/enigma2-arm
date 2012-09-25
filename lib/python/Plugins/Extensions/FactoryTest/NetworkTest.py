@@ -187,6 +187,7 @@ class WifiTest(Screen):
 		
 	def initLables(self):
 		self.checkip = False
+		self.teststep = 0
 		self["ConfigTestInfo"].setText(_(" "))
 		self["ConfigTestInfo"].setForegroundColorNum(0)
 		self["ConfigTest_OK"].hide()
@@ -198,6 +199,8 @@ class WifiTest(Screen):
 		self["connectTestInfo"].setText(_(" "))
 		self["connectTestInfo"].setForegroundColorNum(0)
 		self["connectTest_OK"].hide()
+		self["opreateInfo"].setText(_("please wait,network testing ....."))
+		
 	def doclose(self):
 		if self._runing == False:
 #			self.updeteResult()
@@ -224,15 +227,15 @@ class WifiTest(Screen):
 		if step == 0:
 			self.test()
 		elif step == 1:
-			self["ConfigTestInfo"].setText(_("config Wifi network,please wrait..."))
+			self["ConfigTestInfo"].setText(_("config Wifi network,please wait..."))
 			self["ConfigTestInfo"].setForegroundColorNum(0)
 			self.test()
 		elif step == 2:
-			self["DhcpTestInfo"].setText(_("dhcp get ip address,please wrait..."))
+			self["DhcpTestInfo"].setText(_("dhcp get ip address,please wait..."))
 			self["DhcpTestInfo"].setForegroundColorNum(0)
 			self.test()
 		elif step == 3:
-			self["connectTestInfo"].setText(_("ping network server,please wrait..."))
+			self["connectTestInfo"].setText(_("ping network server,please wait..."))
 			self["connectTestInfo"].setForegroundColorNum(0)
 			self.test()
 		else:
@@ -242,7 +245,7 @@ class WifiTest(Screen):
 
 	def test(self):
 		if self.teststep == 0:
-			self.testTimer.start(1000)
+			self.testTimer.start(100)
 		if self.teststep == 1:
 			self.doNetworkconfig()
 		if self.teststep == 2:
@@ -254,37 +257,40 @@ class WifiTest(Screen):
 			
 	def doNetworkconfig(self):
 		print "wifi config..."
-		interfaces = iNetwork.getConfiguredAdapters()
-		for interface in interfaces:
-			if interface == self.testiface:
-				continue
-			iNetwork.setAdapterAttribute(interface, "up", False) #close all connection
-			
+#		interfaces = iNetwork.getConfiguredAdapters()
+#		print interfaces
+#		for interface in interfaces:
+#			if interface == self.testiface:
+#				continue
+#			iNetwork.setAdapterAttribute(interface, "up", False) #close all connection
+#			
 		if iNetwork.isWirelessInterface(self.testiface):
+			interfaces = ["eth0"]
 			iNetwork.deactivateInterface(interfaces,self.doWlanconfig)
-			
+#			self.doWlanconfig(True)	
 		else:
+			interfaces = ["wlan0"]
 			iNetwork.deactivateInterface(interfaces,self.doLanconfig)
-
+#			self.doLanconfig(true)
 	def	doLanconfig(self,data):
-		if data is True:
-			iNetwork.setAdapterAttribute(self.testiface, "up", True)
-			iNetwork.setAdapterAttribute(self.testiface, "dhcp", True)
-			iNetwork.setAdapterAttribute(self.testiface, "ip", [0, 0, 0, 0])
-			iNetwork.setAdapterAttribute(self.testiface, "netmask", [0, 0, 0, 0])
-			iNetwork.deactivateInterface(self.testiface,self.activeNetwork)
-		
+#		if data is True:
+#			iNetwork.setAdapterAttribute(self.testiface, "up", True)
+#			iNetwork.setAdapterAttribute(self.testiface, "dhcp", True)
+#			iNetwork.setAdapterAttribute(self.testiface, "ip", [0, 0, 0, 0])
+#			iNetwork.setAdapterAttribute(self.testiface, "netmask", [0, 0, 0, 0])
+#			iNetwork.deactivateInterface(self.testiface,self.activeNetwork)
+#		self.activeNetwork(True)
+		self.activeNetworkCB(True)
 	def doWlanconfig(self,data):
-		if data is True:
-			self.writeWifiConfig(self.testiface)
-			iNetwork.setAdapterAttribute(self.testiface, "up", True)
-			iNetwork.setAdapterAttribute(self.testiface, "dhcp", True)
-			iNetwork.setAdapterAttribute(self.testiface, "ip", [0, 0, 0, 0])
-			iNetwork.setAdapterAttribute(self.testiface, "netmask", [0, 0, 0, 0])
-
-			iNetwork.deactivateInterface(self.testiface,self.activeNetwork)
-			
-
+#		if data is True:
+		self.writeWifiConfig(self.testiface)
+#			iNetwork.setAdapterAttribute(self.testiface, "up", True)
+#			iNetwork.setAdapterAttribute(self.testiface, "dhcp", True)
+#			iNetwork.setAdapterAttribute(self.testiface, "ip", [0, 0, 0, 0])
+#			iNetwork.setAdapterAttribute(self.testiface, "netmask", [0, 0, 0, 0])
+#			iNetwork.deactivateInterface(self.testiface,self.activeNetwork)
+#		self.activeNetwork(True)
+		self.activeNetworkCB(True)
 	def getWlanConfigName(self,iface):
 		return '/etc/wpa_supplicant.' + iface + '.conf'
 		
@@ -348,7 +354,7 @@ class WifiTest(Screen):
 			self["ConfigTestInfo"].setForegroundColorNum(2)
 			self["ConfigTest_OK"].setPixmapNum(0)
 			self["ConfigTest_OK"].show()
-			self.testTimer.start(1000)
+			self.testTimer.start(500)
 	#####DHCP
 	def checkipaddr(self):
 		cmd = "ifconfig " + self.testiface
