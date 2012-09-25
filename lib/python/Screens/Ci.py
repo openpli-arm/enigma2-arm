@@ -10,7 +10,7 @@ from Components.SystemInfo import SystemInfo
 
 from enigma import eTimer, eDVBCI_UI, eDVBCIInterfaces
 
-MAX_NUM_CI = 4
+MAX_NUM_CI = 1
 
 def setCIBitrate(configElement):
 	if configElement.value == "no":
@@ -375,7 +375,10 @@ class CiSelection(Screen):
 		cur = self["entries"].getCurrent()
 		if cur and len(cur) > 2:
 			action = cur[2]
+			print "okbuttonClick action:",action
 			slot = cur[3]
+			print "okbuttonClick slot:",slot
+			
 			if action == 0:		#reset
 				eDVBCI_UI.getInstance().setReset(slot)
 			elif action == 1:		#init

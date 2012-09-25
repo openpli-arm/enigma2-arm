@@ -51,7 +51,9 @@ enigma2_LDADD = \
 	@PTHREAD_LIBS@ \
 	@PYTHON_LDFLAGS@ \
 	@LIBDDVD_LIBS@ \
-	-ltuxtxt32bpp -lcrypt
+	-ltuxtxt32bpp -lcrypt \
+	-lciplus -llnxUKAL -llnxdvbciUsr -llnxcssUsr -llnxnotifyqUsr -llnxplatUsr \
+    -llnxscsUsr -ltmplatHandle
 
 enigma2_LDFLAGS = -Wl,--export-dynamic
 
