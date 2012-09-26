@@ -23,8 +23,13 @@ class LnbTest:
 	def __init__(self,lnbindex):
 		self.lnvdev = "/dev/dvb/adapter0/frontend%d" %lnbindex
 		self.voltageTestlist = [self.setVoltage13,self.setVoltage18]
+		self.dvbtvoltageTestlist = [self.setVoltage5dvbt,self.setVoltage0dvbt]
+		
 		self.diseqcTestList = [self.setDiSEqC]*4
-
+		self.tunertype = "DVB-S"
+		if lnbindex == 2:
+			self.tunertype = "DVB-T"
+			
 	def checkVoltageTestFinish(self):
 		if LnbTest.voltageStep in [0,1]:
 			return False
@@ -39,8 +44,13 @@ class LnbTest:
 		
 		LnbTest.voltageStep += 1
 		step = LnbTest.voltageStep - 1
-		return self.voltageTestlist[step]()
-		
+		if self.tunertype == "DVB-S":
+			return self.voltageTestlist[step]()
+		elif self.tunertype == "DVB-T":
+			return self.dvbtvoltageTestlist[step]()
+		else:
+			return "Tuner type error!!"
+			
 	def setVoltage13(self):
 		print "set Voltage 13V"
 		test = -1
@@ -90,7 +100,33 @@ class LnbTest:
 			return testresult
 		else:
 			return "set 22K off fail,Check hardware!!"
-			
+
+	def setVoltage5dvbt(self):
+		print "set DVB-t Voltage 5V"
+		test = -1
+		try:
+			lnbfd = open(self.lnvdev,'wb')
+			test  = fcntl.ioctl(lnbfd.fileno(),LnbTest.FE_SET_VOLTAGE,0)
+		except IOError:
+			print "Fail,Check hardware!!"
+		if test == 0:
+			return "set:DVB-T Voltage 5V"
+		else:
+			return "set Voltage 5V fail,Check hardware!!"
+
+	def setVoltage0dvbt(self):
+		print "set DVB-t Voltage 0V"
+		test = -1
+		try:
+			lnbfd = open(self.lnvdev,'wb')
+			test  = fcntl.ioctl(lnbfd.fileno(),LnbTest.FE_SET_VOLTAGE,2)
+		except IOError:
+			print "Fail,Check hardware!!"
+		if test == 0:
+			return "set:DVB-T Voltage 0V"
+		else:
+			return "set Voltage 0V fail,Check hardware!!"
+		
 	def checkDiSEqCTestFinish(self):
 		if LnbTest.diseqcstep in [0,1,2,3]:
 			return False

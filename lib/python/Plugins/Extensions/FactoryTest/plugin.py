@@ -39,16 +39,18 @@ class FactoryTest:
 	FACTORYTEST_LED = 0
 	FACTORYTEST_FRONTPANEL = 1
 	FACTORYTEST_USB = 2
-	FACTORYTEST_LNB = 3
-	FACTORYTEST_DISEQC = 4
-	FACTORYTEST_LNB2 = 5
-	FACTORYTEST_DISEQC2 = 6
-	FACTORYTEST_EEPROM = 7
-	FACTORYTEST_RS232 = 9
+	FACTORYTEST_SDCARD = 3
+	FACTORYTEST_LNB = 4
+	FACTORYTEST_DISEQC = 5
+	FACTORYTEST_LNB2 = 6
+	FACTORYTEST_DISEQC2 = 7
+	FACTORYTEST_LNBT = 8
+	FACTORYTEST_EEPROM = 9
 	FACTORYTEST_NETWORK = 10
-	FACTORYTEST_CA = 11
-	FACTORYTEST_SDCARD = 12
-	FACTORYTEST_WIFI = 13
+	FACTORYTEST_WIFI = 11
+	FACTORYTEST_CA = 12
+	FACTORYTEST_CI = 13
+	FACTORYTEST_RS232 = 14
 	
 	retest = True
 	
@@ -136,6 +138,18 @@ class FactoryTest:
 			if resultstring == "Fail,Check hardware!!":
 				testitem.setTestResult(FactoryTestItem.TESTRESULT_ERROR)
 			return resultstring
+			
+		elif testitem.testType == FactoryTest.FACTORYTEST_LNBT:
+			lnbTestInstance = LnbTest(2)
+			resultstring =lnbTestInstance.testVoltage(FactoryTest.retest)
+			
+			if lnbTestInstance.checkVoltageTestFinish():
+				testitem.setTestResult(FactoryTestItem.TESTRESULT_TESTED)
+			else:
+				testitem.setTestResult(FactoryTestItem.TESTRESULT_NOFINISH)
+			if resultstring == "Fail,Check hardware!!":
+				testitem.setTestResult(FactoryTestItem.TESTRESULT_ERROR)
+			return resultstring	
 			
 		elif testitem.testType == FactoryTest.FACTORYTEST_EEPROM:
 			if EepromTest().checkEeprom():
@@ -241,6 +255,7 @@ class FactoryTestMenu(Screen):
 		self.testlist.append(FactoryTestItem("Diseqc Test",FactoryTest.FACTORYTEST_DISEQC,"diseqc.png","port1,port2,port3,port4"))
 		self.testlist.append(FactoryTestItem("LNB2 Test",FactoryTest.FACTORYTEST_LNB2,"lnb.png","13V,18V"))
 		self.testlist.append(FactoryTestItem("Diseqc2 Test",FactoryTest.FACTORYTEST_DISEQC2,"diseqc.png","port1,port2,port3,port4"))
+		self.testlist.append(FactoryTestItem("DVB-T Test",FactoryTest.FACTORYTEST_LNBT,"lnb.png","5V on,off"))
 		self.testlist.append(FactoryTestItem("Eeprom Test",FactoryTest.FACTORYTEST_EEPROM,"eeprom.png","Eeprom Test"))
 		self.testlist.append(FactoryTestItem("Network Test",FactoryTest.FACTORYTEST_NETWORK,"wired.png","jump network Test"))
 		self.testlist.append(FactoryTestItem("Wi-Fi Test",FactoryTest.FACTORYTEST_WIFI,"wireless.png","jump wireless network Test"))
