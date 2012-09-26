@@ -10,6 +10,7 @@ from Components.Sources.List import List
 
 from Screens.About import About
 from Screens.Screen import Screen
+from Screens.Ci import MMIDialog
 
 from Components.PluginList import *
 
@@ -29,6 +30,7 @@ from UsbTest import *
 from Plugins.Extensions.OscamStatus.plugin import StatusDataScreen
 from Plugins.Extensions.OscamStatus.OscamStatusSetup import readCFG,LASTSERVER
 from Components.Network import iNetwork
+from enigma import eDVBCI_UI
 
 class FactoryTest:
 	"""Factory test class"""
@@ -168,6 +170,23 @@ class FactoryTest:
 			self.session.open(StatusDataScreen, "readers", "status", oscamServers[index])
 			testitem.setTestResult(FactoryTestItem.TESTRESULT_TESTED)
 			return "CA cardreader test finish"
+			
+		elif testitem.testType == FactoryTest.FACTORYTEST_CI:
+#			oscamServers = readCFG()
+#			index = LASTSERVER.value
+#			if index+1 > len(oscamServers):
+#				index = 0
+#			self.session.open(StatusDataScreen, "readers", "status", oscamServers[index])
+#			testitem.setTestResult(FactoryTestItem.TESTRESULT_TESTED)
+#			return "CI cardreader test finish"		
+			if -1 != eDVBCI_UI.getInstance().getState(1):
+				self.session.open(MMIDialog, 0, 2)
+				testitem.setTestResult(FactoryTestItem.TESTRESULT_TESTED)
+				return "CI cardreader test finish"	
+			else:
+				testitem.setTestResult(FactoryTestItem.TESTRESULT_ERROR)
+				return "check hardware!!!"
+
 		elif testitem.testType == FactoryTest.FACTORYTEST_RS232:
 #			print "test RS232"
 			rs232 = Rs232Test()
@@ -261,6 +280,7 @@ class FactoryTestMenu(Screen):
 		self.testlist.append(FactoryTestItem("Wi-Fi Test",FactoryTest.FACTORYTEST_WIFI,"wireless.png","jump wireless network Test"))
 		
 		self.testlist.append(FactoryTestItem("CA Test",FactoryTest.FACTORYTEST_CA,"ca.png","CA oscam status.."))
+		self.testlist.append(FactoryTestItem("CI Test",FactoryTest.FACTORYTEST_CI,"ca.png","CI card status.."))
 		self.testlist.append(FactoryTestItem("RS232 Test",FactoryTest.FACTORYTEST_RS232,"rs232.png","press again after finish Test"))
 		
 #update test result ,menu Refresh
