@@ -18,7 +18,7 @@
 
 #include <dvbsi++/ca_program_map_section.h>
 
-#define CIDEBUG 1
+//#define CIDEBUG 1
 
 #ifdef CIDEBUG
 	#define eDebugCI(x...) eDebug(x)
@@ -71,10 +71,17 @@ Trid_T_List list_data;
 Trid_T_Enq enq_data;
 
 int Tridci_cb_status = 0;
-//int Tridci_cb_status1 = 1;
-
+int Tridci_init = 0;
+void DVBCI_TridInit();
+ 
 int DVBCI_GetCbStatus()
 {
+    if (Tridci_init == 0)
+    {
+       DVBCI_TridInit();
+       Tridci_init = 1;
+    }
+ 
     return Tridci_cb_status;
 }
 
@@ -86,7 +93,7 @@ void DVBCI_Packcaids()
 	RETURN_TYPE ret;/*abing:doing here the max num of ca system id isn't know now, try 64*/
 
 
-	//printf("--->abing<--- very good, call function Trid_CI_GetCASystemId now.\n");
+	//eDebugCI("--->abing<--- very good, call function Trid_CI_GetCASystemId now.\n");
 
 	ret = Trid_CI_GetCASystemId((trid_uint16*)ca_system_id, &num);
 	if (!num)
@@ -105,7 +112,7 @@ void DVBCI_Packcaids()
 		}
 		std::sort(caids.begin(), caids.end());
 	}
-	printf("--->abing<--- very good, DVBCI_Packcaids.\n");
+	eDebugCI("--->abing<--- very good, DVBCI_Packcaids.\n");
 }
 
 const std::vector<uint16_t> DVBCI_GetCAIDs(void)
@@ -118,14 +125,14 @@ const std::vector<uint16_t> DVBCI_GetCAIDs(void)
 Trid_CI_CardStatus_t DVBCI_GetCardStatus() 
 {
     Trid_CI_CardStatus_t CardStatus;
-	printf("--->abing<--- very good, call function Trid_CI_GetCardStatus (%d).\n", CardStatus);
+	eDebugCI("--->abing<--- very good, call function Trid_CI_GetCardStatus (%d).\n", CardStatus);
 	Trid_CI_GetCardStatus(&CardStatus); 
 	return CardStatus;
 }
 
 int DVBCI_StartMMI()
 {
-	printf("--->abing<--- very good, Trid_CI_AppInfo_EnterMenu.\n");
+	eDebugCI("--->abing<--- very good, Trid_CI_AppInfo_EnterMenu.\n");
 
 	Trid_CI_AppInfo_EnterMenu(); 
 
@@ -134,7 +141,7 @@ int DVBCI_StartMMI()
 
 int DVBCI_StopMMI() 
 {
-	printf("--->abing<--- very good, Trid_CI_MMI_SendCloseMMI.\n");
+	eDebugCI("--->abing<--- very good, Trid_CI_MMI_SendCloseMMI.\n");
 
 	Trid_CI_MMI_SendCloseMMI();
 	return 0;
@@ -142,7 +149,7 @@ int DVBCI_StopMMI()
 
 int DVBCI_AnswerText(int answer)
 {
-	printf("--->abing<--- very good, Trid_CI_MMI_SendMenuAnsw.\n");
+	eDebugCI("--->abing<--- very good, Trid_CI_MMI_SendMenuAnsw.\n");
 
 	Trid_CI_MMI_SendMenuAnsw((trid_uint8)answer);
 	return 0;
@@ -150,7 +157,7 @@ int DVBCI_AnswerText(int answer)
 
 int DVBCI_AnswerEnq(unsigned char *answer)
 {
-	printf("--->abing<--- very good, Trid_CI_MMI_SendEnqAnsw.\n");
+	eDebugCI("--->abing<--- very good, Trid_CI_MMI_SendEnqAnsw.\n");
 
 	Trid_CI_MMI_SendEnqAnsw(1, strlen(answer), (trid_uint8*)answer); 
 	return 0;
@@ -158,7 +165,7 @@ int DVBCI_AnswerEnq(unsigned char *answer)
 
 int DVBCI_CancelEnq()
 {
-	printf("--->abing<--- very good, Trid_CI_MMI_CloseEnqAnsw.\n");
+	eDebugCI("--->abing<--- very good, Trid_CI_MMI_CloseEnqAnsw.\n");
 
 	Trid_CI_MMI_SendEnqAnsw(0, 0, 0); 
 	return 0;
@@ -199,19 +206,19 @@ int DVBCI_SendCAPMT(unsigned char *pmt, int len)
 {
 	trid_sint32 ca_system_id_match;RETURN_TYPE ret;
 
-	printf("--->abing<--- very good, Trid_CI_SendCAPmt.\n");
+	eDebugCI("--->abing<--- very good, Trid_CI_SendCAPmt.\n");
 
-	printf("PMT to send:%d.\n", len);
+	eDebugCI("PMT to send:%d.\n", len);
     for (ret=0; ret<len; ret++)
     {
         printf("0x%02x, ", pmt[ret]);
     }
-	printf("\n");
+	eDebugCI("\n");
 
 	ret = Trid_CI_SendCAPmt((trid_uint8* )pmt, len, &ca_system_id_match);//((trid_uint8* )pmt_save1, /*75*/42, &ca_system_id_match);//
 
-    printf("ret is %d.\n", ret);
-    printf("ca_system_id_match is %d.\n", ca_system_id_match);
+    eDebugCI("ret is %d.\n", ret);
+    eDebugCI("ca_system_id_match is %d.\n", ca_system_id_match);
 
 	return 0;
 }
@@ -219,7 +226,7 @@ int DVBCI_SendCAPMT(unsigned char *pmt, int len)
 #define golobal_callback
 trid_sint32 DVBCI_CardStatusChangeNotifyCallback(Trid_CI_CardStatus_t status)
 {
-	printf("<dvbci.cpp DVBCI_CardStatusChangeNotifyCallback>status %d.\n", status);
+	eDebugCI("<dvbci.cpp DVBCI_CardStatusChangeNotifyCallback>status %d.\n", status);
 	
 	eDVBCIInterfaces::getInstance()->CardStatusChangeNotifyCallback(0, status);
 	return 0;
@@ -227,37 +234,37 @@ trid_sint32 DVBCI_CardStatusChangeNotifyCallback(Trid_CI_CardStatus_t status)
 
 trid_sint32 DVBCI_CardGetHostLanguageCountryNotifyCallback(trid_uint8 language_code[], trid_uint8 country_code[])/*this function needs the support of appilication*/
 {
-	printf("<dvbci.cpp DVBCI_CardGetHostLanguageCountryNotifyCallback>language_code %s, country_code %s.\n", language_code, country_code);
+	eDebugCI("<dvbci.cpp DVBCI_CardGetHostLanguageCountryNotifyCallback>language_code %s, country_code %s.\n", language_code, country_code);
 	return 0;
 }
 
 /*the application callbacks from module*/
 trid_sint32 DVBCI_CardGetHostAVPIDCallback(trid_uint16 *AudioPID, trid_uint16 *VideoPID)
 {
-	printf("<dvbci.cpp DVBCI_CardGetHostAVPIDCallback> audio:%d, video:%d.\n", *AudioPID, *VideoPID);
+	eDebugCI("<dvbci.cpp DVBCI_CardGetHostAVPIDCallback> audio:%d, video:%d.\n", *AudioPID, *VideoPID);
 	*AudioPID = audioPid;
 	*VideoPID = videoPid;
 //	*AudioPID = 0x25b;
 //	*VideoPID = 0x1f7;
-	printf("<dvbci.cpp DVBCI_CardGetHostAVPIDCallback> set to audio:%d, video:%d.\n", *AudioPID, *VideoPID);
+	eDebugCI("<dvbci.cpp DVBCI_CardGetHostAVPIDCallback> set to audio:%d, video:%d.\n", *AudioPID, *VideoPID);
 	return 0;
 }
 
 trid_sint32 DVBCI_CardTuneChannelCallback(trid_uint16 network_id, trid_uint16 orignal_network_id, trid_uint16 ts_id, trid_uint16 service_id)
 {
-	printf("<dvbci.cpp DVBCI_CardTuneChannelCallback>      sorry   no   realize   now .\n");
+	eDebugCI("<dvbci.cpp DVBCI_CardTuneChannelCallback>      sorry   no   realize   now .\n");
 	return 0;
 }
 
 void DVBCI_CardSetDesKeyCallback(trid_uint8 key[/*8*/],trid_uint8 odd_even)
 {
-	printf("<dvbci.cpp DVBCI_CardSetDesKeyCallback>      sorry   no   realize   now .\n");
+	eDebugCI("<dvbci.cpp DVBCI_CardSetDesKeyCallback>      sorry   no   realize   now .\n");
 	return ;
 }
 
 void DVBCI_CardSetAesKeyCallback(trid_uint8 key[/*16*/],trid_uint8 iv[/*16*/],trid_uint8 odd_even)
 {
-	printf("<dvbci.cpp DVBCI_CardSetAesKeyCallback>      sorry   no   realize   now .\n");
+	eDebugCI("<dvbci.cpp DVBCI_CardSetAesKeyCallback>      sorry   no   realize   now .\n");
 	return ;
 }
 
@@ -271,7 +278,7 @@ trid_bool DVBCI_MHEGAppQuerySupportCallback(
     Trid_CI_MHEG_StartAckCode_e *p_ack_code
 )
 {
-	printf("<dvbci.cpp DVBCI_MHEGAppQuerySupportCallback>      sorry   no   realize   now .\n");
+	eDebugCI("<dvbci.cpp DVBCI_MHEGAppQuerySupportCallback>      sorry   no   realize   now .\n");
 }
 
 //RETURN_TYPE Trid_CI_MHEG_RegisterFileAckNotify(MHEGFileAckNotifyCallback_t callback);
@@ -283,7 +290,7 @@ void DVBCI_MHEGFileAckNotifyCallback
     trid_uint32 file_data_len
 )
 {
-	printf("<dvbci.cpp DVBCI_MHEGFileAckNotifyCallback>      sorry   no   realize   now .\n");
+	eDebugCI("<dvbci.cpp DVBCI_MHEGFileAckNotifyCallback>      sorry   no   realize   now .\n");
 }
 
 //RETURN_TYPE Trid_CI_MHEG_RegisterDataAckNotify(MHEGDataAckNotifyCallback_t callback);
@@ -293,13 +300,13 @@ void DVBCI_MHEGDataAckNotifyCallback
     trid_uint32 data_len
 )
 {
-	printf("<dvbci.cpp DVBCI_MHEGDataAckNotifyCallback>      sorry   no   realize   now .\n");
+	eDebugCI("<dvbci.cpp DVBCI_MHEGDataAckNotifyCallback>      sorry   no   realize   now .\n");
 }
 
 //RETURN_TYPE Trid_CI_MHEG_RegisterAppAbortNotify(MHEGAppAbortNotifyCallback_t callback)
 void DVBCI_MHEGAppAbortNotifyCallback(void)
 {
-	printf("<dvbci.cpp DVBCI_MHEGAppAbortNotifyCallback>      sorry   no   realize   now .\n");
+	eDebugCI("<dvbci.cpp DVBCI_MHEGAppAbortNotifyCallback>      sorry   no   realize   now .\n");
 }
 
 #define data_callback 0
@@ -307,7 +314,7 @@ void DVBCI_MHEGAppAbortNotifyCallback(void)
 //Trid_CI_MMI_RegisterMenuDataNotify  
 trid_sint32 DVBCI_MenuDataNotifyCallback(Trid_T_Menu* menu)
 {
-	printf("<dvbci.cpp DVBCI_MenuDataNotifyCallback>      sorry   no   realize   now .\n");
+	eDebugCI("<dvbci.cpp DVBCI_MenuDataNotifyCallback>      sorry   no   realize   now .\n");
 
 	eDVBCIInterfaces::getInstance()->MenuDataNotifyCallback(menu);
 	return 0;
@@ -318,7 +325,7 @@ trid_sint32 DVBCI_MenuDataNotifyCallback(Trid_T_Menu* menu)
 //Trid_CI_MMI_RegisterListDataNotify  
 trid_sint32 DVBCI_ListDataNotifyCallback(Trid_T_List* list)
 {
-	printf("<dvbci.cpp DVBCI_ListDataNotifyCallback>      sorry   no   realize   now .\n");
+	eDebugCI("<dvbci.cpp DVBCI_ListDataNotifyCallback>      sorry   no   realize   now .\n");
 	eDVBCIInterfaces::getInstance()->ListDataNotifyCallback(list);
 	return 0;
 }
@@ -327,7 +334,7 @@ trid_sint32 DVBCI_ListDataNotifyCallback(Trid_T_List* list)
 //Trid_CI_MMI_RegisterEnqDataNotify   
 trid_sint32 DVBCI_EnqDataNotifyCallback(Trid_T_Enq* enq)
 {
-	printf("<dvbci.cpp DVBCI_EnqDataNotifyCallback>      sorry   no   realize   now .\n");
+	eDebugCI("<dvbci.cpp DVBCI_EnqDataNotifyCallback>      sorry   no   realize   now .\n");
 	eDVBCIInterfaces::getInstance()->EnqDataNotifyCallback(enq);
 	return 0;
 }
@@ -337,7 +344,7 @@ trid_sint32 DVBCI_EnqDataNotifyCallback(Trid_T_Enq* enq)
 //Trid_CI_MMI_RegisterCloseMMINotify  
 trid_sint32 DVBCI_CloseMMINotifyCallback()
 {
-	printf("<dvbci.cpp DVBCI_CloseMMINotifyCallback>      sorry   no   realize   now .\n");
+	eDebugCI("<dvbci.cpp DVBCI_CloseMMINotifyCallback>      sorry   no   realize   now .\n");
 	eDVBCIInterfaces::getInstance()->CloseMMINotifyCallback();
 	return 0;
 }
@@ -361,7 +368,7 @@ RETURN_TYPE DVBCI_Set_Pcmcia_Func(void)
 	phys_funcs.pcmcia_enable_ts = cnxt_dvbci_enable_ts;
 	phys_funcs.pcmcia_disable_ts = cnxt_dvbci_disable_ts;
 	ret = Trid_CI_Set_Pcmcia_Func(&phys_funcs);
-	printf("!!!----->abing<----- Trid_CI_Set_Pcmcia_Func return is %d.\n", ret);
+	eDebugCI("!!!----->abing<----- Trid_CI_Set_Pcmcia_Func return is %d.\n", ret);
 	return 0;
 }
 
@@ -397,40 +404,15 @@ void DVBCI_TridInit()
 	return ;
 }
 
-#define CNXT_KAL_PRT_BUFF_SIZE  512      
-
-void cnxt_kal_trace(unsigned int uFlags, char *string, ...)
-{
-   bool bNoTsFlag;
-   bool bEnabled;
-   int	nBytes = 0;
-   char szPrintBuf[CNXT_KAL_PRT_BUFF_SIZE];
-   va_list args;
-
-   if(bEnabled)
-   {
-	   va_start(args,string);
-	   vsnprintf(szPrintBuf + nBytes, 
-				 CNXT_KAL_PRT_BUFF_SIZE - nBytes, string, args);
-	   va_end(args);
-	   szPrintBuf[CNXT_KAL_PRT_BUFF_SIZE - 1] = '\0';
-
-	   if (bNoTsFlag)
-	   {
-		   printf("K:%s", szPrintBuf);
-	   }	   
-   }
-}
-
 #endif
 
 eDVBCIInterfaces::eDVBCIInterfaces()
 {
-	instance = this;
 	int num_ci = 0;
 	
-	printf("----->abing<----- eDVBCIInterfaces start.\n");
-	
+	instance = this;
+
+	eDebug("scanning for common interfaces..");	
 #if trid_ci
 	ePtr<eDVBCISlot> cislot;
 	
@@ -438,16 +420,18 @@ eDVBCIInterfaces::eDVBCIInterfaces()
 	m_slots.push_back(cislot);
 	num_ci++;
 	
-	DVBCI_TridInit();
+	//DVBCI_TridInit();
 #else
 
 
 	while (1)
 	{
+		struct stat s;
 		char filename[128];
 		sprintf(filename, "/dev/ci%d", num_ci);
 
-		if (::access(filename, R_OK) < 0) break;
+		if (stat(filename, &s))
+			break;
 
 		ePtr<eDVBCISlot> cislot;
 
@@ -456,8 +440,6 @@ eDVBCIInterfaces::eDVBCIInterfaces()
 
 		++num_ci;
 	}
-
-	printf("----->abing<----- eDVBCIInterfaces find %d cis in device.\n", num_ci);
 
 	for (eSmartPtrList<eDVBCISlot>::iterator it(m_slots.begin()); it != m_slots.end(); ++it)
 		it->setSource(TUNER_A);
@@ -475,23 +457,20 @@ eDVBCIInterfaces::eDVBCIInterfaces()
 		setInputSource(1, TUNER_B);
 	}
 #endif
-	printf("done, found %d common interface slots", num_ci);
+	eDebug("done, found %d common interface slots", num_ci);
 }
 
 eDVBCIInterfaces::~eDVBCIInterfaces()
 {
-	printf("----->abing<----- delete eDVBCIInterfaces.\n");
 }
 
 eDVBCIInterfaces *eDVBCIInterfaces::getInstance()
 {
-	//printf("----->abing<----- eDVBCIInterfaces getInstance for use.\n");
 	return instance;
 }
 
 eDVBCISlot *eDVBCIInterfaces::getSlot(int slotid)
 {
-	printf("----->abing<----- eDVBCIInterfaces getSlot slot(%d).\n", slotid);
 	for(eSmartPtrList<eDVBCISlot>::iterator i(m_slots.begin()); i != m_slots.end(); ++i)
 		if(i->getSlotID() == slotid)
 			return i;
@@ -505,10 +484,10 @@ int eDVBCIInterfaces::getSlotState(int slotid)
 {
 	eDVBCISlot *slot;
 
-	printf("----->abing<----- eDVBCIInterfaces getSlotState slot(%d).\n", slotid);
+	eDebugCI("eDVBCIInterfaces getSlotState slot(%d).\n", slotid);
 	if ((slot = getSlot(slotid)) == 0)
 	{
-		printf("----->abing<----- eDVBCIInterfaces getSlotState invalid slot!!!.\n");
+		eDebugCI("eDVBCIInterfaces getSlotState invalid slot!!!.\n");
 		return eDVBCISlot::stateInvalid;
 	}
 
@@ -519,7 +498,7 @@ int eDVBCIInterfaces::reset(int slotid)
 {
 	eDVBCISlot *slot;
 
-	printf("----->abing<----- eDVBCIInterfaces reset slot(%d).\n", slotid);/*abing:0518*/
+	eDebugCI("eDVBCIInterfaces reset slot(%d).\n", slotid);/*abing:0518*/
 
 	if( (slot = getSlot(slotid)) == 0 )
 		return -1;
@@ -530,7 +509,7 @@ int eDVBCIInterfaces::reset(int slotid)
 int eDVBCIInterfaces::initialize(int slotid)
 {
 	eDVBCISlot *slot;
-	printf("----->abing<----- eDVBCIInterfaces initialize slot(%d).\n", slotid);/*abing:0518*/
+	eDebugCI("eDVBCIInterfaces initialize slot(%d).\n", slotid);/*abing:0518*/
 
 	if( (slot = getSlot(slotid)) == 0 )
 		return -1;
@@ -544,7 +523,7 @@ int eDVBCIInterfaces::sendCAPMT(int slotid)
 {
 	eDVBCISlot *slot;
 
-	printf("----->abing<----- eDVBCIInterfaces sendCAPMT slot(%d).\n", slotid);/*abing:0518*/
+	eDebugCI("eDVBCIInterfaces sendCAPMT slot(%d).\n", slotid);/*abing:0518*/
 
 	if( (slot = getSlot(slotid)) == 0 )
 		return -1;
@@ -569,7 +548,7 @@ int eDVBCIInterfaces::sendCAPMT(int slotid)
 int eDVBCIInterfaces::startMMI(int slotid)
 {
 	eDVBCISlot *slot;
-	printf("----->abing<----- eDVBCIInterfaces start MMI slot(%d).\n", slotid);/*abing:0518*/
+	eDebugCI("eDVBCIInterfaces start MMI slot(%d).\n", slotid);/*abing:0518*/
 
 	if( (slot = getSlot(slotid)) == 0 )
 		return -1;
@@ -581,7 +560,7 @@ int eDVBCIInterfaces::stopMMI(int slotid)
 {
 	eDVBCISlot *slot;
 
-	printf("----->abing<----- eDVBCIInterfaces stop MMI slot(%d).\n", slotid);/*abing:0518*/
+	eDebugCI("eDVBCIInterfaces stop MMI slot(%d).\n", slotid);/*abing:0518*/
 	
 	if( (slot = getSlot(slotid)) == 0 )
 		return -1;
@@ -592,7 +571,7 @@ int eDVBCIInterfaces::stopMMI(int slotid)
 int eDVBCIInterfaces::answerText(int slotid, int answer)
 {
 	eDVBCISlot *slot;
-	printf("----->abing<----- eDVBCIInterfaces answerText slot(%d), answer 0x%x.\n", slotid, answer);/*abing:0518*/
+	eDebugCI("eDVBCIInterfaces answerText slot(%d), answer 0x%x.\n", slotid, answer);/*abing:0518*/
 
 	if( (slot = getSlot(slotid)) == 0 )
 		return -1;
@@ -603,7 +582,7 @@ int eDVBCIInterfaces::answerText(int slotid, int answer)
 int eDVBCIInterfaces::answerEnq(int slotid, char *value)
 {
 	eDVBCISlot *slot;
-	printf("----->abing<----- eDVBCIInterfaces answerEnq slot(%d).\n", slotid);/*abing:0518*/
+	eDebugCI("eDVBCIInterfaces answerEnq slot(%d).\n", slotid);/*abing:0518*/
 
 	if( (slot = getSlot(slotid)) == 0 )
 		return -1;
@@ -615,7 +594,7 @@ int eDVBCIInterfaces::cancelEnq(int slotid)
 {
 	eDVBCISlot *slot;
 
-	printf("----->abing<----- eDVBCIInterfaces cancelEnq slot(%d).\n", slotid);/*abing:0518*/
+	eDebugCI("eDVBCIInterfaces cancelEnq slot(%d).\n", slotid);/*abing:0518*/
 	if( (slot = getSlot(slotid)) == 0 )
 		return -1;
 	
@@ -624,11 +603,11 @@ int eDVBCIInterfaces::cancelEnq(int slotid)
 
 void eDVBCIInterfaces::ciRemoved(eDVBCISlot *slot)
 {
-    printf("----->abing<----- eDVBCIInterfaces ciRemoved.\n");/*abing:0518*/
+    eDebugCI("eDVBCIInterfaces ciRemoved.\n");/*abing:0518*/
 	if (slot->use_count)
 	{
 		//eDebug("CI Slot %d: removed... usecount %d", slot->getSlotID(), slot->use_count);
-		printf("CI Slot %d: removed... usecount %d.\n", slot->getSlotID(), slot->use_count);/*abing:0518*/
+		eDebugCI("CI Slot %d: removed... usecount %d.\n", slot->getSlotID(), slot->use_count);/*abing:0518*/
 		for (PMTHandlerList::iterator it(m_pmt_handlers.begin());
 			it != m_pmt_handlers.end(); ++it)
 		{
@@ -657,14 +636,14 @@ void eDVBCIInterfaces::ciRemoved(eDVBCISlot *slot)
 		slot->plugged=true;
 		slot->user_mapped=false;
 		slot->removeService(0xFFFF);
-		printf("----->abing<----- eDVBCIInterfaces ciRemoved.recheckPMTHandlers\n");
+		eDebugCI("eDVBCIInterfaces ciRemoved.recheckPMTHandlers\n");
 		recheckPMTHandlers();
 	}
 }
 
 int eDVBCIInterfaces::CardStatusChangeNotifyCallback(int slotid, Trid_CI_CardStatus_t status)
 {
-	printf("----->abing<----- CardStatusChangeNotifyCallback. status %d.\n", status);/*abing:0518*/
+	eDebugCI("CardStatusChangeNotifyCallback. status %d.\n", status);/*abing:0518*/
 	switch (status)
 	{				
 	case _TRID_CARD_REMOVE_:/* card is removed from the slot, no card available */
@@ -712,7 +691,7 @@ trid_sint32 eDVBCIInterfaces::MenuDataNotifyCallback(Trid_T_Menu* menu)
 {
 	Trid_T_Menu* pmenu;
 	pmenu = &menu_data;
-	printf("----->abing<----- MenuDataNotifyCallback.\n");/*abing:0518*/
+	eDebugCI("MenuDataNotifyCallback.\n");/*abing:0518*/
 
 	memcpy((char *)pmenu, (char *)menu, sizeof(Trid_T_Menu));
 	Tridci_cb_status |= NOTIFY_MENU_DATA;
@@ -727,7 +706,7 @@ trid_sint32 eDVBCIInterfaces::ListDataNotifyCallback(Trid_T_List* list)
 {
 	Trid_T_List* plist;
 	plist = &list_data;
-	printf("----->abing<----- ListDataNotifyCallback.\n");/*abing:0518*/
+	eDebugCI("ListDataNotifyCallback.\n");/*abing:0518*/
 
 	memcpy((char *)plist, (char *)list, sizeof(Trid_T_List));
 	Tridci_cb_status |= NOTIFY_LIST_DATA;
@@ -741,7 +720,7 @@ trid_sint32 eDVBCIInterfaces::ListDataNotifyCallback(Trid_T_List* list)
 trid_sint32 eDVBCIInterfaces::EnqDataNotifyCallback(Trid_T_Enq* enq)
 {
 	Trid_T_Enq* penq;
-	printf("----->abing<----- EnqDataNotifyCallback.\n");/*abing:0518*/
+	eDebugCI("EnqDataNotifyCallback.\n");/*abing:0518*/
 	penq = &enq_data;
 	memcpy((char *)penq, (char *)enq, sizeof(Trid_T_Enq));
 	Tridci_cb_status |= NOTIFY_ENQ_DATA;
@@ -755,7 +734,7 @@ trid_sint32 eDVBCIInterfaces::EnqDataNotifyCallback(Trid_T_Enq* enq)
 trid_sint32 eDVBCIInterfaces::CloseMMINotifyCallback()
 {
 	Tridci_cb_status |= NOTIFY_CLOSE_MMI;
-	printf("----->abing<----- CloseMMINotifyCallback.\n");/*abing:0518*/
+	eDebugCI("CloseMMINotifyCallback.\n");/*abing:0518*/
 
 	//getInstance()->getSlot(0)->notifier->setRequested(eSocketNotifier::Read|eSocketNotifier::Priority);
 
@@ -769,7 +748,7 @@ trid_sint32 eDVBCIInterfaces::CloseMMINotifyCallback()
 trid_sint32 eDVBCIInterfaces::GetHostAVPIDCallback(trid_uint16 *AudioPID, trid_uint16 *VideoPID)
 {
 	Tridci_cb_status |= NOTIFY_CLOSE_MMI;
-	printf("----->abing<----- CloseMMINotifyCallback.\n");
+	eDebugCI("CloseMMINotifyCallback.\n");
 
 	//getInstance()->getSlot(0)->notifier->setRequested(eSocketNotifier::Read|eSocketNotifier::Priority);
 
@@ -780,30 +759,30 @@ trid_sint32 eDVBCIInterfaces::GetHostAVPIDCallback(trid_uint16 *AudioPID, trid_u
 static bool canDescrambleMultipleServices(int slotid)
 {
 	char configStr[255];
-	printf("----->abing<----- canDescrambleMultipleServices.\n");/*abing:0518*/
+	eDebugCI("canDescrambleMultipleServices.\n");/*abing:0518*/
 	
 	snprintf(configStr, 255, "config.ci.%d.canDescrambleMultipleServices", slotid);
 	std::string str;
 	ePythonConfigQuery::getConfigValue(configStr, str);
-    printf("----->abing<----- canDescrambleMultipleServices slot(%d).\n", slotid);/*abing:0518*/
+    eDebugCI("canDescrambleMultipleServices slot(%d).\n", slotid);/*abing:0518*/
 	if ( str == "auto" )
 	{
-		printf("----->abing<----- canDescrambleMultipleServices.auto.\n");/*abing:0518*/
+		eDebugCI("canDescrambleMultipleServices.auto.\n");/*abing:0518*/
 		std::string appname = eDVBCI_UI::getInstance()->getAppName(slotid);
 		if (appname.find("AlphaCrypt") != std::string::npos)
 		{
-			printf("----->abing<----- canDescrambleMultipleServices.true.\n");/*abing:0518*/
+			eDebugCI("canDescrambleMultipleServices.true.\n");/*abing:0518*/
 			return true;
 		}
 	}
 	else if (str == "yes")
 	{
-		printf("----->abing<----- canDescrambleMultipleServices.yes.\n");/*abing:0518*/
+		eDebugCI("canDescrambleMultipleServices.yes.\n");/*abing:0518*/
 		return true;
 	}
 	//else
 	{
-		printf("----->abing<----- canDescrambleMultipleServices.no.\n");/*abing:0518*/
+		eDebugCI("canDescrambleMultipleServices.no.\n");/*abing:0518*/
 		return false;
 	}
 	
@@ -813,7 +792,7 @@ static bool canDescrambleMultipleServices(int slotid)
 void eDVBCIInterfaces::recheckPMTHandlers()
 {
 	//eDebugCI("recheckPMTHAndlers()");
-    printf("----->abing<----- eDVBCIInterfaces recheckPMTHandlers.\n");/*abing:0518*/
+    eDebugCI("eDVBCIInterfaces recheckPMTHandlers.\n");/*abing:0518*/
 	for (PMTHandlerList::iterator it(m_pmt_handlers.begin());
 		it != m_pmt_handlers.end(); ++it)
 	{
@@ -1096,13 +1075,13 @@ void eDVBCIInterfaces::recheckPMTHandlers()
 			}
 		}
 	}
-	printf("----->abing<----- eDVBCIInterfaces recheckPMTHandlers.end\n");/*abing:0518*/
+	eDebugCI("eDVBCIInterfaces recheckPMTHandlers.end\n");/*abing:0518*/
 }
 #else
 void eDVBCIInterfaces::recheckPMTHandlers()
 {
 	//eDebugCI("recheckPMTHAndlers()");
-    printf("----->abing<----- eDVBCIInterfaces recheckPMTHandlers.\n");/*abing:0518*/
+    eDebugCI("eDVBCIInterfaces recheckPMTHandlers.\n");/*abing:0518*/
 	for (PMTHandlerList::iterator it(m_pmt_handlers.begin());
 		it != m_pmt_handlers.end(); ++it)
 	{
@@ -1381,7 +1360,7 @@ void eDVBCIInterfaces::addPMTHandler(eDVBServicePMTHandler *pmthandler)
 {
 	// check if this pmthandler is already registered
 	PMTHandlerList::iterator it = m_pmt_handlers.begin();
-    printf("----->abing<----- eDVBCIInterfaces addPMTHandler.\n");/*abing:0518*/
+    eDebugCI("eDVBCIInterfaces addPMTHandler.\n");/*abing:0518*/
 	while (it != m_pmt_handlers.end())
 	{
 		if ( *it++ == pmthandler )
@@ -1394,13 +1373,13 @@ void eDVBCIInterfaces::addPMTHandler(eDVBServicePMTHandler *pmthandler)
 
 	m_pmt_handlers.push_back(CIPmtHandler(pmthandler));
 	recheckPMTHandlers();
-	printf("----->abing<----- out addPMTHandler.\n");/*abing:0518*/
+	eDebugCI("out addPMTHandler.\n");/*abing:0518*/
 }
 
 void eDVBCIInterfaces::removePMTHandler(eDVBServicePMTHandler *pmthandler)
 {
 	PMTHandlerList::iterator it=std::find(m_pmt_handlers.begin(),m_pmt_handlers.end(),pmthandler);
-    printf("----->abing<----- eDVBCIInterfaces removePMTHandler.\n");/*abing:0518*/
+    eDebugCI("eDVBCIInterfaces removePMTHandler.\n");/*abing:0518*/
 	if (it != m_pmt_handlers.end())
 	{
 		eDVBCISlot *slot = it->cislot;
@@ -1466,7 +1445,7 @@ void eDVBCIInterfaces::removePMTHandler(eDVBServicePMTHandler *pmthandler)
 			slot = next;
 		}
 		// check if another service is waiting for the CI
-		printf("--->abing<--- very good, removePMTHandler.\n");
+		eDebugCI("very good, removePMTHandler.\n");
 		recheckPMTHandlers();
 	}
 }
@@ -1474,32 +1453,32 @@ void eDVBCIInterfaces::removePMTHandler(eDVBServicePMTHandler *pmthandler)
 void eDVBCIInterfaces::gotPMT(eDVBServicePMTHandler *pmthandler)
 {
 	//eDebug("[eDVBCIInterfaces] gotPMT");
-    printf("----->abing<----- eDVBCIInterfaces gotPMT.very good.....................\n");/*abing:0518*/
+    eDebugCI("eDVBCIInterfaces gotPMT.very good.....................\n");/*abing:0518*/
 	PMTHandlerList::iterator it=std::find(m_pmt_handlers.begin(), m_pmt_handlers.end(), pmthandler);
 	if (it != m_pmt_handlers.end() && it->cislot)
 	{
 		eDVBCISlot *tmp = it->cislot;
-		printf("----->abing<----- eDVBCIInterfaces gotPMT  tmp = it->cislot.\n");/*abing:0518*/
+		eDebugCI("eDVBCIInterfaces gotPMT  tmp = it->cislot.\n");/*abing:0518*/
 		while(tmp)
 		{
-			printf("----->abing<----- eDVBCIInterfaces gotPMT  do next tmp = tmp->linked_next.\n");/*abing:0518*/
+			eDebugCI("eDVBCIInterfaces gotPMT  do next tmp = tmp->linked_next.\n");/*abing:0518*/
 			eDebugCI("check slot %d %d %d", tmp->getSlotID(), tmp->running_services.empty(), canDescrambleMultipleServices(tmp->getSlotID()));
 			if (tmp->running_services.empty() || canDescrambleMultipleServices(tmp->getSlotID()))
 			{
-				printf("----->abing<----- tmp->sendCAPMT(pmthandler);.\n");/*abing:0518*/
+				eDebugCI("tmp->sendCAPMT(pmthandler);.\n");/*abing:0518*/
 				tmp->sendCAPMT(pmthandler);
 			}
 			tmp = tmp->linked_next;
 		}
 	}
-    printf("----->abing<----- eDVBCIInterfaces gotPMT.end\n");/*abing:0518*/
+    eDebugCI("eDVBCIInterfaces gotPMT.end\n");/*abing:0518*/
 }
 
 int eDVBCIInterfaces::getMMIState(int slotid)
 {
 	eDVBCISlot *slot;
 
-    printf("----->abing<----- eDVBCIInterfaces getMMIState slot(%d).\n", slotid);/*abing:0518*/
+    eDebugCI("eDVBCIInterfaces getMMIState slot(%d).\n", slotid);/*abing:0518*/
 	if( (slot = getSlot(slotid)) == 0 )
 		return -1;
 
@@ -1508,11 +1487,8 @@ int eDVBCIInterfaces::getMMIState(int slotid)
 
 int eDVBCIInterfaces::setInputSource(int tuner_no, data_source source)
 {
-#if trid_ci
-#else
 //	eDebug("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-//	eDebug("eDVBCIInterfaces::setInputSource(%d %d)", tuner_no, (int)source);
-    printf("----->abing<----- eDVBCIInterfaces setInputSource tuner_no(%d)-source(%d).\n", tuner_no, source);/*abing:0518*/
+	eDebugCI("eDVBCIInterfaces::setInputSource(%d %d)", tuner_no, (int)source);
 	if (getNumOfSlots() > 1) // FIXME .. we force DM8000 when more than one CI Slot is avail
 	{
 		char buf[64];
@@ -1565,8 +1541,8 @@ int eDVBCIInterfaces::setInputSource(int tuner_no, data_source source)
 		char buf[64];
 		snprintf(buf, 64, "/proc/stb/tsmux/input%d", tuner_no);
 
-		if (tuner_no > 1)
-			eDebug("setInputSource(%d, %d) failed... dm7025 just have two inputs", tuner_no, (int)source);
+		if (tuner_no > 2) //su980 have 3 tuner
+			eDebug("setInputSource(%d, %d) failed... dm7025 just have three inputs", tuner_no, (int)source);
 
 		FILE *input=0;
 		if((input = fopen(buf, "wb")) == NULL) {
@@ -1585,6 +1561,9 @@ int eDVBCIInterfaces::setInputSource(int tuner_no, data_source source)
 			case TUNER_B:
 				fprintf(input, "B");
 				break;
+			case TUNER_C:
+				fprintf(input, "C");
+				break;
 			default:
 				eDebug("setInputSource for input %d failed!!!\n", (int)source);
 				break;
@@ -1593,14 +1572,13 @@ int eDVBCIInterfaces::setInputSource(int tuner_no, data_source source)
 		fclose(input);
 	}
 	eDebug("eDVBCIInterfaces->setInputSource(%d, %d)", tuner_no, (int)source);
-#endif
 	return 0;
 }
 
 PyObject *eDVBCIInterfaces::getDescrambleRules(int slotid)
 {
 	eDVBCISlot *slot = getSlot(slotid);
-	printf("----->abing<----- eDVBCIInterfaces getDescrambleRules slot(%d).\n", slotid);/*abing:0518*/
+	eDebugCI("eDVBCIInterfaces getDescrambleRules slot(%d).\n", slotid);/*abing:0518*/
 	if (!slot)
 	{
 		char tmp[255];
@@ -1647,14 +1625,14 @@ PyObject *eDVBCIInterfaces::getDescrambleRules(int slotid)
 
 const char *PyObject_TypeStr(PyObject *o)
 {
-	printf("----->abing<----- PyObject_TypeStr.\n");/*abing:0518*/
+	eDebugCI("PyObject_TypeStr.\n");/*abing:0518*/
 	return o->ob_type && o->ob_type->tp_name ? o->ob_type->tp_name : "unknown object type";
 }
 
 RESULT eDVBCIInterfaces::setDescrambleRules(int slotid, SWIG_PYOBJECT(ePyObject) obj )
 {
 	eDVBCISlot *slot = getSlot(slotid);
-	printf("----->abing<----- setDescrambleRules slot(%d).\n", slotid);/*abing:0518*/
+	eDebugCI("setDescrambleRules slot(%d).\n", slotid);/*abing:0518*/
 	if (!slot)
 	{
 		char tmp[255];
@@ -1778,7 +1756,7 @@ RESULT eDVBCIInterfaces::setDescrambleRules(int slotid, SWIG_PYOBJECT(ePyObject)
 PyObject *eDVBCIInterfaces::readCICaIds(int slotid)
 {
 	eDVBCISlot *slot = getSlot(slotid);
-	printf("----->abing<----- eDVBCIInterfaces readCICaIds slot(%d).\n", slotid);/*abing:0518*/
+	eDebugCI("----->abing<----- eDVBCIInterfaces readCICaIds slot(%d).\n", slotid);/*abing:0518*/
 	if (!slot)
 	{
 		char tmp[255];
@@ -1809,7 +1787,7 @@ PyObject *eDVBCIInterfaces::readCICaIds(int slotid)
 int eDVBCIInterfaces::setCIClockRate(int slotid, int rate)
 {
 	eDVBCISlot *slot = getSlot(slotid);
-	printf("----->abing<----- eDVBCIInterfaces eDVBCIInterfaces:setCIClockRate %d , slot(%d).\n", rate, slotid);/*abing:0518*/
+	eDebugCI("eDVBCIInterfaces eDVBCIInterfaces:setCIClockRate %d , slot(%d).\n", rate, slotid);/*abing:0518*/
 	if (slot)
 		return slot->setClockRate(rate);
 	return -1;
@@ -1826,15 +1804,14 @@ int eDVBCISlot::send(const unsigned char *data, size_t len)
 #if trid_ci
 	return 0;
 #else
-	printf("----->abing<----- eDVBCISlot send.\n");/*abing:0518*/
+	eDebugCI("eDVBCISlot send.\n");/*abing:0518*/
 	if (len > 6)/*abing:0518*/
 	{
-		printf("----->abing<----- send data 0123456 0x%x,0x%x,0x%x,0x%x,0x%x,0x%x,0x%x.\n", data[0], data[1], data[2], data[3], data[4], data[5], data[6]);
+		eDebugCI("---->abing<----- send data 0123456 0x%x,0x%x,0x%x,0x%x,0x%x,0x%x,0x%x.\n", data[0], data[1], data[2], data[3], data[4], data[5], data[6]);
 	}
 	else
 	{
 		int i;
-		printf("----->abing<----- ");
 		
 		for(i=0;i<len;i++)
 			printf("0x%x, ", data[i]);
@@ -1860,11 +1837,11 @@ void eDVBCISlot::cdata(int/*Trid_CI_CardStatus_t*/ status)
 	switch (status)
       {
       case _TRID_CARD_REMOVE_:/* card is removed from the slot, no card available */
-		printf("<dvbci.cpp eDVBCISlot data> CardStatusChange: _TRID_CARD_REMOVE_ set ui state to 0.\n");			 
+		eDebugCI("<dvbci.cpp eDVBCISlot data> CardStatusChange: _TRID_CARD_REMOVE_ set ui state to 0.\n");			 
 	  	/*{stateRemoved, stateInserted, stateInvalid, stateResetted}*/
 		if(state != stateRemoved) {
 			state = stateRemoved;
-			printf("<dvbci.cpp eDVBCISlot data> state = stateRemoved\n");
+			eDebugCI("<dvbci.cpp eDVBCISlot data> state = stateRemoved\n");
 			while(sendqueue.size())
 			{
 				delete [] sendqueue.top().data;
@@ -1883,22 +1860,22 @@ void eDVBCISlot::cdata(int/*Trid_CI_CardStatus_t*/ status)
 		}
 	  	break;
 	case _TRID_CARD_INSERT_:/* card is inserted inot the slot, but maybe not a valid CI card */
-		printf("<dvbci.cpp eDVBCISlot data> CardStatusChange: _TRID_CARD_INSERT_  set ui state to 1.\n");			 
+		eDebugCI("<dvbci.cpp eDVBCISlot data> CardStatusChange: _TRID_CARD_INSERT_  set ui state to 1.\n");			 
 		if(state != stateInserted) {
 			eDebug("ci inserted in slot %d", getSlotID());
 			state = stateInserted;
-			printf("<dvbci.cpp eDVBCISlot data> state == stateInserted  set ui state 1\n");
+			eDebugCI("<dvbci.cpp eDVBCISlot data> state == stateInserted  set ui state 1\n");
 			eDVBCI_UI::getInstance()->setState(getSlotID(),1);
 			//notifier->setRequested(eSocketNotifier::Read|eSocketNotifier::Priority);
 			/* enable PRI to detect removal or errors */
 		}
 		break;
 	case _TRID_CARD_INVALID_CARD_:/* card in the slot is not a valid CI card */
-		printf("<dvbci.cpp eDVBCISlot data> CardStatusChange: _TRID_CARD_INVALID_CARD_ <nothing>\n");			 
+		eDebugCI("<dvbci.cpp eDVBCISlot data> CardStatusChange: _TRID_CARD_INVALID_CARD_ <nothing>\n");			 
 		//eDVBCI_UI::getInstance()->setState(/*getSlotID()*/0,0);
 		break;
 	case _TRID_CARD_MMI_READY_:/* card is ready for MMI menu access */
-		printf("<dvbci.cpp eDVBCISlot data> CardStatusChange: _TRID_CARD_MMI_READY_  set ui state to 2.\n");			 
+		eDebugCI("<dvbci.cpp eDVBCISlot data> CardStatusChange: _TRID_CARD_MMI_READY_  set ui state to 2.\n");			 
 		{
 			RETURN_TYPE ret;
 			trid_uint8 menu_str_len;
@@ -1906,7 +1883,7 @@ void eDVBCISlot::cdata(int/*Trid_CI_CardStatus_t*/ status)
 			setAppManager(1);
 			
 			ret = Trid_CI_AppInfo_GetMenuStr(app_info,&menu_str_len);
-			printf("<dvbci.cpp eDVBCISlot data> get app info name: %s.\n", app_info);
+			eDebugCI("<dvbci.cpp eDVBCISlot data> get app info name: %s.\n", app_info);
 			app_info[menu_str_len] = 0;
 			
 			eDVBCI_UI::getInstance()->setAppName(getSlotID(), app_info);
@@ -1914,11 +1891,11 @@ void eDVBCISlot::cdata(int/*Trid_CI_CardStatus_t*/ status)
 			eDVBCI_UI::getInstance()->setState(getSlotID(), 2);
 		}
 #if 0
-		printf("--->abing<--- CardStatusChange: set mmi state to 1.\n");			 
+		eDebugCI("--->abing<--- CardStatusChange: set mmi state to 1.\n");			 
 		if(state != stateInserted) {
 			eDebug("ci inserted in slot %d", getSlotID());
 			state = stateInserted;
-			printf("!!!----->abing<----- eDVBCISlot data state == stateInserted  set ui state 1\n");
+			eDebugCI("!!!----->abing<----- eDVBCISlot data state == stateInserted  set ui state 1\n");
 			eDVBCI_UI::getInstance()->setState(getSlotID(),1);
 	/*			notifier->setRequested(eSocketNotifier::Read|eSocketNotifier::Priority);*//*abing:attention what here for*/
 	/*			enable PRI to detect removal or errors */
@@ -1927,13 +1904,13 @@ void eDVBCISlot::cdata(int/*Trid_CI_CardStatus_t*/ status)
 #endif
 		break;
 	case _TRID_CARD_CA_READY_:/* card is ready for CA access,eg: ready to accept CA_PMT*/
-		printf("<dvbci.cpp eDVBCISlot data> CardStatusChange: _TRID_CARD_CA_READY_  eDVBCICAManagerSession ca info:\n");
+		eDebugCI("<dvbci.cpp eDVBCISlot data> CardStatusChange: _TRID_CARD_CA_READY_  eDVBCICAManagerSession ca info:\n");
 		setCAManager(1);
 		DVBCI_Packcaids();
 		eDVBCIInterfaces::getInstance()->recheckPMTHandlers();
 		break;
 	case _TRID_CARD_MMI_CA_READY_:/* card in ready for both CA and MMI access */
-		printf("<dvbci.cpp eDVBCISlot data> CardStatusChange: _TRID_CARD_MMI_CA_READY_ set mmi state to 1.\n");		
+		eDebugCI("<dvbci.cpp eDVBCISlot data> CardStatusChange: _TRID_CARD_MMI_CA_READY_ set mmi state to 1.\n");		
 		DVBCI_Packcaids();
 		eDVBCIInterfaces::getInstance()->recheckPMTHandlers();
 		
@@ -1942,16 +1919,16 @@ void eDVBCISlot::cdata(int/*Trid_CI_CardStatus_t*/ status)
 		//setMMIManager(1);
 		break;
 	case _TRID_CARD_UPGRADE_START_:
-		printf("<dvbci.cpp eDVBCISlot data> CardStatusChange: _TRID_CARD_UPGRADE_START_<nothing>\n");			 
+		eDebugCI("<dvbci.cpp eDVBCISlot data> CardStatusChange: _TRID_CARD_UPGRADE_START_<nothing>\n");			 
 		break;
 	case _TRID_CARD_UPGRADE_FINISH_:
-		printf("<dvbci.cpp eDVBCISlot data> CardStatusChange: _TRID_CARD_UPGRADE_FINISH_<nothing>\n");			 
+		eDebugCI("<dvbci.cpp eDVBCISlot data> CardStatusChange: _TRID_CARD_UPGRADE_FINISH_<nothing>\n");			 
 		break;
 	case _TRID_CARD_RESET_START_:
-		printf("<dvbci.cpp eDVBCISlot data> CardStatusChange: _TRID_CARD_RESET_START_\n");		
+		eDebugCI("<dvbci.cpp eDVBCISlot data> CardStatusChange: _TRID_CARD_RESET_START_\n");		
 		break;
 	case _TRID_CARD_IO_ERROR_: /* error occurs while accessing the card */
-		printf("<dvbci.cpp eDVBCISlot data> CardStatusChange: _TRID_CARD_IO_ERROR_<nothing>\n");			 
+		eDebugCI("<dvbci.cpp eDVBCISlot data> CardStatusChange: _TRID_CARD_IO_ERROR_<nothing>\n");			 
 		break;
 		
       }	
@@ -1959,18 +1936,18 @@ void eDVBCISlot::cdata(int/*Trid_CI_CardStatus_t*/ status)
 
 void eDVBCISlot::data(int/*Trid_CI_CardStatus_t*/ status)
 {
-	printf("-------------------abing-------------------------data what ? %d.\n", status);
+	eDebugCI("-------------------abing-------------------------data what ? %d.\n", status);
 #if 1
 	if (status & NOTIFY_CARD_STATUS)
 	{
 	/*{stateRemoved, stateInserted, stateInvalid, stateResetted}*/
 		if (CardStatus == 0)/* card is removed from the slot, no card available */
 		{
-			printf("<dvbci.cpp eDVBCISlot data> CardStatusChange: _TRID_CARD_REMOVE_ set ui state to 0.\n");			   
+			eDebugCI("<dvbci.cpp eDVBCISlot data> CardStatusChange: _TRID_CARD_REMOVE_ set ui state to 0.\n");			   
 			if(state != stateRemoved) 
 			{
 				state = stateRemoved;
-				printf("<dvbci.cpp eDVBCISlot data> state = stateRemoved\n");
+				eDebugCI("<dvbci.cpp eDVBCISlot data> state = stateRemoved\n");
 				while(sendqueue.size())
 				{
 					delete [] sendqueue.top().data;
@@ -1986,11 +1963,11 @@ void eDVBCISlot::data(int/*Trid_CI_CardStatus_t*/ status)
 		}
 		else if (CardStatus == 1<<_TRID_CARD_IO_ERROR_)//case _TRID_CARD_IO_ERROR_: /* error occurs while accessing the card */
 		{
-			printf("<dvbci.cpp eDVBCISlot data> CardStatusChange: _TRID_CARD_IO_ERROR_<nothing>\n");
+			eDebugCI("<dvbci.cpp eDVBCISlot data> CardStatusChange: _TRID_CARD_IO_ERROR_<nothing>\n");
 		}
 		else if (CardStatus == 1<<_TRID_CARD_INVALID_CARD_)/*_TRID_CARD_INVALID_CARD_: card in the slot is not a valid CI card */
 		{
-			printf("<dvbci.cpp eDVBCISlot data> CardStatusChange: _TRID_CARD_INVALID_CARD_\n");
+			eDebugCI("<dvbci.cpp eDVBCISlot data> CardStatusChange: _TRID_CARD_INVALID_CARD_\n");
 			if(state != stateInvalid) {
 				eDebug("ci inserted in slot %d", getSlotID());
 				state = stateInvalid;
@@ -2004,7 +1981,7 @@ void eDVBCISlot::data(int/*Trid_CI_CardStatus_t*/ status)
 				/*if(state != stateRemoved) 
 				{
 					state = stateRemoved;
-					printf("<dvbci.cpp eDVBCISlot data> state = stateRemoved\n");
+					eDebugCI("<dvbci.cpp eDVBCISlot data> state = stateRemoved\n");
 					while(sendqueue.size())
 					{
 						delete [] sendqueue.top().data;
@@ -2018,10 +1995,10 @@ void eDVBCISlot::data(int/*Trid_CI_CardStatus_t*/ status)
 					eDVBCI_UI::getInstance()->setState(getSlotID(),0);
 				}*/
 
-				printf("<dvbci.cpp eDVBCISlot data> CardStatusChange: _TRID_CARD_INSERT_  set ui state to 1.\n");			 
+				eDebugCI("<dvbci.cpp eDVBCISlot data> CardStatusChange: _TRID_CARD_INSERT_  set ui state to 1.\n");			 
 				if(state != stateInserted) 
 				{
-					printf("<dvbci.cpp eDVBCISlot data> state == stateInserted	set ui state 1\n");
+					eDebugCI("<dvbci.cpp eDVBCISlot data> state == stateInserted	set ui state 1\n");
 					state = stateInserted;
 					eDVBCI_UI::getInstance()->setState(getSlotID(),1);
 				}
@@ -2029,7 +2006,7 @@ void eDVBCISlot::data(int/*Trid_CI_CardStatus_t*/ status)
 			}
 			if (CardStatus & (1<<_TRID_CARD_RESET_START_))//case _TRID_CARD_RESET_START_:
 			{
-				printf("<dvbci.cpp eDVBCISlot data> CardStatusChange: _TRID_CARD_RESET_START_\n");		
+				eDebugCI("<dvbci.cpp eDVBCISlot data> CardStatusChange: _TRID_CARD_RESET_START_\n");		
 				if(state != stateInserted) {
 					state = stateInserted;
 					eDVBCI_UI::getInstance()->setState(getSlotID(),1);
@@ -2038,9 +2015,9 @@ void eDVBCISlot::data(int/*Trid_CI_CardStatus_t*/ status)
 			}
 			if (CardStatus & (1<<_TRID_CARD_MMI_READY_))/*case _TRID_CARD_MMI_READY_: card is ready for MMI menu access */
 			{
-				printf("<dvbci.cpp eDVBCISlot data> CardStatusChange: _TRID_CARD_MMI_READY_  set ui state to 2.\n");			 
+				eDebugCI("<dvbci.cpp eDVBCISlot data> CardStatusChange: _TRID_CARD_MMI_READY_  set ui state to 2.\n");			 
 				if(state != stateInserted) {
-					printf("<dvbci.cpp eDVBCISlot data> state == stateInserted	set ui state 1\n");
+					eDebugCI("<dvbci.cpp eDVBCISlot data> state == stateInserted	set ui state 1\n");
 					state = stateInserted;
 					eDVBCI_UI::getInstance()->setState(getSlotID(),1);
 				}
@@ -2052,7 +2029,7 @@ void eDVBCISlot::data(int/*Trid_CI_CardStatus_t*/ status)
 					setMMIManager(1);
 					
 					ret = Trid_CI_AppInfo_GetMenuStr(app_info,&menu_str_len);
-					printf("<dvbci.cpp eDVBCISlot data> get app info name: %s.\n", app_info);
+					eDebugCI("<dvbci.cpp eDVBCISlot data> get app info name: %s.\n", app_info);
 					app_info[menu_str_len] = 0;
 					
 					eDVBCI_UI::getInstance()->setAppName(getSlotID(), app_info);
@@ -2063,7 +2040,7 @@ void eDVBCISlot::data(int/*Trid_CI_CardStatus_t*/ status)
 			}
 			if (CardStatus & (1<<_TRID_CARD_CA_READY_))/*case _TRID_CARD_CA_READY_: card is ready for CA access,eg: ready to accept CA_PMT*/
 			{
-				printf("<dvbci.cpp eDVBCISlot data> CardStatusChange: _TRID_CARD_CA_READY_	eDVBCICAManagerSession ca info:\n");
+				eDebugCI("<dvbci.cpp eDVBCISlot data> CardStatusChange: _TRID_CARD_CA_READY_	eDVBCICAManagerSession ca info:\n");
 				if(state != stateInserted) 
 				{
 					state = stateInserted;
@@ -2088,7 +2065,7 @@ void eDVBCISlot::data(int/*Trid_CI_CardStatus_t*/ status)
 			}
 			if (CardStatus & (1<<_TRID_CARD_MMI_CA_READY_))/*case _TRID_CARD_MMI_CA_READY_: card in ready for both CA and MMI access */
 			{
-				printf("<dvbci.cpp eDVBCISlot data> CardStatusChange: _TRID_CARD_MMI_CA_READY_ set mmi state to 1.\n"); 	
+				eDebugCI("<dvbci.cpp eDVBCISlot data> CardStatusChange: _TRID_CARD_MMI_CA_READY_ set mmi state to 1.\n"); 	
 				if(state != stateInserted) 
 				{
 					state = stateInserted;
@@ -2114,12 +2091,12 @@ void eDVBCISlot::data(int/*Trid_CI_CardStatus_t*/ status)
 			}
 			if (CardStatus & (1<<_TRID_CARD_UPGRADE_START_))//case _TRID_CARD_UPGRADE_START_:
 			{
-				printf("<dvbci.cpp eDVBCISlot data> CardStatusChange: _TRID_CARD_UPGRADE_START_<nothing>\n");			 
+				eDebugCI("<dvbci.cpp eDVBCISlot data> CardStatusChange: _TRID_CARD_UPGRADE_START_<nothing>\n");			 
 				CardStatus &= ~(1<<_TRID_CARD_UPGRADE_START_);
 			}
 			if (CardStatus & (1<<_TRID_CARD_UPGRADE_FINISH_))//case _TRID_CARD_UPGRADE_FINISH_:
 			{
-				printf("<dvbci.cpp eDVBCISlot data> CardStatusChange: _TRID_CARD_UPGRADE_FINISH_<nothing>\n");			 
+				eDebugCI("<dvbci.cpp eDVBCISlot data> CardStatusChange: _TRID_CARD_UPGRADE_FINISH_<nothing>\n");			 
 				CardStatus &= ~(1<<_TRID_CARD_UPGRADE_FINISH_);
 			}
 		}
@@ -2157,21 +2134,21 @@ void eDVBCISlot::data(int what)
 {
 	if (what == eSocketNotifier::Priority)
 	{
-		printf("----->abing<----- CIslot what %d. Priority\n", what);/*abing:0518*/
+		eDebugCI("----->abing<----- CIslot what %d. Priority\n", what);/*abing:0518*/
 	}
 	if (what & eSocketNotifier::Read)
 	{
-		printf("----->abing<----- CIslot what %d. read\n", what);/*abing:0518*/
+		eDebugCI("----->abing<----- CIslot what %d. read\n", what);/*abing:0518*/
 	}
 	else if (what & eSocketNotifier::Write) 
 	{
-		printf("----->abing<----- CIslot what %d. Write\n", what);/*abing:0518*/
+		eDebugCI("----->abing<----- CIslot what %d. Write\n", what);/*abing:0518*/
 	}
     //eDebugCI("CISlot %d what %d\n", getSlotID(), what);
 	if(what == eSocketNotifier::Priority) {
 		if(state != stateRemoved) {
 			state = stateRemoved;
-			printf("!!!----->abing<----- eDVBCISlot data state = stateRemoved\n");
+			eDebugCI("!!!----->abing<----- eDVBCISlot data state = stateRemoved\n");
 			while(sendqueue.size())
 			{
 				delete [] sendqueue.top().data;
@@ -2187,14 +2164,14 @@ void eDVBCISlot::data(int what)
 
 	if (state == stateInvalid)
       {
-		printf("!!!----->abing<----- eDVBCISlot data state == stateInvalid  to reset\n");
+		eDebugCI("!!!----->abing<----- eDVBCISlot data state == stateInvalid  to reset\n");
 		reset();
       }
 
 	if(state != stateInserted) {
 		eDebug("ci inserted in slot %d", getSlotID());
 		state = stateInserted;
-		//printf("<dvbci.cpp eDVBCISlot data> data state == stateInserted  set ui state 1\n");
+		//eDebugCI("<dvbci.cpp eDVBCISlot data> data state == stateInserted  set ui state 1\n");
 		eDVBCI_UI::getInstance()->setState(getSlotID(),1);
 		notifier->setRequested(eSocketNotifier::Read|eSocketNotifier::Priority);
 		/* enable PRI to detect removal or errors */
@@ -2210,7 +2187,7 @@ void eDVBCISlot::data(int what)
 //			for(i=0;i<r;i++)
 //				eDebugNoNewLine("%02x ",data[i]);
 //			eDebug("");
-			printf("----->abing<----- read %d data 0123456 0x%x,0x%x,0x%x,0x%x,0x%x,0x%x,0x%x.\n", r, data[0], data[1], data[2], data[3], data[4], data[5], data[6]);/*abing:0518*/
+			eDebugCI("----->abing<----- read %d data 0123456 0x%x,0x%x,0x%x,0x%x,0x%x,0x%x,0x%x.\n", r, data[0], data[1], data[2], data[3], data[4], data[5], data[6]);/*abing:0518*/
 			eDVBCISession::receiveData(this, data, r);
 			eDVBCISession::pollAll();
 			return;
@@ -2219,7 +2196,7 @@ void eDVBCISlot::data(int what)
 	else if (what & eSocketNotifier::Write) {
 		if (!sendqueue.empty()) {
 			const queueData &qe = sendqueue.top();
-			printf("----->abing<----- send %d data in data, why no use send??? .\n", qe.len);/*abing:0518*/
+			eDebugCI("----->abing<----- send %d data in data, why no use send??? .\n", qe.len);/*abing:0518*/
 			int res = ::write(fd, qe.data, qe.len);
 			if (res >= 0 && (unsigned int)res == qe.len)
 			{
@@ -2249,7 +2226,7 @@ eDVBCISlot::eDVBCISlot(eMainloop *context, int nr)
 	
 	slotid = nr;
 
-	printf("----->abing<----- eDVBCISlot nr(%d).\n", nr);/*abing:0518*/
+	eDebugCI("----->abing<----- eDVBCISlot nr(%d).\n", nr);/*abing:0518*/
 #if trid_ci
 	state = stateInvalid;
 #if data_callback
@@ -2289,7 +2266,7 @@ eDVBCISlot::eDVBCISlot(eMainloop *context, int nr)
 
 eDVBCISlot::~eDVBCISlot()
 {
-	printf("----->abing<----- eDVBCISlot delete.\n");/*abing:0518*/
+	eDebugCI("----->abing<----- eDVBCISlot delete.\n");/*abing:0518*/
 #if trid_ci
 	mmi_session = 0;
 	application_manager = 0;
@@ -2301,44 +2278,44 @@ eDVBCISlot::~eDVBCISlot()
 #if trid_ci
 void eDVBCISlot::setAppManager( int session )
 {
-	printf("----->abing<----- eDVBCISlot setAppManager.\n");/*abing:0518*/
+	eDebugCI("----->abing<----- eDVBCISlot setAppManager.\n");/*abing:0518*/
 	application_manager=session;
 }
 
 void eDVBCISlot::setMMIManager( int session )
 {
-	printf("----->abing<----- eDVBCISlot setMMIManager. %d\n", session);/*abing:0518*/
+	eDebugCI("----->abing<----- eDVBCISlot setMMIManager. %d\n", session);/*abing:0518*/
 	mmi_session = session;
 }
 
 void eDVBCISlot::setCAManager( int session )
 {
-	printf("----->abing<----- eDVBCISlot setCAManager.\n");/*abing:0518*/
+	eDebugCI("----->abing<----- eDVBCISlot setCAManager.\n");/*abing:0518*/
 	ca_manager = session;
 }
 #else
 void eDVBCISlot::setAppManager( eDVBCIApplicationManagerSession *session )
 {
-	printf("----->abing<----- eDVBCISlot setAppManager.\n");/*abing:0518*/
+	eDebugCI("----->abing<----- eDVBCISlot setAppManager.\n");/*abing:0518*/
 	application_manager=session;
 }
 
 void eDVBCISlot::setMMIManager( eDVBCIMMISession *session )
 {
-	printf("----->abing<----- eDVBCISlot setMMIManager.\n");/*abing:0518*/
+	eDebugCI("----->abing<----- eDVBCISlot setMMIManager.\n");/*abing:0518*/
 	mmi_session = session;
 }
 
 void eDVBCISlot::setCAManager( eDVBCICAManagerSession *session )
 {
-	printf("----->abing<----- eDVBCISlot setCAManager.\n");/*abing:0518*/
+	eDebugCI("----->abing<----- eDVBCISlot setCAManager.\n");/*abing:0518*/
 	ca_manager = session;
 }
 #endif
 
 int eDVBCISlot::getSlotID()
 {
-	printf("----->abing<----- eDVBCISlot getSlotID %d.\n", slotid);/*abing:0518*/
+	eDebugCI("----->abing<----- eDVBCISlot getSlotID %d.\n", slotid);/*abing:0518*/
 	return slotid;
 }
 
@@ -2348,7 +2325,7 @@ int eDVBCISlot::reset()
 #if trid_ci
 /*abing:doing is trid ci has reset interface?*/
 #else
-	printf("----->abing<----- eDVBCISlot reset slot(%d).\n", getSlotID());/*abing:0518*/
+	eDebugCI("----->abing<----- eDVBCISlot reset slot(%d).\n", getSlotID());/*abing:0518*/
 	if (state == stateInvalid)
 	{
 		unsigned char buf[256];
@@ -2372,7 +2349,7 @@ int eDVBCISlot::reset()
 int eDVBCISlot::startMMI()
 {
 	//eDebug("CI Slot %d: startMMI()", getSlotID());
-	printf("----->abing<----- eDVBCISlot startMMI slot(%d).\n", getSlotID());/*abing:0518*/
+	eDebugCI("----->abing<----- eDVBCISlot startMMI slot(%d).\n", getSlotID());/*abing:0518*/
 #if trid_ci
 	if(application_manager)
 		DVBCI_StartMMI();
@@ -2387,7 +2364,7 @@ int eDVBCISlot::startMMI()
 int eDVBCISlot::stopMMI()
 {
 	//eDebug("CI Slot %d: stopMMI()", getSlotID());
-	printf("----->abing<----- eDVBCISlot stopMMI slot(%d).\n", getSlotID());/*abing:0518*/
+	eDebugCI("----->abing<----- eDVBCISlot stopMMI slot(%d).\n", getSlotID());/*abing:0518*/
 
 #if trid_ci
 	if(mmi_session)
@@ -2403,7 +2380,7 @@ int eDVBCISlot::stopMMI()
 int eDVBCISlot::answerText(int answer)
 {
 	//eDebug("CI Slot %d: answerText(%d)", getSlotID(), answer);
-	printf("----->abing<----- eDVBCISlot answerText slot(%d)-answerText(%d).\n", getSlotID(), answer);/*abing:0518*/
+	eDebugCI("----->abing<----- eDVBCISlot answerText slot(%d)-answerText(%d).\n", getSlotID(), answer);/*abing:0518*/
 
 #if trid_ci
 	if(mmi_session)
@@ -2419,12 +2396,12 @@ int eDVBCISlot::getMMIState()
 {
 	if(mmi_session)
 	{
-		printf("----->abing<----- eDVBCISlot getMMIState: yes.\n");/*abing:0518*/
+		eDebugCI("----->abing<----- eDVBCISlot getMMIState: yes.\n");/*abing:0518*/
 		return 1;
 	}
 	else
 	{
-		printf("----->abing<----- eDVBCISlot getMMIState: no.\n");/*abing:0518*/
+		eDebugCI("----->abing<----- eDVBCISlot getMMIState: no.\n");/*abing:0518*/
 		return 0;
     }
 }
@@ -2432,7 +2409,7 @@ int eDVBCISlot::getMMIState()
 int eDVBCISlot::answerEnq(char *value)
 {
 	//eDebug("CI Slot %d: answerENQ(%s)", getSlotID(), value);
-	printf("----->abing<----- eDVBCISlot answerEnq Slot(%d): answerENQ(%s)", getSlotID(), value);
+	eDebugCI("----->abing<----- eDVBCISlot answerEnq Slot(%d): answerENQ(%s)", getSlotID(), value);
 #if trid_ci
 	if(mmi_session)
 		DVBCI_AnswerEnq(value);
@@ -2447,7 +2424,7 @@ int eDVBCISlot::answerEnq(char *value)
 int eDVBCISlot::cancelEnq()
 {
 	//eDebug("CI Slot %d: cancelENQ", getSlotID());
-	printf("----->abing<----- eDVBCISlot cancelEnq Slot(%d).\n", getSlotID());/*abing:0518*/
+	eDebugCI("----->abing<----- eDVBCISlot cancelEnq Slot(%d).\n", getSlotID());/*abing:0518*/
 #if trid_ci
 	if(mmi_session)
 		DVBCI_CancelEnq();
@@ -2463,7 +2440,7 @@ void PackDesc(unsigned char *pack, unsigned char *Desc)
 {
 	int len, i, j, k;
 	len = (Desc[0]<<8) | (Desc[1]);
-	printf("Desc len is %d.\n", len);
+	eDebugCI("Desc len is %d.\n", len);
 	i=2;j=2;
 	while (i<len)
 	{
@@ -2482,16 +2459,16 @@ int eDVBCISlot::sendCAPMT(eDVBServicePMTHandler *pmthandler, const std::vector<u
 	if (!ca_manager)
 	{
 		//eDebug("no ca_manager (no CI plugged?)");
-		printf("----->abing<----- eDVBCISlot sendCAPMT no ca_manager (no CI plugged?).\n");/*abing:0518*/
+		eDebugCI("----->abing<----- eDVBCISlot sendCAPMT no ca_manager (no CI plugged?).\n");/*abing:0518*/
 		return -1;
 	}
-	printf("----->abing<----- eDVBCISlot sendCAPMT.\n");/*abing:0518*/
+	eDebugCI("----->abing<----- eDVBCISlot sendCAPMT.\n");/*abing:0518*/
 	
 	const std::vector<uint16_t> &caids = ids.empty() ? DVBCI_GetCAIDs() : ids;
 	ePtr<eTable<ProgramMapSection> > ptr;
 	if (pmthandler->getPMT(ptr))
 	{
-	    printf("get pmt from pmthandler fail.\n");
+	    eDebugCI("get pmt from pmthandler fail.\n");
 		return -1;
 	}
 	else
@@ -2518,7 +2495,7 @@ int eDVBCISlot::sendCAPMT(eDVBServicePMTHandler *pmthandler, const std::vector<u
 		std::vector<ProgramMapSection*>::const_iterator i=ptr->getSections().begin();
 		if ( i == ptr->getSections().end() )
 		{
-			printf("ProgramMapSection maybe none.\n");
+			eDebugCI("ProgramMapSection maybe none.\n");
 			return -1;
 		}
 		else
@@ -2594,8 +2571,8 @@ ff ff ff ff ff ff ff
 			pmthandler->getService(service);
 			videoPid = service->getCacheEntry(eDVBService::cVPID);
 			audioPid = service->getCacheEntry(eDVBService::cAPID);
-			printf("video pid: 0x%x.\n", videoPid);
-			printf("audio pid: 0x%x.\n", audioPid);
+			eDebugCI("video pid: 0x%x.\n", videoPid);
+			eDebugCI("audio pid: 0x%x.\n", audioPid);
 
             pack_data[0] = 0x02;
 
@@ -2635,7 +2612,7 @@ ff ff ff ff ff ff ff
 				if ((pPack[0] == 0x03)&&(audioPid==0))
 				{
 					audioPid = (pPack[1]<<8) | pPack[2];
-					printf("audio pid: 0x%x, 0x%x.\n", pPack[1], pPack[2]);
+					eDebugCI("audio pid: 0x%x, 0x%x.\n", pPack[1], pPack[2]);
 				}*/
 				wp-=3;
 				pRaw+=3;
@@ -2658,13 +2635,13 @@ ff ff ff ff ff ff ff
 			running_services[program_number] = pmt_version;
 		}
 	}
-	printf("----->abing<----- eDVBCISlot sendCAPMT. end.\n");
+	eDebugCI("----->abing<----- eDVBCISlot sendCAPMT. end.\n");
 	return 0;
 }
 
 void eDVBCISlot::removeService(uint16_t program_number)
 {
-	printf("----->abing<----- eDVBCISlot removeService serviceno(%d).\n", program_number);/*abing:0518*/
+	eDebugCI("----->abing<----- eDVBCISlot removeService serviceno(%d).\n", program_number);/*abing:0518*/
 	if (program_number == 0xFFFF)
 		running_services.clear();  // remove all
 	else
@@ -2673,10 +2650,9 @@ void eDVBCISlot::removeService(uint16_t program_number)
 
 int eDVBCISlot::setSource(data_source source)
 {
-    printf("----->abing<----- eDVBCISlot setSource.\n");
+	eDebugCI("eDVBCISlot::setSource source=%d\n", source);
+	
 	current_source = source;
-#if trid_ci
-#else
 	if (eDVBCIInterfaces::getInstance()->getNumOfSlots() > 1) // FIXME .. we force DM8000 when more than one CI Slot is avail
 	{
 		char buf[64];
@@ -2718,26 +2694,28 @@ int eDVBCISlot::setSource(data_source source)
 	{
 //		eDebug("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 //		eDebug("eDVBCISlot::enableTS(%d %d)", enable, (int)source);
-		FILE *ci = fopen("/proc/stb/tsmux/input2", "wb");
+//		FILE *ci = fopen("stb/tsmux/input", "wb");
+		FILE *ci = fopen("/proc/stb/tsmux/ci0_input", "wb");
+	
 		if(ci == NULL) {
-			eDebug("cannot open /proc/stb/tsmux/input2");
+			//eDebug("cannot open /proc/stb/tsmux/input2");
+			eDebug("cannot open /proc/stb/tsmux/ci0_input");
 			return 0;
 		}
-		if (source != TUNER_A && source != TUNER_B)
+		if (source != TUNER_A && source != TUNER_B && source != TUNER_C)
 			eDebug("CI Slot %d: setSource %d failed!!!\n", getSlotID(), (int)source);
 		else
 			fprintf(ci, "%s", source==TUNER_A ? "A" : "B");  // configure CI data source (TunerA, TunerB)
 		fclose(ci);
 	}
 	eDebug("CI Slot %d setSource(%d)", getSlotID(), (int)source);
-#endif
 	return 0;
 }
 
 int eDVBCISlot::setClockRate(int rate)
 {
 	char buf[64];
-    printf("----->abing<----- eDVBCISlot setClockRate slot(%d).\n", slotid);/*abing:0518*/
+    eDebugCI("eDVBCISlot setClockRate slot(%d).\n", slotid);/*abing:0518*/
 	snprintf(buf, 64, "/proc/stb/tsmux/ci%d_tsclk", slotid);
 	FILE *ci = fopen(buf, "wb");
 	if (ci)
