@@ -313,7 +313,7 @@ class RecordTimerEntry(timer.TimerEntry, object):
 					if Screens.Standby.inStandby: # in standby
 						RecordTimerEntry.TryQuitMainloop() # start shutdown handling without screen
 					else:
-						Notifications.AddNotificationWithCallback(self.sendTryQuitMainloopNotification, MessageBox, _("A finished record timer wants to shut down\nyour Dreambox. Shutdown now?"), timeout = 20)
+						Notifications.AddNotificationWithCallback(self.sendTryQuitMainloopNotification, MessageBox, _("A finished record timer wants to shut down\nyour SU980. Shutdown now?"), timeout = 20)
 			return True
 
 	def setAutoincreaseEnd(self, entry = None):
