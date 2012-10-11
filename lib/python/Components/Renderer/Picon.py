@@ -18,14 +18,14 @@ class Picon(Renderer):
 			self.searchPaths = self.searchPaths + ('/media/hdd/picon/',)
 		self.pngname = ""
 		self.lastPath = None
-		pngname = self.findPicon("picon_default")
-		if not pngname:
-			tmp = resolveFilename(SCOPE_CURRENT_SKIN, "picon_default.png")
-			if fileExists(tmp):
-				pngname = tmp
-			else:
-				pngname = resolveFilename(SCOPE_SKIN_IMAGE, "skin_default/picon_default.png")
-		self.defaultpngname = pngname
+	#	pngname = self.findPicon("picon_default")
+	#	if not pngname:
+	#		tmp = resolveFilename(SCOPE_CURRENT_SKIN, "picon_default.png")
+	#		if fileExists(tmp):
+	#			pngname = tmp
+	#		else:
+	#			pngname = resolveFilename(SCOPE_SKIN_IMAGE, "skin_default/picon_default.png")
+		self.defaultpngname = ""
 
 	def applySkin(self, desktop, parent):
 		attribs = [ ]
