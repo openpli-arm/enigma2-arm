@@ -212,9 +212,6 @@ class FactoryTest:
 		else:
 			return resultstring
 		
-	def reportResult():
-		pass
-	
 
 
 #Factory Test interface

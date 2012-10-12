@@ -7,9 +7,10 @@ from Components.Sources.StaticText import StaticText
 from Components.MultiContent import MultiContentEntryText, MultiContentEntryPixmapAlphaTest
 from Tools.LoadPixmap import LoadPixmap
 from enigma import eListboxPythonMultiContent, gFont,eTimer
-import array, fcntl, struct, termios, os
+import array, fcntl, struct, termios, os, signal,string
 import time
 from Components.Console import Console
+
 class LnbTest:
 
 	FE_SET_VOLTAGE = 28483
@@ -23,33 +24,38 @@ class LnbTest:
 		self.lnbindex = lnbindex
 		self.lnvdev = "/dev/dvb/adapter0/frontend%d" %lnbindex
 		self.voltageTestlist = [self.setVoltage13,self.setVoltage18,self.playSevice,self.playSevice]
-		self.dvbtvoltageTestlist = [self.setVoltage5dvbt,self.setVoltage0dvbt]
+		self.dvbtvoltageTestlist = [self.setVoltage5dvbt,self.setVoltage0dvbt,self.playSevice]
 		
 		self.diseqcTestList = [self.setDiSEqC]*4
 		self.tunertype = "DVB-S"
 		if lnbindex == 2:
 			self.tunertype = "DVB-T"
-		self.playsevice = False
 		
 		self.playTimer = eTimer()
 		self.playTimer.callback.append(self.doPlay)
 		self.playConsole = Console()
 	def checkVoltageTestFinish(self):
-		if LnbTest.voltageStep in [0,1,2,3]:
-			return False
+		if self.tunertype == "DVB-S":
+			if LnbTest.voltageStep in [0,1,2]:
+				return False
+		elif self.tunertype == "DVB-T":
+			if LnbTest.voltageStep in [0,1,2]:
+				return False
 		else:
-			return True
+			pass
+		return True
 			
 	def testVoltage(self,first):
 		if first:
-			LnbTest.voltageStep = 0
-		if LnbTest.voltageStep not in [0,1,2,3]:
-			LnbTest.voltageStep = 0
-		step = LnbTest.voltageStep
+			LnbTest.voltageStep = 0		
 		if self.tunertype == "DVB-S":
-			return self.voltageTestlist[step]()
+			if LnbTest.voltageStep not in [0,1,2]:
+				LnbTest.voltageStep = 0
+			return self.voltageTestlist[LnbTest.voltageStep]()
 		elif self.tunertype == "DVB-T":
-			return self.dvbtvoltageTestlist[step]()
+			if LnbTest.voltageStep not in [0,1,2]:
+				LnbTest.voltageStep = 0
+			return self.dvbtvoltageTestlist[LnbTest.voltageStep]()
 		else:
 			return "Tuner type error!!"
 			
@@ -108,65 +114,84 @@ class LnbTest:
 		return testresult
 		
 	def playSevice(self):
-		if self.playsevice == False:
-			self.playsevice = True
-			if self.lnbindex == 0:
-				self.tunerid = "0"
-			else:
-				self.tunerid = "1"
+		if self.lnbindex == 0:
 			if LnbTest.voltageStep == 2:
-				self.frq = "3660"
+				self.frq = "1490"
 				self.sr = "27500"
 				self.vpid = "2317"
 				self.apid = "2318"
 				self.pcrpid= "2317"
 				self.voltage = "0"
-				testresult = "13V on Play service:\n" +"Name: ALKASS"
-			else:
-				self.frq = "3960"
+				testresult = "set voltage 13V,Play service: " +"ALKASS"
+		elif self.lnbindex == 1:
+				self.frq = "1190"
 				self.sr = "27500"
 				self.vpid = "69"
 				self.apid = "68"
 				self.pcrpid= "69"
 				self.voltage = "1"
-				testresult = "18V on Play service:\n" +"Name: VKT TEST"
-			self.playTimer.start(1)
+				testresult = "set voltage 18V,Play service: " +"VKT TEST"
 		else:
-			testresult = "Wait for last sevice play end!"
+				self.frq = "474000"
+				self.sr = "0"
+				self.vpid = "1501"
+				self.apid = "1503"
+				self.pcrpid= "1501"
+				self.voltage = "1"
+				testresult = "set voltage 5V,Play service."
+				
+		self.playTimer.start(1)
+		LnbTest.voltageStep +=1	
 		return testresult
 
+	def get_Pid(self,process_name):
+		cmd = "ps"
+		print cmd
+		pline = []
+		pid = None
+		try:
+			resultstring = os.popen(cmd).read()
+			if resultstring:
+				for line in resultstring.splitlines():
+					line = line.strip()
+					if process_name in line:
+						pline = line.split(" ")
+						pid = pline[0].strip()
+						print pid
+			else:
+				print "no run dvb_test"
+				pid = None
+		except Exception,e:
+			print e
+		return pid
+		
 	def doPlay(self):
 		self.playTimer.stop()
-		print "play start"
-		
-		clearcmd = "dvb_test "+self.tunerid + " "+self.frq+" "+self.sr+" "+self.vpid+" "+self.apid+" "+self.pcrpid+ " 5 "+self.voltage
-		os.system(clearcmd)
-		
-		LnbTest.voltageStep +=1	
-		self.playsevice = False
-		print "play finish!"
-	#	cmds = []
-	#	cmds.append("0\n")
-	#	cmds.append("./dvb_test " + "0 1500 27500 600 601 600 5")
-	#	self.playConsole.eBatch(cmd, self.doplaycb)
-	#	if self.lnbindex == 0:
-	#		clearcmd = "./dvb_test 1 "+self.frq+" "+self.sr+" "+self.vpid+" "+self.apid+" "+self.pcrpid+ " 0"
-	#	else:
-	#		clearcmd = "./dvb_test 0 "+self.frq+" "+self.sr+" "+self.vpid+" "+self.apid+" "+self.pcrpid+ " 0"
-	#	self.playConsole.ePopen(clearcmd, self.doclerncb)
-	#	print "play start!"
-	#	playcmd = "./dvb_test "+self.tunerid+" "+self.frq+" "+self.sr+" "+self.vpid+" "+self.apid+" "+self.pcrpid+ " 5" 
-	#	self.playConsole.ePopen(playcmd, self.doplaycb)
-		
+	
+		testnaem = "dvb_test"
+		pid = self.get_Pid(testnaem)
+		playcmd =testnaem + " " +str(self.lnbindex)+ " "+self.frq+" "+self.sr+" "+self.vpid+" "+self.apid+" "+self.pcrpid+" "+self.voltage
+	
+		sendsignal = signal.SIGINT
+		try:
+			if pid == None:
+				print "start dvb_test play!"
+				self.playConsole.ePopen(playcmd, self.doplaycb)
+			else:
+				print "send signal SIGINT",pid
+				os.kill(string.atoi(pid),sendsignal)
+				
+				self.doPlay()
+		except Exception,e:
+			print e
+			
 	def doclerncb(self,result,retval=None, extra_args=None):
 		print "clear!"
 		print "play start!"
 		playcmd = "./dvb_test "+self.tunerid+" "+self.frq+" "+self.sr+" "+self.vpid+" "+self.apid+" "+self.pcrpid+ " 5" 
 		self.playConsole.ePopen(playcmd, self.doplaycb)
 		
-	def doplaycb(self,result,retval=None, extra_args=None):		
-		LnbTest.voltageStep +=1	
-		self.playsevice = False
+	def doplaycb(self,result,retval=None, extra_args=None):
 		print "play finish!"
 		
 	def setVoltage5dvbt(self):
@@ -178,10 +203,13 @@ class LnbTest:
 		except IOError:
 			print "Fail,Check hardware!!"
 		if test == 0:
-			return "set:DVB-T Voltage 5V"
+			testresult = "set voltage 5V ok"
 		else:
-			return "set Voltage 5V fail,Check hardware!!"
-
+			testresult= "Fail,Check hardware!!"
+			
+		LnbTest.voltageStep +=1	
+		return testresult
+		
 	def setVoltage0dvbt(self):
 		print "set DVB-t Voltage 0V"
 		test = -1
@@ -191,9 +219,11 @@ class LnbTest:
 		except IOError:
 			print "Fail,Check hardware!!"
 		if test == 0:
-			return "set:DVB-T Voltage 0V"
+			testresult = "set voltage 0V ok"
 		else:
-			return "set Voltage 0V fail,Check hardware!!"
+			testresult = "Fail,Check hardware!!"
+		LnbTest.voltageStep +=1	
+		return testresult
 		
 	def checkDiSEqCTestFinish(self):
 		if LnbTest.diseqcstep in [0,1,2,3]:
