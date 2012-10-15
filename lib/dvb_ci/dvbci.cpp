@@ -2702,10 +2702,23 @@ int eDVBCISlot::setSource(data_source source)
 			eDebug("cannot open /proc/stb/tsmux/ci0_input");
 			return 0;
 		}
-		if (source != TUNER_A && source != TUNER_B && source != TUNER_C)
-			eDebug("CI Slot %d: setSource %d failed!!!\n", getSlotID(), (int)source);
-		else
-			fprintf(ci, "%s", source==TUNER_A ? "A" : "B");  // configure CI data source (TunerA, TunerB)
+
+		switch(source)
+		{
+			case TUNER_A:
+				fprintf(ci, "A");
+				break;
+			case TUNER_B:
+				fprintf(ci, "B");
+				break;
+			case TUNER_C:
+				fprintf(ci, "C");
+				break;
+			default:
+				eDebug("CI Slot %d: setSource %d failed!!!\n", getSlotID(), (int)source);
+				break;
+		}
+
 		fclose(ci);
 	}
 	eDebug("CI Slot %d setSource(%d)", getSlotID(), (int)source);
