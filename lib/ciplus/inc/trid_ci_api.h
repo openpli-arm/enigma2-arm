@@ -41,6 +41,7 @@ extern "C" {
 
 int cnxt_kal_initialize ( void );
 int cnxt_dvbci_drv_init(void);
+int cnxt_kal_terminate(void);
 
 void cnxt_kal_trace(unsigned int uFlags, char *string, ...);
 

@@ -462,6 +462,7 @@ eDVBCIInterfaces::eDVBCIInterfaces()
 
 eDVBCIInterfaces::~eDVBCIInterfaces()
 {
+	cnxt_kal_terminate();
 }
 
 eDVBCIInterfaces *eDVBCIInterfaces::getInstance()
