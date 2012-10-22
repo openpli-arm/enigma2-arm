@@ -115,30 +115,36 @@ class LnbTest:
 		
 	def playSevice(self):
 		if self.lnbindex == 0:
-			if LnbTest.voltageStep == 2:
-				self.frq = "1490"
-				self.sr = "27500"
-				self.vpid = "2317"
-				self.apid = "2318"
-				self.pcrpid= "2317"
-				self.voltage = "0"
-				testresult = "set voltage 13V,Play service: " +"ALKASS"
+			self.sname = "MSTV"
+			self.frq = "1602"
+			self.sr = "11852"
+			self.vpid = "250"
+			self.apid = "251"
+			self.pcrpid= "250"
+			self.voltage = "0"
 		elif self.lnbindex == 1:
-				self.frq = "1190"
-				self.sr = "27500"
-				self.vpid = "69"
-				self.apid = "68"
-				self.pcrpid= "69"
-				self.voltage = "1"
-				testresult = "set voltage 18V,Play service: " +"VKT TEST"
+			self.sname = "CNSTV"
+			self.frq = "1602"
+			self.sr = "11852"
+			self.vpid = "550"
+			self.apid = "551"
+			self.pcrpid= "550"
+			self.voltage = "0"
 		else:
-				self.frq = "474000"
-				self.sr = "0"
-				self.vpid = "1501"
-				self.apid = "1503"
-				self.pcrpid= "1501"
-				self.voltage = "1"
-				testresult = "set voltage 5V,Play service."
+			self.sname = "CUATRO"
+			self.frq = "474000"
+			self.sr = "0"
+			self.vpid = "160"
+			self.apid = "80"
+			self.pcrpid= "160"
+			self.voltage = "0"
+
+		testresult = "play service: "+self.sname+"\n"+ \
+		"Frequency:"+self.frq+"\n"+ \
+		"CodeRate: "+self.sr+"\n"+ \
+		"VideoPID: "+self.vpid+"\n"+ \
+		"AudioPID: "+self.apid+"\n"+ \
+		"PCRPID:   "+self.pcrpid+"\n"
 				
 		self.playTimer.start(1)
 		LnbTest.voltageStep +=1	
@@ -168,14 +174,14 @@ class LnbTest:
 	def doPlay(self):
 		self.playTimer.stop()
 	
-		testnaem = "dvb_test"
+		testnaem = "play_test"
 		pid = self.get_Pid(testnaem)
 		playcmd =testnaem + " " +str(self.lnbindex)+ " "+self.frq+" "+self.sr+" "+self.vpid+" "+self.apid+" "+self.pcrpid+" "+self.voltage
 	
 		sendsignal = signal.SIGINT
 		try:
 			if pid == None:
-				print "start dvb_test play!"
+				print "start play_test play!"
 				self.playConsole.ePopen(playcmd, self.doplaycb)
 			else:
 				print "send signal SIGINT",pid

@@ -10,7 +10,7 @@ from Components.Sources.List import List
 
 from Screens.About import About
 from Screens.Screen import Screen
-from Screens.Ci import MMIDialog
+from Screens.Ci import CiSelection
 
 from Components.PluginList import *
 
@@ -171,21 +171,10 @@ class FactoryTest:
 			testitem.setTestResult(FactoryTestItem.TESTRESULT_TESTED)
 			return "CA cardreader test finish"
 			
-		elif testitem.testType == FactoryTest.FACTORYTEST_CI:
-#			oscamServers = readCFG()
-#			index = LASTSERVER.value
-#			if index+1 > len(oscamServers):
-#				index = 0
-#			self.session.open(StatusDataScreen, "readers", "status", oscamServers[index])
-#			testitem.setTestResult(FactoryTestItem.TESTRESULT_TESTED)
-#			return "CI cardreader test finish"		
-			if -1 != eDVBCI_UI.getInstance().getState(1):
-				self.session.open(MMIDialog, 0, 2)
-				testitem.setTestResult(FactoryTestItem.TESTRESULT_TESTED)
-				return "CI cardreader test finish"	
-			else:
-				testitem.setTestResult(FactoryTestItem.TESTRESULT_ERROR)
-				return "check hardware!!!"
+		elif testitem.testType == FactoryTest.FACTORYTEST_CI:	
+			self.session.open(CiSelection)
+			testitem.setTestResult(FactoryTestItem.TESTRESULT_TESTED)
+			return "CI cardreader test finish"
 
 		elif testitem.testType == FactoryTest.FACTORYTEST_RS232:
 #			print "test RS232"

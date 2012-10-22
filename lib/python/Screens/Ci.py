@@ -370,7 +370,8 @@ class CiSelection(Screen):
 
 	def dlgClosed(self, slot):
 		self.dlg = None
-
+		self.updateState(slot)
+		
 	def okbuttonClick(self):
 		cur = self["entries"].getCurrent()
 		if cur and len(cur) > 2:
@@ -383,7 +384,7 @@ class CiSelection(Screen):
 				eDVBCI_UI.getInstance().setReset(slot)
 			elif action == 1:		#init
 				eDVBCI_UI.getInstance().setInit(slot)
-			elif self.state[slot] == 2:
+			elif eDVBCI_UI.getInstance().getState(slot) == 2:
 				self.dlg = self.session.openWithCallback(self.dlgClosed, MMIDialog, slot, action)
 
 	def cancel(self):
