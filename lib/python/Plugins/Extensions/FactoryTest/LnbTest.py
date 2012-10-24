@@ -72,14 +72,14 @@ class LnbTest:
 		else:
 			LnbTest.voltageStep +=1
 			return "Fail,Check hardware!!"
-#22k on
+#22k off
 		try:
-			test  = fcntl.ioctl(lnbfd.fileno(),LnbTest.FE_SET_TONE,0)	
+			test  = fcntl.ioctl(lnbfd.fileno(),LnbTest.FE_SET_TONE,1)
 			lnbfd.close()
 		except IOError:
 			print "Fail,Check hardware!!"
 		if test == 0:
-			testresult += "Set 22K on ok"
+			testresult += "Set 22K off ok"
 		else:
 			testresult = "Fail,Check hardware!!"
 			
