@@ -17,7 +17,7 @@ from Components.PluginList import *
 from FactoryTestPublic import *
 
 from LnbTest import *
-from os import listdir
+from os import listdir,popen
 import time
 
 from LedTest import LedTest
@@ -27,8 +27,7 @@ from FrontPanelTest import FrontPanelTest
 from Rs232Test import Rs232Test
 from SDCardTest import SDCardTest
 from UsbTest import *
-from Plugins.Extensions.OscamStatus.plugin import StatusDataScreen
-from Plugins.Extensions.OscamStatus.OscamStatusSetup import readCFG,LASTSERVER
+
 from Components.Network import iNetwork
 from enigma import eDVBCI_UI
 
@@ -60,7 +59,7 @@ class FactoryTest:
 		self.factoryTestList = testlist
 		self.session = session
 		self.path = "/usr/lib/enigma2/python/Plugins/Extensions/FactoryTest"
-		
+			
 	def test(self,testitem):
 		currentitem = self.factoryTestList.index(testitem)
 #		print  "[FactoryTest]->currentitem:",currentitem
@@ -162,14 +161,28 @@ class FactoryTest:
 				return "Eeprom test Error!! Check hardware"
 				
 		elif testitem.testType == FactoryTest.FACTORYTEST_CA:
-#			self.session.open(StatusDataScreen)
-			oscamServers = readCFG()
-			index = LASTSERVER.value
-			if index+1 > len(oscamServers):
-				index = 0
-			self.session.open(StatusDataScreen, "readers", "status", oscamServers[index])
-			testitem.setTestResult(FactoryTestItem.TESTRESULT_TESTED)
-			return "CA cardreader test finish"
+		#	self.testConsole = Console()
+			cmd = "ca_test"
+		#	self.testConsole.ePopen(cmd,self.caTestCB);
+		#	(status, output) = commands.getstatusoutput(cmd)
+		#	print status
+		#	print output
+			cardstate = None
+			output = os.popen(cmd)
+			outputstring = output.read()
+		#	print outputstring
+			for line in outputstring.splitlines():
+				line = line.strip()
+				if "CARD" in line:
+					cardstate = line
+					break
+		#	print cardstate
+			if cardstate == "CARD OK":
+				testitem.setTestResult(FactoryTestItem.TESTRESULT_OK)
+				return "State: CA OK"
+			else:
+				testitem.setTestResult(FactoryTestItem.TESTRESULT_ERROR)
+				return "State: "+cardstate
 			
 		elif testitem.testType == FactoryTest.FACTORYTEST_CI:	
 			self.session.open(CiSelection)
@@ -265,7 +278,7 @@ class FactoryTestMenu(Screen):
 		self.testlist.append(FactoryTestItem("Network Test",FactoryTest.FACTORYTEST_NETWORK,"wired.png","jump network Test"))
 		self.testlist.append(FactoryTestItem("Wi-Fi Test",FactoryTest.FACTORYTEST_WIFI,"wireless.png","jump wireless network Test"))
 		
-		self.testlist.append(FactoryTestItem("CA Test",FactoryTest.FACTORYTEST_CA,"ca.png","CA oscam status.."))
+		self.testlist.append(FactoryTestItem("CA Test",FactoryTest.FACTORYTEST_CA,"ca.png","CA test.."))
 		self.testlist.append(FactoryTestItem("CI Test",FactoryTest.FACTORYTEST_CI,"ca.png","CI card status.."))
 		self.testlist.append(FactoryTestItem("RS232 Test",FactoryTest.FACTORYTEST_RS232,"rs232.png","press again after finish Test"))
 		
