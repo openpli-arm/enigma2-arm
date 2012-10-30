@@ -68,7 +68,7 @@ class SwicthSystem(MessageBox):
 			self.hide()
 			self.session.nav.stopService()
 			print "show image info"
-			self.quitScreen = self.session.instantiateDialog(QuitMainloopScreen,retvalue=6)
+			self.quitScreen = self.session.instantiateDialog(QuitMainloopScreen,retvalue=10)
 			self.quitScreen.show()
 # switch system
 			self.testTimer.start(2000)
@@ -77,8 +77,9 @@ class SwicthSystem(MessageBox):
 			
 	def switchAndroid(self):
 		self.testTimer.stop()
-		from os import system, _exit
-		_exit(10)
+		#from os import system, _exit
+		#_exit(10)
+		quitMainloop(10)
 		
 	def __onShow(self):
 		global inTryQuitMainloop
