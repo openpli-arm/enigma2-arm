@@ -67,7 +67,7 @@ class About(Screen):
 
 		
 #		AboutText = _("Hardware: ") + about.getHardwareTypeString() + "\n"
-		AboutText = _("Hardware: ") + "Su980" + "\n"
+		AboutText = _("Hardware: ") + "Hypercube" + "\n"
 		AboutText += _("Image: ") + about.getImageTypeString() + "\n"
 		AboutText += _("Kernel Version: ") + about.getKernelVersionString() + "\n"
 		

@@ -16,7 +16,7 @@ msgstr ""
 #
 msgid ""
 "\n"
-"Backup your Dreambox settings."
+"Backup your Hypercube settings."
 msgstr ""
 "\n"
 "Wykonaj kopię ustawień."
@@ -30,14 +30,14 @@ msgstr ""
 
 msgid ""
 "\n"
-"Manage extensions or plugins for your Dreambox"
+"Manage extensions or plugins for your Hypercube"
 msgstr ""
 "\n"
 "Zarządzaj rozszerzeniami lub pluginami"
 
 msgid ""
 "\n"
-"Online update of your Dreambox software."
+"Online update of your Hypercube software."
 msgstr ""
 "\n"
 "Aktualizacja oprogramowania online."
@@ -51,14 +51,14 @@ msgstr ""
 
 msgid ""
 "\n"
-"Restore your Dreambox settings."
+"Restore your Hypercube settings."
 msgstr ""
 "\n"
 "Przywróć własne ustawienia odbiornika."
 
 msgid ""
 "\n"
-"Restore your Dreambox with a new firmware."
+"Restore your Hypercube with a new firmware."
 msgstr ""
 "\n"
 "Przywróć własne ustawienia odbiornika w nowym sofcie"
@@ -144,7 +144,7 @@ msgstr ""
 #
 msgid ""
 "A finished record timer wants to set your\n"
-"Dreambox to standby. Do that now?"
+"Hypercube to standby. Do that now?"
 msgstr ""
 "Wykonany timer nagrywanie chce ustawić\n"
 "odbiornik w stan czuwania. Zrobić to teraz?"
@@ -152,7 +152,7 @@ msgstr ""
 #
 msgid ""
 "A finished record timer wants to shut down\n"
-"your Dreambox. Shutdown now?"
+"your Hypercube. Shutdown now?"
 msgstr ""
 "Wykonany timer nagrywanie chce wyłączyć\n"
 "odbiornik. Wyłączyć teraz?"
@@ -188,7 +188,7 @@ msgstr ""
 #
 msgid ""
 "A sleep timer wants to set your\n"
-"Dreambox to standby. Do that now?"
+"Hypercube to standby. Do that now?"
 msgstr ""
 "Wyłącznik czasowy chce przełączyć\n"
 "odbiornik w tryb czuwania. Zrobić to teraz?"
@@ -196,7 +196,7 @@ msgstr ""
 #
 msgid ""
 "A sleep timer wants to shut down\n"
-"your Dreambox. Shutdown now?"
+"your Hypercube. Shutdown now?"
 msgstr ""
 "Wyłącznik czasowy chce wyłączyć\n"
 "odbiornik. Wyłączyć teraz?"
@@ -241,7 +241,7 @@ msgid "Adapter settings"
 msgstr "Ustawienia adaptera"
 
 #
-msgid "Add a new NFS or CIFS mount point to your Dreambox."
+msgid "Add a new NFS or CIFS mount point to your Hypercube."
 msgstr "Dodaj nowy udział sieciowy NFS lub CIFS"
 
 #
@@ -258,7 +258,7 @@ msgstr "Dodaj timer"
 
 #
 msgid ""
-"Adds enigma2 settings and dreambox model informations like SN, rev... if "
+"Adds enigma2 settings and Hypercube model informations like SN, rev... if "
 "enabled."
 msgstr "Dodaje ustawienia e2, model odbiornika, dodatkowe info o tunerze..."
 
@@ -319,7 +319,7 @@ msgstr ""
 
 #
 msgid ""
-"After a reboot or power outage, StartupToStandby will bring your Dreambox to "
+"After a reboot or power outage, StartupToStandby will bring your Hypercube to "
 "standby-mode."
 msgstr ""
 "Po restarcie lub zaniku zasilania StartupToStandby przełączy odbiornik w "
@@ -328,7 +328,7 @@ msgstr ""
 #
 msgid ""
 "After the start wizard is completed, you need to protect single services. "
-"Refer to your dreambox's manual on how to do that."
+"Refer to your Hypercube's manual on how to do that."
 msgstr ""
 "Po zakończeniu działania kreatora, należy zabezpieczyć pojedyncze serwisy. "
 "Opis w instrukcji obsługi... "
@@ -691,7 +691,7 @@ msgid "Change step size"
 msgstr "Zmień rozmiar kroku"
 
 #
-msgid "Change the hostname of your Dreambox."
+msgid "Change the hostname of your Hypercube."
 msgstr "Zmień nazwę hosta odbiornika."
 
 #
@@ -815,15 +815,15 @@ msgid "Conflicting timer"
 msgstr "Konflikt timera"
 
 #
-msgid "Control your Dreambox with your Web browser."
+msgid "Control your Hypercube with your Web browser."
 msgstr "Sterowanie odbiornikiem za pomocą przeglądarki"
 
 #
-msgid "Control your Dreambox with your browser"
+msgid "Control your Hypercube with your browser"
 msgstr "Sterowanie odbiornikiem za pomocą przeglądarki"
 
 #
-msgid "Control your dreambox with only the MUTE button"
+msgid "Control your Hypercube with only the MUTE button"
 msgstr "Sterowanie odbiornikiem za pomocą przycisku MUTE"
 
 #
@@ -843,11 +843,11 @@ msgid "Copy"
 msgstr "Kopiuj"
 
 #
-msgid "Copy, rename, delete, move local files on your Dreambox."
+msgid "Copy, rename, delete, move local files on your Hypercube."
 msgstr "Kopiuje, zmienia nazwy, usuwa i przenosi lokalnie pliki w odbiorniku"
 
 #
-msgid "Could not connect to Dreambox .NFI Image Feed Server:"
+msgid "Could not connect to Hypercube .NFI Image Feed Server:"
 msgstr "Połączenie z serwerem image .NFI nie powiodło się:"
 
 #
@@ -1350,7 +1350,7 @@ msgid "Do you want to download the image to %s ?"
 msgstr "Czy chcesz pobrać Image do %s ?"
 
 #
-msgid "Do you want to enable the parental control feature on your dreambox?"
+msgid "Do you want to enable the parental control feature on your Hypercube?"
 msgstr "Czy chcesz włączyć kontrolę rodzicielską w odbiorniku?"
 
 #
@@ -1374,7 +1374,7 @@ msgid "Do you want to preview this DVD before burning?"
 msgstr "Czy chcesz obejrzeć DVD przed jego nagraniem?"
 
 #
-msgid "Do you want to reboot your Dreambox?"
+msgid "Do you want to reboot your Hypercube?"
 msgstr "Chcesz uruchomić ponownie odbiornik?"
 
 #
@@ -1402,12 +1402,12 @@ msgstr ""
 "potrzeby?"
 
 #
-msgid "Do you want to update your Dreambox?"
+msgid "Do you want to update your Hypercube?"
 msgstr "Chcesz zaktualizować oprogramowanie odbiornika?"
 
 #
 msgid ""
-"Do you want to update your Dreambox?\n"
+"Do you want to update your Hypercube?\n"
 "After pressing OK, please wait!"
 msgstr ""
 "Czy chcesz zaktualizować oprogramowanie odbiornika?\n"
@@ -1495,11 +1495,11 @@ msgid "Downloading screenshots. Please wait..."
 msgstr "Pobieranie screenshot'ów. Proszę czekać..."
 
 #
-msgid "Dreambox format data DVD (HDTV compatible)"
+msgid "Hypercube format data DVD (HDTV compatible)"
 msgstr "Format danych DVD (kompatybilny z HDTV)"
 
 #
-msgid "Dreambox software because updates are available."
+msgid "Hypercube software because updates are available."
 msgstr "Oprogramowanie odbiornika ponieważ aktualizacje są dostępne"
 
 #
@@ -1588,11 +1588,11 @@ msgid "Edit settings"
 msgstr "Edytuj ustawienia"
 
 #
-msgid "Edit the Nameserver configuration of your Dreambox.\n"
+msgid "Edit the Nameserver configuration of your Hypercube.\n"
 msgstr "Edytuj ustawienia namservera odbiornika.\n"
 
 #
-msgid "Edit the network configuration of your Dreambox.\n"
+msgid "Edit the network configuration of your Hypercube.\n"
 msgstr "Edytuj ustawienia sieci.\n"
 
 #
@@ -1802,7 +1802,7 @@ msgid "Enter main menu..."
 msgstr "Wejdź do menu głównego..."
 
 #
-msgid "Enter new hostname for your Dreambox"
+msgid "Enter new hostname for your Hypercube"
 msgstr "Wpisz nową nazwę hosta dla odbiornika"
 
 #
@@ -3640,7 +3640,7 @@ msgid "No, do nothing."
 msgstr "Nie, nie rób nic."
 
 #
-msgid "No, just start my dreambox"
+msgid "No, just start my Hypercube"
 msgstr "Nie, po prostu włącz odbiornik"
 
 #
@@ -4042,7 +4042,7 @@ msgstr ""
 
 #
 msgid ""
-"Please disconnect all USB devices from your Dreambox and (re-)attach the "
+"Please disconnect all USB devices from your Hypercube and (re-)attach the "
 "target USB stick (minimum size is 64 MB) now!"
 msgstr ""
 "Odłącz wszystkie urządzenia USB i podłącz ponownie daną pamięć USB "
@@ -5682,7 +5682,7 @@ msgid "Shutdown"
 msgstr "Wyłącz"
 
 #
-msgid "Shutdown Dreambox after"
+msgid "Shutdown Hypercube after"
 msgstr "Wyłącza odbiornik po"
 
 #
@@ -6195,7 +6195,7 @@ msgstr "Test ustawień DiSEqC"
 msgid "Test Type"
 msgstr "Typ testu"
 
-# File: tmp/enigma2_plugins/genuinedreambox/src/plugin.py, line: 80
+# File: tmp/enigma2_plugins/genuineHypercube/src/plugin.py, line: 80
 msgid "Test again"
 msgstr "Testuj ponownie"
 
@@ -6204,7 +6204,7 @@ msgid "Test mode"
 msgstr "Tryb testowy"
 
 #
-msgid "Test the network configuration of your Dreambox.\n"
+msgid "Test the network configuration of your Hypercube.\n"
 msgstr "Testuj konfiguracjię sieci.\n"
 
 #
@@ -6230,7 +6230,7 @@ msgstr ""
 #
 msgid ""
 "Thank you for using the wizard. Your box is now ready to use.\n"
-"Please press OK to start using your Dreambox."
+"Please press OK to start using your Hypercube."
 msgstr ""
 "Dziękuję za skorzystanie z kreatora. Odbiornik jest już gotowy do użycia.\n"
 "Wciśnij OK aby kontynuować."
@@ -6247,7 +6247,7 @@ msgstr ""
 #
 msgid ""
 "The DVD standard doesn't support H.264 (HDTV) video streams. Do you want to "
-"create a Dreambox format data DVD (which will not play in stand-alone DVD "
+"create a Hypercube format data DVD (which will not play in stand-alone DVD "
 "players) instead?"
 msgstr ""
 "Standard DVD nie wspiera strumienia video H.264 (HDTV). Czy zamiast tego "
@@ -6367,7 +6367,7 @@ msgstr "Instalowanie domyślnej listy kanałów zostało zakończone."
 #
 msgid ""
 "The installation of the default settings is finished. You can now continue "
-"configuring your Dreambox by pressing the OK button on the remote control."
+"configuring your Hypercube by pressing the OK button on the remote control."
 msgstr ""
 "Instalacja domyślnej listy kanałów została zakończona. Aby kontynuować "
 "konfigurację odbiornika naciśnij przycisk OK."
@@ -6549,7 +6549,7 @@ msgstr ""
 
 #
 #, python-format
-msgid "This Dreambox can't decode %s streams!"
+msgid "This Hypercube can't decode %s streams!"
 msgstr "Ten odbiornik nie może zdekodować %s strumieni!"
 
 #
@@ -6595,7 +6595,7 @@ msgstr ""
 
 msgid ""
 "This plugin creates a USB stick which can be used to update the firmware of "
-"your Dreambox without the need for a network or WLAN connection.\n"
+"your Hypercube without the need for a network or WLAN connection.\n"
 "First, a USB stick needs to be prepared so that it becomes bootable.\n"
 "In the next step, an NFI image file can be downloaded from the update server "
 "and saved on the USB stick.\n"
@@ -6603,7 +6603,7 @@ msgid ""
 "Otherwise plug in a USB stick with a minimum size of 64 MB!"
 msgstr ""
 "Ta wtyczka tworzy pamięć USB, którą można wykorzystać do aktualizacji "
-"oprogramowania sprzętowego Dreambox bez konieczności połączenia z siecią.\n"
+"oprogramowania sprzętowego Hypercube bez konieczności połączenia z siecią.\n"
 "Po pierwsze, pamięć USB musi być przygotowana tak, aby stała się botowalna.\n"
 "W następnym kroku, plik obrazu NFI należy pobrać z serwera aktualizacji i "
 "zapisać na pamięci USB.\n"
@@ -6817,14 +6817,14 @@ msgid "Titleset mode"
 msgstr "Tryb tytułów"
 
 msgid ""
-"To update your Dreambox firmware, please follow these steps:\n"
+"To update your Hypercube firmware, please follow these steps:\n"
 "1) Turn off your box with the rear power switch and make sure the bootable "
 "USB stick is plugged in.\n"
 "2) Turn mains back on and hold the DOWN button on the front panel pressed "
 "for 10 seconds.\n"
 "3) Wait for bootup and follow instructions of the wizard."
 msgstr ""
-"Aby zaktualizować oprogramowanie Dreambox, wykonaj następujące czynności:\n"
+"Aby zaktualizować oprogramowanie Hypercube, wykonaj następujące czynności:\n"
 "1) Wyłącz tuner tylnym wyłącznikiem zasilania i upewnij się, że bootowalny "
 "pendrive jest podłączony.\n"
 "2) Włącz zasilanie ponownie i przytrzymaj przycisk na panelu przednim przez "
@@ -6833,7 +6833,7 @@ msgstr ""
 
 #
 msgid ""
-"To update your Dreambox firmware, please follow these steps:\n"
+"To update your Hypercube firmware, please follow these steps:\n"
 "1) Turn off your box with the rear power switch and plug in the bootable USB "
 "stick.\n"
 "2) Turn mains back on and hold the DOWN button on the front panel pressed "
@@ -7004,7 +7004,7 @@ msgid "USB stick wizard"
 msgstr "Kreator pena USB"
 
 msgid ""
-"USB stick wizard finished. Your dreambox will now restart with your new "
+"USB stick wizard finished. Your Hypercube will now restart with your new "
 "image!"
 msgstr ""
 "Działanie Kreatora pena USB zakończone. Odbiornik z nowym image zostanie "
@@ -7127,7 +7127,7 @@ msgid "Upgrade finished."
 msgstr "Aktualizacja zakończona."
 
 #
-msgid "Upgrade finished. Do you want to reboot your Dreambox?"
+msgid "Upgrade finished. Do you want to reboot your Hypercube?"
 msgstr "Aktualizacja zakończona. Czy chcesz zrestartować odbiornik?"
 
 #
@@ -7135,7 +7135,7 @@ msgid "Upgrading"
 msgstr "Aktualizowanie"
 
 #
-msgid "Upgrading Dreambox... Please wait"
+msgid "Upgrading Hypercube... Please wait"
 msgstr "Aktualizacja... Proszę czekać"
 
 #
@@ -7428,7 +7428,7 @@ msgid "View teletext..."
 msgstr "Pokaż teletext..."
 
 #
-msgid "View, edit or delete mountpoints on your Dreambox."
+msgid "View, edit or delete mountpoints on your Hypercube."
 msgstr "Zobacz, edytuj lub usuń udziały sieciowe."
 
 #
@@ -7546,7 +7546,7 @@ msgstr ""
 #
 msgid ""
 "Welcome to the Image upgrade wizard. The wizard will assist you in upgrading "
-"the firmware of your Dreambox by providing a backup facility for your "
+"the firmware of your Hypercube by providing a backup facility for your "
 "current settings and a short explanation of how to upgrade your firmware."
 msgstr ""
 "Witaj w kreatorze aktualizacji oprogramowania. Kreator będzie asystował przy "
@@ -7607,7 +7607,7 @@ msgid ""
 "Welcome to the cleanup wizard.\n"
 "\n"
 "We have detected that your available internal memory has dropped below 2MB.\n"
-"To ensure stable operation of your Dreambox, the internal memory should be "
+"To ensure stable operation of your Hypercube, the internal memory should be "
 "cleaned up.\n"
 "You can use this wizard to remove some extensions.\n"
 msgstr ""
@@ -7621,8 +7621,8 @@ msgstr ""
 msgid ""
 "Welcome.\n"
 "\n"
-"If you want to connect your Dreambox to the Internet, this wizard will guide "
-"you through the basic network setup of your Dreambox.\n"
+"If you want to connect your Hypercube to the Internet, this wizard will guide "
+"you through the basic network setup of your Hypercube.\n"
 "\n"
 "Press OK to start configuring your network"
 msgstr ""
@@ -7648,7 +7648,7 @@ msgstr ""
 msgid ""
 "Welcome.\n"
 "\n"
-"This start wizard will guide you through the basic setup of your Dreambox.\n"
+"This start wizard will guide you through the basic setup of your Hypercube.\n"
 "Press the OK button on your remote control to move to the next step."
 msgstr ""
 "Witaj.\n"
@@ -7851,7 +7851,7 @@ msgid "You can install this plugin."
 msgstr "Możesz zainstalować ten plugin"
 
 #
-msgid "You can only burn Dreambox recordings!"
+msgid "You can only burn Hypercube recordings!"
 msgstr "Możesz tylko wypalać nagrania!"
 
 #
@@ -7942,9 +7942,9 @@ msgstr "Musisz poczekać na %s!"
 
 #
 msgid ""
-"You need a PC connected to your dreambox. If you need further instructions, "
+"You need a PC connected to your Hypercube. If you need further instructions, "
 "please visit the website http://www.dm7025.de.\n"
-"Your dreambox will now be halted. After you have performed the update "
+"Your Hypercube will now be halted. After you have performed the update "
 "instructions from the website, your new firmware will ask you to restore "
 "your settings."
 msgstr ""
@@ -7984,7 +7984,7 @@ msgstr ""
 
 #
 msgid ""
-"Your Dreambox is now ready to use.\n"
+"Your Hypercube is now ready to use.\n"
 "\n"
 "Your internet connection is working now.\n"
 "\n"
@@ -7996,7 +7996,7 @@ msgstr ""
 
 #
 msgid ""
-"Your Dreambox is now ready to use.\n"
+"Your Hypercube is now ready to use.\n"
 "\n"
 "Your internet connection is working now.\n"
 "\n"
@@ -8009,7 +8009,7 @@ msgstr ""
 "Wciśnij OK aby kontynuować"
 
 #
-msgid "Your Dreambox will restart after pressing OK on your remote control."
+msgid "Your Hypercube will restart after pressing OK on your remote control."
 msgstr "Odbiornik zostanie zrestartowany po wciśnięciu OK."
 
 #
@@ -8042,12 +8042,12 @@ msgid "Your current collection will get lost!"
 msgstr "Twoja obecna kolekcja zostanie utracona!"
 
 #
-msgid "Your dreambox is shutting down. Please stand by..."
+msgid "Your Hypercube is shutting down. Please stand by..."
 msgstr "Wyłączanie odbiornika. Prosze czekać..."
 
 #
 msgid ""
-"Your dreambox isn't connected to the internet properly. Please check it and "
+"Your Hypercube isn't connected to the internet properly. Please check it and "
 "try again."
 msgstr ""
 "Odbiornik nie jest właściwie połączony z internetem. Sprawdź i spróbuj "
@@ -9441,8 +9441,8 @@ msgstr "Tak (trzymaj feedy)"
 
 #
 msgid ""
-"your dreambox might be unusable now. Please consult the manual for further "
-"assistance before rebooting your dreambox."
+"your Hypercube might be unusable now. Please consult the manual for further "
+"assistance before rebooting your Hypercube."
 msgstr ""
 "Odbiornik może być teraz niezdatny do użytku. Zajrzyj do instrukcji "
 "użytkownika przed ponownym uruchomieniem."
@@ -10039,8 +10039,8 @@ msgstr "BA"
 msgid "BASIC-HD Skin by Ismail Demir"
 msgstr "BASIC-HD Skin by Ismail Demir"
 
-msgid "BASIC-HD Skin for Dreambox Images created from Ismail Demir"
-msgstr "BASIC-HD Skin for Dreambox Images created from Ismail Demir"
+msgid "BASIC-HD Skin for Hypercube Images created from Ismail Demir"
+msgstr "BASIC-HD Skin for Hypercube Images created from Ismail Demir"
 
 #
 msgid "BB"
@@ -10350,8 +10350,8 @@ msgstr "Kontynuuj odtwarzanie"
 msgid "Contrast"
 msgstr "Kontrast"
 
-msgid "Control your dreambox with only the MUTE button."
-msgstr "Sterowanie Dreamboxem tylko za pomocą przycisku MUTE."
+msgid "Control your Hypercube with only the MUTE button."
+msgstr "Sterowanie Hypercubeem tylko za pomocą przycisku MUTE."
 
 #
 msgid "Could not open Picture in Picture"
@@ -10396,8 +10396,8 @@ msgstr "Tworzy zdjęciowy podgląd twoich filmów"
 msgid "Create remote timers"
 msgstr "Tworzenie zdalnych Timerów"
 
-msgid "Create timers on remote Dreamboxes."
-msgstr "Zdalne tworzenie Timerów na Dreamboxach."
+msgid "Create timers on remote Hypercubees."
+msgstr "Zdalne tworzenie Timerów na Hypercubeach."
 
 #
 #, python-format
@@ -10437,23 +10437,23 @@ msgstr "Wytnij"
 msgid "Cut your movies."
 msgstr "Przycinaj swoje filmy."
 
-msgid "DVDPlayer plays your DVDs on your Dreambox"
-msgstr "DVDPlayer odtworzy płyty DVD na Twoim Dreamboxie"
+msgid "DVDPlayer plays your DVDs on your Hypercube"
+msgstr "DVDPlayer odtworzy płyty DVD na Twoim Hypercubeie"
 
 msgid ""
-"DVDPlayer plays your DVDs on your Dreambox.\n"
-"With the DVDPlayer you can play your DVDs on your Dreambox from a DVD or "
+"DVDPlayer plays your DVDs on your Hypercube.\n"
+"With the DVDPlayer you can play your DVDs on your Hypercube from a DVD or "
 "even from an iso file or video_ts folder on your harddisc or network."
 msgstr ""
-"DVDPlayer odtworzy płyty DVD na Twoim Dreamboxie.\n"
-"Za pomocą DVDPlayer można odtwarzać filmy DVD na Dreambox z czytnikiem DVD "
+"DVDPlayer odtworzy płyty DVD na Twoim Hypercubeie.\n"
+"Za pomocą DVDPlayer można odtwarzać filmy DVD na Hypercube z czytnikiem DVD "
 "lub z pliku iso oraz foldera VIDEO_TS na dysku twardym lub z sieci."
 
 msgid "Define a startup service"
 msgstr "Zdefiniuj usługi startowe"
 
-msgid "Define a startup service for your Dreambox."
-msgstr "Zdefiniuj usługi startowe dla Twojego Dreamboxa."
+msgid "Define a startup service for your Hypercube."
+msgstr "Zdefiniuj usługi startowe dla Twojego Hypercubea."
 
 msgid "Details for plugin: "
 msgstr "Szczegóły dotyczące wtyczki:"
@@ -10487,15 +10487,15 @@ msgstr "Edycja etykiet nagranych filmów"
 msgid "Edit tags of recorded movies."
 msgstr "Edycja etykiet nagranych filmów."
 
-msgid "Emailclient is an IMAP4 e-mail viewer for the Dreambox."
-msgstr "Emailclient jest przeglądarka maili IMAP4 dla Dreamboxa."
+msgid "Emailclient is an IMAP4 e-mail viewer for the Hypercube."
+msgstr "Emailclient jest przeglądarka maili IMAP4 dla Hypercubea."
 
 msgid ""
-"Enigma2 Plugin to play AVI/DIVX/WMV/etc. videos from PC on your Dreambox. "
+"Enigma2 Plugin to play AVI/DIVX/WMV/etc. videos from PC on your Hypercube. "
 "Needs a running VLC from www.videolan.org on your pc."
 msgstr ""
 "Wtyczka Enigma2 do odtwarzania plików wideo AVI/DIVX/WMV/itp. z komputera PC "
-"na Dreamboxie. Wymaga uruchomionego VLC na komputerze PC. VLC do pobrania z "
+"na Hypercubeie. Wymaga uruchomionego VLC na komputerze PC. VLC do pobrania z "
 "www.videolan.org "
 
 #
@@ -10518,18 +10518,18 @@ msgid "Execute TuxboxPlugins"
 msgstr "Wykonaj Pluginy Tuxbox"
 
 msgid ""
-"FTPBrowser allows uploading and downloading files between your Dreambox and "
+"FTPBrowser allows uploading and downloading files between your Hypercube and "
 "a server using the file transfer protocol."
 msgstr ""
-"FTPBrowser umożliwia wysyłanie i pobieranie plików między Dreamboxem i "
+"FTPBrowser umożliwia wysyłanie i pobieranie plików między Hypercubeem i "
 "serwerem za pomocą protokołu przesyłania plików FTP."
 
 msgid "First generate your skin-style with the Ai.HD-Control plugin."
 msgstr "Pierwsze wygeneruj styl skóry za pomocą wtyczki Ai.HD-Control."
 
-msgid "FritzCall shows incoming calls to your Fritz!Box on your Dreambox."
+msgid "FritzCall shows incoming calls to your Fritz!Box on your Hypercube."
 msgstr ""
-"FritzCall pokazuje połączenia przychodzące do Fritz!Box na Twoim Dreamboxie."
+"FritzCall pokazuje połączenia przychodzące do Fritz!Box na Twoim Hypercubeie."
 
 msgid "Frontend for /tmp/mmi.socket"
 msgstr "Nakładka na /tmp/mmi.socket"
@@ -10538,23 +10538,23 @@ msgid "GUI that allows user to change the ftp- / telnet password."
 msgstr "Interfejs GUI pozwala użytkownikowi na zmianę hasła ftp / telnet."
 
 msgid ""
-"GUI that allows user to change the ftp-/telnet-password of the Dreambox."
+"GUI that allows user to change the ftp-/telnet-password of the Hypercube."
 msgstr ""
 "Interfejs GUI pozwala użytkownikowi na zmianę hasła ftp / telnet na "
-"Dreamboxie."
+"Hypercubeie."
 
 msgid "GUI to change the ftp and telnet-password"
 msgstr "Interfejs GUI do zmiany hasła telnet i ftp"
 
 #
-msgid "Genuine Dreambox"
-msgstr "Autentyczność Dreamboxa"
+msgid "Genuine Hypercube"
+msgstr "Autentyczność Hypercubea"
 
-msgid "Genuine Dreambox validation failed!"
-msgstr "Weryfikacja autentyczności Dreamboxa nieudana!"
+msgid "Genuine Hypercube validation failed!"
+msgstr "Weryfikacja autentyczności Hypercubea nieudana!"
 
-msgid "Genuine Dreambox verification"
-msgstr "Weryfikacja oryginalości Dreamboxa"
+msgid "Genuine Hypercube verification"
+msgstr "Weryfikacja oryginalości Hypercubea"
 
 msgid "German storm information"
 msgstr "Niemieckie informacje burzowe"
@@ -10576,11 +10576,11 @@ msgstr ""
 "Pokazuje przegląd wszystkich uruchomionych i nadchodzących programów tv."
 
 msgid ""
-"Growlee allows your Dreambox to send short messages using the growl "
+"Growlee allows your Hypercube to send short messages using the growl "
 "protocol\n"
 "like Recording started notifications to a PC running a growl client"
 msgstr ""
-"Growlee pozwala Dreamboxowi na wysyłanie krótkich wiadomości tekstowych przy "
+"Growlee pozwala Hypercubeowi na wysyłanie krótkich wiadomości tekstowych przy "
 "użyciu protokołu growl\n"
 "jak np rozpoczęcie nagrywania zgłoszone do komputera z uruchomionym klientem "
 "growl"
@@ -10588,8 +10588,8 @@ msgstr ""
 msgid "Hotplugging for removeable devices"
 msgstr "Hotplugging do urządzeń odłączalnych"
 
-msgid "IMAP4 e-mail viewer for the Dreambox"
-msgstr "przeglądarka maili IMAP4 dla Dreamboxa"
+msgid "IMAP4 e-mail viewer for the Hypercube"
+msgstr "przeglądarka maili IMAP4 dla Hypercubea"
 
 msgid "IRC Client for Enigma2"
 msgstr "Klient IRC dla Enigma2"
@@ -10597,24 +10597,24 @@ msgstr "Klient IRC dla Enigma2"
 msgid "Internal firmware updater"
 msgstr "Aktualizator oprogramowania wewnętrznego"
 
-# File: tmp/enigma2_plugins/genuinedreambox/src/plugin.py, line: 304
+# File: tmp/enigma2_plugins/genuineHypercube/src/plugin.py, line: 304
 msgid "Invalid response from Security service pls restart again"
 msgstr "Zła odpowiedź z chronionego kanału, uruchom ponownie"
 
-# File: tmp/enigma2_plugins/genuinedreambox/src/plugin.py, line: 132
+# File: tmp/enigma2_plugins/genuineHypercube/src/plugin.py, line: 132
 msgid "Invalid response from server."
 msgstr "Zła odpowiedź z serwera."
 
-# File: tmp/enigma2_plugins/genuinedreambox/src/plugin.py, line: 177
+# File: tmp/enigma2_plugins/genuineHypercube/src/plugin.py, line: 177
 #, python-format
 msgid "Invalid response from server. Please report: %s"
 msgstr "Zła odpowiedź z serwera. Proszę zgłoś: %s"
 
-msgid "Italian Weather forecast on Dreambox"
-msgstr "Włoskia prognoza pogody na Dreambox"
+msgid "Italian Weather forecast on Hypercube"
+msgstr "Włoskia prognoza pogody na Hypercube"
 
-msgid "Italian Weather forecast on Dreambox from www.google.it."
-msgstr "Włoska prognoza pogody na Dreambox z www.google.it"
+msgid "Italian Weather forecast on Hypercube from www.google.it."
+msgstr "Włoska prognoza pogody na Hypercube z www.google.it"
 
 msgid "Kerni's BrushedAlu-HD skin"
 msgstr "Kerni's BrushedAlu-HD skin"
@@ -10667,8 +10667,8 @@ msgstr "KiddyTimer pozwala kontrolować dzieci z korzystania TV."
 msgid "Listen and record internet radio"
 msgstr "Słuchaj i nagrywaj radio internetowe"
 
-msgid "Listen and record shoutcast internet radio on your Dreambox."
-msgstr "Słuchaj i nagrywaj radio internetowe shoutcast na Dreamboxie."
+msgid "Listen and record shoutcast internet radio on your Hypercube."
+msgstr "Słuchaj i nagrywaj radio internetowe shoutcast na Hypercubeie."
 
 msgid "Manage local files"
 msgstr "Zarządzaj lokalnymi plikami"
@@ -10725,106 +10725,106 @@ msgstr ""
 
 msgid ""
 "NCID Client shows incoming voice calls promoted by any NCID server (e.g. "
-"Vodafone Easybox) on your Dreambox."
+"Vodafone Easybox) on your Hypercube."
 msgstr ""
 "NCID klient pokazuje przychodzące rozmowy promowane przez każdy NCID serwer "
-"(np. Vodafone Easybox) na twoim Dreamboxie."
+"(np. Vodafone Easybox) na twoim Hypercubeie."
 
 msgid "Nemesis BlackBox Skin"
 msgstr "Nemesis BlackBox Skin"
 
-msgid "Nemesis BlackBox Skin for the Dreambox"
-msgstr "Nemesis BlackBox Skin for the Dreambox"
+msgid "Nemesis BlackBox Skin for the Hypercube"
+msgstr "Nemesis BlackBox Skin for the Hypercube"
 
 msgid "Nemesis Blueline Single Skin"
 msgstr "Nemesis Blueline Single Skin"
 
-msgid "Nemesis Blueline Single Skin for the Dreambox"
-msgstr "Nemesis Blueline Single Skin for the Dreambox"
+msgid "Nemesis Blueline Single Skin for the Hypercube"
+msgstr "Nemesis Blueline Single Skin for the Hypercube"
 
 msgid "Nemesis Blueline Skin"
 msgstr "Nemesis Blueline Skin"
 
-msgid "Nemesis Blueline Skin for the Dreambox"
-msgstr "Nemesis Blueline Skin for the Dreambox"
+msgid "Nemesis Blueline Skin for the Hypercube"
+msgstr "Nemesis Blueline Skin for the Hypercube"
 
 msgid "Nemesis Blueline.Extended Skin"
 msgstr "Nemesis Blueline.Extended Skin"
 
-msgid "Nemesis Blueline.Extended Skin for the Dreambox"
-msgstr "Nemesis Blueline.Extended Skin for the Dreambox"
+msgid "Nemesis Blueline.Extended Skin for the Hypercube"
+msgstr "Nemesis Blueline.Extended Skin for the Hypercube"
 
 msgid "Nemesis ChromeLine Cobolt Skin"
 msgstr "Nemesis ChromeLine Cobolt Skin"
 
-msgid "Nemesis ChromeLine Cobolt Skin for the Dreambox"
-msgstr "Nemesis ChromeLine Cobolt Skin for the Dreambox"
+msgid "Nemesis ChromeLine Cobolt Skin for the Hypercube"
+msgstr "Nemesis ChromeLine Cobolt Skin for the Hypercube"
 
 msgid "Nemesis ChromeLine Skin"
 msgstr "Nemesis ChromeLine Skin"
 
-msgid "Nemesis ChromeLine Skin for the Dreambox"
-msgstr "Nemesis ChromeLine Skin for the Dreambox"
+msgid "Nemesis ChromeLine Skin for the Hypercube"
+msgstr "Nemesis ChromeLine Skin for the Hypercube"
 
 msgid "Nemesis Flatline Blue Skin"
 msgstr "Nemesis Flatline Blue Skin"
 
-msgid "Nemesis Flatline Blue Skin for the Dreambox"
-msgstr "Nemesis Flatline Blue Skin for the Dreambox"
+msgid "Nemesis Flatline Blue Skin for the Hypercube"
+msgstr "Nemesis Flatline Blue Skin for the Hypercube"
 
 msgid "Nemesis Flatline Skin"
 msgstr "Nemesis Flatline Skin"
 
-msgid "Nemesis Flatline Skin for the Dreambox"
-msgstr "Nemesis Flatline Skin for the Dreambox"
+msgid "Nemesis Flatline Skin for the Hypercube"
+msgstr "Nemesis Flatline Skin for the Hypercube"
 
 msgid "Nemesis GlassLine Skin"
 msgstr "Nemesis GlassLine Skin"
 
-msgid "Nemesis GlassLine Skin for the Dreambox"
-msgstr "Nemesis GlassLine Skin for the Dreambox"
+msgid "Nemesis GlassLine Skin for the Hypercube"
+msgstr "Nemesis GlassLine Skin for the Hypercube"
 
 msgid "Nemesis Greenline Extended Skin"
 msgstr "Nemesis Greenline Extended Skin"
 
-msgid "Nemesis Greenline Extended Skin for the Dreambox"
-msgstr "Nemesis Greenline Extended Skin for the Dreambox"
+msgid "Nemesis Greenline Extended Skin for the Hypercube"
+msgstr "Nemesis Greenline Extended Skin for the Hypercube"
 
 msgid "Nemesis Greenline Single Skin"
 msgstr "Nemesis Greenline Single Skin"
 
-msgid "Nemesis Greenline Single Skin for the Dreambox"
-msgstr "Nemesis Greenline Single Skin for the Dreambox"
+msgid "Nemesis Greenline Single Skin for the Hypercube"
+msgstr "Nemesis Greenline Single Skin for the Hypercube"
 
 msgid "Nemesis Greenline Skin"
 msgstr "Nemesis Greenline Skin"
 
-msgid "Nemesis Greenline Skin for the Dreambox"
-msgstr "Nemesis Greenline Skin for the Dreambox"
+msgid "Nemesis Greenline Skin for the Hypercube"
+msgstr "Nemesis Greenline Skin for the Hypercube"
 
 msgid "Nemesis Greyline Extended Skin"
 msgstr "Nemesis Greyline Extended Skin"
 
-msgid "Nemesis Greyline Extended Skin for the Dreambox"
-msgstr "Nemesis Greyline Extended Skin for the Dreambox"
+msgid "Nemesis Greyline Extended Skin for the Hypercube"
+msgstr "Nemesis Greyline Extended Skin for the Hypercube"
 
 msgid "Nemesis Greyline Single Skin"
 msgstr "Nemesis Greyline Single Skin"
 
-msgid "Nemesis Greyline Single Skin for the Dreambox"
-msgstr "Nemesis Greyline Single Skin for the Dreambox"
+msgid "Nemesis Greyline Single Skin for the Hypercube"
+msgstr "Nemesis Greyline Single Skin for the Hypercube"
 
 msgid "Nemesis Greyline Skin"
 msgstr "Nemesis Greyline Skin"
 
-msgid "Nemesis Greyline Skin for the Dreambox"
-msgstr "Nemesis Greyline Skin for the Dreambox"
+msgid "Nemesis Greyline Skin for the Hypercube"
+msgstr "Nemesis Greyline Skin for the Hypercube"
 
 msgid "Nemesis ShadowLine Skin"
 msgstr "Nemesis ShadowLine Skin"
 
-msgid "Nemesis ShadowLine Skin for the Dreambox"
-msgstr "Nemesis ShadowLine Skin for the Dreambox"
+msgid "Nemesis ShadowLine Skin for the Hypercube"
+msgstr "Nemesis ShadowLine Skin for the Hypercube"
 
 msgid "New PIN"
 msgstr "Nowy PIN"
@@ -10833,7 +10833,7 @@ msgid "Overlay for scrolling bars"
 msgstr "Nakładka dla pasków przewijania"
 
 msgid ""
-"Partnerbox allows editing a remote Dreambox's record timers and stream its "
+"Partnerbox allows editing a remote Hypercube's record timers and stream its "
 "TV  program."
 msgstr ""
 "Partnerbox umożliwia edycję zdalnego timera nagrań i strumień programu "
@@ -10851,8 +10851,8 @@ msgstr "Odtwarzanie muzyki z Last.fm"
 msgid "Play music from Last.fm."
 msgstr "Odtwarzanie muzyki z Last.fm."
 
-msgid "Play videos from PC on your Dreambox"
-msgstr "Odtwarzanie plików wideo z komputera na Dreamboxie"
+msgid "Play videos from PC on your Hypercube"
+msgstr "Odtwarzanie plików wideo z komputera na Hypercubeie"
 
 msgid "Playback of Youtube through a PC"
 msgstr "Odtwarzanie Youtube za pośrednictwem komputera PC"
@@ -10876,8 +10876,8 @@ msgstr ""
 msgid "Please enter the old PIN code"
 msgstr "Podaj stary kod PIN"
 
-msgid "PodCast streams podcasts to your Dreambox."
-msgstr "Wtyczka PodCast strumieniuje podcasty do Twojego Dreamboxa."
+msgid "PodCast streams podcasts to your Hypercube."
+msgstr "Wtyczka PodCast strumieniuje podcasty do Twojego Hypercubea."
 
 msgid "PositionerSetup helps you installing a motorized dish"
 msgstr "PositionerSetup pomocny w instalacji anteny obrotowej"
@@ -10923,8 +10923,8 @@ msgstr "Wymień wejscie minut do wyszukiwania funkcji z paskiem stanu."
 msgid "Replace the rewind  input with a seekbar"
 msgstr "Wymień przewijanie wejścia z paskiem stanu"
 
-msgid "Restore your Dreambox with a USB stick"
-msgstr "Przywróć ustawienia Dreamboxa za pomocą pamięci USB"
+msgid "Restore your Hypercube with a USB stick"
+msgstr "Przywróć ustawienia Hypercubea za pomocą pamięci USB"
 
 msgid "SatelliteEquipmentControl allows you to fine-tune DiSEqC-settings"
 msgstr ""
@@ -10951,8 +10951,8 @@ msgstr "Wybierz urządzenie wejściowe"
 msgid "Set Bitstream/PCM audio delays"
 msgstr "Ustaw opóźnienia audio Bitstream/PCM"
 
-msgid "Sets your Dreambox into Deep-Standby"
-msgstr "Przełącz Dreamboxa w tryb głębokiego uśpienia"
+msgid "Sets your Hypercube into Deep-Standby"
+msgstr "Przełącz Hypercubea w tryb głębokiego uśpienia"
 
 msgid "Show webcam pictures on your TV Screen"
 msgstr "Pokaż zdjęcia kamery web na ekranie telewizora"
@@ -10979,14 +10979,14 @@ msgstr "Wyświetla na stałe zegar na ekranie"
 msgid "Simple IRC GroupChat client for e2 #dm8000-vip channel"
 msgstr "Prosty klient IRC GroupChat dla Enigma2 kanał #dm8000-vip"
 
-msgid "SimpleRSS allows reading RSS newsfeeds on your Dreambox."
-msgstr "SimpleRSS umożliwia czytanie kanałów RSS na Dreamboxie."
+msgid "SimpleRSS allows reading RSS newsfeeds on your Hypercube."
+msgstr "SimpleRSS umożliwia czytanie kanałów RSS na Hypercubeie."
 
 msgid "SkinSelector shows a menu with selectable skins"
 msgstr "SkinSelector pokazuje menu z możliwością wyboru skórek"
 
-msgid "SoftwareManager manages your Dreambox software"
-msgstr "SoftwareManager zarządza oprogramowaniem Dreambox`a"
+msgid "SoftwareManager manages your Hypercube software"
+msgstr "SoftwareManager zarządza oprogramowaniem Hypercube`a"
 
 msgid "Step by step network configuration"
 msgstr "Krok po kroku w konfiguracji sieci"
@@ -11001,11 +11001,11 @@ msgid "Test your DiSEqC equipment"
 msgstr "Testowanie urządzeń DiSEqC"
 
 msgid ""
-"The CleanupWizard informs you when the internal free memory of your dreambox "
+"The CleanupWizard informs you when the internal free memory of your Hypercube "
 "has dropped below a definable threshold.You can use this wizard to remove "
 "some plugins."
 msgstr ""
-"CleanupWizard poinformuje Cię o wolnej pamięci wewnętrznej Dreamboxa gdy "
+"CleanupWizard poinformuje Cię o wolnej pamięci wewnętrznej Hypercubea gdy "
 "spadnie poniżej zdefiniowanego progu. Można również użyć tego kreatora do "
 "usunięcia niektórych wtyczek."
 
@@ -11050,18 +11050,18 @@ msgstr ""
 
 msgid ""
 "The SkinSelector shows a menu with selectable skins.\n"
-"It's now easy to change the look and feel of your Dreambox."
+"It's now easy to change the look and feel of your Hypercube."
 msgstr ""
 "SkinSelector pokazuje menu z możliwością wyboru skórek.\n"
-"Za ich pomocą łatwo zmienić wygląd i funkcjonalność Dreamboxa wg swoich "
+"Za ich pomocą łatwo zmienić wygląd i funkcjonalność Hypercubea wg swoich "
 "preferencji."
 
 msgid ""
-"The SoftwareManager manages your Dreambox software.\n"
+"The SoftwareManager manages your Hypercube software.\n"
 "It's easy to update your receiver's software, install or remove plugins or "
 "even backup and restore your system settings."
 msgstr ""
-"SoftwareManager zarządza oprogramowaniem Twojego Dreamboxa.\n"
+"SoftwareManager zarządza oprogramowaniem Twojego Hypercubea.\n"
 "Pomaga w łatwy sposób aktualizować oprogramowanie odbiornika, instalować i "
 "usuwać wtyczki lub nawet kopie zapasowe oraz przywracania ustawień "
 "systemowych."
@@ -11090,12 +11090,12 @@ msgstr ""
 msgid "The skin is in KingSize-definition 1024x576"
 msgstr "Ta Skóra jest w rozdzielczości 1024x576"
 
-# File: tmp/enigma2_plugins/genuinedreambox/src/plugin.py, line: 130
+# File: tmp/enigma2_plugins/genuineHypercube/src/plugin.py, line: 130
 msgid ""
-"There's a certificate update available for your dreambox. Would you like to "
+"There's a certificate update available for your Hypercube. Would you like to "
 "apply this update now?"
 msgstr ""
-"Jest dostępna aktualizacja certyfikatu twojego Dreamboxa. Czy chcesz "
+"Jest dostępna aktualizacja certyfikatu twojego Hypercubea. Czy chcesz "
 "aktualizować teraz?"
 
 msgid ""
@@ -11114,22 +11114,22 @@ msgstr "TrafficInfo pokazuje informacje o niemieckim ruchu drogowym."
 msgid "UnwetterInfo shows german storm information."
 msgstr "UnwetterInfo pokazuje niemieckie informacje burzowe."
 
-# File: tmp/enigma2_plugins/genuinedreambox/src/plugin.py, line: 170
+# File: tmp/enigma2_plugins/genuineHypercube/src/plugin.py, line: 170
 msgid ""
-"Update done... The genuine dreambox test will now be rerun and should not "
+"Update done... The genuine Hypercube test will now be rerun and should not "
 "ask you to update again."
 msgstr ""
-"Aktualizacja zakończona... Test autentyczności dreamboxa zostanie powtórzony "
+"Aktualizacja zakończona... Test autentyczności Hypercubea zostanie powtórzony "
 "i nie powinien już ciebie pytać ponownie o aktualizację."
 
-# File: tmp/enigma2_plugins/genuinedreambox/src/plugin.py, line: 150
+# File: tmp/enigma2_plugins/genuineHypercube/src/plugin.py, line: 150
 msgid ""
 "Updating failed. Nothing is broken, just the update couldn't be applied."
 msgstr ""
 "Aktualizowanie nieudane. Nic nie uszkodzono tylko nie można zatwierdzić."
 
-msgid "Use and control multiple Dreamboxes with different RCs."
-msgstr "Używaj i kontroluj wiele Dreamboxów za pomocą różnych pilotów."
+msgid "Use and control multiple Hypercubees with different RCs."
+msgstr "Używaj i kontroluj wiele Hypercubeów za pomocą różnych pilotów."
 
 msgid "Vali-XD skin"
 msgstr "Vali-XD skin"
@@ -11138,8 +11138,8 @@ msgid "Vali.HD.nano skin"
 msgstr "Vali.HD.nano skin"
 
 msgid ""
-"Verify your Dreambox authenticity by running the genuine dreambox plugin!"
-msgstr "Sprawdź autentyczność Dreamboxa uruchamiając plugin autentyczności!"
+"Verify your Hypercube authenticity by running the genuine Hypercube plugin!"
+msgstr "Sprawdź autentyczność Hypercubea uruchamiając plugin autentyczności!"
 
 msgid "Video streaming from the orf.at web page"
 msgstr "Streaming wideo ze strony ORF.at"
@@ -11156,8 +11156,8 @@ msgstr "Videomode zapewnia zaawansowane ustawienia trybu wideo"
 msgid "View Google maps"
 msgstr "Zobacz mapy Google"
 
-msgid "View Google maps with your Dreambox."
-msgstr "Zobacz mapy Google za pomocą Dreamboxa."
+msgid "View Google maps with your Hypercube."
+msgstr "Zobacz mapy Google za pomocą Hypercubea."
 
 msgid "Visualization for the European Installation Bus"
 msgstr "Wizualizacja dla Europejskiej instalacji"
@@ -11172,11 +11172,11 @@ msgstr ""
 msgid "Watch streams from ZDF Mediathek"
 msgstr "Oglądaj stream z ZDF Mediathek"
 
-msgid "WeatherPlugin shows weatherforecasts on your Dreambox."
-msgstr "Wtyczka WeatherPlugin pokazuje prognozę pogody na Dreamboxie."
+msgid "WeatherPlugin shows weatherforecasts on your Hypercube."
+msgstr "Wtyczka WeatherPlugin pokazuje prognozę pogody na Hypercubeie."
 
-msgid "Weatherforecast on your Dreambox"
-msgstr "Prognoza pogody na Dreambox"
+msgid "Weatherforecast on your Hypercube"
+msgstr "Prognoza pogody na Hypercube"
 
 msgid ""
 "With AntiScrollbar you can cover up annoying ticker lines (e.g. in news "
@@ -11186,25 +11186,25 @@ msgstr ""
 "kanałach informacyjnych)."
 
 msgid ""
-"With DVDBurn you can make compilations of records from your Dreambox hard "
+"With DVDBurn you can make compilations of records from your Hypercube hard "
 "drive.\n"
 "Optionally you can add customizable menus. You can record the compilation to "
 "a standard-compliant DVD that can be played on conventinal DVD players.\n"
-"HDTV recordings can only be burned in proprietary dreambox format."
+"HDTV recordings can only be burned in proprietary Hypercube format."
 msgstr ""
-"Z DVDBurn możesz tworzyć kompilacje nagrań z twardego dysku Dreamboxa.\n"
+"Z DVDBurn możesz tworzyć kompilacje nagrań z twardego dysku Hypercubea.\n"
 "Opcjonalnie można dodać konfigurowalne menu. Możesz nagrywać kompilacjie "
 "zgodne ze standardem DVD, które mogą być odtwarzane na konwencjonalnych "
 "odtwarzaczach DVD.\n"
 "Nagrania w wyskiej rozdzielczości HDTV mogą być nagrywane tylko w "
-"odpowiednim formacie dreamboxa."
+"odpowiednim formacie Hypercubea."
 
 msgid "With EPGSearch you can search through the EPG and create timers."
 msgstr "Przy użyciu EPGSearch można przeszukiwać EPG i tworzyć Timery."
 
-msgid "With Genuine Dreambox you can verify the authenticity of your Dreambox."
+msgid "With Genuine Hypercube you can verify the authenticity of your Hypercube."
 msgstr ""
-"Za pomocą Genuine Drembox można zweryfikować autentyczność swojego Dreamboxa."
+"Za pomocą Genuine Drembox można zweryfikować autentyczność swojego Hypercubea."
 
 msgid ""
 "With IMDb you can download and displays movie information (rating, poster, "
@@ -11236,20 +11236,20 @@ msgstr ""
 "pierwotnego kanału."
 
 msgid ""
-"With YouTubePlayer you can watch YouTube-Videos on the Dreambox.\n"
+"With YouTubePlayer you can watch YouTube-Videos on the Hypercube.\n"
 "This plugin requires a PC with the VLC program running."
 msgstr ""
-"Za pomocą YouTubePlayer można oglądać filmy wideo z YouTube na Dreamboxie.\n"
+"Za pomocą YouTubePlayer można oglądać filmy wideo z YouTube na Hypercubeie.\n"
 "Ta wtyczka wymaga komputera PC z uruchomionym programem VLC."
 
 msgid ""
 "With the CommonInterfaceAssignment plugin it is possible to use differentCI "
-"modules in your Dreambox and assign dedicated providers/services or caids to "
+"modules in your Hypercube and assign dedicated providers/services or caids to "
 "each of them.\n"
 "This allows watching a scrambled service while recording another one."
 msgstr ""
 "Za pomocą wtyczki CommonInterfaceAssignment możliwe jest stosowanie różnych "
-"modułów CI w Dreamboxie i przydzielanie im dedykowanych Dostawców / Usług "
+"modułów CI w Hypercubeie i przydzielanie im dedykowanych Dostawców / Usług "
 "lub CAID do każdego z nich.\n"
 "Pozwala to oglądać kodowany kanał podczas nagrywania innego."
 
@@ -11276,11 +11276,11 @@ msgstr ""
 
 msgid ""
 "With the NFIFlash plugin it is possible to prepare a USB stick with an "
-"Dreambox image.\n"
-"It is then possible to flash your Dreambox with the image on that stick."
+"Hypercube image.\n"
+"It is then possible to flash your Hypercube with the image on that stick."
 msgstr ""
 "Za pomocą wtyczki NFIFlash możesz przygotować Image z pamięci USB.\n"
-"Jest możliwość flaszowania Dreamboxa z pamięci w USB."
+"Jest możliwość flaszowania Hypercubea z pamięci w USB."
 
 msgid ""
 "With the NetworkWizard you can easily configure your network step by step."
@@ -11353,8 +11353,8 @@ msgstr ""
 "przypisywanie długie naciśnięcie pod kolorowe przyciski dla wtyczek lub "
 "funkcji E2"
 
-msgid "control multiple Dreamboxes with different RCs"
-msgstr "sterowanie wieloma Dreamboxami różnymi pilotami"
+msgid "control multiple Hypercubees with different RCs"
+msgstr "sterowanie wieloma Hypercubeami różnymi pilotami"
 
 msgid "description"
 msgstr "opis"
@@ -11375,7 +11375,7 @@ msgid "service PIN"
 msgstr "PIN serwisu"
 
 msgid "set enigma2 to standby-mode after startup"
-msgstr "Ustaw Dreamboxa w tryb czuwania po starcie tunera"
+msgstr "Ustaw Hypercubea w tryb czuwania po starcie tunera"
 
 msgid "setup PIN"
 msgstr "Konfiguracja PIN"
@@ -11383,11 +11383,11 @@ msgstr "Konfiguracja PIN"
 msgid "tuner is not supported"
 msgstr "Tuner nieobsługiwany"
 
-msgid "use your Dreambox as Web proxy"
-msgstr "Użyj Dreamboxa przez Web proxy"
+msgid "use your Hypercube as Web proxy"
+msgstr "Użyj Hypercubea przez Web proxy"
 
-msgid "use your Dreambox as Web proxy."
-msgstr "Użyj Dreamboxa przez Web proxy."
+msgid "use your Hypercube as Web proxy."
+msgstr "Użyj Hypercubea przez Web proxy."
 
 #
 #~ msgid ""
@@ -11460,7 +11460,7 @@ msgstr "Użyj Dreamboxa przez Web proxy."
 #
 #~ msgid ""
 #~ "Are you sure you want to enable WLAN support?\n"
-#~ "Connect your Wlan USB Stick to your Dreambox and press OK.\n"
+#~ "Connect your Wlan USB Stick to your Hypercube and press OK.\n"
 #~ "\n"
 #~ msgstr ""
 #~ "Czy jesteś pewien, że chcesz włączyć sieć WLAN?\n"
@@ -11753,11 +11753,11 @@ msgstr "Użyj Dreamboxa przez Web proxy."
 #~ msgstr "Ładowanie opisu image'u..."
 
 #
-#~ msgid "Dreambox DVD record"
-#~ msgstr "Nagrywarka DVD Dreambox"
+#~ msgid "Hypercube DVD record"
+#~ msgstr "Nagrywarka DVD Hypercube"
 
 #
-#~ msgid "Dreambox Keyboard Deutsch"
+#~ msgid "Hypercube Keyboard Deutsch"
 #~ msgstr "Klawiatura Niemiecka"
 
 #
@@ -11807,10 +11807,10 @@ msgstr "Użyj Dreamboxa przez Web proxy."
 
 #
 #~ msgid ""
-#~ "Enable the local network of your Dreambox.\n"
+#~ "Enable the local network of your Hypercube.\n"
 #~ "\n"
 #~ msgstr ""
-#~ "Włacz sieć lokalną Dreamboxa.\n"
+#~ "Włacz sieć lokalną Hypercubea.\n"
 #~ "\n"
 
 #
@@ -11970,8 +11970,8 @@ msgstr "Użyj Dreamboxa przez Web proxy."
 #~ msgstr "Język..."
 
 #
-#~ msgid "Lets you view/edit files in your Dreambox"
-#~ msgstr "Pozwól przeglądać/edytować pliki Dreamboxa"
+#~ msgid "Lets you view/edit files in your Hypercube"
+#~ msgstr "Pozwól przeglądać/edytować pliki Hypercubea"
 
 #
 #~ msgid "Load saved project from disk"
@@ -12061,7 +12061,7 @@ msgstr "Użyj Dreamboxa przez Web proxy."
 #~ "your local network interface."
 #~ msgstr ""
 #~ "Nie znaleziono działającego interfejsu WiFi.\n"
-#~ "Proszę sprawdzić czy urzadzenie WLAN jest kompatybilne ze Dreambox'em "
+#~ "Proszę sprawdzić czy urzadzenie WLAN jest kompatybilne ze Hypercube'em "
 #~ "oraz czy interfejs sieciowy jest włączony."
 
 #
@@ -12123,10 +12123,10 @@ msgstr "Użyj Dreamboxa przez Web proxy."
 #
 #~ msgid ""
 #~ "Please attach your Zydas ZD1211B chipset compatibe WLAN USB Stick to your "
-#~ "Dreambox and press the OK button on your remote control to enable the "
+#~ "Hypercube and press the OK button on your remote control to enable the "
 #~ "built in wireless network support"
 #~ msgstr ""
-#~ "Proszę wpdłączyć do Dreamboxa WLAN USB Stick zgodny z  chipsetem Zydas "
+#~ "Proszę wpdłączyć do Hypercubea WLAN USB Stick zgodny z  chipsetem Zydas "
 #~ "ZD1211B. W celu właczenia sieci bezprzewodowej naciśnij przycisk OK na "
 #~ "pilocie."
 
@@ -12195,16 +12195,16 @@ msgstr "Użyj Dreamboxa przez Web proxy."
 
 #
 #~ msgid ""
-#~ "Pressing OK enables the built in wireless LAN support of your Dreambox.\n"
+#~ "Pressing OK enables the built in wireless LAN support of your Hypercube.\n"
 #~ "Wlan USB Sticks with Zydas ZD1211B and RAlink RT73 Chipset are "
 #~ "supported.\n"
-#~ "Connect your Wlan USB Stick to your Dreambox before pressing OK.\n"
+#~ "Connect your Wlan USB Stick to your Hypercube before pressing OK.\n"
 #~ "\n"
 #~ msgstr ""
 #~ "Aby włączyć bezprzewodową sieć LAN naciśnij OK.\n"
 #~ " Wlan USB Stick z chipsetami Zydas ZD1211B i RAlink RT73 są kompatybilne "
-#~ "z Dreamboxem.\n"
-#~ "Przed naciśnięciem OK podłącz Wlan USB Stick do Dreamboxa.\n"
+#~ "z Hypercubeem.\n"
+#~ "Przed naciśnięciem OK podłącz Wlan USB Stick do Hypercubea.\n"
 #~ "\n"
 
 #
@@ -12434,13 +12434,13 @@ msgstr "Użyj Dreamboxa przez Web proxy."
 
 #
 #~ msgid ""
-#~ "Thank you for using the wizard. Your Dreambox is now ready to use.\n"
+#~ "Thank you for using the wizard. Your Hypercube is now ready to use.\n"
 #~ "\n"
 #~ "Your local LAN internet connection is working now.\n"
 #~ "\n"
 #~ "Please press OK to continue."
 #~ msgstr ""
-#~ "Dziękuję za uzycie kreatora. Dreambox jest gotowy do pracy.\n"
+#~ "Dziękuję za uzycie kreatora. Hypercube jest gotowy do pracy.\n"
 #~ "\n"
 #~ "Wewnętrzna sieć LAN jest gotowa do pracy.\n"
 #~ "\n"
@@ -12448,13 +12448,13 @@ msgstr "Użyj Dreamboxa przez Web proxy."
 
 #
 #~ msgid ""
-#~ "Thank you for using the wizard. Your Dreambox is now ready to use.\n"
+#~ "Thank you for using the wizard. Your Hypercube is now ready to use.\n"
 #~ "\n"
 #~ "Your wireless internet connection is working now.\n"
 #~ "\n"
 #~ "Please press OK to continue."
 #~ msgstr ""
-#~ "Dziękuję za użycie kreatora. Dreambox jest gotowy do pracy.\n"
+#~ "Dziękuję za użycie kreatora. Hypercube jest gotowy do pracy.\n"
 #~ "\n"
 #~ "Bezprzewodowe połaczenie do Internetu jest gotowe do pracy.\n"
 #~ "\n"
@@ -12462,10 +12462,10 @@ msgstr "Użyj Dreamboxa przez Web proxy."
 
 #
 #~ msgid ""
-#~ "Thank you for using the wizard. Your Dreambox is now ready to use.\n"
-#~ "Please press OK to start using your Dreambox."
+#~ "Thank you for using the wizard. Your Hypercube is now ready to use.\n"
+#~ "Please press OK to start using your Hypercube."
 #~ msgstr ""
-#~ "Dziękuję za użycie kreatora. Dreambox jest gotowy do pracy.\n"
+#~ "Dziękuję za użycie kreatora. Hypercube jest gotowy do pracy.\n"
 #~ "Aby rozpocząć pracę naciśnij przycisk OK."
 
 #
@@ -12490,8 +12490,8 @@ msgstr "Użyj Dreamboxa przez Web proxy."
 #~ msgstr "Bład podczas pobierania wpisów z YouTube. Powtórz jeszcze raz..."
 
 #
-#~ msgid "This Dreambox can't decode %s video streams!"
-#~ msgstr "Dreambox nie moze zdekodować %s strumienia video!"
+#~ msgid "This Hypercube can't decode %s video streams!"
+#~ msgstr "Hypercube nie moze zdekodować %s strumienia video!"
 
 #
 #~ msgid "This is unsupported at the moment."
@@ -12624,8 +12624,8 @@ msgstr "Użyj Dreamboxa przez Web proxy."
 #~ msgid ""
 #~ "Welcome.\n"
 #~ "\n"
-#~ "If you want to connect your Dreambox to the Internet, this wizard will "
-#~ "guide you through the basic network setup of your Dreambox.\n"
+#~ "If you want to connect your Hypercube to the Internet, this wizard will "
+#~ "guide you through the basic network setup of your Hypercube.\n"
 #~ "\n"
 #~ "Press the OK button on your remote control to move to the next step."
 #~ msgstr ""
@@ -12658,10 +12658,10 @@ msgstr "Użyj Dreamboxa przez Web proxy."
 
 #
 #~ msgid ""
-#~ "You do not seem to have a harddisk in your Dreambox. So backing up to a "
+#~ "You do not seem to have a harddisk in your Hypercube. So backing up to a "
 #~ "harddisk is not an option for you."
 #~ msgstr ""
-#~ "Wydaje się, że nie masz HDD w Dreamboxie. Utworzenie kopii zapasowej na "
+#~ "Wydaje się, że nie masz HDD w Hypercubeie. Utworzenie kopii zapasowej na "
 #~ "HDD nie jest możliwe."
 
 #
@@ -12737,18 +12737,18 @@ msgstr "Użyj Dreamboxa przez Web proxy."
 #
 #~ msgid ""
 #~ "Your wired LAN Adapter could not be started.\n"
-#~ "Do you want to reboot your Dreambox to apply the new configuration?\n"
+#~ "Do you want to reboot your Hypercube to apply the new configuration?\n"
 #~ msgstr ""
 #~ "Uruchomienie przewodowego adaptera LAN było niemożliwe.\n"
-#~ "Czy w celu zastosowania nowych ustawień zrestartować Dreamboxa?\n"
+#~ "Czy w celu zastosowania nowych ustawień zrestartować Hypercubea?\n"
 
 #
 #~ msgid ""
 #~ "Your wireless LAN Adapter could not be started.\n"
-#~ "Do you want to reboot your Dreambox to apply the new configuration?\n"
+#~ "Do you want to reboot your Hypercube to apply the new configuration?\n"
 #~ msgstr ""
 #~ "Uruchomienie bezprzewodowego adaptera LAN było niemożliwe.\n"
-#~ "Czy w celu zastosowania nowych ustawień zrestartować Dreamboxa?\n"
+#~ "Czy w celu zastosowania nowych ustawień zrestartować Hypercubea?\n"
 
 #
 #~ msgid ""

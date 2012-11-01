@@ -35,7 +35,7 @@ msgstr ""
 #
 msgid ""
 "\n"
-"Backup your Dreambox settings."
+"Backup your Hypercube settings."
 msgstr ""
 "\n"
 "Varmuuskopioi asetukset."
@@ -51,7 +51,7 @@ msgstr ""
 #
 msgid ""
 "\n"
-"Manage extensions or plugins for your Dreambox"
+"Manage extensions or plugins for your Hypercube"
 msgstr ""
 "\n"
 "Muokkaa laajennuksia ja lisäosia"
@@ -59,7 +59,7 @@ msgstr ""
 #
 msgid ""
 "\n"
-"Online update of your Dreambox software."
+"Online update of your Hypercube software."
 msgstr ""
 "\n"
 "Päivitä ohjelmisto online-päivityksen kautta."
@@ -76,7 +76,7 @@ msgstr ""
 #
 msgid ""
 "\n"
-"Restore your Dreambox settings."
+"Restore your Hypercube settings."
 msgstr ""
 "\n"
 "Palauta asetukset varmuuskopiosta."
@@ -84,7 +84,7 @@ msgstr ""
 #
 msgid ""
 "\n"
-"Restore your Dreambox with a new firmware."
+"Restore your Hypercube with a new firmware."
 msgstr ""
 "\n"
 "Palauta ohjelmisto perustilaan."
@@ -392,18 +392,18 @@ msgstr "Demo-lisäosa TPM:n käyttöön"
 #
 msgid ""
 "A finished record timer wants to set your\n"
-"Dreambox to standby. Do that now?"
+"Hypercube to standby. Do that now?"
 msgstr ""
 "Juuri päättynyt ajastus haluaa sammuttaa\n"
-"Dreamboxin valmiustilaan. Sammutetaanko nyt?"
+"Hypercubein valmiustilaan. Sammutetaanko nyt?"
 
 #
 msgid ""
 "A finished record timer wants to shut down\n"
-"your Dreambox. Shutdown now?"
+"your Hypercube. Shutdown now?"
 msgstr ""
 "Juuri päättynyt ajastus haluaa sammuttaa\n"
-"Dreamboxin virransäästötilaan. Sammutetaanko nyt?"
+"Hypercubein virransäästötilaan. Sammutetaanko nyt?"
 
 #
 msgid "A graphical EPG for all services of an specific bouquet"
@@ -489,7 +489,7 @@ msgstr "Apuohjelma lisäosien lataamiseen"
 #
 msgid ""
 "A sleep timer wants to set your\n"
-"Dreambox to standby. Do that now?"
+"Hypercube to standby. Do that now?"
 msgstr ""
 "Uniajastimeen asetettu aika on kulunut umpeen.\n"
 "Siirrytäänkö valmiustilaan?"
@@ -497,10 +497,10 @@ msgstr ""
 #
 msgid ""
 "A sleep timer wants to shut down\n"
-"your Dreambox. Shutdown now?"
+"your Hypercube. Shutdown now?"
 msgstr ""
 "Uniajastimeen asetettu aika on kulunut umpeen.\n"
-"Sammutetaanko Dreambox virransäästötilaa?"
+"Sammutetaanko Hypercube virransäästötilaa?"
 
 msgid "A small overview of the available icon states and actions."
 msgstr "Kuvaus kuvakkeiden tiloista ja toiminnoista."
@@ -609,8 +609,8 @@ msgstr "Lisää tiedot WLAN-verkosta?"
 msgid "Add a mark"
 msgstr "Lisää merkki"
 
-msgid "Add a new NFS or CIFS mount point to your Dreambox."
-msgstr "Lisää Dreamboxiin uusi NFS tai CIFS jako."
+msgid "Add a new NFS or CIFS mount point to your Hypercube."
+msgstr "Lisää Hypercubeiin uusi NFS tai CIFS jako."
 
 #
 msgid "Add a new title"
@@ -653,10 +653,10 @@ msgstr "Lisätty: "
 
 #
 msgid ""
-"Adds enigma2 settings and dreambox model informations like SN, rev... if "
+"Adds enigma2 settings and Hypercube model informations like SN, rev... if "
 "enabled."
 msgstr ""
-"Jos valinta on ei, lisätään Enigma2:n asetukset, Dreamboxin malli, "
+"Jos valinta on ei, lisätään Enigma2:n asetukset, Hypercubein malli, "
 "sarjanumero yms."
 
 #
@@ -709,10 +709,10 @@ msgid "Advanced restore"
 msgstr "Laajennettu palautus"
 
 msgid ""
-"After a reboot or power outage, StartupToStandby will bring your Dreambox to "
+"After a reboot or power outage, StartupToStandby will bring your Hypercube to "
 "standby-mode."
 msgstr ""
-"Kaatumisen tai virtakatkon jälkeen StartupToStandby palauttaa Dreamboxin "
+"Kaatumisen tai virtakatkon jälkeen StartupToStandby palauttaa Hypercubein "
 "valmiustilaan."
 
 #
@@ -722,7 +722,7 @@ msgstr "Ajastuksen jälkeen"
 #
 msgid ""
 "After the start wizard is completed, you need to protect single services. "
-"Refer to your dreambox's manual on how to do that."
+"Refer to your Hypercube's manual on how to do that."
 msgstr ""
 "Kun alkuasennus on päättynyt, pitää sinun valita lapsilukolla suojattavat "
 "kanavat. Katso ohjekirjasta kuinka se tehdään."
@@ -1001,8 +1001,8 @@ msgstr "BA"
 msgid "BASIC-HD Skin by Ismail Demir"
 msgstr "Ismail Demirin BASIC-HD teema"
 
-msgid "BASIC-HD Skin for Dreambox Images created from Ismail Demir"
-msgstr "Ismail Demirin Dreambox BASIC-HD teema"
+msgid "BASIC-HD Skin for Hypercube Images created from Ismail Demir"
+msgstr "Ismail Demirin Hypercube BASIC-HD teema"
 
 #
 msgid "BB"
@@ -1241,8 +1241,8 @@ msgstr "Muuta asetuksien PIN"
 msgid "Change step size"
 msgstr "Muuta askelkokoa"
 
-msgid "Change the hostname of your Dreambox."
-msgstr "Muuta Dreamboxin nimeä (hostname)."
+msgid "Change the hostname of your Hypercube."
+msgstr "Muuta Hypercubein nimeä (hostname)."
 
 msgid "Changelog"
 msgstr "Muutosloki"
@@ -1540,17 +1540,17 @@ msgstr "Jatka toistoa"
 msgid "Contrast"
 msgstr "Kontrasti"
 
-msgid "Control your Dreambox with your Web browser."
-msgstr "Hallitse Dreamboxia www-selaimella."
+msgid "Control your Hypercube with your Web browser."
+msgstr "Hallitse Hypercubeia www-selaimella."
 
-msgid "Control your Dreambox with your browser"
-msgstr "Hallitse Dreamboxia www-selaimella"
+msgid "Control your Hypercube with your browser"
+msgstr "Hallitse Hypercubeia www-selaimella"
 
-msgid "Control your dreambox with only the MUTE button"
-msgstr "Hallitse Dreamboxia mykistä-painikkeella"
+msgid "Control your Hypercube with only the MUTE button"
+msgstr "Hallitse Hypercubeia mykistä-painikkeella"
 
-msgid "Control your dreambox with only the MUTE button."
-msgstr "Hallitse Dreamboxia mykistä-painikkeella."
+msgid "Control your Hypercube with only the MUTE button."
+msgstr "Hallitse Hypercubeia mykistä-painikkeella."
 
 msgid "Control your internal system fan."
 msgstr "Hallitse tuuletinta."
@@ -1561,11 +1561,11 @@ msgstr "Hallitse lastesi TV:n katselua"
 msgid "Control your system fan"
 msgstr "Hallitse tuuletinta"
 
-msgid "Copy, rename, delete, move local files on your Dreambox."
-msgstr "Kopioi, uudelleennimeä, poista ja siirrä Dreamboxin tiedostoja."
+msgid "Copy, rename, delete, move local files on your Hypercube."
+msgstr "Kopioi, uudelleennimeä, poista ja siirrä Hypercubein tiedostoja."
 
 #
-msgid "Could not connect to Dreambox .NFI Image Feed Server:"
+msgid "Could not connect to Hypercube .NFI Image Feed Server:"
 msgstr "NFI-ohjelmistopäivityksien palvelimelle ei saatu yhteyttä:"
 
 #
@@ -1608,7 +1608,7 @@ msgid "Create DVD-ISO"
 msgstr "Luo DVD-ISO"
 
 msgid "Create a backup of your Video DVD on your DreamBox hard drive."
-msgstr "Kopioi DVD-elokuva Dreamboxin kiintolevylle."
+msgstr "Kopioi DVD-elokuva Hypercubein kiintolevylle."
 
 msgid "Create a backup of your Video-DVD"
 msgstr "Kopioi DVD-elokuvia"
@@ -1630,10 +1630,10 @@ msgid "Create preview pictures of your Movies"
 msgstr "Luo tallenteista esikatselukuvat"
 
 msgid "Create remote timers"
-msgstr "Luo ajastuksia muihin Dreamboxeihin"
+msgstr "Luo ajastuksia muihin Hypercubeeihin"
 
-msgid "Create timers on remote Dreamboxes."
-msgstr "Luo ajastuksia muihin Dreamboxeihin."
+msgid "Create timers on remote Hypercubees."
+msgstr "Luo ajastuksia muihin Hypercubeeihin."
 
 #
 #, python-format
@@ -1770,15 +1770,15 @@ msgstr "DVD-otsikkoluettelo"
 msgid "DVD media toolbox"
 msgstr "DVD-levyn työkalut"
 
-msgid "DVDPlayer plays your DVDs on your Dreambox"
-msgstr "DVD-soitin toistaa DVD:t Dreamboxissa."
+msgid "DVDPlayer plays your DVDs on your Hypercube"
+msgstr "DVD-soitin toistaa DVD:t Hypercubeissa."
 
 msgid ""
-"DVDPlayer plays your DVDs on your Dreambox.\n"
-"With the DVDPlayer you can play your DVDs on your Dreambox from a DVD or "
+"DVDPlayer plays your DVDs on your Hypercube.\n"
+"With the DVDPlayer you can play your DVDs on your Hypercube from a DVD or "
 "even from an iso file or video_ts folder on your harddisc or network."
 msgstr ""
-"DVD-soitin toistaa DVD:t Dreamboxissa.\n"
+"DVD-soitin toistaa DVD:t Hypercubeissa.\n"
 "DVD-soittimella voit toistaa DVD-levyn,  .iso-tiedoston tai video_ts "
 "hakemiston kiintolevyltä tai verkosta."
 
@@ -1834,8 +1834,8 @@ msgstr "Oletukset"
 msgid "Define a startup service"
 msgstr "Määritä aloituskanava"
 
-msgid "Define a startup service for your Dreambox."
-msgstr "Määritä Dreamboxin aloituskanava"
+msgid "Define a startup service for your Hypercube."
+msgstr "Määritä Hypercubein aloituskanava"
 
 #
 msgid "Delay"
@@ -2075,9 +2075,9 @@ msgstr "Haluatko ladata ohjelmistopäivityksen %s :lle ?"
 
 #
 #  Ohjatun asennuksen (Start Wizard) lapsilukkoruutu
-msgid "Do you want to enable the parental control feature on your dreambox?"
+msgid "Do you want to enable the parental control feature on your Hypercube?"
 msgstr ""
-"Dreamboxissa on lapsilukko-\n"
+"Hypercubeissa on lapsilukko-\n"
 "ominaisuus: halutut kanavat\n"
 "voidaan asettaa erikseen\n"
 "määriteltävän tunnusluvun\n"
@@ -2106,8 +2106,8 @@ msgid "Do you want to preview this DVD before burning?"
 msgstr "Haluatko esikatsella tämän DVD:n ennen polttoa?"
 
 #
-msgid "Do you want to reboot your Dreambox?"
-msgstr "Haluatko käynnistää Dreamboxin uudelleen?"
+msgid "Do you want to reboot your Hypercube?"
+msgstr "Haluatko käynnistää Hypercubein uudelleen?"
 
 #
 msgid "Do you want to remove the package:\n"
@@ -2135,15 +2135,15 @@ msgstr ""
 "varten?"
 
 #
-msgid "Do you want to update your Dreambox?"
-msgstr "Haluatko päivittää Dreamboxisi?"
+msgid "Do you want to update your Hypercube?"
+msgstr "Haluatko päivittää Hypercubeisi?"
 
 #
 msgid ""
-"Do you want to update your Dreambox?\n"
+"Do you want to update your Hypercube?\n"
 "After pressing OK, please wait!"
 msgstr ""
-"Haluatko päivittää Dreamboxin?\n"
+"Haluatko päivittää Hypercubein?\n"
 "Paina OK ja odota!"
 
 #
@@ -2217,11 +2217,11 @@ msgid "Downloading screenshots. Please wait..."
 msgstr "Ladataan ruudunkaappauksia. Odota..."
 
 #
-msgid "Dreambox format data DVD (HDTV compatible)"
+msgid "Hypercube format data DVD (HDTV compatible)"
 msgstr "DB-tiedostomuotoinen DVD (HDTV-yht.sopiva)"
 
-msgid "Dreambox software because updates are available."
-msgstr "Dreamboxin ohjelmistoa koska päivityksiä on saatavilla."
+msgid "Hypercube software because updates are available."
+msgstr "Hypercubein ohjelmistoa koska päivityksiä on saatavilla."
 
 msgid "Duration: "
 msgstr "Kesto: "
@@ -2316,13 +2316,13 @@ msgid "Edit tags of recorded movies."
 msgstr "Muokkaa tallenteiden avainsanoja."
 
 #
-msgid "Edit the Nameserver configuration of your Dreambox.\n"
+msgid "Edit the Nameserver configuration of your Hypercube.\n"
 msgstr ""
 "Muokkaan nimipalvelimen asetuksia.\n"
 "\n"
 
 #
-msgid "Edit the network configuration of your Dreambox.\n"
+msgid "Edit the network configuration of your Hypercube.\n"
 msgstr ""
 "Muokkaa lähiverkon asetuksia.\n"
 "\n"
@@ -2348,8 +2348,8 @@ msgstr "Valistus"
 msgid "Electronic Program Guide"
 msgstr "Ohjelmaopas"
 
-msgid "Emailclient is an IMAP4 e-mail viewer for the Dreambox."
-msgstr "Emailclient on IMAP4-sähköpostien lukija Dreamboxille."
+msgid "Emailclient is an IMAP4 e-mail viewer for the Hypercube."
+msgstr "Emailclient on IMAP4-sähköpostien lukija Hypercubeille."
 
 #
 msgid "Enable"
@@ -2459,10 +2459,10 @@ msgid "English"
 msgstr "Englanti"
 
 msgid ""
-"Enigma2 Plugin to play AVI/DIVX/WMV/etc. videos from PC on your Dreambox. "
+"Enigma2 Plugin to play AVI/DIVX/WMV/etc. videos from PC on your Hypercube. "
 "Needs a running VLC from www.videolan.org on your pc."
 msgstr ""
-"Lisäosa AVI/DIVX/WMV/yms. PC:llä olevien videoiden toistoon Dreamboxin "
+"Lisäosa AVI/DIVX/WMV/yms. PC:llä olevien videoiden toistoon Hypercubein "
 "kautta. Tarvitsee www.videolan.org osoitteesta ladattavan VLC-ohjelman "
 "pyörimään PC:lle."
 
@@ -2496,8 +2496,8 @@ msgstr "Aloita kelaus taaksepäin nopeudella"
 msgid "Enter main menu..."
 msgstr "Mene päävalikkoon..."
 
-msgid "Enter new hostname for your Dreambox"
-msgstr "Syötä Dreamboxin uusi verkkonimi"
+msgid "Enter new hostname for your Hypercube"
+msgstr "Syötä Hypercubein uusi verkkonimi"
 
 msgid "Enter options:"
 msgstr "Syötä lisävalinnat:"
@@ -2648,10 +2648,10 @@ msgid "FEC"
 msgstr "FEC"
 
 msgid ""
-"FTPBrowser allows uploading and downloading files between your Dreambox and "
+"FTPBrowser allows uploading and downloading files between your Hypercube and "
 "a server using the file transfer protocol."
 msgstr ""
-"FTPBrowser lisäosalla voit ladata ja lähettää tiedostoja Dreamboxin ja "
+"FTPBrowser lisäosalla voit ladata ja lähettää tiedostoja Hypercubein ja "
 "palvelimen välillä FTP-protokollan avulla."
 
 #
@@ -2813,8 +2813,8 @@ msgstr "Perjantai"
 msgid "Frisian"
 msgstr "Friisi"
 
-msgid "FritzCall shows incoming calls to your Fritz!Box on your Dreambox."
-msgstr "FritzCall näyttää Fritz!Boxiin saapuvat puhelut Dreamboxissa."
+msgid "FritzCall shows incoming calls to your Fritz!Box on your Hypercube."
+msgstr "FritzCall näyttää Fritz!Boxiin saapuvat puhelut Hypercubeissa."
 
 msgid "Frontend for /tmp/mmi.socket"
 msgstr "Käyttöliittymä /tmp/mmi.socketille"
@@ -2832,7 +2832,7 @@ msgid ""
 "GUI needs a restart to apply a new skin\n"
 "Do you want to Restart the GUI now?"
 msgstr ""
-"Teema vaihtuu vasta kun Dreamboxin\n"
+"Teema vaihtuu vasta kun Hypercubein\n"
 "käyttöliittymä on käynnistetty uudelleen.\n"
 "Haluatko käynnistää käyttöliittymän\n"
 "uudelleen nyt?"
@@ -2841,8 +2841,8 @@ msgid "GUI that allows user to change the ftp- / telnet password."
 msgstr "Graafinen käyttöliittymä ftp- ja telnet-salasanan vaihtoon."
 
 msgid ""
-"GUI that allows user to change the ftp-/telnet-password of the Dreambox."
-msgstr "Graafinen käyttöliittymä Dreamboxin ftp- ja telnet-salasanan vaihtoon."
+"GUI that allows user to change the ftp-/telnet-password of the Hypercube."
+msgstr "Graafinen käyttöliittymä Hypercubein ftp- ja telnet-salasanan vaihtoon."
 
 msgid "GUI to change the ftp and telnet-password"
 msgstr "Graafinen käyttöliittymä ftp- ja telnet-salasanan vaihtoon"
@@ -2872,14 +2872,14 @@ msgstr "PCM-viive (ms)"
 msgid "Genre"
 msgstr "Laji"
 
-msgid "Genuine Dreambox"
-msgstr "Aito Dreambox"
+msgid "Genuine Hypercube"
+msgstr "Aito Hypercube"
 
-msgid "Genuine Dreambox validation failed!"
-msgstr "Dreamboxin aitouden varmistus epäonnistui!"
+msgid "Genuine Hypercube validation failed!"
+msgstr "Hypercubein aitouden varmistus epäonnistui!"
 
-msgid "Genuine Dreambox verification"
-msgstr "Dreamboxin aitouden varmistaminen"
+msgid "Genuine Hypercube verification"
+msgstr "Hypercubein aitouden varmistaminen"
 
 #
 msgid "German"
@@ -2944,11 +2944,11 @@ msgid "Green boost"
 msgstr "Vihreän korostus"
 
 msgid ""
-"Growlee allows your Dreambox to send short messages using the growl "
+"Growlee allows your Hypercube to send short messages using the growl "
 "protocol\n"
 "like Recording started notifications to a PC running a growl client"
 msgstr ""
-"Growleen avulla Dreambox voi lähettää lyhyitä Growl-protokollan mukaisia "
+"Growleen avulla Hypercube voi lähettää lyhyitä Growl-protokollan mukaisia "
 "viestejä,\n"
 "esim. ilmoituksen tallennuksen aloittamisesta, PC:lle jossa pyörii Growl-"
 "asiakasohjelma"
@@ -3042,8 +3042,8 @@ msgstr "Sävy"
 msgid "Hungarian"
 msgstr "Unkari"
 
-msgid "IMAP4 e-mail viewer for the Dreambox"
-msgstr "IMAP4-sähköpostien lukija Dreamboxille."
+msgid "IMAP4 e-mail viewer for the Hypercube"
+msgstr "IMAP4-sähköpostien lukija Hypercubeille."
 
 #
 msgid "IP Address"
@@ -3279,15 +3279,15 @@ msgstr "Virheellinen sijainti"
 msgid "Invalid directory selected: %s"
 msgstr "Virheellinen hakemisto valittu: %s"
 
-# File: tmp/enigma2_plugins/genuinedreambox/src/plugin.py, line: 304
+# File: tmp/enigma2_plugins/genuineHypercube/src/plugin.py, line: 304
 msgid "Invalid response from Security service pls restart again"
 msgstr "Virheellinen vastaus turvallisuuspalvelulta, käynnistä uudelleen"
 
-# File: tmp/enigma2_plugins/genuinedreambox/src/plugin.py, line: 132
+# File: tmp/enigma2_plugins/genuineHypercube/src/plugin.py, line: 132
 msgid "Invalid response from server."
 msgstr "Virheellinen vastaus palvelimelta."
 
-# File: tmp/enigma2_plugins/genuinedreambox/src/plugin.py, line: 177
+# File: tmp/enigma2_plugins/genuineHypercube/src/plugin.py, line: 177
 #, python-format
 msgid "Invalid response from server. Please report: %s"
 msgstr "Virheellinen vastaus palvelimelta. Raportoi: %s"
@@ -3331,10 +3331,10 @@ msgstr ""
 msgid "Italian"
 msgstr "Italia"
 
-msgid "Italian Weather forecast on Dreambox"
+msgid "Italian Weather forecast on Hypercube"
 msgstr "Italian sääennuste"
 
-msgid "Italian Weather forecast on Dreambox from www.google.it."
+msgid "Italian Weather forecast on Hypercube from www.google.it."
 msgstr "Italian sääennuste noudettuna www.google.it sivulta."
 
 msgid "Italy"
@@ -3521,7 +3521,7 @@ msgstr "Luettelo tallennusvälineistä"
 msgid "Listen and record internet radio"
 msgstr "Kuuntele ja tallenna Internet-radioita"
 
-msgid "Listen and record shoutcast internet radio on your Dreambox."
+msgid "Listen and record shoutcast internet radio on your Hypercube."
 msgstr "Kuuntele ja tallenna SHOUTcast-radioita."
 
 #
@@ -3954,7 +3954,7 @@ msgstr "Ei saatavilla"
 
 msgid ""
 "NCID Client shows incoming voice calls promoted by any NCID server (e.g. "
-"Vodafone Easybox) on your Dreambox."
+"Vodafone Easybox) on your Hypercube."
 msgstr ""
 
 #
@@ -4005,98 +4005,98 @@ msgstr "Nimipalvelimen asetukset"
 msgid "Nemesis BlackBox Skin"
 msgstr "Nemesis BlackBox teema"
 
-msgid "Nemesis BlackBox Skin for the Dreambox"
-msgstr "Nemesis BlackBox teema Dreamboxille"
+msgid "Nemesis BlackBox Skin for the Hypercube"
+msgstr "Nemesis BlackBox teema Hypercubeille"
 
 msgid "Nemesis Blueline Single Skin"
 msgstr "Nemesis Blueline Single teema"
 
-msgid "Nemesis Blueline Single Skin for the Dreambox"
-msgstr "Nemesis Blueline Single teema Dreamboxille"
+msgid "Nemesis Blueline Single Skin for the Hypercube"
+msgstr "Nemesis Blueline Single teema Hypercubeille"
 
 msgid "Nemesis Blueline Skin"
 msgstr "Nemesis Blueline teema"
 
-msgid "Nemesis Blueline Skin for the Dreambox"
-msgstr "Nemesis Blueline teema Dreamboxille"
+msgid "Nemesis Blueline Skin for the Hypercube"
+msgstr "Nemesis Blueline teema Hypercubeille"
 
 msgid "Nemesis Blueline.Extended Skin"
 msgstr "Nemesis Blueline.Extended teema"
 
-msgid "Nemesis Blueline.Extended Skin for the Dreambox"
-msgstr "Nemesis Blueline.Extended teema Dreamboxille"
+msgid "Nemesis Blueline.Extended Skin for the Hypercube"
+msgstr "Nemesis Blueline.Extended teema Hypercubeille"
 
 msgid "Nemesis ChromeLine Cobolt Skin"
 msgstr "Nemesis ChromeLine Cobolt teema"
 
-msgid "Nemesis ChromeLine Cobolt Skin for the Dreambox"
-msgstr "Nemesis ChromeLine Cobolt teema Dreamboxille"
+msgid "Nemesis ChromeLine Cobolt Skin for the Hypercube"
+msgstr "Nemesis ChromeLine Cobolt teema Hypercubeille"
 
 msgid "Nemesis ChromeLine Skin"
 msgstr "Nemesis ChromeLine teema"
 
-msgid "Nemesis ChromeLine Skin for the Dreambox"
-msgstr "Nemesis ChromeLine teema Dreamboxille"
+msgid "Nemesis ChromeLine Skin for the Hypercube"
+msgstr "Nemesis ChromeLine teema Hypercubeille"
 
 msgid "Nemesis Flatline Blue Skin"
 msgstr "Nemesis Flatline Blue teema"
 
-msgid "Nemesis Flatline Blue Skin for the Dreambox"
-msgstr "Nemesis Flatline Blue teema Dreamboxille"
+msgid "Nemesis Flatline Blue Skin for the Hypercube"
+msgstr "Nemesis Flatline Blue teema Hypercubeille"
 
 msgid "Nemesis Flatline Skin"
 msgstr "Nemesis Flatline teema"
 
-msgid "Nemesis Flatline Skin for the Dreambox"
-msgstr "Nemesis Flatline teema Dreamboxille"
+msgid "Nemesis Flatline Skin for the Hypercube"
+msgstr "Nemesis Flatline teema Hypercubeille"
 
 msgid "Nemesis GlassLine Skin"
 msgstr "Nemesis GlassLine teema"
 
-msgid "Nemesis GlassLine Skin for the Dreambox"
-msgstr "Nemesis GlassLine teema Dreamboxille"
+msgid "Nemesis GlassLine Skin for the Hypercube"
+msgstr "Nemesis GlassLine teema Hypercubeille"
 
 msgid "Nemesis Greenline Extended Skin"
 msgstr "Nemesis Greenline Extended teema"
 
-msgid "Nemesis Greenline Extended Skin for the Dreambox"
-msgstr "Nemesis Greenline Extended teema Dreamboxille"
+msgid "Nemesis Greenline Extended Skin for the Hypercube"
+msgstr "Nemesis Greenline Extended teema Hypercubeille"
 
 msgid "Nemesis Greenline Single Skin"
 msgstr "Nemesis Greenline Single teema"
 
-msgid "Nemesis Greenline Single Skin for the Dreambox"
-msgstr "Nemesis Greenline Single teema Dreamboxille"
+msgid "Nemesis Greenline Single Skin for the Hypercube"
+msgstr "Nemesis Greenline Single teema Hypercubeille"
 
 msgid "Nemesis Greenline Skin"
 msgstr "Nemesis Greenline teema"
 
-msgid "Nemesis Greenline Skin for the Dreambox"
-msgstr "Nemesis Greenline teema Dreamboxille"
+msgid "Nemesis Greenline Skin for the Hypercube"
+msgstr "Nemesis Greenline teema Hypercubeille"
 
 msgid "Nemesis Greyline Extended Skin"
 msgstr "Nemesis Greyline Extended teema"
 
-msgid "Nemesis Greyline Extended Skin for the Dreambox"
-msgstr "Nemesis Greyline Extended teema Dreamboxille"
+msgid "Nemesis Greyline Extended Skin for the Hypercube"
+msgstr "Nemesis Greyline Extended teema Hypercubeille"
 
 msgid "Nemesis Greyline Single Skin"
 msgstr "Nemesis Greyline Single teema"
 
-msgid "Nemesis Greyline Single Skin for the Dreambox"
-msgstr "Nemesis Greyline Single teema Dreamboxille"
+msgid "Nemesis Greyline Single Skin for the Hypercube"
+msgstr "Nemesis Greyline Single teema Hypercubeille"
 
 msgid "Nemesis Greyline Skin"
 msgstr "Nemesis Greyline teema"
 
-msgid "Nemesis Greyline Skin for the Dreambox"
-msgstr "Nemesis Greyline teema Dreamboxille"
+msgid "Nemesis Greyline Skin for the Hypercube"
+msgstr "Nemesis Greyline teema Hypercubeille"
 
 msgid "Nemesis ShadowLine Skin"
 msgstr "Nemesis ShadowLine teema"
 
-msgid "Nemesis ShadowLine Skin for the Dreambox"
-msgstr "Nemesis ShadowLine teema Dreamboxille"
+msgid "Nemesis ShadowLine Skin for the Hypercube"
+msgstr "Nemesis ShadowLine teema Hypercubeille"
 
 #
 msgid "Netmask"
@@ -4271,12 +4271,12 @@ msgstr ""
 #
 msgid "No positioner capable frontend found."
 msgstr ""
-"Dreamboxissasi ei ole satelliittiviritintä,\n"
+"Hypercubeissasi ei ole satelliittiviritintä,\n"
 "joka hallitsisi kääntömoottorin ohjauksen."
 
 #
 msgid "No satellite frontend found!!"
-msgstr "Dreamboxissasi ei ole satelliittiviritintä."
+msgstr "Hypercubeissasi ei ole satelliittiviritintä."
 
 #
 msgid "No tags are set on these movies."
@@ -4373,8 +4373,8 @@ msgid "No, do nothing."
 msgstr "Ei, älä tee mitään."
 
 #
-msgid "No, just start my dreambox"
-msgstr "Ei, käynnistä vain Dreambox"
+msgid "No, just start my Hypercube"
+msgstr "Ei, käynnistä vain Hypercube"
 
 msgid "No, never"
 msgstr "Ei koskaan"
@@ -4599,10 +4599,10 @@ msgid "Parental control type"
 msgstr "Lapsilukon tyyppi"
 
 msgid ""
-"Partnerbox allows editing a remote Dreambox's record timers and stream its "
+"Partnerbox allows editing a remote Hypercube's record timers and stream its "
 "TV  program."
 msgstr ""
-"Partnerboxin avulla voit verkon kautta muokata toisen Dreamboxin ajastuksia "
+"Partnerboxin avulla voit verkon kautta muokata toisen Hypercubein ajastuksia "
 "ja katsella sen kanavia."
 
 #
@@ -4682,8 +4682,8 @@ msgstr "Toista tallenteet..."
 msgid "Play video again"
 msgstr "Toista video uudestaan"
 
-msgid "Play videos from PC on your Dreambox"
-msgstr "Toista elokuvia PC:ltä Dreamboxin kautta"
+msgid "Play videos from PC on your Hypercube"
+msgstr "Toista elokuvia PC:ltä Hypercubein kautta"
 
 msgid "Playback of Youtube through a PC"
 msgstr ""
@@ -4980,7 +4980,7 @@ msgstr "Lisäosa: %(plugin)s , Versio: %(version)s"
 msgid "Plugins"
 msgstr "Plugin-lisäosat"
 
-msgid "PodCast streams podcasts to your Dreambox."
+msgid "PodCast streams podcasts to your Hypercube."
 msgstr ""
 
 msgid "Poland"
@@ -5539,8 +5539,8 @@ msgstr "Palautus käynnissä"
 msgid "Restore system settings"
 msgstr "Palauta asetukset"
 
-msgid "Restore your Dreambox with a USB stick"
-msgstr "Palauta Dreamboxin ohjelmisto USB-muistitikulta"
+msgid "Restore your Hypercube with a USB stick"
+msgstr "Palauta Hypercubein ohjelmisto USB-muistitikulta"
 
 msgid "Restrict \"after event\" to a certain timespan?"
 msgstr "Rajoita \"ohjelman jälkeen\" toiminto tiettyyn aikajaksoon."
@@ -6126,8 +6126,8 @@ msgstr "Aseta maksimikesto"
 msgid "Set this NO to disable this AutoTimer."
 msgstr "Poista tämä automaattiajastus käytöstä laittamalla arvoksi Ei."
 
-msgid "Sets your Dreambox into Deep-Standby"
-msgstr "Sammuttaa Dreamboxin virransäästötilaan"
+msgid "Sets your Hypercube into Deep-Standby"
+msgstr "Sammuttaa Hypercubein virransäästötilaan"
 
 #
 msgid "Setting key canceled"
@@ -6255,8 +6255,8 @@ msgid "Shutdown"
 msgstr "Sammuta"
 
 #
-msgid "Shutdown Dreambox after"
-msgstr "Sammuta Dreambox jälkeenpäin"
+msgid "Shutdown Hypercube after"
+msgstr "Sammuta Hypercube jälkeenpäin"
 
 #
 msgid "Signal Strength:"
@@ -6285,8 +6285,8 @@ msgstr ""
 msgid "Simple titleset (compatibility for legacy players)"
 msgstr "Suppea (yhteensopiva vanhojen soittimien kanssa)"
 
-msgid "SimpleRSS allows reading RSS newsfeeds on your Dreambox."
-msgstr "SimpleRSS:llä voit lukea RSS-feedejä Dreamboxilla."
+msgid "SimpleRSS allows reading RSS newsfeeds on your Hypercube."
+msgstr "SimpleRSS:llä voit lukea RSS-feedejä Hypercubeilla."
 
 #
 msgid "Single"
@@ -6369,8 +6369,8 @@ msgstr "Ohjelmiston palautus"
 msgid "Software update"
 msgstr "Ohjelmiston päivitys"
 
-msgid "SoftwareManager manages your Dreambox software"
-msgstr "Ohjelmiston hallinta hallitse Dreamboxin ohjelmistoja"
+msgid "SoftwareManager manages your Hypercube software"
+msgstr "Ohjelmiston hallinta hallitse Hypercubein ohjelmistoja"
 
 msgid "Softwaremanager information"
 msgstr "Ohjelmiston hallinnan tiedot"
@@ -6688,7 +6688,7 @@ msgstr "Testaa DiSEqC-asetukset"
 msgid "Test Type"
 msgstr "Testin tyyppi"
 
-# File: tmp/enigma2_plugins/genuinedreambox/src/plugin.py, line: 80
+# File: tmp/enigma2_plugins/genuineHypercube/src/plugin.py, line: 80
 msgid "Test again"
 msgstr "Testaa uudestaan"
 
@@ -6697,7 +6697,7 @@ msgid "Test mode"
 msgstr "Virityskuvan lähetys"
 
 #
-msgid "Test the network configuration of your Dreambox.\n"
+msgid "Test the network configuration of your Hypercube.\n"
 msgstr ""
 "Testaa lähiverkon toiminta.\n"
 "\n"
@@ -6724,7 +6724,7 @@ msgstr ""
 #  että teksti rivittyy tv-ruudulla oikein.
 msgid ""
 "Thank you for using the wizard. Your box is now ready to use.\n"
-"Please press OK to start using your Dreambox."
+"Please press OK to start using your Hypercube."
 msgstr ""
 "Laitteesi on nyt käyttökunnossa.\n"
 "Ohjattu asennus päättyy tähän.\n"
@@ -6744,7 +6744,7 @@ msgstr ""
 "Jatka painamalla OK."
 
 msgid ""
-"The CleanupWizard informs you when the internal free memory of your dreambox "
+"The CleanupWizard informs you when the internal free memory of your Hypercube "
 "has dropped below a definable threshold.You can use this wizard to remove "
 "some plugins."
 msgstr ""
@@ -6752,10 +6752,10 @@ msgstr ""
 #
 msgid ""
 "The DVD standard doesn't support H.264 (HDTV) video streams. Do you want to "
-"create a Dreambox format data DVD (which will not play in stand-alone DVD "
+"create a Hypercube format data DVD (which will not play in stand-alone DVD "
 "players) instead?"
 msgstr ""
-"DVD-standardi ei tue H.264 (HDTV) videota. Haluatko luoda Dreamboxin omassa "
+"DVD-standardi ei tue H.264 (HDTV) videota. Haluatko luoda Hypercubein omassa "
 "formaatissa olevan data-DVD:n? Levy ei toistu normaaleissa DVD-soittimissa."
 
 msgid ""
@@ -6796,11 +6796,11 @@ msgstr ""
 
 msgid ""
 "The SkinSelector shows a menu with selectable skins.\n"
-"It's now easy to change the look and feel of your Dreambox."
+"It's now easy to change the look and feel of your Hypercube."
 msgstr ""
 
 msgid ""
-"The SoftwareManager manages your Dreambox software.\n"
+"The SoftwareManager manages your Hypercube software.\n"
 "It's easy to update your receiver's software, install or remove plugins or "
 "even backup and restore your system settings."
 msgstr ""
@@ -6909,9 +6909,9 @@ msgstr "Oletuskanavalistojen asennus on suoritettu."
 #
 msgid ""
 "The installation of the default settings is finished. You can now continue "
-"configuring your Dreambox by pressing the OK button on the remote control."
+"configuring your Hypercube by pressing the OK button on the remote control."
 msgstr ""
-"Oletusarvojen asennus on suoritettu. Voit jatkaa Dreamboxin asetusten "
+"Oletusarvojen asennus on suoritettu. Voit jatkaa Hypercubein asetusten "
 "muokkausta painamalla OK."
 
 msgid "The match attribute is mandatory."
@@ -7033,12 +7033,12 @@ msgstr "Virhe haettaessa feedien nimiä. Yritä uudestaan."
 msgid "There was an error. The package:"
 msgstr "Tapahtui virhe. Paketti:"
 
-# File: tmp/enigma2_plugins/genuinedreambox/src/plugin.py, line: 130
+# File: tmp/enigma2_plugins/genuineHypercube/src/plugin.py, line: 130
 msgid ""
-"There's a certificate update available for your dreambox. Would you like to "
+"There's a certificate update available for your Hypercube. Would you like to "
 "apply this update now?"
 msgstr ""
-"Dreamboxiisi on saatavilla päivitetty sertifikaatti. Asennetaanko päivitys "
+"Hypercubeiisi on saatavilla päivitetty sertifikaatti. Asennetaanko päivitys "
 "nyt?"
 
 #
@@ -7051,8 +7051,8 @@ msgstr ""
 
 #
 #, python-format
-msgid "This Dreambox can't decode %s streams!"
-msgstr "Tämä Dreambox ei pysty purkamaan %s lähteitä!"
+msgid "This Hypercube can't decode %s streams!"
+msgstr "Tämä Hypercube ei pysty purkamaan %s lähteitä!"
 
 #
 msgid "This Month"
@@ -7093,14 +7093,14 @@ msgstr ""
 
 msgid ""
 "This plugin creates a USB stick which can be used to update the firmware of "
-"your Dreambox without the need for a network or WLAN connection.\n"
+"your Hypercube without the need for a network or WLAN connection.\n"
 "First, a USB stick needs to be prepared so that it becomes bootable.\n"
 "In the next step, an NFI image file can be downloaded from the update server "
 "and saved on the USB stick.\n"
 "If you already have a prepared bootable USB stick, please insert it now. "
 "Otherwise plug in a USB stick with a minimum size of 64 MB!"
 msgstr ""
-"Tämä lisäosa luo USB-muistitikun jolla Dreamboxin ohjelmisto voidaan "
+"Tämä lisäosa luo USB-muistitikun jolla Hypercubein ohjelmisto voidaan "
 "päivittää ilman verkkoyhteyttä. \n"
 "Aluksi USB-muistitikku pitää alustaa jotta siitä tulee automaattisesti "
 "käynnistyvä.\n"
@@ -7323,14 +7323,14 @@ msgid "To be used as simple downloading application by other Plugins."
 msgstr ""
 
 msgid ""
-"To update your Dreambox firmware, please follow these steps:\n"
+"To update your Hypercube firmware, please follow these steps:\n"
 "1) Turn off your box with the rear power switch and make sure the bootable "
 "USB stick is plugged in.\n"
 "2) Turn mains back on and hold the DOWN button on the front panel pressed "
 "for 10 seconds.\n"
 "3) Wait for bootup and follow instructions of the wizard."
 msgstr ""
-"Päivitä Dreamboxin ohjelmisto näiden ohjeiden mukaisesti:\n"
+"Päivitä Hypercubein ohjelmisto näiden ohjeiden mukaisesti:\n"
 "1) Kytke virta pois päältä takapaneelin kytkimestä ja liitä automaattisesti "
 "käynnistyvä USB-muistitikku.\n"
 "2) Kytke virta takaisin päälle ja pidä etupaneelin nuoli alas -näppäintä 10 "
@@ -7572,18 +7572,18 @@ msgstr "Päivitä"
 msgid "Update done..."
 msgstr "Päivitys tehty..."
 
-# File: tmp/enigma2_plugins/genuinedreambox/src/plugin.py, line: 170
+# File: tmp/enigma2_plugins/genuineHypercube/src/plugin.py, line: 170
 msgid ""
-"Update done... The genuine dreambox test will now be rerun and should not "
+"Update done... The genuine Hypercube test will now be rerun and should not "
 "ask you to update again."
 msgstr ""
-"Päivitys valmis... Dreamboxin aitoustesti käynnistyy uudelleen eikä sen "
+"Päivitys valmis... Hypercubein aitoustesti käynnistyy uudelleen eikä sen "
 "pitäisi kysyä päivitystä enää."
 
 msgid "Updatefeed not available."
 msgstr "Päivityslähde ei ole saatavilla."
 
-# File: tmp/enigma2_plugins/genuinedreambox/src/plugin.py, line: 150
+# File: tmp/enigma2_plugins/genuineHypercube/src/plugin.py, line: 150
 msgid ""
 "Updating failed. Nothing is broken, just the update couldn't be applied."
 msgstr ""
@@ -7612,8 +7612,8 @@ msgid "Upgrading"
 msgstr "Päivitetään"
 
 #
-msgid "Upgrading Dreambox... Please wait"
-msgstr "Päivitetään Dreamboxia... Odota"
+msgid "Upgrading Hypercube... Please wait"
+msgstr "Päivitetään Hypercubeia... Odota"
 
 msgid "Upper bound of timespan."
 msgstr "Aikajakson yläraja."
@@ -7648,7 +7648,7 @@ msgstr "Käytä muokattua tallennushakemistoa"
 msgid "Use a gateway"
 msgstr "Käytä yhdyskäytävää"
 
-msgid "Use and control multiple Dreamboxes with different RCs."
+msgid "Use and control multiple Hypercubees with different RCs."
 msgstr ""
 
 #
@@ -7755,8 +7755,8 @@ msgid "Vali.HD.nano skin"
 msgstr ""
 
 msgid ""
-"Verify your Dreambox authenticity by running the genuine dreambox plugin!"
-msgstr "Tarkista Dreamboxin aitous suorittamalla Aito Dreambox -lisäosa!"
+"Verify your Hypercube authenticity by running the genuine Hypercube plugin!"
+msgstr "Tarkista Hypercubein aitous suorittamalla Aito Hypercube -lisäosa!"
 
 #
 msgid "Vertical"
@@ -7840,8 +7840,8 @@ msgstr "Katselukerrat"
 msgid "View Google maps"
 msgstr "Katsele Googlen karttoja"
 
-msgid "View Google maps with your Dreambox."
-msgstr "Katsele Googlen karttoja Dreamboxin kautta."
+msgid "View Google maps with your Hypercube."
+msgstr "Katsele Googlen karttoja Hypercubein kautta."
 
 #
 msgid "View Movies..."
@@ -7925,8 +7925,8 @@ msgstr "Näytä vastausvideot"
 msgid "View teletext..."
 msgstr "Näytä teksti-tv..."
 
-msgid "View, edit or delete mountpoints on your Dreambox."
-msgstr "Näytä, muokkaa tai poista Dreamboxin liitoksia."
+msgid "View, edit or delete mountpoints on your Hypercube."
+msgstr "Näytä, muokkaa tai poista Hypercubein liitoksia."
 
 msgid "View, edit or delete usernames and passwords for your network."
 msgstr "Näytä, muokkaa tai poista verkon käyttäjänimiä ja salasanoja."
@@ -8000,10 +8000,10 @@ msgstr "Varoita jos tyhjä tila putoaa alle (kB):"
 msgid "Watch streams from ZDF Mediathek"
 msgstr ""
 
-msgid "WeatherPlugin shows weatherforecasts on your Dreambox."
+msgid "WeatherPlugin shows weatherforecasts on your Hypercube."
 msgstr ""
 
-msgid "Weatherforecast on your Dreambox"
+msgid "Weatherforecast on your Hypercube"
 msgstr ""
 
 msgid "Webinterface"
@@ -8056,7 +8056,7 @@ msgstr ""
 #
 msgid ""
 "Welcome to the Image upgrade wizard. The wizard will assist you in upgrading "
-"the firmware of your Dreambox by providing a backup facility for your "
+"the firmware of your Hypercube by providing a backup facility for your "
 "current settings and a short explanation of how to upgrade your firmware."
 msgstr ""
 "Tervetuloa ohjelmiston päivitysavustajaan. Avustaja opastaa ohjelmiston "
@@ -8114,29 +8114,29 @@ msgid ""
 "Welcome to the cleanup wizard.\n"
 "\n"
 "We have detected that your available internal memory has dropped below 2MB.\n"
-"To ensure stable operation of your Dreambox, the internal memory should be "
+"To ensure stable operation of your Hypercube, the internal memory should be "
 "cleaned up.\n"
 "You can use this wizard to remove some extensions.\n"
 msgstr ""
 "Tervetuloa puhdistusavustajaan.\n"
 "\n"
 "Tunnistimme, että vapaa sisäinen muisti putosi alle 2MB:n.\n"
-"Jotta Dreamboxin toiminta olisi vakaata, pitää sisäistä muistia vapauttaa.\n"
+"Jotta Hypercubein toiminta olisi vakaata, pitää sisäistä muistia vapauttaa.\n"
 "Voit poistaa lisäosia tällä avustajalla.\n"
 
 #
 msgid ""
 "Welcome.\n"
 "\n"
-"If you want to connect your Dreambox to the Internet, this wizard will guide "
-"you through the basic network setup of your Dreambox.\n"
+"If you want to connect your Hypercube to the Internet, this wizard will guide "
+"you through the basic network setup of your Hypercube.\n"
 "\n"
 "Press OK to start configuring your network"
 msgstr ""
 "Tervetuloa.\n"
 "\n"
-"Jos haluat yhdistää Dreamboxin verkkoon, auttaa tämä avustaja määrittämään "
-"Dreamboxin lähiverhon perusasetukset.\n"
+"Jos haluat yhdistää Hypercubein verkkoon, auttaa tämä avustaja määrittämään "
+"Hypercubein lähiverhon perusasetukset.\n"
 "\n"
 "Siirry seuraavaan vaiheeseen painamalla OK-nappia."
 
@@ -8160,13 +8160,13 @@ msgstr ""
 msgid ""
 "Welcome.\n"
 "\n"
-"This start wizard will guide you through the basic setup of your Dreambox.\n"
+"This start wizard will guide you through the basic setup of your Hypercube.\n"
 "Press the OK button on your remote control to move to the next step."
 msgstr ""
 "Tervetuloa.\n"
 "\n"
 "Tämä asennustoiminto neuvoo\n"
-"kuinka laitat Dreamboxin\n"
+"kuinka laitat Hypercubein\n"
 "perusasetukset kuntoon.\n"
 "\n"
 "Aloita asennus painamalla\n"
@@ -8238,17 +8238,17 @@ msgid ""
 msgstr ""
 
 msgid ""
-"With DVDBurn you can make compilations of records from your Dreambox hard "
+"With DVDBurn you can make compilations of records from your Hypercube hard "
 "drive.\n"
 "Optionally you can add customizable menus. You can record the compilation to "
 "a standard-compliant DVD that can be played on conventinal DVD players.\n"
-"HDTV recordings can only be burned in proprietary dreambox format."
+"HDTV recordings can only be burned in proprietary Hypercube format."
 msgstr ""
 
 msgid "With EPGSearch you can search through the EPG and create timers."
 msgstr ""
 
-msgid "With Genuine Dreambox you can verify the authenticity of your Dreambox."
+msgid "With Genuine Hypercube you can verify the authenticity of your Hypercube."
 msgstr ""
 
 msgid ""
@@ -8273,13 +8273,13 @@ msgid ""
 msgstr ""
 
 msgid ""
-"With YouTubePlayer you can watch YouTube-Videos on the Dreambox.\n"
+"With YouTubePlayer you can watch YouTube-Videos on the Hypercube.\n"
 "This plugin requires a PC with the VLC program running."
 msgstr ""
 
 msgid ""
 "With the CommonInterfaceAssignment plugin it is possible to use differentCI "
-"modules in your Dreambox and assign dedicated providers/services or caids to "
+"modules in your Hypercube and assign dedicated providers/services or caids to "
 "each of them.\n"
 "This allows watching a scrambled service while recording another one."
 msgstr ""
@@ -8301,8 +8301,8 @@ msgstr ""
 
 msgid ""
 "With the NFIFlash plugin it is possible to prepare a USB stick with an "
-"Dreambox image.\n"
-"It is then possible to flash your Dreambox with the image on that stick."
+"Hypercube image.\n"
+"It is then possible to flash your Hypercube with the image on that stick."
 msgstr ""
 
 msgid ""
@@ -8433,8 +8433,8 @@ msgstr "Voit valita, mitä haluat asentaa..."
 msgid "You can install this plugin."
 msgstr "Voit asentaa tämän lisäosan."
 
-msgid "You can only burn Dreambox recordings!"
-msgstr "Voit polttaa vain Dreamboxin tallenteita!"
+msgid "You can only burn Hypercube recordings!"
+msgstr "Voit polttaa vain Hypercubein tallenteita!"
 
 #
 msgid "You can remove this plugin."
@@ -8518,9 +8518,9 @@ msgstr "Sinun täytyy odottaa %s!"
 
 #
 msgid ""
-"You need a PC connected to your dreambox. If you need further instructions, "
+"You need a PC connected to your Hypercube. If you need further instructions, "
 "please visit the website http://www.dm7025.de.\n"
-"Your dreambox will now be halted. After you have performed the update "
+"Your Hypercube will now be halted. After you have performed the update "
 "instructions from the website, your new firmware will ask you to restore "
 "your settings."
 msgstr ""
@@ -8553,33 +8553,33 @@ msgstr ""
 "Vahvista, että tämä on tahallista. Muussa tapauksessa välilyönti poistetaan."
 
 msgid ""
-"Your Dreambox is now ready to use.\n"
+"Your Hypercube is now ready to use.\n"
 "\n"
 "Your internet connection is working now.\n"
 "\n"
 msgstr ""
-"Dreambox on nyt valmis käyttöön.\n"
+"Hypercube on nyt valmis käyttöön.\n"
 "\n"
 "Verkkoyhteys toimii.\n"
 "\n"
 
 #
 msgid ""
-"Your Dreambox is now ready to use.\n"
+"Your Hypercube is now ready to use.\n"
 "\n"
 "Your internet connection is working now.\n"
 "\n"
 "Please press OK to continue."
 msgstr ""
-"Dreambox on nyt valmis käyttöön.\n"
+"Hypercube on nyt valmis käyttöön.\n"
 "\n"
 "Lähiverkkoyhteys toimii.\n"
 "\n"
 "Jatka painamalla OK-näppäintä."
 
 #
-msgid "Your Dreambox will restart after pressing OK on your remote control."
-msgstr "Dreambox käynnistyy uudelleen kun painat OK."
+msgid "Your Hypercube will restart after pressing OK on your remote control."
+msgstr "Hypercube käynnistyy uudelleen kun painat OK."
 
 #
 msgid ""
@@ -8606,12 +8606,12 @@ msgid "Your current collection will get lost!"
 msgstr "Nykyinen kokoelma häviää!"
 
 #
-msgid "Your dreambox is shutting down. Please stand by..."
+msgid "Your Hypercube is shutting down. Please stand by..."
 msgstr "Laite sammutetaan. Odota..."
 
 #
 msgid ""
-"Your dreambox isn't connected to the internet properly. Please check it and "
+"Your Hypercube isn't connected to the internet properly. Please check it and "
 "try again."
 msgstr ""
 "Yhteyttä Internetiin ei kyetty muodostamaan. Tarkista verkkoasetukset ja "
@@ -8971,8 +8971,8 @@ msgstr "kytketty"
 msgid "continue"
 msgstr "jatka"
 
-msgid "control multiple Dreamboxes with different RCs"
-msgstr "Käytä Dreamboxeja eri kaukosäätimillä"
+msgid "control multiple Hypercubees with different RCs"
+msgstr "Käytä Hypercubeeja eri kaukosäätimillä"
 
 #
 msgid "copy to bouquets"
@@ -9900,10 +9900,10 @@ msgstr "valmiustilaan/uudelleenkäynnistykseen asti"
 msgid "use as HDD replacement"
 msgstr "käytä kiintolevyn tilalla"
 
-msgid "use your Dreambox as Web proxy"
-msgstr "Käytä Dreamboxia WWW-proxyna"
+msgid "use your Hypercube as Web proxy"
+msgstr "Käytä Hypercubeia WWW-proxyna"
 
-msgid "use your Dreambox as Web proxy."
+msgid "use your Hypercube as Web proxy."
 msgstr ""
 
 #
@@ -9964,10 +9964,10 @@ msgstr "Kyllä (pidä feedit)"
 
 #
 msgid ""
-"your dreambox might be unusable now. Please consult the manual for further "
-"assistance before rebooting your dreambox."
+"your Hypercube might be unusable now. Please consult the manual for further "
+"assistance before rebooting your Hypercube."
 msgstr ""
-"Asennus ei onnistunut. Dreambox saattaa olla käyttökelvottomassa tilassa. "
+"Asennus ei onnistunut. Hypercube saattaa olla käyttökelvottomassa tilassa. "
 "Joudut ehkä asentamaan ohjelmiston uudelleen tietokoneen avulla. Katso "
 "käyttöoppaasta lisäohjeita ennen kuin käynnistät laitteen uudelleen."
 
@@ -10342,8 +10342,8 @@ msgstr "vaihdettu"
 #~ msgstr "Kielivalinta..."
 
 #
-#~ msgid "Lets you view/edit files in your Dreambox"
-#~ msgstr "Katsele/muokkaa Dreamboxin tiedostoja"
+#~ msgid "Lets you view/edit files in your Hypercube"
+#~ msgstr "Katsele/muokkaa Hypercubein tiedostoja"
 
 #
 #~ msgid "Max. Bitrate: %s"
@@ -10403,10 +10403,10 @@ msgstr "vaihdettu"
 #~ msgstr "Valitse päivityspalvelimelta NFI-päivitys latausta varten"
 
 #~ msgid ""
-#~ "Please disconnect all USB devices from your Dreambox and (re-)attach the "
+#~ "Please disconnect all USB devices from your Hypercube and (re-)attach the "
 #~ "target USB stick (minimum size is 64 MB) now!"
 #~ msgstr ""
-#~ "Poista kaikki USB-laitteet Dreamboxista ja kytke/uudelleenkytke kohde USB-"
+#~ "Poista kaikki USB-laitteet Hypercubeista ja kytke/uudelleenkytke kohde USB-"
 #~ "muistitikku (minimikoko 64 MB) nyt!"
 
 #
@@ -10691,8 +10691,8 @@ msgstr "vaihdettu"
 #~ "ohjelmistopäivityksen asentamista?"
 
 #
-#~ msgid "This Dreambox can't decode %s video streams!"
-#~ msgstr "Dreambox ei voi purkaa %s video-raitoja!"
+#~ msgid "This Hypercube can't decode %s video streams!"
+#~ msgstr "Hypercube ei voi purkaa %s video-raitoja!"
 
 #
 #~ msgid "This is unsupported at the moment."
@@ -10703,14 +10703,14 @@ msgstr "vaihdettu"
 #~ msgstr "Ajansiirron hakemisto..."
 
 #~ msgid ""
-#~ "To update your Dreambox firmware, please follow these steps:\n"
+#~ "To update your Hypercube firmware, please follow these steps:\n"
 #~ "1) Turn off your box with the rear power switch and plug in the bootable "
 #~ "USB stick.\n"
 #~ "2) Turn mains back on and hold the DOWN button on the front panel pressed "
 #~ "for 10 seconds.\n"
 #~ "3) Wait for bootup and follow instructions of the wizard."
 #~ msgstr ""
-#~ "Päivitä Dreamboxin ohjelmisto näiden ohjeiden mukaisesti:\n"
+#~ "Päivitä Hypercubein ohjelmisto näiden ohjeiden mukaisesti:\n"
 #~ "1) Kytke virta pois päältä takapaneelin kytkimestä ja liitä "
 #~ "automaattisesti käynnistyvä USB-muistitikku.\n"
 #~ "2) Kytke virta takaisin päälle ja pidä etupaneelin nuoli alas -näppäintä "
@@ -10722,10 +10722,10 @@ msgstr "vaihdettu"
 #~ msgstr "USB"
 
 #~ msgid ""
-#~ "USB stick wizard finished. Your dreambox will now restart with your new "
+#~ "USB stick wizard finished. Your Hypercube will now restart with your new "
 #~ "image!"
 #~ msgstr ""
-#~ "USB-muistiavustaja on valmis. Dreambox käynnistyy nyt uudella "
+#~ "USB-muistiavustaja on valmis. Hypercube käynnistyy nyt uudella "
 #~ "ohjelmistolla!"
 
 #
@@ -10753,8 +10753,8 @@ msgstr "vaihdettu"
 #~ msgstr "Päivitä"
 
 #
-#~ msgid "Upgrade finished. Do you want to reboot your Dreambox?"
-#~ msgstr "Päivitys suoritettu. Haluatko käynnistää Dreamboxin uudelleen?"
+#~ msgid "Upgrade finished. Do you want to reboot your Hypercube?"
+#~ msgstr "Päivitys suoritettu. Haluatko käynnistää Hypercubein uudelleen?"
 
 #
 #~ msgid "Use calc. delays"
@@ -10793,7 +10793,7 @@ msgstr "vaihdettu"
 
 #
 #~ msgid ""
-#~ "You do not seem to have a harddisk in your Dreambox. So backing up to a "
+#~ "You do not seem to have a harddisk in your Hypercube. So backing up to a "
 #~ "harddisk is not an option for you."
 #~ msgstr ""
 #~ "Laitteessasi ei näytä olevan kiintolevyä, joten et voi varmuuskopioida "
