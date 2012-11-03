@@ -245,8 +245,7 @@ void bsodFatal(const char *component)
 	eRect usable_area = eRect(100, 70, my_dc->size().width() - 150, 100);
 	
 	std::string text("We are really sorry. Your Hypercube encountered "
-		"a software problem, and needs to be restarted. "
-		"Please send the logfile created in /hdd/ to " + crash_emailaddr + ".\n"
+		"a software problem, and needs to be restarted. \n"
 		"Your Hypercube restarts in 10 seconds!\n"
 		"Component: " + crash_component);
 
