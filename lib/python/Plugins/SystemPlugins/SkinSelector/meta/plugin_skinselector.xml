@@ -11,7 +11,7 @@
                     <description>The SkinSelector shows a menu with selectable skins.\n
                     It's now easy to change the look and feel of your Hypercube.
                     </description>
-                    <screenshot src="http://www.dreamboxupdate.com/preview/plugin_skinselector_en.jpg" />
+                    <screenshot src="(http://www.dreamboxupdate.com/preview/plugin_skinselector_en.jpg)" />
           </info>
 
 	  <files type="package"> <!-- without version, without .ipk -->

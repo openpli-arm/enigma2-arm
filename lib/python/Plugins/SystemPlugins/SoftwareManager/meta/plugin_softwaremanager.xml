@@ -11,7 +11,7 @@
                     <description>The SoftwareManager manages your Hypercube software.\n
 		    It's easy to update your receiver's software, install or remove plugins or even backup and restore your system settings.
                     </description>
-                    <screenshot src="http://www.dreamboxupdate.com/preview/plugin_softwaremanager_en.jpg" />
+                    <screenshot src="(http://www.dreamboxupdate.com/preview/plugin_softwaremanager_en.jpg)" />
           </info>
 
 	  <files type="package"> <!-- without version, without .ipk -->

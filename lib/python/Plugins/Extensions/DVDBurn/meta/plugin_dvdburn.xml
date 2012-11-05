@@ -10,8 +10,8 @@
                     <shortdescription>Burn your recordings to DVD</shortdescription>
                     <description>With DVDBurn you can make compilations of records from your Hypercube hard drive.\n
 		    Optionally you can add customizable menus. You can record the compilation to a standard-compliant DVD that can be played on conventinal DVD players.\n
-		    HDTV recordings can only be burned in proprietary dreambox format.</description>
-                    <screenshot src="http://www.dreamboxupdate.com/preview/plugin_dvdburn_en.jpg" />
+		    HDTV recordings can only be burned in proprietary Hypercube format.</description>
+                    <screenshot src="(http://www.dreamboxupdate.com/preview/plugin_dvdburn_en.jpg)" />
           </info>
 
 	  <files type="package"> <!-- without version, without .ipk -->

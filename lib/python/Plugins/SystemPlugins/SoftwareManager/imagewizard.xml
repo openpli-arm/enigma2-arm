@@ -8,7 +8,7 @@ self.condition = (self.backuppath is not None and config.misc.firstrun.value)
 		<text value="Do you want to restore your settings?" />
 		<list>
 			<listentry caption="Yes, restore the settings now" step="restore" />
-			<listentry caption="No, just start my dreambox" step="end" />
+			<listentry caption="No, just start my Hypercube" step="end" />
 		</list>
 		<code>
 self.clearSelectedKeys()
@@ -78,7 +78,7 @@ self.condition = (self.backuppath is False)
 	</step>
 
 	<step id="upgrade">
-		<text value="You need a PC connected to your dreambox. If you need further instructions, please visit the website http://www.dm7025.de.\nYour dreambox will now be halted. After you have performed the update instructions from the website, your new firmware will ask you to restore your settings." />
+		<text value="You need a PC connected to your Hypercube. If you need further instructions,After you have performed the update instructions from the website, your new firmware will ask you to restore your settings." />
 		<list>
 			<listentry caption="Yes, perform a shutdown now." step="shutdown" />
 			<listentry caption="No, do nothing." step="end" />
@@ -90,7 +90,7 @@ self.condition = (self.backuppath is False)
 from enigma import quitMainloop
 quitMainloop(1)
 		</code>
-		<text value="Your dreambox is shutting down. Please stand by..." />
+		<text value="Your Hypercube is shutting down. Please stand by..." />
 	</step>
 
 	<step id="end" laststep="true">

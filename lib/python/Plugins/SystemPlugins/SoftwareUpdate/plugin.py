@@ -113,7 +113,7 @@ class UpdatePlugin(Screen):
 			else:
 				self.activityTimer.stop()
 				self.activityslider.setValue(0)
-				error = _("your Hypercube might be unusable now. Please consult the manual for further assistance before rebooting your dreambox.")
+				error = _("your Hypercube might be unusable now. Please consult the manual for further assistance before rebooting your Hypercube.")
 				if self.packages == 0:
 					error = _("No packages were upgraded yet. So you can check your network and try again.")
 				if self.updating:

@@ -122,7 +122,7 @@ class StickWizardJob(Job):
 			self.device = self.device[:-1]
 				
 		box = HardwareInfo().get_device_name()
-		url = "http://www.dreamboxupdate.com/download/opendreambox/dreambox-nfiflasher-%s.tar.bz2" % box
+		url = "(http://www.dreamboxupdate.com/download/opendreambox/dreambox-nfiflasher-%s.tar.bz2)" % box
 		self.downloadfilename = "/tmp/dreambox-nfiflasher-%s.tar.bz2" % box
 		self.imagefilename = "/tmp/nfiflash_%s.img" % box
 		#UmountTask(self, device)
@@ -390,7 +390,7 @@ class NFIDownload(Screen):
 		#self.menu = args
 		
 		self.box = HardwareInfo().get_device_name()
-		self.feed_base = "http://www.dreamboxupdate.com/opendreambox" #/1.5/%s/images/" % self.box	
+		self.feed_base = "(http://www.dreamboxupdate.com/opendreambox)" #/1.5/%s/images/" % self.box	
 		self.usbmountpoint = resolveFilename(SCOPE_MEDIA)+"usb/"
 
 		self.menulist = []
@@ -436,7 +436,7 @@ class NFIDownload(Screen):
 		self.umount()
 	
 	def getMD5(self):
-		url = "http://www.dreamboxupdate.com/download/opendreambox/dreambox-nfiflasher-%s-md5sums" % self.box
+		url = "(http://www.dreamboxupdate.com/download/opendreambox/dreambox-nfiflasher-%s-md5sums)" % self.box
 		client.getPage(url).addCallback(self.md5sums_finished).addErrback(self.feed_failed)
 
 	def md5sums_finished(self, data):
@@ -519,7 +519,7 @@ class NFIDownload(Screen):
 					version = ( result.group("version")[:4]+'-'+result.group("version")[4:6]+'-'+result.group("version")[6:8] )
 				else:
 					version = result.group("version")
-				description = "\nOpendreambox %s\n%s image\n%s\n" % (result.group("OE_vers"), result.group("branch"), version)
+				description = "\nHypercube %s\n%s image\n%s\n" % (result.group("OE_vers"), result.group("branch"), version)
 				imagelist.append((url, name, _("Download %s from Server" ) % description, None))
 		self["menu"].setList(imagelist)
 	

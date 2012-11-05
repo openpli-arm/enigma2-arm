@@ -8,7 +8,7 @@
                     <packagename>enigma2-plugin-extensions-dvdplayer</packagename>
                     <shortdescription>DVDPlayer plays your DVDs on your Hypercube</shortdescription>
                     <description>DVDPlayer plays your DVDs on your Hypercube.\nWith the DVDPlayer you can play your DVDs on your Hypercube from a DVD or even from an iso file or video_ts folder on your harddisc or network.</description>
-                    <screenshot src="http://www.dreamboxupdate.com/preview/plugin_dvdplayer.jpg" />
+                    <screenshot src="(http://www.dreamboxupdate.com/preview/plugin_dvdplayer.jpg)" />
           </info>
 	  <files type="package"> <!-- without version, without .ipk -->
 		<file type="package" name="enigma2-plugin-extensions-dvdplayer" />

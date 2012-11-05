@@ -10,7 +10,7 @@
                     <description>With the CrashlogAutoSubmit plugin it is possible to automatically
 		    mail crashlogs found on your hard drive to Dream Multimedia.
                     </description>
-                    <screenshot src="http://www.dreamboxupdate.com/preview/plugin_crashlogautosubmit_en.jpg" />
+                    <screenshot src="(http://www.dreamboxupdate.com/preview/plugin_crashlogautosubmit_en.jpg)" />
           </info>
 
 	  <files type="package"> <!-- without version, without .ipk -->
