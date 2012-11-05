@@ -15,12 +15,12 @@ class Rc:
 		
 		config.misc.rcused = ConfigInteger(default = 1)
 		
-		self.rcheight = 500
-		self.rcheighthalf = 250
+		self.rcheight = 474
+		self.rcheighthalf = 220
 		
 		self.selectpics = []
-		self.selectpics.append((self.rcheighthalf, ["arrowdown", "arrowdown2"], (-16,-145)))
-		self.selectpics.append((self.rcheight, ["arrowup", "arrowup2"], (-16,-65)))
+		self.selectpics.append((self.rcheighthalf, ["arrowdown", "arrowdown2"], (-18,-70)))
+		self.selectpics.append((self.rcheight, ["arrowup", "arrowup2"], (-18,-0)))
 		
 		self.readPositions()
 		self.clearSelectedKeys()
