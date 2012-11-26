@@ -27,7 +27,7 @@ class Keyboard:
 				f.close()
 
 		if len(self.keyboardmaps) == 0:
-			self.keyboardmaps = [('dream-de.kmap', 'Hypercube Keyboard Deutsch'), ('eng.kmap', 'Keyboard English')]
+			self.keyboardmaps = [('dream-de.kmap', 'Box Keyboard Deutsch'), ('eng.kmap', 'Keyboard English')]
 
 	def activateKeyboardMap(self, index):
 		try:

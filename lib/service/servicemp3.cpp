@@ -253,7 +253,7 @@ eServiceMP3::eServiceMP3(eServiceReference ref)
 				ePythonConfigQuery::getConfigValue("config.mediaplayer.alternateUserAgent", m_useragent);
 		}
 		if ( m_useragent.length() == 0 )
-			m_useragent = "Dream Multimedia Hypercube Enigma2 Mediaplayer";
+			m_useragent = "Dream Multimedia Box Enigma2 Mediaplayer";
 	}
 	else if ( (strncmp(filename, "/autofs/", 8) || strncmp(filename+strlen(filename)-13, "/track-", 7) || strcasecmp(ext, ".wav")) == 0 )
 	{
