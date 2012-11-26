@@ -61,13 +61,28 @@ from Tools.DreamboxHardware import getFPVersion
 #				"green": self.showTranslationInfo
 #			})
 #
+custidlist = [\
+{"custid":"F2-A6-81","custname":"Hypercube"}]
+
 class About(Screen):
 	def __init__(self, session):
 		Screen.__init__(self, session)
-
-		
+		logoname = "SU980";
+		# show
+		try:
+			fd = open("/proc/stb/info/eeprom/customer_id",'r');
+			costomid = fd.read(8)
+			print costomid
+			for cust in custidlist:
+				if cust["custid"] == costomid:
+					logoname = cust["custname"]
+					break
+		except:
+			pass
+			
+		self["AboutTitle"] = StaticText("About "+logoname);
 #		AboutText = _("Hardware: ") + about.getHardwareTypeString() + "\n"
-		AboutText = _("Hardware: ") + "Hypercube" + "\n"
+		AboutText = _("Hardware: ") + logoname + "\n"
 		AboutText += _("Image: ") + about.getImageTypeString() + "\n"
 		AboutText += _("Kernel Version: ") + about.getKernelVersionString() + "\n"
 		
