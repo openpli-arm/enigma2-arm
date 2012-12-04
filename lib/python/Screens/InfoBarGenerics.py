@@ -40,6 +40,7 @@ from os import stat as os_stat
 from bisect import insort
 
 from RecordTimer import RecordTimerEntry, RecordTimer
+
 # hack alert!
 from Menu import MainMenu, mdom
 

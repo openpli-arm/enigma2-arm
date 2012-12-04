@@ -15,8 +15,7 @@ public:
 	virtual ~eDVBDemux();
 	
 	RESULT setSourceFrontend(int fenum);
-	int getSource();
-	int getSourceID();
+	int getSource() { return source; }
 	RESULT setSourcePVR(int pvrnum);
 	
 	RESULT createSectionReader(eMainloop *context, ePtr<iDVBSectionReader> &reader);
@@ -32,7 +31,7 @@ public:
 
 	int getRefCount() { return ref; }
 private:
-	int adapter, demux, source, sourceID;
+	int adapter, demux, source;
 	
 	int m_dvr_busy;
 	friend class eDVBSectionReader;
@@ -123,7 +122,7 @@ private:
 	
 	ePtr<eDVBDemux> m_demux;
 	
-	int m_running, m_target_fd, m_source_fd, m_vf_fd, m_af_fd;
+	int m_running, m_target_fd, m_source_fd;
 	std::string m_target_filename;
 };
 

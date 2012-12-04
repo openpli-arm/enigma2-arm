@@ -80,7 +80,6 @@ class PluginDescriptor:
 			self.icon = icon
 
 		self.weight = weight
-
 		self.wakeupfnc = wakeupfnc
 
 		self.__call__ = fnc

@@ -6,7 +6,6 @@
 #include <lib/gdi/fb.h>
 #include <lib/gui/ewidget.h>
 #include <lib/gui/ewidgetdesktop.h>
-#include <lib/python/python.h>
 
 extern "C" int tuxtxt_run_ui(int pid, int demux);
 extern "C" int tuxtxt_init();
@@ -15,11 +14,10 @@ extern "C" int tuxtxt_stop();
 extern "C" void tuxtxt_close();
 
 eAutoInitP0<eTuxtxtApp> init_eTuxtxtApp(eAutoInitNumbers::lowlevel, "Tuxtxt");
-eTuxtxtApp *eTuxtxtApp::instance = NULL;
+eTuxtxtApp *eTuxtxtApp::instance;
 
-eTuxtxtApp::eTuxtxtApp() : pid(0), enableTtCaching(false), uiRunning(false), messagePump(eApp, 0)
+eTuxtxtApp::eTuxtxtApp() : pid(0), enableTtCaching(false), uiRunning(false)
 {
-	CONNECT(messagePump.recv_msg, eTuxtxtApp::recvEvent);
 	pthread_mutex_init( &cacheChangeLock, 0 );
 	if (!instance)
 		instance=this;
@@ -33,19 +31,9 @@ eTuxtxtApp::~eTuxtxtApp()
 	pthread_mutex_destroy( &cacheChangeLock );
 }
 
-void eTuxtxtApp::recvEvent(const int &evt)
-{
-	uiRunning = false;
-	eRCInput::getInstance()->unlock();
-	eDBoxLCD::getInstance()->unlock();
-	eDBoxLCD::getInstance()->update();
-	fbClass::getInstance()->unlock();
-	/* emit */appClosed();
-}
-
 int eTuxtxtApp::startUi()
 {
-	if (fbClass::getInstance()->lock() >= 0)
+	if (pid && fbClass::getInstance()->lock() >= 0)
 	{
 		eDBoxLCD::getInstance()->lock();
 		eRCInput::getInstance()->lock();
@@ -53,10 +41,6 @@ int eTuxtxtApp::startUi()
 		uiRunning = true;
 		pthread_mutex_unlock( &cacheChangeLock );
 		run();
-	}
-	else
-	{
-		/* emit */appClosed();
 	}
 	return 0;
 }
@@ -69,12 +53,19 @@ void eTuxtxtApp::thread()
 
 void eTuxtxtApp::thread_finished()
 {
-	messagePump.send(0);
+	uiRunning = false;
+	eRCInput::getInstance()->unlock();
+	eDBoxLCD::getInstance()->unlock();
+	eDBoxLCD::getInstance()->update();
+	fbClass::getInstance()->unlock();
+	/* force redraw */
+	getDesktop(0)->resize(getDesktop(0)->size());
 }
 
 void eTuxtxtApp::initCache()
 {
-	tuxtxt_init();
+	if (enableTtCaching)
+		tuxtxt_init();
 }
 
 void eTuxtxtApp::freeCache()

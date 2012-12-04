@@ -88,7 +88,6 @@ void eFilePushThread::thread()
 			/* first try flushing the bufptr */
 		if (m_buf_start != m_buf_end)
 		{
-			eDebug("start(%d) != end(%d)", m_buf_start, m_buf_end);
 				/* filterRecordData wants to work on multiples of blocksize.
 				   if it returns a negative result, it means that this many bytes should be skipped
 				   *in front* of the buffer. Then, it will be called again. with the newer, shorter buffer.
@@ -128,7 +127,7 @@ void eFilePushThread::thread()
 					/* mark data as filtered. */
 				m_filter_end = m_buf_end;
 			} while (0);
-
+			
 			ASSERT(m_filter_end == m_buf_end);
 			
 			if (m_buf_start == m_buf_end)
@@ -142,10 +141,8 @@ void eFilePushThread::thread()
 			/* now write out data. it will be 'aligned' (according to filterRecordData). 
 			   absolutely forbidden is to return EINTR and consume a non-aligned number of bytes. 
 			*/
-
-			eDebug("write data:");
 			int w = write(m_fd_dest, m_buffer + m_buf_start, m_buf_end - m_buf_start);
-			eDebug("start(%d), end(%d), w(%d)", m_buf_start, m_buf_end, w);
+
 			if (w <= 0)
 			{
 				if (w < 0 && (errno == EINTR || errno == EAGAIN || errno == EBUSY))
@@ -195,13 +192,13 @@ void eFilePushThread::thread()
 				}
 			}
 
-			eDebug("FILEPUSH: wrote %d bytes\n", w);
+//			printf("FILEPUSH: wrote %d bytes\n", w);
 			m_buf_start += w;
 			continue;
 		}
 
-		/* now fill our buffer. */	
-		eDebug("m_sg(%d)", m_sg);
+			/* now fill our buffer. */
+			
 		if (m_sg && !current_span_remaining)
 		{
 			m_sg->getNextSourceSpan(m_current_position, bytes_read, current_span_offset, current_span_remaining);
@@ -209,27 +206,23 @@ void eFilePushThread::thread()
 			m_current_position = current_span_offset;
 			bytes_read = 0;
 		}
-
+		
 		size_t maxread = m_buffersize;
-	
-		eDebug("maxread(%d)", maxread);
-		/* if we have a source span, don't read past the end */
+		
+			/* if we have a source span, don't read past the end */
 		if (m_sg && maxread > current_span_remaining)
 			maxread = current_span_remaining;
 
-		eDebug("maxread(%d), m_blocksize(%d)", maxread, m_blocksize);
-		/* align to blocksize */
+			/* align to blocksize */
 		maxread -= maxread % m_blocksize;
 
 		m_buf_start = 0;
 		m_filter_end = 0;
 		m_buf_end = 0;
 
-		if (maxread) 
+		if (maxread)
 			m_buf_end = m_source->read(m_current_position, m_buffer, maxread);
 
-		eDebug("read:pos(%d), bytes(%d), end(%d)", (int)m_current_position,
-					maxread, m_buf_end);
 		if (m_buf_end < 0)
 		{
 			m_buf_end = 0;
@@ -241,24 +234,22 @@ void eFilePushThread::thread()
 				continue;
 			}
 			eDebug("eFilePushThread *read error* (%m) - not yet handled");
-		} 
+		}
 
-		/* a read might be mis-aligned in case of a short read. */
+			/* a read might be mis-aligned in case of a short read. */
 		int d = m_buf_end % m_blocksize;
 		if (d)
 			m_buf_end -= d;
 
-		eDebug("m_buf_end(%d), m_stream_mode(%d)", m_buf_end, m_stream_mode);
 		if (m_buf_end == 0)
 		{
-			eDebug("m_send_pvr_commit(%d)", m_send_pvr_commit);
-			/* on EOF, try COMMITting once. */
+				/* on EOF, try COMMITting once. */
 			if (m_send_pvr_commit)
 			{
 				struct pollfd pfd;
 				pfd.fd = m_fd_dest;
 				pfd.events = POLLIN;
-				switch (poll(&pfd, 1, 3000)) // wait for 8000ms
+				switch (poll(&pfd, 1, 250)) // wait for 250ms
 				{
 					case 0:
 						eDebug("wait for driver eof timeout");
@@ -272,9 +263,10 @@ void eFilePushThread::thread()
 				}
 			}
 			
-			/* in stream_mode, we are sending EOF events 
-			   over and over until somebody responds.
-			   in stream_mode, think of evtEOF as "buffer underrun occured". */
+				/* in stream_mode, we are sending EOF events 
+				   over and over until somebody responds.
+				   
+				   in stream_mode, think of evtEOF as "buffer underrun occured". */
 			sendEvent(evtEOF);
 
 			if (m_stream_mode)
@@ -291,6 +283,7 @@ void eFilePushThread::thread()
 			if (m_sg)
 				current_span_remaining -= m_buf_end;
 		}
+//		printf("FILEPUSH: read %d bytes\n", m_buf_end);
 	}
 	fdatasync(m_fd_dest);
 

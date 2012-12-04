@@ -149,19 +149,13 @@ eDVBAdapterLinux::eDVBAdapterLinux(int nr): m_nr(nr)
 			int ok = 0;
 			fe = new eDVBFrontend(m_nr, num_fe, ok);
 			if (ok)
-			{
 				m_frontend.push_back(fe);
-				eDebug("a frontend was added into list");
-			}
 		}
 		{
 			int ok = 0;
 			fe = new eDVBFrontend(m_nr, num_fe, ok, true);
 			if (ok)
-			{
-				eDebug("a sim frontend was added into list");
 				m_simulate_frontend.push_back(fe);
-			}
 		}
 		++num_fe;
 	}
@@ -330,9 +324,7 @@ PyObject *eDVBResourceManager::setFrontendSlotInformations(ePyObject list)
 	for (eSmartPtrList<eDVBRegisteredFrontend>::iterator i(m_frontend.begin()); i != m_frontend.end(); ++i)
 	{
 		int pos=0;
-		eDebug(":::a registered frontend");
 		while (pos < PyList_Size(list)) {
-			eDebug(":::pos = %d", pos);
 			ePyObject obj = PyList_GET_ITEM(list, pos++);
 			if (!i->m_frontend->setSlotInfo(obj))
 				continue;
@@ -677,7 +669,6 @@ void eDVBResourceManager::DVBChannelStateChanged(iDVBChannel *chan)
 		{
 			eDebug("stop release channel timer");
 			m_releaseCachedChannelTimer->stop();
-			eDebug("stop release channel timer finish");
 			break;
 		}
 		case iDVBChannel::state_last_instance:
@@ -946,7 +937,7 @@ class eDVBChannelFilePush: public eFilePushThread
 {
 public:
 	eDVBChannelFilePush():
-		eFilePushThread(IOPRIO_CLASS_BE, 0, 188, 8*188*1024), // buffer for playback
+		eFilePushThread(IOPRIO_CLASS_BE, 0, 188, 65536), // 64k buffer for playback
 		m_iframe_search(0),
 		m_iframe_state(0),
 		m_pid(0),
@@ -1149,13 +1140,10 @@ eDVBChannel::eDVBChannel(eDVBResourceManager *mgr, eDVBAllocatedFrontend *fronte
 
 eDVBChannel::~eDVBChannel()
 {
-	eDebug("~eDVBChannel #1");
 	if (m_channel_id)
 		m_mgr->removeChannel(this);
 
-	eDebug("~eDVBChannel #2");
 	stopFile();
-	eDebug("~eDVBChannel #3");
 }
 
 void eDVBChannel::frontendStateChanged(iDVBFrontend*fe)
@@ -1209,7 +1197,6 @@ void eDVBChannel::frontendStateChanged(iDVBFrontend*fe)
 	if (ourstate != m_state)
 	{
 		m_state = ourstate;
-		eDebug("ch state change 1");
 		m_stateChanged(this);
 	}
 }
@@ -1580,7 +1567,6 @@ void eDVBChannel::AddUse()
 	if (++m_use_count > 1 && m_state == state_last_instance)
 	{
 		m_state = state_ok;
-		eDebug("ch state changed 2");
 		m_stateChanged(this);
 	}
 }
@@ -1590,14 +1576,11 @@ void eDVBChannel::ReleaseUse()
 	if (!--m_use_count)
 	{
 		m_state = state_release;
-		eDebug("ch state changed 3");
 		m_stateChanged(this);
-		eDebug("ch state changed 3 ####################");
 	}
 	else if (m_use_count == 1)
 	{
 		m_state = state_last_instance;
-		eDebug("ch state changed 4");
 		m_stateChanged(this);
 	}
 }
@@ -1627,7 +1610,6 @@ RESULT eDVBChannel::setChannel(const eDVBChannelID &channelid, ePtr<iDVBFrontend
 	if (res)
 	{
 		m_state = state_release;
-		eDebug("ch state changed 5");
 		m_stateChanged(this);
 		return res;
 	}
@@ -1855,13 +1837,9 @@ RESULT eDVBChannel::playSource(ePtr<iTsSource> &source, const char *streaminfo_f
 
 	m_pvr_thread->start(source, m_pvr_fd_dst);
 	CONNECT(m_pvr_thread->m_event, eDVBChannel::pvrEvent);
-	m_pvr_thread->pause();
 
 	m_state = state_ok;
-	eDebug("ch state changed 6");
 	m_stateChanged(this);
-
-	m_pvr_thread->resume();
 
 	return 0;
 }

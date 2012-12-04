@@ -11,7 +11,7 @@ class eDVBCI_UI: public eMMI_UI
 #ifdef SWIG
 	eDVBCI_UI();
 #endif
-	void stateChanged(int val) { printf("abing-come here for ci state change val=%d.\n", val);  ciStateChanged(val);/**//**/ printf("abing-out of ci state change.\n");}
+	void stateChanged(int val) { ciStateChanged(val); }
 public:
 	enum { rateNormal, rateHigh };
 	PSignal1<void,int> ciStateChanged;

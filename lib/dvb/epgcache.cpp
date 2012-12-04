@@ -2,7 +2,6 @@
 #include <lib/dvb/dvb.h>
 
 #undef EPG_DEBUG  
-#define EPG_DEBUG  
 
 #ifdef EPG_DEBUG
 #include <lib/service/event.h>
@@ -450,11 +449,9 @@ void eEPGCache::DVBChannelStateChanged(iDVBChannel *chan)
 					eDebug("[eEPGCache] send message:leaveChannel");
 					//messages.send(Message(Message::leaveChannel, chan));
 					gotMessage(Message(Message::leaveChannel, chan));
-					eDebug("[eEPGCache] get lock");
 					pthread_mutex_lock(&it->second->channel_active);
 					singleLock s(channel_map_lock);
 					m_knownChannels.erase(it);
-					eDebug("[eEPGCache] release lock");
 					pthread_mutex_unlock(&it->second->channel_active);
 					delete it->second;
 					it->second=0;
@@ -912,7 +909,6 @@ void eEPGCache::cleanLoop()
 eEPGCache::~eEPGCache()
 {
 	messages.send(Message::quit);
-	eDebug("EPG Thread %s running.", m_running ? "is" : "is't");
 	kill(true); // waiting for thread shutdown
 	singleLock s(cache_lock);
 	for (eventCache::iterator evIt = eventDB.begin(); evIt != eventDB.end(); evIt++)
@@ -938,17 +934,11 @@ void eEPGCache::gotMessage( const Message &msg )
 		}
 		case Message::leaveChannel:
 		{
-			eDebug("[eEPGCache] leaveChannel 1");
 			singleLock s(channel_map_lock);
 			channelMapIterator channel =
 				m_knownChannels.find(msg.channel);
-			eDebug("[eEPGCache] leaveChannel 2");
 			if ( channel != m_knownChannels.end() )
-			{
-				eDebug("[eEPGCache] call abortEPG");
 				channel->second->abortEPG();
-			}
-			eDebug("[eEPGCache] leaveChannel 3");
 			break;
 		}
 		case Message::quit:
@@ -1061,9 +1051,7 @@ void eEPGCache::thread()
 	load();
 	cleanLoop();
 	runLoop();
-	eDebug("prepare for save");
 	save();
-	eDebug("save ok");
 	m_running = false;
 }
 
@@ -1687,7 +1675,7 @@ void eEPGCache::channel_data::readDataNetmed( const __u8 *data)
 			map=2;
 			break;
 		default:
-			eDebug("Line(%d) [EPGC] unknown table_id !!!", __LINE__);
+			eDebug("[EPGC] unknown table_id !!!");
 			return;
 	}
 	tidMap &seenSections = this->seenSections[map];
@@ -1776,7 +1764,7 @@ void eEPGCache::channel_data::readData( const __u8 *data)
 			map=3;
 			break;
 		default:
-			eDebug("Line(%d) [EPGC] unknown table_id !!!", __LINE__);
+			eDebug("[EPGC] unknown table_id !!!");
 			return;
 	}
 	tidMap &seenSections = this->seenSections[map];

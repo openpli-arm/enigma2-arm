@@ -32,28 +32,26 @@ eServiceFactoryMP3::eServiceFactoryMP3()
 	if (sc)
 	{
 		std::list<std::string> extensions;
-		//extensions.push_back("dts");
+		extensions.push_back("dts");
 		extensions.push_back("mp2");
 		extensions.push_back("mp3");
-		extensions.push_back("aac");
-		extensions.push_back("ac3");
-		//extensions.push_back("ogg");
-		//extensions.push_back("mpg");
-		//extensions.push_back("vob");
-		//extensions.push_back("wav");
-		//extensions.push_back("wave");
-		//extensions.push_back("m4v");
-		//extensions.push_back("mkv");
+		extensions.push_back("ogg");
+		extensions.push_back("mpg");
+		extensions.push_back("vob");
+		extensions.push_back("wav");
+		extensions.push_back("wave");
+		extensions.push_back("m4v");
+		extensions.push_back("mkv");
 		extensions.push_back("avi");
-		//extensions.push_back("divx");
-		//extensions.push_back("dat");
-		//extensions.push_back("flac");
-		//extensions.push_back("flv");
-		//extensions.push_back("mp4");
+		extensions.push_back("divx");
+		extensions.push_back("dat");
+		extensions.push_back("flac");
+		extensions.push_back("flv");
+		extensions.push_back("mp4");
 		extensions.push_back("mov");
-		//extensions.push_back("m4a");
-		//extensions.push_back("mts");
-		//extensions.push_back("m2ts");
+		extensions.push_back("m4a");
+		extensions.push_back("mts");
+		extensions.push_back("m2ts");
 		sc->addServiceFactory(eServiceFactoryMP3::id, this, extensions);
 	}
 
@@ -253,7 +251,7 @@ eServiceMP3::eServiceMP3(eServiceReference ref)
 				ePythonConfigQuery::getConfigValue("config.mediaplayer.alternateUserAgent", m_useragent);
 		}
 		if ( m_useragent.length() == 0 )
-			m_useragent = "Dream Multimedia Box Enigma2 Mediaplayer";
+			m_useragent = "Enigma2 Mediaplayer";
 	}
 	else if ( (strncmp(filename, "/autofs/", 8) || strncmp(filename+strlen(filename)-13, "/track-", 7) || strcasecmp(ext, ".wav")) == 0 )
 	{

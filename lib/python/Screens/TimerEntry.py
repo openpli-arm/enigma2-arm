@@ -217,7 +217,7 @@ class TimerEntry(Screen, ConfigListScreen):
 			ConfigListScreen.keyRight(self)
 			self.newConfig()
 
-	def keySelect(self):	
+	def keySelect(self):
 		cur = self["config"].getCurrent()
 		if cur == self.channelEntry:
 			self.session.openWithCallback(

@@ -5,11 +5,10 @@
 
 int eDVBCIDateTimeSession::receivedAPDU(const unsigned char *tag,const void *data, int len)
 {
-    printf("----->abing<----- eDVBCIDateTimeSession receivedAPDU, CI receive data time enquire from module\n");
-	printf("----->abing<----- SESSION(%d)/DATETIME %02x %02x %02x: ", session_nb, tag[0],tag[1], tag[2]);
+	eDebugNoNewLine("SESSION(%d)/DATETIME %02x %02x %02x: ", session_nb, tag[0],tag[1], tag[2]);
 	for (int i=0; i<len; i++)
-		printf("%02x ", ((const unsigned char*)data)[i]);
-	printf("\n");
+		eDebugNoNewLine("%02x ", ((const unsigned char*)data)[i]);
+	eDebug("");
 
 	if ((tag[0]==0x9f) && (tag[1]==0x84))
 	{
@@ -32,10 +31,8 @@ int eDVBCIDateTimeSession::doAction()
 	switch (state)
 	{
 	case stateStarted:
-		printf("----->abing<----- eDVBCIDateTimeSession stateStarted and do nothing\n");
 		return 0;
 	case stateSendDateTime:
-		printf("----->abing<----- DateTimeSession doAction - date_time_response\n");
 	{
 		unsigned char tag[3]={0x9f, 0x84, 0x41}; // date_time_response
 		unsigned char msg[7]={0, 0, 0, 0, 0, 0, 0};

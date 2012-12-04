@@ -663,10 +663,8 @@ int eDVBFrontend::closeFrontend(bool force, bool no_delayed)
 
 eDVBFrontend::~eDVBFrontend()
 {
-	eDebug("Release Frontend");
 	m_data[LINKED_PREV_PTR] = m_data[LINKED_NEXT_PTR] = -1;
 	closeFrontend();
-	eDebug("Release Frontend OK");
 }
 
 void eDVBFrontend::feEvent(int w)
@@ -690,7 +688,6 @@ void eDVBFrontend::feEvent(int w)
 		int state;
 		res = ::ioctl(m_fd, FE_GET_EVENT, &event);
 
-		eDebug("w = %d, res = %d, errno = %d\n", w, res, errno);
 		if (res && (errno == EAGAIN))
 			break;
 
@@ -1565,14 +1562,11 @@ int eDVBFrontend::tuneLoopInt()  // called by m_tuneTimer
 		tmp = prev->m_frontend->m_data[LINKED_PREV_PTR];
 		if (tmp == -1 && sec_fe != this && !prev->m_inuse) {
 			int state = sec_fe->m_state;
-
 			// workaround to put the kernel frontend thread into idle state!
 			if (state != eDVBFrontend::stateIdle && state != stateClosed)
 			{
-				eDebug("closeFrontend #");
 				sec_fe->closeFrontend(true);
 				state = sec_fe->m_state;
-				eDebug("closeFrontend ###");
 			}
 			// sec_fe is closed... we must reopen it here..
 			if (state == stateClosed)
@@ -1916,14 +1910,13 @@ int eDVBFrontend::tuneLoopInt()  // called by m_tuneTimer
 			}
 			case eSecCommand::DELAYED_CLOSE_FRONTEND:
 			{
-				eDebug("[SEC] delayed close frontend");
+				eDebugNoSimulate("[SEC] delayed close frontend");
 				closeFrontend(false, true);
 				++m_sec_sequence.current();
-				eDebug("[SEC] delayed close frontend ###");
 				break;
 			}
 			default:
-				eDebug("[SEC] unhandled sec command %d",
+				eDebugNoSimulate("[SEC] unhandled sec command %d",
 					++m_sec_sequence.current()->cmd);
 				++m_sec_sequence.current();
 		}
@@ -1934,7 +1927,6 @@ int eDVBFrontend::tuneLoopInt()  // called by m_tuneTimer
 		regFE->dec_use();
 	if (m_simulate && m_sec_sequence.current() != m_sec_sequence.end())
 		tuneLoop();
-
 	return delay;
 }
 
@@ -1999,7 +1991,6 @@ void eDVBFrontend::setFrontend(bool recvEvents)
 				p[7].cmd = DTV_TUNE;
 				cmdseq.num = 8;
 			}
-			eDebug(":::[%s.%d] FE_SET_PROPERTY", __func__, __LINE__);
 			if (ioctl(m_fd, FE_SET_PROPERTY, &cmdseq) == -1)
 			{
 				perror("FE_SET_PROPERTY failed");
@@ -2009,7 +2000,6 @@ void eDVBFrontend::setFrontend(bool recvEvents)
 		else
 #endif
 		{
-			eDebug(":::[%s.%d] FE_SET_FRONTEND", __func__, __LINE__);
 			if (ioctl(m_fd, FE_SET_FRONTEND, &parm) == -1)
 			{
 				perror("FE_SET_FRONTEND failed");
@@ -2035,13 +2025,11 @@ RESULT eDVBFrontend::prepare_sat(const eDVBFrontendParametersSatellite &feparm, 
 		eWarning("no SEC module active!");
 		return -ENOENT;
 	}
-
 	res = m_sec->prepare(*this, parm, feparm, 1 << m_slotid, tunetimeout);
-	eDebug("%s.%d res = %d", __func__, __LINE__, res);
 	if (!res)
 	{
 #if HAVE_DVB_API_VERSION >= 3
-		eDebug("prepare_sat System %d Freq %d Pol %d SR %d INV %d FEC %d orbpos %d system %d modulation %d pilot %d, rolloff %d",
+		eDebugNoSimulate("prepare_sat System %d Freq %d Pol %d SR %d INV %d FEC %d orbpos %d system %d modulation %d pilot %d, rolloff %d",
 			feparm.system,
 			feparm.frequency,
 			feparm.polarisation,
@@ -2054,7 +2042,7 @@ RESULT eDVBFrontend::prepare_sat(const eDVBFrontendParametersSatellite &feparm, 
 			feparm.pilot,
 			feparm.rolloff);
 #else
-		eDebug("prepare_sat System %d Freq %d Pol %d SR %d INV %d FEC %d orbpos %d",
+		eDebugNoSimulate("prepare_sat System %d Freq %d Pol %d SR %d INV %d FEC %d orbpos %d",
 			feparm.system,
 			feparm.frequency,
 			feparm.polarisation,
@@ -2139,7 +2127,7 @@ RESULT eDVBFrontend::prepare_sat(const eDVBFrontendParametersSatellite &feparm, 
 					parm_u_qpsk_fec_inner = FEC_S2_QPSK_9_10;
 					break;
 				default:
-					eDebug("no valid fec for DVB-S2 set.. abort !!");
+					eDebugNoSimulate("no valid fec for DVB-S2 set.. abort !!");
 					return -EINVAL;
 			}
 #if HAVE_DVB_API_VERSION < 5
@@ -2156,12 +2144,11 @@ RESULT eDVBFrontend::prepare_sat(const eDVBFrontendParametersSatellite &feparm, 
 		// FIXME !!! get frequency range from tuner
 		if ( parm_frequency < 900000 || parm_frequency > 2200000 )
 		{
-			eDebug("%d mhz out of tuner range.. dont tune", parm_frequency/1000);
+			eDebugNoSimulate("%d mhz out of tuner range.. dont tune", parm_frequency/1000);
 			return -EINVAL;
 		}
-		eDebug("tuning to %d mhz", parm_frequency/1000);
+		eDebugNoSimulate("tuning to %d mhz", parm_frequency/1000);
 	}
-	eDebug("%s.%d", __func__, __LINE__);
 	oparm.sat = feparm;
 	return res;
 }
@@ -2399,7 +2386,7 @@ RESULT eDVBFrontend::prepare_terrestrial(const eDVBFrontendParametersTerrestrial
 
 RESULT eDVBFrontend::tune(const iDVBFrontendParameters &where)
 {
-	unsigned int timeout = 5000;//30000ms too long
+	unsigned int timeout = 5000;
 	eDebugNoSimulate("(%d)tune", m_dvbid);
 
 	m_timeout->stop();
@@ -2457,7 +2444,6 @@ RESULT eDVBFrontend::tune(const iDVBFrontendParameters &where)
 		if (res)
 			goto tune_error;
 
-		eDebug("[%s.%d]", __func__, __LINE__);
 		break;
 	}
 	case feCable:
@@ -2508,26 +2494,20 @@ RESULT eDVBFrontend::tune(const iDVBFrontendParameters &where)
 
 	if (!m_simulate)
 	{
-		eDebug("[%s.%d]", __func__, __LINE__);
 		m_tuneTimer->start(0,true);
 		m_tuning = 1;
 		if (m_state != stateTuning)
 		{
-			eDebug("[%s.%d]", __func__, __LINE__);
 			m_state = stateTuning;
 			m_stateChanged(this);
 		}
 	}
 	else
-	{
-		eDebug("[%s.%d]", __func__, __LINE__);
 		tuneLoop();
-	}
 
 	return res;
 
 tune_error:
-	eDebug("[%s.%d]", __func__, __LINE__);
 	m_tuneTimer->stop();
 	return res;
 }
@@ -2721,14 +2701,12 @@ int eDVBFrontend::isCompatibleWith(ePtr<iDVBFrontendParameters> &feparm)
 	if (m_type == eDVBFrontend::feSatellite)
 	{
 		ASSERT(m_sec);
-		eDebug("%s.%d", __func__, __LINE__);
 		eDVBFrontendParametersSatellite sat_parm;
 		int ret = feparm->getDVBS(sat_parm);
 		ASSERT(!ret);
 		if (sat_parm.system == eDVBFrontendParametersSatellite::System_DVB_S2 && !m_can_handle_dvbs2)
 			return 0;
 		ret = m_sec->canTune(sat_parm, this, 1 << m_slotid);
-		eDebug("%s.%d ret = %d", __func__, __LINE__, ret);
 		if (ret > 1 && sat_parm.system == eDVBFrontendParametersSatellite::System_DVB_S && m_can_handle_dvbs2)
 			ret -= 1;
 		return ret;
@@ -2755,8 +2733,8 @@ bool eDVBFrontend::setSlotInfo(ePyObject obj)
 		goto arg_error;
 	strcpy(m_description, PyString_AS_STRING(Descr));
 	if (PyInt_AsLong(frontendId) == -1 || PyInt_AsLong(frontendId) != m_dvbid) {
-		eDebug("skip slotinfo for slotid %d, descr %s",
-			m_slotid, m_description);
+//		eDebugNoSimulate("skip slotinfo for slotid %d, descr %s",
+//			m_slotid, m_description);
 		return false;
 	}
 	m_enabled = Enabled == Py_True;
@@ -2766,11 +2744,10 @@ bool eDVBFrontend::setSlotInfo(ePyObject obj)
 		!!strstr(m_description, "Alps -S") ||
 		!!strstr(m_description, "BCM4501");
 	m_can_handle_dvbs2 = IsDVBS2 == Py_True;
-	eDebug("setSlotInfo for dvb frontend %d to slotid %d, descr %s, need rotorworkaround %s, enabled %s, DVB-S2 %s",
+	eDebugNoSimulate("setSlotInfo for dvb frontend %d to slotid %d, descr %s, need rotorworkaround %s, enabled %s, DVB-S2 %s",
 		m_dvbid, m_slotid, m_description, m_need_rotor_workaround ? "Yes" : "No", m_enabled ? "Yes" : "No", m_can_handle_dvbs2 ? "Yes" : "No" );
 	return true;
 arg_error:
-	eDebug("arg_error\n");
 	PyErr_SetString(PyExc_StandardError,
 		"eDVBFrontend::setSlotInfo must get a tuple with first param slotid, second param slot description and third param enabled boolean");
 	return false;

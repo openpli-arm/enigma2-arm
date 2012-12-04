@@ -202,7 +202,7 @@ void gPixmap::fill(const gRegion &region, const gColor &color)
 					*dst++=col;
 			}
 		}	else
-			eWarning("<archer>couldn't fill %d bpp", surface->bpp);
+			eWarning("couldn't fill %d bpp", surface->bpp);
 	}
 }
 

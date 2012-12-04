@@ -398,8 +398,6 @@ int eDVBServicePMTHandler::getProgramInfo(program &program)
 						}
 					case 0x81: // user private ... but bluray AC3
 					case 0xA1: // bluray secondary AC3
-						eDebug("AAAC3 isvideo(%d), isaudio(%d), is_hdmv(%d)",
-								isvideo, isaudio, is_hdmv);
 						if (!isvideo && !isaudio && is_hdmv)
 						{
 							isaudio = 1;
@@ -550,7 +548,6 @@ int eDVBServicePMTHandler::getProgramInfo(program &program)
 									audio.type = audioStream::atAACHE; // MPEG4-AAC
 									break;
 								case AC3_DESCRIPTOR:
-									eDebug("AAAAAAAAAAAAC3 desc");
 									isaudio = 1;
 									audio.type = audioStream::atAC3;
 									break;
@@ -689,9 +686,6 @@ int eDVBServicePMTHandler::getProgramInfo(program &program)
 					else if (isaudio)
 					{
 						audio.pid = (*es)->getPid();
-						eDebug("Is audio,  TYPE(%d) PID(%x)", 
-								audio.type,
-								audio.pid);
 
 						/* if we find the cached pids, this will be our default stream */
 						if (audio.pid == cached_apid_ac3 || audio.pid == cached_apid_mpeg)
@@ -1022,7 +1016,6 @@ int eDVBServicePMTHandler::tuneExt(eServiceReferenceDVB &ref, int use_decode_dem
 		{
 			m_pvr_channel->setCueSheet(cue);
 
-			eDebug("Start playing.....");
 			if (m_pvr_channel->getDemux(m_pvr_demux_tmp, (!m_use_decode_demux) ? 0 : iDVBChannel::capDecode))
 				eDebug("Allocating %s-decoding a demux for PVR channel failed.", m_use_decode_demux ? "" : "non-");
 			else if (source)

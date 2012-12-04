@@ -108,7 +108,7 @@ int eThread::sendSignal(int sig)
 
 void eThread::kill(bool sendcancel)
 {
-	int ret;
+	int ret = 0;
 
 	if (!the_thread) /* already joined */
 		return;
@@ -122,13 +122,11 @@ void eThread::kill(bool sendcancel)
 	ret = pthread_kill(the_thread, 0);
 	if (ret == ESRCH)
 	{
-		eDebug("the specified thread did not exist or already quit");
+		eDebug("thread didn't exist or already quit");
 	}
 	else
 	{
-		eDebug("joined the thread (%d)", the_thread);
-		ret = pthread_join(the_thread, 0);
-		eDebug("thread joined %d", ret);
+		eDebug("thread joined %d", pthread_join(the_thread, 0));
 	}
 
 	the_thread = 0;

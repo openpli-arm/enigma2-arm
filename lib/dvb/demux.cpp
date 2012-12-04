@@ -94,14 +94,11 @@ eDVBDemux::~eDVBDemux()
 int eDVBDemux::openDemux(void)
 {
 	char filename[32];
-
 #if HAVE_DVB_API_VERSION < 3
 	snprintf(filename, sizeof(filename), "/dev/dvb/card%d/demux%d", adapter, demux);
 #else
 	snprintf(filename, sizeof(filename), "/dev/dvb/adapter%d/demux%d", adapter, demux);
 #endif
-
-	eDebug("openDemux:%s", filename);
 	return ::open(filename, O_RDWR);
 }
 
@@ -115,7 +112,6 @@ int eDVBDemux::openDVR(int flags)
 #else
 	char filename[32];
 	snprintf(filename, sizeof(filename), "/dev/dvb/adapter%d/dvr%d", adapter, demux);
-	eDebug("openDVR:%s", filename);
 	return ::open(filename, flags);
 #endif
 #endif
@@ -126,22 +122,15 @@ DEFINE_REF(eDVBDemux)
 RESULT eDVBDemux::setSourceFrontend(int fenum)
 {
 #if HAVE_DVB_API_VERSION >= 3
-/*
 	int fd = openDemux();
 	int n = DMX_SOURCE_FRONT0 + fenum;
-	eDebug(":::DMX_SET_SOURCE, n = %d", n);
 	int res = ::ioctl(fd, DMX_SET_SOURCE, &n);
 	if (res)
 		eDebug("DMX_SET_SOURCE failed! - %m");
 	else
 		source = fenum;
 	::close(fd);
-
 	return res;
-*/
-	eDebug("fenum = %d", fenum);
-	source = fenum;
-	sourceID = fenum + DMX_SOURCE_FRONT0;
 #endif
 	return 0;
 }
@@ -149,29 +138,14 @@ RESULT eDVBDemux::setSourceFrontend(int fenum)
 RESULT eDVBDemux::setSourcePVR(int pvrnum)
 {
 #if HAVE_DVB_API_VERSION >= 3
-	/*
 	int fd = openDemux();
 	int n = DMX_SOURCE_DVR0 + pvrnum;
 	int res = ::ioctl(fd, DMX_SET_SOURCE, &n);
-	eDebug("pvrnum = %d", pvrnum);
+	source = -1;
 	::close(fd);
 	return res;
-	*/
-	eDebug("pvrnum = %d", pvrnum);
-	source = -1;
-	sourceID = pvrnum + DMX_SOURCE_DVR0;
 #endif
 	return 0;
-}
-
-RESULT eDVBDemux::getSource()
-{
-	return source;
-}
-
-RESULT eDVBDemux::getSourceID()
-{
-	return sourceID;
 }
 
 RESULT eDVBDemux::createSectionReader(eMainloop *context, ePtr<iDVBSectionReader> &reader)
@@ -315,28 +289,16 @@ RESULT eDVBSectionReader::setBufferSize(int size)
 
 RESULT eDVBSectionReader::start(const eDVBSectionFilterMask &mask)
 {
-	int n;
 	RESULT res;
-
 	if (fd < 0)
 		return -ENODEV;
 
-#if HAVE_DVB_API_VERSION >= 3
-	n = demux->getSourceID();
-	eDebug(":::fd = %d, DMX_SET_SOURCE = %d", fd, n);
-	res = ::ioctl(fd, DMX_SET_SOURCE, n);
-	if (res < 0)
-		eDebug("DMX_SET_SOURCE failed! - %m");
-#endif
-
 	notifier->start();
-
 #if HAVE_DVB_API_VERSION < 3
 	dmxSctFilterParams sct;
 #else
 	dmx_sct_filter_params sct;
 #endif
-
 	sct.pid     = mask.pid;
 	sct.timeout = 0;
 #if HAVE_DVB_API_VERSION < 3
@@ -360,10 +322,9 @@ RESULT eDVBSectionReader::start(const eDVBSectionFilterMask &mask)
 	memcpy(sct.filter.mask, mask.mask, DMX_FILTER_SIZE);
 #if HAVE_DVB_API_VERSION >= 3
 	memcpy(sct.filter.mode, mask.mode, DMX_FILTER_SIZE);
-	setBufferSize(1024*64);
+	setBufferSize(8192*8);
 #endif
 	
-	eDebug(":::fd = %d, DMX_SET_FILTER", fd);
 	res = ::ioctl(fd, DMX_SET_FILTER, &sct);
 	if (!res)
 	{
@@ -379,7 +340,6 @@ RESULT eDVBSectionReader::start(const eDVBSectionFilterMask &mask)
 		active = 1;
 #endif
 	}
-	
 	return res;
 }
 
@@ -432,7 +392,6 @@ eDVBPESReader::eDVBPESReader(eDVBDemux *demux, eMainloop *context, RESULT &res):
 	m_fd = m_demux->openDemux();
 	if (m_fd >= 0)
 	{
-		eDebug("SetBufferSize size = 64 * 1024");
 		setBufferSize(64*1024);
 		::fcntl(m_fd, F_SETFL, O_NONBLOCK);
 		m_notifier = eSocketNotifier::create(context, m_fd, eSocketNotifier::Read, false);
@@ -447,11 +406,9 @@ eDVBPESReader::eDVBPESReader(eDVBDemux *demux, eMainloop *context, RESULT &res):
 
 RESULT eDVBPESReader::setBufferSize(int size)
 {
-	eDebug("### fd = %d DMX_SET_BUFFER_SIZE(%d)", m_fd, size);
 	int res = ::ioctl(m_fd, DMX_SET_BUFFER_SIZE, size);
 	if (res < 0)
 		eDebug("eDVBPESReader DMX_SET_BUFFER_SIZE failed(%m)");
-
 	return res;
 }
 
@@ -487,8 +444,8 @@ RESULT eDVBPESReader::start(int pid)
 	
 	flt.flags   = DMX_IMMEDIATE_START;
 
-	eDebug("PES filter(fd=%d): DMX_SET_PES_FILTER - %d", m_fd, pid);
-	res = ::ioctl(m_fd, DMX_SET_PES_FILTER, &flt);	
+	res = ::ioctl(m_fd, DMX_SET_PES_FILTER, &flt);
+	
 	if (res)
 		eWarning("PES filter: DMX_SET_PES_FILTER - %m");
 	if (!res)
@@ -534,7 +491,7 @@ private:
 };
 
 eDVBRecordFileThread::eDVBRecordFileThread()
-	:eFilePushThread(IOPRIO_CLASS_RT, 7, 188, 4 * 188 * 1024),
+	:eFilePushThread(IOPRIO_CLASS_RT, 7, /*blocksize*/ 188, /*buffersize*/ 188 * 1024),
 	 m_ts_parser(m_stream_info),
 	 m_current_offset(0)
 {
@@ -611,8 +568,6 @@ RESULT eDVBTSRecorder::start()
 #else
 	snprintf(filename, 128, "/dev/dvb/adapter%d/dvr%d", m_demux->adapter, m_demux->demux);
 #endif
-
-	eDebug("TSRecorder:dev(%s)", filename);
 	m_source_fd = ::open(filename, O_RDONLY);
 	
 	if (m_source_fd < 0)
@@ -621,146 +576,60 @@ RESULT eDVBTSRecorder::start()
 		return -3;
 	}
 #else
-	snprintf(filename, 128, "/dev/dvb/adapter%d/dvr1", m_demux->adapter,
-			m_demux->demux);
+	snprintf(filename, 128, "/dev/dvb/adapter%d/demux%d", m_demux->adapter, m_demux->demux);
 
-	eDebug("dvr: %s", filename);
 	m_source_fd = ::open(filename, O_RDONLY);
+	
 	if (m_source_fd < 0)
 	{
-		eDebug("FAILED to open dvr (%s) in ts recoder (%m)", filename);
+		eDebug("FAILED to open demux (%s) in ts recoder (%m)", filename);
 		return -3;
 	}
-
-	snprintf(filename, 128, "/dev/dvb/adapter%d/demux1", m_demux->adapter,
-			m_demux->demux);
-	eDebug("video: %s", filename);
-	m_vf_fd = ::open(filename, O_RDWR);
-	if (m_vf_fd < 0)
-	{
-		eDebug("FAILED to open demux(video) (%s) in ts recoder (%m)", filename);
-		::close(m_source_fd);
-		m_source_fd = -1;
-		return -3;
-	}
-	eDebug("audio: %s", filename);
-	m_af_fd = ::open(filename, O_RDWR);
-	if (m_af_fd < 0)
-	{
-		eDebug("FAILED to open demux(audio) (%s) in ts recoder (%m)", filename);
-		::close(m_source_fd);
-		m_source_fd = -1;
-		::close(m_vf_fd);
-		m_vf_fd = -1;
-		return -3;
-	}
-
-	int res = 0, n;
-
-	n = m_demux->getSourceID();
-	eDebug("DMX_SET_SOURCE: %d", n);
-	res = ::ioctl(m_vf_fd, DMX_SET_SOURCE, n);
-	if (res)
-	{
-		eDebug("DMX_SET_SOURCE: %m");
-		::close(m_af_fd);
-		m_af_fd = -1;
-		::close(m_vf_fd);
-		m_vf_fd = -1;
-		::close(m_source_fd);
-		m_source_fd = -1;
-
-		return -3;
-	}
-
-	eDebug("TSRecorder:set buffer size");
+	
 	setBufferSize(demuxSize);
 
-	int dummy_pid = i->first; i++;
-	int vpid = i->first; i++;
-	int apid = i->first; i++;
-	int pcr_pid = i->first; i++;
-
-	eDebug("TSRecorder:set pes filter(dummy=%x, vpid=%x, apid=%x, pcr_pid=%x)", 
-			dummy_pid, vpid, apid, pcr_pid);
 	dmx_pes_filter_params flt;
 #if HAVE_DVB_API_VERSION > 3
 	flt.pes_type = DMX_PES_OTHER;
-	//flt.output  = DMX_OUT_TSDEMUX_TAP;
-	flt.output  = DMX_OUT_TS_TAP;
+	flt.output  = DMX_OUT_TSDEMUX_TAP;
 #else
 	flt.pes_type = (dmx_pes_type_t)DMX_TAP_TS;
 	flt.output  = DMX_OUT_TAP;
 #endif
-	flt.pid     = vpid;
+	flt.pid     = i->first;
+	++i;
 	flt.input   = DMX_IN_FRONTEND;
 	flt.flags   = 0;
-	res = ::ioctl(m_vf_fd, DMX_SET_PES_FILTER, &flt);
+	int res = ::ioctl(m_source_fd, DMX_SET_PES_FILTER, &flt);
 	if (res)
 	{
-		eDebug("video DMX_SET_PES_FILTER: %m");
-		::close(m_af_fd);
-		m_af_fd = -1;
-		::close(m_vf_fd);
-		m_vf_fd = -1;
+		eDebug("DMX_SET_PES_FILTER: %m");
 		::close(m_source_fd);
 		m_source_fd = -1;
 		return -3;
 	}
 	
-	flt.pid		= apid;
-	res = ::ioctl(m_af_fd, DMX_SET_PES_FILTER, &flt);
-	if (res)
-	{
-		eDebug("audio DMX_SET_PES_FILTER: %m");
-		::close(m_af_fd);
-		m_af_fd = -1;
-		::close(m_vf_fd);
-		m_vf_fd = -1;
-		::close(m_source_fd);
-		m_source_fd = -1;
-		return -3;
-	}
-
-	eDebug("TSRecorder:start filter");
-	if (::ioctl(m_vf_fd, DMX_START) < 0 ||
-		::ioctl(m_af_fd, DMX_START) < 0)
-	{
-		eDebug("Start filter failed: %m");
-		::close(m_af_fd);
-		m_af_fd = -1;
-		::close(m_vf_fd);
-		m_vf_fd = -1;
-		::close(m_source_fd);
-		m_source_fd = -1;
-		return -3;
-	}
+	::ioctl(m_source_fd, DMX_START);
 	
 #endif
 
-	eDebug("TSRecorder:target_filenmae");
 	if (m_target_filename != "")
 		m_thread->startSaveMetaInformation(m_target_filename);
+	
+	m_thread->start(m_source_fd, m_target_fd);
+	m_running = 1;
 
-	eDebug("TSRecorder:add pid to filter");
 	while (i != m_pids.end()) {
 		startPID(i->first);
 		++i;
 	}
-
-	::sleep(2);
-	m_thread->start(m_source_fd, m_target_fd);
-	m_running = 1;
-
-	eDebug("TSRecorder:recording......");
 
 	return 0;
 }
 
 RESULT eDVBTSRecorder::setBufferSize(int size)
 {
-	int res = 0;
-	res = ::ioctl(m_source_fd, DMX_SET_BUFFER_SIZE, size);
+	int res = ::ioctl(m_source_fd, DMX_SET_BUFFER_SIZE, size);
 	if (res < 0)
 		eDebug("eDVBTSRecorder DMX_SET_BUFFER_SIZE failed(%m)");
 	return res;
@@ -824,39 +693,23 @@ RESULT eDVBTSRecorder::stop()
 
 #if HAVE_DVB_API_VERSION >= 5
 	/* workaround for record thread stop */
-	if (::ioctl(m_af_fd, DMX_STOP) < 0)
-		perror("DMX_STOP");
-	else
-		state &= ~1;
-
-	if (::ioctl(m_vf_fd, DMX_STOP) < 0)
+	if (::ioctl(m_source_fd, DMX_STOP) < 0)
 		perror("DMX_STOP");
 	else
 		state &= ~1;
 
 	if (::close(m_source_fd) < 0)
 		perror("close");
-
-	if (::close(m_af_fd) < 0)
-		perror("close");
 	else
 		state &= ~2;
-
-	if (::close(m_vf_fd) < 0)
-		perror("close");
-	else
-		state &= ~2;
-
 #endif
 
 	m_thread->stop();
 
 	if (state & 3)
-		::close(m_vf_fd);
+		::close(m_source_fd);
 
 	m_running = 0;
-	m_af_fd = -1;
-	m_vf_fd = -1;
 	m_source_fd = -1;
 
 	m_thread->stopSaveMetaInformation();
@@ -883,7 +736,6 @@ RESULT eDVBTSRecorder::connectEvent(const Slot1<void,int> &event, ePtr<eConnecti
 
 RESULT eDVBTSRecorder::startPID(int pid)
 {
-	eDebug("TSRecorder::startPID(%x)", pid);
 #ifndef HAVE_ADD_PID
 	int fd = m_demux->openDemux();
 	if (fd < 0)
@@ -918,7 +770,6 @@ RESULT eDVBTSRecorder::startPID(int pid)
 	m_pids[pid] = fd;
 #else
 	while(true) {
-		/*
 #if HAVE_DVB_API_VERSION > 3
 		__u16 p = pid;
 		if (::ioctl(m_source_fd, DMX_ADD_PID, &p) < 0) {
@@ -931,7 +782,6 @@ RESULT eDVBTSRecorder::startPID(int pid)
 				continue;
 			}
 		} else
-		*/
 			m_pids[pid] = 1;
 		break;
 	}
@@ -948,7 +798,6 @@ void eDVBTSRecorder::stopPID(int pid)
 	if (m_pids[pid] != -1)
 	{
 		while(true) {
-			/*
 #if HAVE_DVB_API_VERSION > 3
 			__u16 p = pid;
 			if (::ioctl(m_source_fd, DMX_REMOVE_PID, &p) < 0) {
@@ -961,7 +810,6 @@ void eDVBTSRecorder::stopPID(int pid)
 					continue;
 				}
 			}
-			*/
 			break;
 		}
 	}

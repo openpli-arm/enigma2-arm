@@ -396,34 +396,27 @@ int eDVBServiceRecord::doRecord()
 					pids_to_record.begin(), pids_to_record.end(), 
 					std::inserter(obsolete_pids, obsolete_pids.begin())
 					);
-		
-			eDebug("###Add pids");
+			
 			for (std::set<int>::iterator i(new_pids.begin()); i != new_pids.end(); ++i)
 			{
 				eDebug("ADD PID: %04x", *i);
 				m_record->addPID(*i);
 			}
 
-			eDebug("###Removed pids");
 			for (std::set<int>::iterator i(obsolete_pids.begin()); i != obsolete_pids.end(); ++i)
 			{
 				eDebug("REMOVED PID: %04x", *i);
 				m_record->removePID(*i);
 			}
 
-			eDebug("timing_pid(%d)", timing_pid);
 			if (timing_pid != -1)
 				m_record->setTimingPID(timing_pid, timing_pid_type);
 
 			m_pids_active = pids_to_record;
 
-
-			eDebug("m_state(%d)", m_state);
 			if (m_state != stateRecording)
 			{
-				eDebug("###record start");;
 				m_record->start();
-				eDebug("###set record state");;
 				m_state = stateRecording;
 			}
 		}

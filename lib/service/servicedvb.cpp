@@ -2529,10 +2529,8 @@ void eDVBServicePlay::updateDecoder(bool sendSeekableStateChanged)
 				m_decoder->connectVideoEvent(slot(*this, &eDVBServicePlay::video_event), m_video_event_connection);
 			if (m_is_primary)
 			{
-				eDebug("Create DVBTeletxtParser");
 				m_teletext_parser = new eDVBTeletextParser(m_decode_demux);
 				m_teletext_parser->connectNewPage(slot(*this, &eDVBServicePlay::newSubtitlePage), m_new_subtitle_page_connection);
-				eDebug("Create subtitle Parser");
 				m_subtitle_parser = new eDVBSubtitleParser(m_decode_demux);
 				m_subtitle_parser->connectNewPage(slot(*this, &eDVBServicePlay::newDVBSubtitlePage), m_new_dvb_subtitle_page_connection);
 				if (m_timeshift_changed)
@@ -2545,23 +2543,14 @@ void eDVBServicePlay::updateDecoder(bool sendSeekableStateChanged)
 						    comp_page = PyInt_AsLong(PyTuple_GET_ITEM(subs, 2)), // ttx page
 						    anc_page = PyInt_AsLong(PyTuple_GET_ITEM(subs, 3)); // ttx magazine
 						if (type == 0) // dvb
-						{
-							eDebug("Start DVBSubtitleParser - pid(%d), cp(%d), ap(%d)", 
-									pid, comp_page, anc_page);
 							m_subtitle_parser->start(pid, comp_page, anc_page);
-						}
 						else if (type == 1) // ttx
-						{
-							eDebug("Start DVBTeletxtParser - cp(%d), ap(%d)", 
-									comp_page, anc_page);
 							m_teletext_parser->setPageAndMagazine(comp_page, anc_page);
-						}
 					}
 					Py_DECREF(subs);
 				}
 			}
 		}
-
 		if (m_cue)
 			m_cue->setDecodingDemux(m_decode_demux, m_decoder);
 		mustPlay = true;
@@ -2620,11 +2609,7 @@ void eDVBServicePlay::updateDecoder(bool sendSeekableStateChanged)
 		if (m_is_primary)
 		{
 			m_decoder->setTextPID(tpid);
-			if (m_teletext_parser) 
-			{
-				eDebug("program.testPid(%d)", program.textPid);
-				m_teletext_parser->start(program.textPid);
-			}
+			if (m_teletext_parser) m_teletext_parser->start(program.textPid);
 		}
 
 		if (vpid > 0 && vpid < 0x2000)
@@ -2641,7 +2626,6 @@ void eDVBServicePlay::updateDecoder(bool sendSeekableStateChanged)
 			m_decoder->setRadioPic(radio_pic);
 		}
 
-		eDebug("mustPlay  = %d\n", mustPlay);
 		if (mustPlay)
 			m_decoder->play();
 		else

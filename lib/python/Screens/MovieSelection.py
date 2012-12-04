@@ -128,27 +128,14 @@ def createMoveList(serviceref, dest):
 				moveList.append((candidate, os.path.join(dest, baseName+ext)))
 	return moveList
 
-def moveServiceFiles(serviceref, dest, name=None):
+def moveServiceFiles(serviceref, dest):
 	moveList = createMoveList(serviceref, dest)
 	# Try to "atomically" move these files
 	movedList = []
 	try:
-		try:
-			for item in moveList:
-				os.rename(item[0], item[1])
-				movedList.append(item)
-		except OSError, e:
-			if e.errno == 18:
-				print "[MovieSelection] cannot rename across devices, trying slow move"
-				import CopyFiles
-				# start with the smaller files, do the big one later.
-				moveList.reverse()
-				if name is None:
-					name = os.path.split(moveList[-1][0])[1]
-				CopyFiles.moveFiles(moveList, name)
-				print "[MovieSelection] Moving in background..."
-			else:
-				raise
+		for item in moveList:
+			os.rename(item[0], item[1])
+			movedList.append(item)
 	except Exception, e:
 		print "[MovieSelection] Failed move:", e
 		for item in movedList:
@@ -159,7 +146,7 @@ def moveServiceFiles(serviceref, dest, name=None):
 		# rethrow exception
 		raise
 
-def copyServiceFiles(serviceref, dest, name=None):
+def copyServiceFiles(serviceref, dest):
 	# current should be 'ref' type, dest a simple path string
 	moveList = createMoveList(serviceref, dest)
 	# Try to "atomically" move these files
@@ -181,9 +168,7 @@ def copyServiceFiles(serviceref, dest, name=None):
 	import CopyFiles
 	# start with the smaller files, do the big one later.
 	moveList.reverse()
-	if name is None:
-		name = os.path.split(moveList[-1][0])[1]
-	CopyFiles.copyFiles(moveList, name)
+	CopyFiles.copyFiles(moveList, os.path.split(moveList[-1][0])[1])
 	print "[MovieSelection] Copying in background..."
 
 class Config(ConfigListScreen,Screen):
@@ -785,8 +770,6 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, InfoBarBase):
 			path = os.path.join(config.movielist.last_videodir.value, ".e2settings.pkl")
 			updates = pickle.load(open(path, "rb"))
 			self.applyConfigSettings(updates)
-		except IOError, e:
-			pass # ignore fail to open errors
 		except Exception, e:
 			print "Failed to load settings:", e
 
@@ -1054,11 +1037,6 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, InfoBarBase):
 				d = os.path.normpath(d)
 				bookmarks.append((d,d))
 				inlist.append(d)
-			for p in Components.Harddisk.harddiskmanager.getMountedPartitions():
-				d = os.path.normpath(p.mountpoint)
-				if d not in inlist:
-					bookmarks.append((p.description, d))
-					inlist.append(d)
 			self.onMovieSelected = self.gotMoveMovieDest
 			self.movieSelectTitle = title
 			self.session.openWithCallback(self.gotMovieLocation, ChoiceBox, title=title, list=bookmarks)
@@ -1068,13 +1046,8 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, InfoBarBase):
 			return
 		dest = os.path.normpath(choice)
 		try:
-			item = self.getCurrentSelection()
-			current = item[0]
-			if item[1] is None:
-				name = None
-			else:
-				name = item[1].getName(current)
-			moveServiceFiles(current, dest, name)
+			current = self.getCurrent()
+			moveServiceFiles(current, dest)
 			self["list"].removeService(current)
 		except Exception, e:
 			self.session.open(MessageBox, str(e), MessageBox.TYPE_ERROR)
@@ -1097,13 +1070,8 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, InfoBarBase):
 			return
 		dest = os.path.normpath(choice)
 		try:
-			item = self.getCurrentSelection()
-			current = item[0]
-			if item[1] is None:
-				name = None
-			else:
-				name = item[1].getName(current)
-			copyServiceFiles(current, dest, name)
+			current = self.getCurrent()
+			copyServiceFiles(current, dest)
 		except Exception, e:
 			self.session.open(MessageBox, str(e), MessageBox.TYPE_ERROR)
 

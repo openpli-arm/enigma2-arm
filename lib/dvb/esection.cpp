@@ -109,11 +109,9 @@ RESULT eGTable::start(iDVBSectionReader *reader, const eDVBTableSpec &table)
 		mask.mask[3] |= 0x3f;
 		if (!(m_table.flags & eDVBTableSpec::tfThisVersion))
 			mask.mode[3] |= 0x3e; // negative filtering
-		//mask.mask[3] = 0xff;
-		//mask.mode[3] = 0x00;
 	} else
 		TABLE_eDebug("no version filtering");
-	
+
 	TABLE_eDebug("%04x:  %02x %02x %02x %02x %02x %02x",
 		mask.pid,
 		mask.data[0], mask.data[1], mask.data[2],

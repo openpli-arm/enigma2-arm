@@ -294,6 +294,7 @@ int eMainloop::processOneEvent(unsigned int twisted_timeout, PyObject **res, ePy
 
 	m_is_idle = 1;
 	++m_idle_count;
+
 	if (this == eApp)
 	{
 		Py_BEGIN_ALLOW_THREADS

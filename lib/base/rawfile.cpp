@@ -137,6 +137,7 @@ ssize_t eRawFile::read(off_t offset, void *buf, size_t count)
 	}
 	
 	int ret;
+	
 	if (!m_cached)
 		ret = ::read(m_fd, buf, count);
 	else
@@ -144,7 +145,6 @@ ssize_t eRawFile::read(off_t offset, void *buf, size_t count)
 
 	if (ret > 0)
 		m_current_offset = m_last_offset += ret;
-
 	return ret;
 }
 
