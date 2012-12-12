@@ -335,12 +335,12 @@ eDVBVideo::eDVBVideo(eDVBDemux *demux, int dev)
 }
 
 // not finally values i think.. !!
-#define VIDEO_STREAMTYPE_MPEG1		 1
-#define VIDEO_STREAMTYPE_MPEG2 		 2
-#define VIDEO_STREAMTYPE_MPEG4_H264  3
+#define VIDEO_STREAMTYPE_MPEG2 0
+#define VIDEO_STREAMTYPE_MPEG4_H264 1
+#define VIDEO_STREAMTYPE_VC1 3
 #define VIDEO_STREAMTYPE_MPEG4_Part2 4
-#define VIDEO_STREAMTYPE_VC1 		 6
-#define VIDEO_STREAMTYPE_VC1_SM 	 6
+#define VIDEO_STREAMTYPE_VC1_SM 5
+#define VIDEO_STREAMTYPE_MPEG1 6
 
 #if HAVE_DVB_API_VERSION < 3
 int eDVBVideo::setPid(int pid)
