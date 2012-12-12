@@ -306,15 +306,12 @@ RESULT eDVBSectionReader::start(const eDVBSectionFilterMask &mask)
 #else
 	sct.flags   = DMX_IMMEDIATE_START;
 #endif
-
 #if !FUZZING
-	/*
 	if (mask.flags & eDVBSectionFilterMask::rfCRC)
 	{
 		sct.flags |= DMX_CHECK_CRC;
 		checkcrc = 1;
 	} else
-	*/
 #endif
 		checkcrc = 0;
 	

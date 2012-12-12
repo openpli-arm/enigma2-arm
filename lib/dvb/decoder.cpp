@@ -43,21 +43,6 @@
 
 DEFINE_REF(eDVBAudio);
 
-#define AUDIO_STREAMTYPE_MP1	1
-#define AUDIO_STREAMTYPE_MP2	2
-#define AUDIO_STREAMTYPE_MP3	3
-#define AUDIO_STREAMTYPE_AC3	4
-#define AUDIO_STREAMTYPE_AAC	5
-#define AUDIO_STREAMTYPE_AACHE	6
-#define AUDIO_STREAMTYPE_AC3HE	7
-#define AUDIO_STREAMTYPE_DTS	8
-#define AUDIO_STREAMTYPE_AVS	9
-#define AUDIO_STREAMTYPE_MLP	10
-#define AUDIO_STREAMTYPE_WMA	11
-#define AUDIO_STREAMTYPE_REAL	12
-#define AUDIO_STREAMTYPE_RAW	13
-
-
 eDVBAudio::eDVBAudio(eDVBDemux *demux, int dev)
 	:m_demux(demux), m_dev(dev)
 {
@@ -94,7 +79,7 @@ int eDVBAudio::setPid(int pid, int type)
 		bypass = 1;
 		break;
 	case aAC3:
-		bypass = 1;
+		bypass = 0;
 		break;
 		/*
 	case aDTS:
@@ -198,44 +183,34 @@ int eDVBAudio::startPid(int pid, int type)
 	}
 	eDebug("ok");
 	int bypass = 0;
-	int streamtype = AUDIO_STREAMTYPE_MP1;
 
 	switch (type)
 	{
 	case aMPEG:
 		bypass = 1;
-		streamtype = AUDIO_STREAMTYPE_MP1;
 		break;
 	case aAC3:
 		bypass = 0;
-		streamtype = AUDIO_STREAMTYPE_AC3;
 		break;
 	case aDTS:
 		bypass = 2;
-		streamtype = AUDIO_STREAMTYPE_DTS;
 		break;
 	case aAAC:
 		bypass = 8;
-		streamtype = AUDIO_STREAMTYPE_AAC;
 		break;
 	case aAACHE:
 		bypass = 9;
-		streamtype = AUDIO_STREAMTYPE_AACHE;
 		break;
 	case aLPCM:
 		bypass = 6;
-		streamtype = AUDIO_STREAMTYPE_RAW;
 		break;
-		/*
 	case aDTSHD:
 		bypass = 0x10;
-		streamtype = AUDIO_STREAMTYPE_;
 		break;
-		*/
 	}
 
-	eDebugNoNewLine("AUDIO_SET_STREAMTYPE(%d) - ", streamtype);
-	if (::ioctl(m_fd, AUDIO_SET_STREAMTYPE, streamtype) < 0)
+	eDebugNoNewLine("AUDIO_SET_BYPASS(%d) - ", bypass);
+	if (::ioctl(m_fd, AUDIO_SET_BYPASS_MODE, bypass) < 0)
 		eDebug("failed (%m)");
 	else
 		eDebug("ok");
