@@ -681,8 +681,9 @@ PyObject *eServiceDVD::getInfoObject(int w)
 RESULT eServiceDVD::enableSubtitles(eWidget *parent, ePyObject tuple)
 {
 	delete m_subtitle_widget;
-	eSize size = eSize(720, 576);
-
+	//eSize size = eSize(720, 576);
+	eSize size = eSize(1280, 720);
+	
 	m_subtitle_widget = new eSubtitleWidget(parent);
 	m_subtitle_widget->resize(parent->size());
 
