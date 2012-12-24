@@ -28,6 +28,7 @@ libenigma_gdi_a_SOURCES = \
 	picexif.cpp \
 	picload.cpp \
 	region.cpp
+
 gdiincludedir = $(pkgincludedir)/lib/gdi
 gdiinclude_HEADERS = \
 	accel.h \

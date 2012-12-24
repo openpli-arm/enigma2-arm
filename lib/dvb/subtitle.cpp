@@ -504,7 +504,7 @@ int eDVBSubtitleParser::subtitle_process_segment(__u8 *segment)
 		region->height  = *segment++ << 8;
 		region->height |= *segment++;
 		processed_length += 2;
-		
+
 		region->width = 1280;
 		region->buffer = new gPixmap(eSize(region->width, region->height), 8, 1);
 		memset(region->buffer->surface->data, 0, region->height * region->buffer->surface->stride);
@@ -1249,7 +1249,6 @@ DEFINE_REF(eDVBSubtitleParser);
 
 eDVBSubtitleParser::eDVBSubtitleParser(iDVBDemux *demux)
 	:m_pages(0), m_display_size(1280,720)
-//:m_pages(0), m_display_size(720,576)
 {
 	setStreamID(0xBD);
 

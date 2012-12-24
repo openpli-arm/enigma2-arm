@@ -28,7 +28,7 @@
 #define FBIO_SETBLENDMODE         0x4624
 #define FBIO_CHANGEOUTPUTFORMAT   0x4625
 #define FBIO_GETFBRESOLUTION      0x4626
-#endif 
+#endif
 
 
 static int fb_fd;
@@ -37,26 +37,25 @@ int tridentFB_accel_init(void)
 	struct fb_var_screeninfo screeninfo;
 	int ret;
 
-	eDebug("[%s] START", __FUNCTION__);
 //	printf("[%s] START \n", __FUNCTION__);
 	fb_fd = open("/dev/fb/0", O_RDWR);
 	if (fb_fd < 0)
 	{
-		eDebug("<saifei> open fb device fail!\n");
+		eDebug("open fb device fail!\n");
 		perror("/dev/fb/0");
 		return 1;
 	}
-	eDebug("[%s] fb_fd 0x%x success", __FUNCTION__, fb_fd);
+//	eDebug("[%s] fb_fd 0x%x success", __FUNCTION__, fb_fd);
 	return 0;
 }
 
 void tridentFB_accel_close(void)
 {
-	eDebug("[%s] START fb_fd 0x%x", __FUNCTION__, fb_fd);
+//	eDebug("[%s] START fb_fd 0x%x", __FUNCTION__, fb_fd);
 	if (0 < fb_fd)
 		close(fb_fd);
 	fb_fd = 0;
-	eDebug("[%s] END fb_fd 0x%x", __FUNCTION__, fb_fd);
+//	eDebug("[%s] END fb_fd 0x%x", __FUNCTION__, fb_fd);
 }
 
 enum
@@ -77,10 +76,10 @@ int tridentFB_accel_blit(
 	int ret = 0;
 	struct fb_image blitData;
 
-	blitData.dx = src_x;  //blit position 
+	blitData.dx = src_x;  //blit position
 	blitData.dy = src_y;
 	blitData.width = dwidth;
-	blitData.height = dheight; 
+	blitData.height = dheight;
 	blitData.depth = bpp; //color depth
 	blitData.cmap = *pal_addr;
 	blitData.data = src_addr;
@@ -100,26 +99,22 @@ int tridentFB_accel_fill(
 		int x, int y, int width, int height,
 		unsigned long color)
 {
-	//return 0;
-#if 1
-	eDebug("<saifei> tridentFB_accel_fill start\n");
 	struct fb_var_screeninfo screeninfo;
 	struct fb_fillrect fillData;
 	int ret = 0;
 
-	eDebug("[%s] src dst_addr 0x%x w %d h %d stride %d x %d y %d w %d h %d color 0x%x", 
-		   		  __FUNCTION__, 
-		   		  dst_addr, dst_width, dst_height, dst_stride,  
-		   		  x, y, width, height, (unsigned int)color);
+//	eDebug("[%s] src dst_addr 0x%x w %d h %d stride %d x %d y %d w %d h %d color 0x%x",
+//		   		  __FUNCTION__,
+//		   		  dst_addr, dst_width, dst_height, dst_stride,
+//		   		  x, y, width, height, (unsigned int)color);
 
-	
 	if (0 >= fb_fd)
 		return -1;
 
 	fillData.dx     = x;
     fillData.dy     = y;
     fillData.width  = width;
-    fillData.height = height;      
+    fillData.height = height;
     fillData.rop    =0;
     fillData.color  = color;
 
@@ -129,7 +124,7 @@ int tridentFB_accel_fill(
 	{
 		printf("[%s] FBIO_FILL_RECT error 0x%x \n", __FUNCTION__, fb_fd);
 	}
-	
+
 #if 0
 	ret =ioctl(fb_fd, FBIOGET_VSCREENINFO, &screeninfo);
 	if(ret<0)
@@ -144,8 +139,7 @@ int tridentFB_accel_fill(
 	{
 		printf("[newpp][%s] FBIOPUT_VSCREENINFO error 0x%x \n", __FUNCTION__, fb_fd);
 	}
-#endif 	
-#if 1
+#endif
 	{
 		int opacity_level;
 		opacity_level = 255;
@@ -161,8 +155,6 @@ int tridentFB_accel_fill(
 	{
 		printf("[%s]  FBIO_STARTDISPLAY error 0x%x \n", __FUNCTION__, fb_fd);
 	}
-#endif 
 	return ret;
-#endif 
 }
 

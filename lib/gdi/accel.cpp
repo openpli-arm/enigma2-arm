@@ -9,10 +9,7 @@
 #include <lib/gdi/gpixmap.h>
 
 gAccel *gAccel::instance;
-//#define BCM_ACCEL
 #define TRIDENT_ACCEL
-
-
 
 #ifdef ATI_ACCEL
 extern int ati_accel_init(void);
@@ -42,9 +39,7 @@ extern void bcm_accel_fill(
 		unsigned long color);
 extern bool bcm_accel_has_alphablending();
 #endif
-
-
-#ifdef TRIDENT_ACCEL 
+#ifdef TRIDENT_ACCEL
 extern int tridentFB_accel_init(void);
 extern void tridentFB_accel_close(void);
 extern int tridentFB_accel_blit(
@@ -62,10 +57,6 @@ extern int tridentFB_accel_fill(
 
 gAccel::gAccel()
 {
-	eDebug("<saifei> gAccel intancing \n");
-	eDebug("[%s]", 
-		   		  __FUNCTION__ );
-	
 	m_accel_addr = 0;
 	m_accel_phys_addr = 0;
 	m_accel_size = 0;
@@ -75,7 +66,6 @@ gAccel::gAccel()
 #ifdef TRIDENT_ACCEL
 	m_tridentFB_accel_state =  tridentFB_accel_init();
 #endif //ZORAN_ACCEL
-
 #ifdef ATI_ACCEL	
 	ati_accel_init();
 #endif
@@ -89,8 +79,7 @@ gAccel::~gAccel()
 #ifdef TRIDENT_ACCEL
 	m_tridentFB_accel_state = -1;
 	 tridentFB_accel_close();
-#endif 
-
+#endif
 #ifdef ATI_ACCEL
 	ati_accel_close();
 #endif
@@ -107,11 +96,6 @@ gAccel *gAccel::getInstance()
  
 void gAccel::setAccelMemorySpace(void *addr, int phys_addr, int size)
 {
-	eDebug("<saifei>[%s] size %d, m_accel_allocation 0x%x\n", 
-		   		  __FUNCTION__, 
-		   		  size, (unsigned long)m_accel_allocation);
-	//test
-	//if (m_accel_allocation )
 	if (m_accel_allocation && size > 0)
 	{
 		delete[] m_accel_allocation;
@@ -143,31 +127,31 @@ int gAccel::blit(gSurface *dst, const gSurface *src, const eRect &p, const eRect
 {
 #ifdef TRIDENT_ACCEL	/* TODO: blitAlphaTest flag is not clear */
 	/* unsupported flags */
-	if (flags & gPixmap::blitAlphaTest) 
+	if (flags & gPixmap::blitAlphaTest)
 	{
 		eDebug("gAccel::blit error\n");
 		return -1;
 	}
-	
+
 	if (!m_tridentFB_accel_state)
 	{
 		if ((src->bpp == 8) && src->clut.data)
-		{			
+		{
 			unsigned int numOfColors = 0;
 			int ret = -1;
-			
+
 			struct fb_cmap cmap;
 			cmap.start = src->clut.start;
 			cmap.len = src->clut.colors;
 			numOfColors = src->clut.colors;
-			
+
 			if(cmap.len >0)
 			{
 				cmap.red = new unsigned short[cmap.len];
 				cmap.green = new unsigned short[cmap.len];
 				cmap.blue = new unsigned short[cmap.len];
 				cmap.transp= new unsigned short[cmap.len];
-			
+
 				for(int i= 0;i<cmap.len;i++)
 				{
 					cmap.red[i] = src->clut.data[i].r;
@@ -180,16 +164,16 @@ int gAccel::blit(gSurface *dst, const gSurface *src, const eRect &p, const eRect
 			}
 			ret = tridentFB_accel_blit(
 				src->data, src->x, src->y, src->stride, src->bpp,
-				dst->data, dst->x, dst->y, dst->stride, 
+				dst->data, dst->x, dst->y, dst->stride,
 				p.x(), p.y(), p.width(), p.height(),
-				area.left(), area.top(), area.width(), area.height(), 
+				area.left(), area.top(), area.width(), area.height(),
 				&cmap, numOfColors,flags);
 
 			delete[] cmap.red;
 			delete[] cmap.green;
 			delete[] cmap.blue;
 			delete[] cmap.transp;
-			
+
 			return ret;
 		}
 		else
@@ -240,9 +224,6 @@ int gAccel::blit(gSurface *dst, const gSurface *src, const eRect &p, const eRect
 
 int gAccel::fill(gSurface *dst, const eRect &area, unsigned long col)
 {
-	eDebug("<saifei> gAccel::fill start\n");
-	eDebug("<saifei>[%s] color: %d", 
-		   		  __FUNCTION__,  col);
 #ifdef FORCE_NO_FILL_ACCELERATION
 	return -1;
 #endif
@@ -252,14 +233,13 @@ int gAccel::fill(gSurface *dst, const eRect &area, unsigned long col)
 		int ret;
 		eDebug("fill dst dst->data:0x%x\n",dst->data);
 		ret = tridentFB_accel_fill(
-			dst->data_phys, dst->x, dst->y, dst->stride, 
+			dst->data_phys, dst->x, dst->y, dst->stride,
 			area.left(), area.top(), area.width(), area.height(),
 			col);
 		eDebug("<saifei gAccel::fill end\n");
 		return ret;
 	}
-
-#endif 
+#endif
 #ifdef ATI_ACCEL
 	ati_accel_fill(
 		dst->data_phys, dst->x, dst->y, dst->stride, 
@@ -281,7 +261,7 @@ int gAccel::fill(gSurface *dst, const eRect &area, unsigned long col)
 
 int gAccel::accelAlloc(void *&addr, int &phys_addr, int size)
 {
-	eDebug("<saifei> [%s]accel %d bytes, m_accel_allocation 0x%x", __FUNCTION__, size, m_accel_allocation);
+	eDebug("accel %d bytes", size);
 	if ((!size) || (!m_accel_allocation))
 	{
 		eDebug("size: %d, alloc %p", size, m_accel_allocation);
@@ -321,7 +301,6 @@ int gAccel::accelAlloc(void *&addr, int &phys_addr, int size)
 				m_accel_allocation[i+a] = -1;
 			addr = ((unsigned char*)m_accel_addr) + (i << 12);
 			phys_addr = m_accel_phys_addr + (i << 12);
-			eDebug("accel alloc sucess add:0x%x\n",addr);
 			return 0;
 		}
 	}
@@ -331,12 +310,11 @@ int gAccel::accelAlloc(void *&addr, int &phys_addr, int size)
 
 void gAccel::accelFree(int phys_addr)
 {
-	eDebug("<saifei> accelFree memory\n");
 	phys_addr -= m_accel_phys_addr;
 	phys_addr >>= 12;
 	
 	int size = m_accel_allocation[phys_addr];
-	eDebug("<saifei> accelFree memory size:0x%x\n",size);
+	
 	ASSERT(size > 0);
 	
 	while (size--)
