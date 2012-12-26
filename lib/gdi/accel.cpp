@@ -65,7 +65,7 @@ gAccel::gAccel()
 
 #ifdef TRIDENT_ACCEL
 	m_tridentFB_accel_state =  tridentFB_accel_init();
-#endif //ZORAN_ACCEL
+#endif
 #ifdef ATI_ACCEL	
 	ati_accel_init();
 #endif
@@ -78,7 +78,7 @@ gAccel::~gAccel()
 {
 #ifdef TRIDENT_ACCEL
 	m_tridentFB_accel_state = -1;
-	 tridentFB_accel_close();
+	tridentFB_accel_close();
 #endif
 #ifdef ATI_ACCEL
 	ati_accel_close();
@@ -231,12 +231,12 @@ int gAccel::fill(gSurface *dst, const eRect &area, unsigned long col)
 	if (!m_tridentFB_accel_state)
 	{
 		int ret;
-		eDebug("fill dst dst->data:0x%x\n",dst->data);
+		//eDebug("fill dst dst->data:0x%x\n",dst->data);
 		ret = tridentFB_accel_fill(
 			dst->data_phys, dst->x, dst->y, dst->stride,
 			area.left(), area.top(), area.width(), area.height(),
 			col);
-		eDebug("<saifei gAccel::fill end\n");
+		//eDebug("<gAccel::fill end\n");
 		return ret;
 	}
 #endif
