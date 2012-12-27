@@ -10,7 +10,7 @@ from Components.SystemInfo import SystemInfo
 
 from enigma import eTimer, eDVBCI_UI, eDVBCIInterfaces
 
-MAX_NUM_CI = 4
+MAX_NUM_CI = 1
 
 def setCIBitrate(configElement):
 	if configElement.value == "no":
@@ -370,7 +370,8 @@ class CiSelection(Screen):
 
 	def dlgClosed(self, slot):
 		self.dlg = None
-
+		self.updateState(slot)
+		
 	def okbuttonClick(self):
 		cur = self["entries"].getCurrent()
 		if cur and len(cur) > 2:
@@ -380,7 +381,7 @@ class CiSelection(Screen):
 				eDVBCI_UI.getInstance().setReset(slot)
 			elif action == 1:		#init
 				eDVBCI_UI.getInstance().setInit(slot)
-			elif self.state[slot] == 2:
+			elif eDVBCI_UI.getInstance().getState(slot) == 2:
 				self.dlg = self.session.openWithCallback(self.dlgClosed, MMIDialog, slot, action)
 
 	def cancel(self):

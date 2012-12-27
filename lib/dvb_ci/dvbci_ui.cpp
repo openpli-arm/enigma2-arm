@@ -10,7 +10,7 @@
 #include <lib/base/eerror.h>
 #include <lib/base/estring.h>
 
-#define MAX_SLOTS 4
+#define MAX_SLOTS 1
 
 eDVBCI_UI *eDVBCI_UI::instance;
 

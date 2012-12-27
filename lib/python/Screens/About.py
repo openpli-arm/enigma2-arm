@@ -4,51 +4,148 @@ from Components.Sources.StaticText import StaticText
 from Components.Harddisk import harddiskmanager
 from Components.NimManager import nimmanager
 from Components.About import about
+from Components.ScrollLabel import ScrollLabel
 
 from Tools.DreamboxHardware import getFPVersion
+
+#class About(Screen):
+#	def __init__(self, session):
+#		Screen.__init__(self, session)
+#
+#		self["EnigmaVersion"] = StaticText("Enigma: " + about.getEnigmaVersionString())
+#		self["ImageVersion"] = StaticText("Last Upgrade: " + about.getImageVersionString())
+#
+#		self["TunerHeader"] = StaticText(_("Detected NIMs:"))
+#
+#		fp_version = getFPVersion()
+#		if fp_version is None:
+#			fp_version = ""
+#		else:
+#			fp_version = _("Frontprocessor version: %d") % fp_version
+#
+#		self["FPVersion"] = StaticText(fp_version)
+#
+#		nims = nimmanager.nimList()
+#		for count in (0, 1, 2, 3):
+#			if count < len(nims):
+#				self["Tuner" + str(count)] = StaticText(nims[count])
+#			else:
+#				self["Tuner" + str(count)] = StaticText("")
+#
+#		self["HDDHeader"] = StaticText(_("Detected HDD:"))
+#		hddlist = harddiskmanager.HDDList()
+#		hddinfo = ""
+#		if hddlist:
+#			for count in range(len(hddlist)):
+#				if hddinfo:
+#					hddinfo += "\n"
+#				hdd = hddlist[count][1]
+#				if int(hdd.free()) > 1024:
+#					hddinfo += "%s\n(%s, %d GB %s)" % (hdd.model(), hdd.capacity(), hdd.free()/1024, _("free"))
+#				else:
+#					hddinfo += "%s\n(%s, %d MB %s)" % (hdd.model(), hdd.capacity(), hdd.free(), _("free"))
+#		else:
+#			hddinfo = _("none")
+#			
+#		self["hddA"] = StaticText(hddinfo)
+#		hdd = hddlist and hddlist[0][1] or None
+#		if hdd is not None and hdd.model() != "":
+#			self["hddA"] = StaticText(_("%s\n(%s, %d MB free)") % (hdd.model(), hdd.capacity(),hdd.free()))
+#		else:
+#			self["hddA"] = StaticText(_("none"))
+#
+#		self["actions"] = ActionMap(["SetupActions", "ColorActions"], 
+#			{
+#				"cancel": self.close,
+#				"ok": self.close,
+#				"green": self.showTranslationInfo
+#			})
+#
+custidlist = [\
+{"custid":"F2-A6-81","custname":"Hypercube"}]
 
 class About(Screen):
 	def __init__(self, session):
 		Screen.__init__(self, session)
-
-		self["EnigmaVersion"] = StaticText("Enigma: " + about.getEnigmaVersionString())
-		self["ImageVersion"] = StaticText("Image: " + about.getImageVersionString())
-
-		self["TunerHeader"] = StaticText(_("Detected NIMs:"))
+		logoname = "SU980";
+		# show
+		try:
+			fd = open("/proc/stb/info/eeprom/customer_id",'r');
+			costomid = fd.read(8)
+			print costomid
+			for cust in custidlist:
+				if cust["custid"] == costomid:
+					logoname = cust["custname"]
+					break
+		except:
+			pass
+			
+		self["AboutTitle"] = StaticText("About "+logoname);
+#		AboutText = _("Hardware: ") + about.getHardwareTypeString() + "\n"
+		AboutText = _("Hardware: ") + logoname + "\n"
+		AboutText += _("Image: ") + about.getImageTypeString() + "\n"
+		AboutText += _("Kernel Version: ") + about.getKernelVersionString() + "\n"
+		
+		EnigmaVersion = "Enigma: " + about.getEnigmaVersionString()
+		self["EnigmaVersion"] = StaticText(EnigmaVersion)
+		AboutText += EnigmaVersion + "\n"
+		
+		ImageVersion = _("Last Upgrade: ") + about.getImageVersionString()
+		self["ImageVersion"] = StaticText(ImageVersion)
+		AboutText += ImageVersion + "\n"
 
 		fp_version = getFPVersion()
 		if fp_version is None:
 			fp_version = ""
 		else:
 			fp_version = _("Frontprocessor version: %d") % fp_version
+			AboutText += fp_version + "\n"
 
 		self["FPVersion"] = StaticText(fp_version)
+		
+		self["TunerHeader"] = StaticText(_("Detected NIMs:"))
+		AboutText += "\n" + _("Detected NIMs:") + "\n"
 
 		nims = nimmanager.nimList()
-		for count in (0, 1, 2, 3):
-			if count < len(nims):
+		for count in range(len(nims)):
+			if count < 4:
 				self["Tuner" + str(count)] = StaticText(nims[count])
 			else:
 				self["Tuner" + str(count)] = StaticText("")
+			AboutText += nims[count] + "\n"
 
 		self["HDDHeader"] = StaticText(_("Detected HDD:"))
-		hddlist = harddiskmanager.HDDList()
-		hdd = hddlist and hddlist[0][1] or None
-		if hdd is not None and hdd.model() != "":
-			self["hddA"] = StaticText(_("%s\n(%s, %d MB free)") % (hdd.model(), hdd.capacity(),hdd.free()))
-		else:
-			self["hddA"] = StaticText(_("none"))
+		AboutText += "\n" + _("Detected HDD:") + "\n"
 
-		self["actions"] = ActionMap(["SetupActions", "ColorActions"], 
+		hddlist = harddiskmanager.HDDList()
+		hddinfo = ""
+		if hddlist:
+			for count in range(len(hddlist)):
+				if hddinfo:
+					hddinfo += "\n"
+				hdd = hddlist[count][1]
+				if int(hdd.free()) > 1024:
+					hddinfo += "%s\n(%s, %d GB %s)" % (hdd.model(), hdd.capacity(), hdd.free()/1024, _("free"))
+				else:
+					hddinfo += "%s\n(%s, %d MB %s)" % (hdd.model(), hdd.capacity(), hdd.free(), _("free"))
+		else:
+			hddinfo = _("none")
+		self["hddA"] = StaticText(hddinfo)
+		AboutText += hddinfo
+		self["AboutScrollLabel"] = ScrollLabel(AboutText)
+
+		self["actions"] = ActionMap(["SetupActions", "ColorActions", "DirectionActions"], 
 			{
 				"cancel": self.close,
 				"ok": self.close,
-				"green": self.showTranslationInfo
+				"green": self.showTranslationInfo,
+				"up": self["AboutScrollLabel"].pageUp,
+				"down": self["AboutScrollLabel"].pageDown
 			})
 
 	def showTranslationInfo(self):
 		self.session.open(TranslationInfo)
-
+		
 class TranslationInfo(Screen):
 	def __init__(self, session):
 		Screen.__init__(self, session)

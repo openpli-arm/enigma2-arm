@@ -8,7 +8,13 @@
 #include <lib/dvb_ci/dvbci.h>
 #include <lib/dvb/epgcache.h>
 #include <lib/dvb/scan.h>
-#include <lib/dvb_ci/dvbci_session.h>
+/*abing:0918 new include*/
+//#include <lib/dvb_ci/dvbci_session.h>
+#include <lib/ciplus/inc/trid_datatype.h>
+#include <lib/ciplus/inc/trid_errno.h>
+#include <lib/ciplus/inc/trid_ci_types.h>
+#include <lib/ciplus/inc/trid_ci_api.h>
+//#include <lib/dvb_ci/dvbci_triden.h>
 #include <dvbsi++/ca_descriptor.h>
 #include <dvbsi++/ca_program_map_section.h>
 #include <dvbsi++/teletext_descriptor.h>
@@ -305,7 +311,7 @@ int eDVBServicePMTHandler::getProgramInfo(program &program)
 			for (i = ptr->getSections().begin(); i != ptr->getSections().end(); ++i)
 			{
 				const ProgramMapSection &pmt = **i;
-				int is_hdmv = 0;
+				int is_hdmv = 1;
 
 				program.pcrPid = pmt.getPcrPid();
 

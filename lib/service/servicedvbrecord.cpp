@@ -269,8 +269,8 @@ int eDVBServiceRecord::doRecord()
 		}
 
 		/* Attempt to tune kernel caching strategies */
-		int pr;
-		pr = syscall(SYS_fadvise64, fd, 0, 0, 0, 0, 0, POSIX_FADV_RANDOM);
+		int pr = 0;
+		//pr = syscall(SYS_fadvise64, fd, 0, 0, 0, 0, 0, POSIX_FADV_RANDOM);
 		eDebug("POSIX_FADV_RANDOM returned %d", pr);
 
 		ePtr<iDVBDemux> demux;

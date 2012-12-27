@@ -11,7 +11,7 @@
                     <description>The Satfinder plugin helps you to align your dish.\n
                     It shows you informations about signal rate and errors.
                     </description>
-                    <screenshot src="http://www.dreamboxupdate.com/preview/plugin_satfinder.jpg" />
+                    <screenshot src="(http://www.dreamboxupdate.com/preview/plugin_satfinder.jpg)" />
           </info>
 	  <files type="package"> <!-- without version, without .ipk -->
 		<file type="package" name="enigma2-plugin-systemplugins-satfinder" />

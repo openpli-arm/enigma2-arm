@@ -2,13 +2,13 @@ from Screens.Wizard import WizardSummary
 from Screens.WizardLanguage import WizardLanguage
 from Screens.Rc import Rc
 from VideoHardware import video_hw
-
+from Components.ActionMap import ActionMap
 from Components.Pixmap import Pixmap, MovingPixmap, MultiPixmap
 from Components.config import config, ConfigBoolean, configfile
 
 from Tools.Directories import resolveFilename, SCOPE_PLUGINS
 from Tools.HardwareInfo import HardwareInfo
-
+from Plugins.Extensions.FactoryTest.plugin import FactoryTestMenu
 config.misc.showtestcard = ConfigBoolean(default = False)
 
 class VideoWizardSummary(WizardSummary):
@@ -67,11 +67,19 @@ class VideoWizard(WizardLanguage, Rc):
 		Rc.__init__(self)
 		self["wizard"] = Pixmap()
 		self["portpic"] = Pixmap()
-		
+
+		self["helpActions"] = ActionMap( [ "HelpActions" ],
+			{
+				"displayHelp": self.FactoryTest,
+			})
+			
 		self.port = None
 		self.mode = None
 		self.rate = None
 		
+	def FactoryTest(self):
+		print "FacotyTest"
+		self.session.open(FactoryTestMenu)
 		
 	def createSummary(self):
 		print "++++++++++++***++**** VideoWizard-createSummary"
@@ -86,6 +94,7 @@ class VideoWizard(WizardLanguage, Rc):
 	def listInputChannels(self):
 		hw_type = HardwareInfo().get_device_name()
 		has_hdmi = HardwareInfo().has_hdmi()
+		has_cvbs = HardwareInfo().has_cvbs()
 		list = []
 
 		for port in self.hw.getPortList():
@@ -93,9 +102,11 @@ class VideoWizard(WizardLanguage, Rc):
 				descr = port
 				if descr == 'DVI' and has_hdmi:
 					descr = 'HDMI'
+				if descr == 'Scart' and has_cvbs:
+					descr = 'CVBS'
 				if port != "DVI-PC":
 					list.append((descr,port))
-		list.sort(key = lambda x: x[0])
+		list.sort(key = lambda x: x[1])
 		print "listInputChannels:", list
 		return list
 

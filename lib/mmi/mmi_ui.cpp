@@ -61,27 +61,161 @@ int eMMI_UI::processMMIData(int slot_id, const unsigned char *tag, const void *d
 			eDebug("kann ich nicht. aber das sag ich dem modul nicht.");
 		return 1;
 	case 0x07:		//Tmenu_enq
+#if 1
+{
+	/*typedef struct _Trid_T_Enq_
 	{
+		trid_uint8 blind_answ;
+		trid_uint8 answ_len;
+		Trid_T_Text text;
+	}Trid_T_Enq;*/
+	if (data != NULL)
+	{
+		Trid_T_Enq *d=(Trid_T_Enq*)data;
+		printf("<mmi_ui.cpp eMMI_UI processMMIData> menu enqure blind answ(%d), text %s,len %d.\n", d->blind_answ, d->text.strings, d->answ_len);
+		mmiScreenEnq(slot_id, d->blind_answ, d->answ_len, d->text.strings);
+	}
+	break;
+}
+
+#else
+{
+	unsigned char *d=(unsigned char*)data;
+	unsigned char *max=((unsigned char*)d) + len;
+	int textlen = len - 2;
+	eDebug("in enq");
+	if ((d+2) > max)
+		break;
+	int blind = *d++ & 1;
+	int alen = *d++;
+		eDebug("%d bytes text", textlen);
+	if ((d+textlen) > max)
+		break;
+	char str[textlen + 1];
+	memcpy(str, ((char*)d), textlen);
+	str[textlen] = '\0';
+	eDebug("enq-text: %s",str);
+	mmiScreenEnq(slot_id, blind, alen, (char*)convertDVBUTF8(str).c_str());
+	break;
+}
+#endif
+	case 0x09:		//Tmenu_last
+#if 1
+{
+	/*typedef struct _Trid_T_Menu_
+	{
+		trid_uint8 choice_nb;
+		Trid_T_Text title;
+		Trid_T_Text sub_title;
+		Trid_T_Text bottom;
+		Trid_T_Text texts[TRID_MMI_MAX_MENU_ITEMS];
+	}Trid_T_Menu;*/
+	Trid_T_Menu *d=(Trid_T_Menu*)data;
+	int i=0;
+	//printf("<mmi_ui.cpp eMMI_UI processMMIData> Tmenu mmiScreenBegin.maybe choice_nb(%d) texts in.\n", d->choice_nb);
+	mmiScreenBegin(slot_id, 0);
+
+	//printf("<mmi_ui.cpp eMMI_UI processMMIData> Tmenu title %s. strlen %d.\n", d->title.strings, d->title.len);
+	if (d->title.len > 0)
+      {
+		mmiScreenAddText(slot_id, /*i++*/0, d->title.strings);/*这里有点风险，怕没有结束符号*/
+	}
+	//printf("<mmi_ui.cpp eMMI_UI processMMIData> Tmenu sub_title %s. strlen %d.\n", d->sub_title.strings, d->sub_title.len);
+	if (d->sub_title.len > 0)
+      {
+		mmiScreenAddText(slot_id, /*i++*/1, d->sub_title.strings);
+	}
+	//printf("<mmi_ui.cpp eMMI_UI processMMIData> Tmenu bottom %s. strlen %d.\n", d->bottom.strings, d->bottom.len);
+	if (d->bottom.len > 0)
+      {
+		mmiScreenAddText(slot_id, /*i++*/2, d->bottom.strings);
+	}
+	
+	for (i=0; i < (d->choice_nb); ++i)
+	{
+		//printf("<mmi_ui.cpp eMMI_UI processMMIData> Tmenu %d text %s. strlen %d.\n", i, d->texts[i].strings, d->texts[i].len);
+		mmiScreenAddText(slot_id, i+3, d->texts[i].strings);
+	}
+	mmiScreenFinish(slot_id);
+}
+
+#else
+{
 		unsigned char *d=(unsigned char*)data;
 		unsigned char *max=((unsigned char*)d) + len;
-		int textlen = len - 2;
-		eDebug("in enq");
-		if ((d+2) > max)
+		int pos = 0;
+		eDebug("Tmenu_last");
+		if (d > max)
 			break;
-		int blind = *d++ & 1;
-		int alen = *d++;
+		int n=*d++;
+		if(tag[2] == 0x09)	//menu
+			mmiScreenBegin(slot_id, 0);
+		else								//list
+			mmiScreenBegin(slot_id, 1);
+		if (n == 0xFF)
+			n=0;
+		else
+			n++;
+		eDebug("%d texts", n);
+		for (int i=0; i < (n+3); ++i)
+		{
+			int textlen;
+			if ((d+3) > max)
+				break;
+			eDebug("text tag: %02x %02x %02x", d[0], d[1], d[2]);
+			d+=3;
+			d+=eDVBCISession::parseLengthField(d, textlen);
 			eDebug("%d bytes text", textlen);
-		if ((d+textlen) > max)
-			break;
-		char str[textlen + 1];
-		memcpy(str, ((char*)d), textlen);
-		str[textlen] = '\0';
-		eDebug("enq-text: %s",str);
-		mmiScreenEnq(slot_id, blind, alen, (char*)convertDVBUTF8(str).c_str());
-		break;
+			if ((d+textlen) > max)
+				break;
+			char str[textlen + 1];
+			memcpy(str, ((char*)d), textlen);
+			str[textlen] = '\0';
+			mmiScreenAddText(slot_id, pos++, (char*)convertDVBUTF8(str).c_str());
+			while (textlen--)
+				eDebugNoNewLine("%c", *d++);
+			eDebug("");
+		}
+		mmiScreenFinish(slot_id);
 	}
-	case 0x09:		//Tmenu_last
+
+#endif
+		break;
 	case 0x0c:		//Tlist_last
+#if 1
+{
+	/*
+	typedef struct _Trid_T_List_
+	{
+		trid_uint8 item_nb;
+		Trid_T_Text title;
+		Trid_T_Text sub_title;
+		Trid_T_Text bottom;
+		Trid_T_Text texts[TRID_MMI_MAX_MENU_ITEMS];
+	}Trid_T_List;
+	*/
+	Trid_T_List *d=(Trid_T_List*)data;
+	int i=0;
+	
+	mmiScreenBegin(slot_id, 1);
+	//printf("<mmi_ui.cpp eMMI_UI processMMIData> Tlist mmiScreenBegin.\n");
+	
+	mmiScreenAddText(slot_id, /*i++*/0, d->title.strings);
+	//printf("<mmi_ui.cpp eMMI_UI processMMIData> Tlist title %s. strlen %d.\n", d->title.strings, d->title.len);
+	mmiScreenAddText(slot_id, /*i++*/1, d->sub_title.strings);
+	//printf("<mmi_ui.cpp eMMI_UI processMMIData> Tlist sub_title %s. strlen %d.\n", d->sub_title.strings, d->sub_title.len);
+	mmiScreenAddText(slot_id, /*i++*/2, d->bottom.strings);
+	//printf("<mmi_ui.cpp eMMI_UI processMMIData> Tlist bottom %s. strlen %d.\n", d->bottom.strings, d->bottom.len);
+	
+	for (i=0; i < (d->item_nb); ++i)
+	{
+		//printf("<mmi_ui.cpp eMMI_UI processMMIData> Tlist %d text %s. strlen %d.\n", i, d->texts[i].strings, d->texts[i].len);
+		mmiScreenAddText(slot_id, i+3, d->texts[i].strings);
+	}
+	mmiScreenFinish(slot_id);
+	break;
+}		
+#else
 	{
 		unsigned char *d=(unsigned char*)data;
 		unsigned char *max=((unsigned char*)d) + len;
@@ -119,8 +253,10 @@ int eMMI_UI::processMMIData(int slot_id, const unsigned char *tag, const void *d
 			eDebug("");
 		}
 		mmiScreenFinish(slot_id);
+	}	
+#endif
 		break;
-	}
+	
 	default:
 		eDebug("unknown APDU tag 9F 88 %02x", tag[2]);
 		break;
@@ -295,7 +431,12 @@ int eMMI_UI::mmiScreenFinish(int slot)
 
 void eMMI_UI::mmiSessionDestroyed(int slot)
 {
-	mmiScreenClose(slot, 0);
+	if (slot < m_max_slots)
+		mmiScreenClose(slot, 0);
+	else
+	{
+		printf(">>>>>>>>>><mmi_ui.cpp eMMI_UI mmiSessionDestroyed>very seriously error. slot >= m_max_slots\n");
+	}
 }
 
 PyObject *eMMI_UI::getMMIScreen(int slot)

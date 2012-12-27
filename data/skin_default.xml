@@ -100,7 +100,7 @@
 	</screen>
 	<!-- Audio selection -->
 	<screen name="AudioSelection" position="center,center" size="485,330" title="Audio">
-		<widget name="config" position="50,10" size="425,110" scrollbarMode="showOnDemand" />
+		<widget name="config" position="50,10" size="425,100" scrollbarMode="showOnDemand" />
 		
 		<widget source="key_red" render="Pixmap" pixmap="skin_default/buttons/key_red.png" position="10,10" size="35,25" alphatest="on">
 			<convert type="ConditionalShowHide" />
@@ -115,9 +115,9 @@
 			<convert type="ConditionalShowHide" />
 		</widget>
 		
-		<ePixmap pixmap="skin_default/div-h.png" position="10,112" zPosition="10" size="465,2" />
+		<ePixmap pixmap="skin_default/div-h.png" position="10,115" zPosition="10" size="465,2" />
 
-		<widget source="streams" render="Listbox" scrollbarMode="showOnDemand" position="10,120" size="465,200" zPosition="3" transparent="1" >
+		<widget source="streams" render="Listbox" scrollbarMode="showOnDemand" position="10,125" size="465,200" zPosition="3" transparent="1" >
 			<convert type="TemplatedMultiContent">
 				{"templates":
 					{"default": (25, [ 
@@ -1176,5 +1176,10 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y()))
 		<widget source="key_red" render="Label" position="0,0" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" />
 		<widget source="key_green" render="Label" position="140,0" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="#1f771f" transparent="1" />
 		<widget name="filelist" position="5,50" size="510,370" scrollbarMode="showOnDemand" />
+	</screen>
+<!-- standby -->
+	<screen name="QuitMainloopScreen" position="0,0" size="1000,600" title="QuitMainloopScreen" flags="wfNoBorder">
+		<ePixmap pixmap="skin_default/icons/input_info.png" position="c-127,c-140" size="53,53" alphatest="on" />
+		<widget name="text" position="c-460,c-90" size="720,100" font="Regular;22" halign="center" />
 	</screen>
 </skin>

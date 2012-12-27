@@ -108,6 +108,7 @@ int fbClass::SetMode(unsigned int nxRes, unsigned int nyRes, unsigned int nbpp)
 	screeninfo.width=0;
 	screeninfo.xoffset=screeninfo.yoffset=0;
 	screeninfo.bits_per_pixel=nbpp;
+	screeninfo.activate = FB_ACTIVATE_NOW;
 
 	switch (nbpp) {
 	case 16:

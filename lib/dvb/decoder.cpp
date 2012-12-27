@@ -1012,6 +1012,7 @@ int eTSMPEGDecoder::setState()
 			{
 				uint8_t demux = 0;
 				m_demux->getCADemuxID(demux);
+				demux = 3;
 				eTuxtxtApp::getInstance()->startCaching(m_textpid, demux);
 			}
 		}

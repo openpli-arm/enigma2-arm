@@ -30,7 +30,7 @@ from Screens.UnhandledKey import UnhandledKey
 from ServiceReference import ServiceReference
 
 from Tools import Notifications
-from Tools.Directories import fileExists
+from Tools.Directories import fileExists,isMount
 
 from enigma import eTimer, eServiceCenter, eDVBServicePMTHandler, iServiceInformation, \
 	iPlayableService, eServiceReference, eEPGCache, eActionMap
@@ -1655,7 +1655,10 @@ class InfoBarInstantRecord:
 			# XXX: this message is a little odd as we might be recording to a remote device
 			self.session.open(MessageBox, _("Missing ") + dir + "\n" + _("No HDD found or HDD not initialized!"), MessageBox.TYPE_ERROR)
 			return
-
+		#check is storage device mount on this dir
+		if not isMount(dir) or dir == "/":
+			self.session.open(MessageBox, _("Record Path: ") + dir + "\n" + _("Please check is inserted an external storage device and  select the right record Directory?\nUSB storage device: /media/usb\n"), MessageBox.TYPE_ERROR)
+			return
 		if self.isInstantRecordRunning():
 			self.session.openWithCallback(self.recordQuestionCallback, ChoiceBox, \
 				title=_("A recording is currently running.\nWhat do you want to do?"), \

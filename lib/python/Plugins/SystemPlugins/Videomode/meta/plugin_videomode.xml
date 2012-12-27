@@ -9,7 +9,7 @@
                     <packagename>enigma2-plugin-systemplugins-videomode</packagename>
                     <shortdescription>Videomode provides advanced video mode settings</shortdescription>
                     <description>The Videomode plugin provides advanced video mode settings.</description>
-                    <screenshot src="http://www.dreamboxupdate.com/preview/plugin_videomode_en.jpg" />
+                    <screenshot src="(http://www.dreamboxupdate.com/preview/plugin_videomode_en.jpg)" />
           </info>
 
 	  <files type="package"> <!-- without version, without .ipk -->

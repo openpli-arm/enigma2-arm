@@ -18,7 +18,7 @@ LD_PRELOAD=@libdir@/libopen.so.0.0.0 @bindir@/enigma2
 # 0 - restart enigma
 # 1 - halt
 # 2 - reboot
-#
+# 10- chang to Andriod
 # >128 signal
 
 ret=$?
@@ -35,6 +35,10 @@ case $ret in
 		sleep 1;
 		/sbin/rmmod fp
 		/sbin/modprobe fp
+		/sbin/reboot
+		;;
+	10)
+		/usr/bin/setenv  default_sys  1
 		/sbin/reboot
 		;;
 	42)

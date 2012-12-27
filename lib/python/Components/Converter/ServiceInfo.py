@@ -28,10 +28,15 @@ class ServiceInfo(Converter, object):
 				"HasTelext": (self.HAS_TELETEXT, (iPlayableService.evUpdatedInfo,)),
 				"IsMultichannel": (self.IS_MULTICHANNEL, (iPlayableService.evUpdatedInfo,)),
 				"IsCrypted": (self.IS_CRYPTED, (iPlayableService.evUpdatedInfo,)),
-				"IsWidescreen": (self.IS_WIDESCREEN, (iPlayableService.evVideoSizeChanged,)),
+#				"IsWidescreen": (self.IS_WIDESCREEN, (iPlayableService.evVideoSizeChanged,)),
+				"IsWidescreen": (self.IS_WIDESCREEN, (iPlayableService.evUpdatedInfo,)),
 				"SubservicesAvailable": (self.SUBSERVICES_AVAILABLE, (iPlayableService.evUpdatedEventInfo,)),
-				"VideoWidth": (self.XRES, (iPlayableService.evVideoSizeChanged,)),
-				"VideoHeight": (self.YRES, (iPlayableService.evVideoSizeChanged,)),
+#				"VideoWidth": (self.XRES, (iPlayableService.evVideoSizeChanged,)),
+				"VideoWidth": (self.XRES, (iPlayableService.evUpdatedInfo,)),
+				
+#				"VideoHeight": (self.YRES, (iPlayableService.evVideoSizeChanged,)),
+				"VideoHeight": (self.YRES, (iPlayableService.evUpdatedInfo,)),
+
 				"AudioPid": (self.APID, (iPlayableService.evUpdatedInfo,)),
 				"VideoPid": (self.VPID, (iPlayableService.evUpdatedInfo,)),
 				"PcrPid": (self.PCRPID, (iPlayableService.evUpdatedInfo,)),
@@ -41,9 +46,10 @@ class ServiceInfo(Converter, object):
 				"OnId": (self.ONID, (iPlayableService.evUpdatedInfo,)),
 				"Sid": (self.SID, (iPlayableService.evUpdatedInfo,)),
 				"Framerate": (self.FRAMERATE, (iPlayableService.evVideoSizeChanged,iPlayableService.evUpdatedInfo,)),
+				
 				"TransferBPS": (self.TRANSFERBPS, (iPlayableService.evUpdatedInfo,)),
 			}[type]
-
+	
 	def getServiceInfoString(self, info, what, convert = lambda x: "%d" % x):
 		v = info.getInfo(what)
 		if v == -1:

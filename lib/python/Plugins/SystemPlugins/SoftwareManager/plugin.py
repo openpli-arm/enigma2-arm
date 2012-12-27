@@ -125,12 +125,12 @@ class UpdatePluginMenu(Screen):
 		self.backupdirs = ' '.join( config.plugins.configurationbackup.backupdirs.value )
 		if self.menu == 0:
 			print "building menu entries"
-			self.list.append(("install-extensions", _("Manage extensions"), _("\nManage extensions or plugins for your Dreambox" ) + self.oktext, None))
-			self.list.append(("software-update", _("Software update"), _("\nOnline update of your Dreambox software." ) + self.oktext, None))
-			self.list.append(("software-update-offline", _("Software update") + " (Offline)", _("\nOnline update of your Dreambox software." ) + _("\nShut down upgrade and reboot") + self.oktext, None))
-			self.list.append(("software-restore", _("Software restore"), _("\nRestore your Dreambox with a new firmware." ) + self.oktext, None))
-			self.list.append(("system-backup", _("Backup system settings"), _("\nBackup your Dreambox settings." ) + self.oktext + "\n\n" + self.infotext, None))
-			self.list.append(("system-restore",_("Restore system settings"), _("\nRestore your Dreambox settings." ) + self.oktext, None))
+			self.list.append(("install-extensions", _("Manage extensions"), _("\nManage extensions or plugins for your Box" ) + self.oktext, None))
+			self.list.append(("software-update", _("Software update"), _("\nOnline update of your Box software." ) + self.oktext, None))
+			self.list.append(("software-update-offline", _("Software update") + " (Offline)", _("\nOnline update of your Box software." ) + _("\nShut down upgrade and reboot") + self.oktext, None))
+			self.list.append(("software-restore", _("Software restore"), _("\nRestore your Box with a new firmware." ) + self.oktext, None))
+			self.list.append(("system-backup", _("Backup system settings"), _("\nBackup your Box settings." ) + self.oktext + "\n\n" + self.infotext, None))
+			self.list.append(("system-restore",_("Restore system settings"), _("\nRestore your Box settings." ) + self.oktext, None))
 			self.list.append(("ipkg-install", _("Install local extension"),  _("\nScan for local extensions and install them." ) + self.oktext, None))
 			for p in plugins.getPlugins(PluginDescriptor.WHERE_SOFTWAREMANAGER):
 				if p.__call__.has_key("SoftwareSupported"):
@@ -231,9 +231,9 @@ class UpdatePluginMenu(Screen):
 			currentEntry = current[0]
 			if self.menu == 0:
 				if (currentEntry == "software-update"):
-					self.session.openWithCallback(self.runUpgrade, MessageBox, _("Do you want to update your Dreambox?")+"\n"+_("\nAfter pressing OK, please wait!"))
+					self.session.openWithCallback(self.runUpgrade, MessageBox, _("Do you want to update your Box?")+"\n"+_("\nAfter pressing OK, please wait!"))
 				if (currentEntry == "software-update-offline"):
-					self.session.openWithCallback(self.runUpgradeOffline, MessageBox, _("Do you want to update your Dreambox?")+"\n"+_("The screen will go blank while upgrading, be patient and wait for the reboot."))
+					self.session.openWithCallback(self.runUpgradeOffline, MessageBox, _("Do you want to update your Box?")+"\n"+_("The screen will go blank while upgrading, be patient and wait for the reboot."))
 				elif (currentEntry == "software-restore"):
 					self.session.open(ImageWizard)
 				elif (currentEntry == "install-extensions"):
@@ -933,7 +933,7 @@ class PluginManager(Screen, DreamInfoHandler):
 		self.reloadPluginlist()
 		restartRequired = plugins.restartRequired
 		if restartRequired:
-			self.session.openWithCallback(self.ExecuteReboot, MessageBox, _("Install or remove finished.") +" "+_("Do you want to reboot your Dreambox?"), MessageBox.TYPE_YESNO)
+			self.session.openWithCallback(self.ExecuteReboot, MessageBox, _("Install or remove finished.") +" "+_("Do you want to reboot your Box?"), MessageBox.TYPE_YESNO)
 		else:
 			self.selectedFiles = []
 			self.detailsClosed(True)
@@ -1018,7 +1018,7 @@ class PluginManagerInfo(Screen):
 				elif cmd == 2:
 					info = args['package']
 				else:
-					info = _("Dreambox software because updates are available.")
+					info = _("Box software because updates are available.")
 
 				self.list.append(self.buildEntryComponent(action,info))
 			self['list'].setList(self.list)
@@ -1302,7 +1302,7 @@ class PluginDetails(Screen, DreamInfoHandler):
 		self.reloadPluginlist()
 		restartRequired = plugins.restartRequired
 		if restartRequired:
-			self.session.openWithCallback(self.UpgradeReboot, MessageBox, _("Installation finished.") +" "+_("Do you want to reboot your Dreambox?"), MessageBox.TYPE_YESNO)
+			self.session.openWithCallback(self.UpgradeReboot, MessageBox, _("Installation finished.") +" "+_("Do you want to reboot your Box?"), MessageBox.TYPE_YESNO)
 		else:
 			self.close(True)
 	def UpgradeReboot(self, result):
@@ -1382,7 +1382,7 @@ class UpdatePlugin(Screen):
 				self.updating = True
 				self.activityTimer.start(100, False)
 				self.package.setText(_("Package list update"))
-				self.status.setText(_("Upgrading Dreambox... Please wait"))
+				self.status.setText(_("Upgrading Hypercube... Please wait"))
 				self.ipkg.startCmd(IpkgComponent.CMD_UPDATE)
 			else:
 				self.package.setText(_("Your network is not working. Please try again."))
@@ -1451,11 +1451,11 @@ class UpdatePlugin(Screen):
 			else:
 				self.activityTimer.stop()
 				self.activityslider.setValue(0)
-				error = _("your dreambox might be unusable now. Please consult the manual for further assistance before rebooting your dreambox.")
+				error = _("your Box might be unusable now. Please consult the manual for further assistance before rebooting your Box.")
 				if self.packages == 0:
 					error = _("No packages were upgraded yet. So you can check your network and try again.")
 				if self.updating:
-					error = _("Your dreambox isn't connected to the internet properly. Please check it and try again.")
+					error = _("Your Box isn't connected to the internet properly. Please check it and try again.")
 				self.status.setText(_("Error") +  " - " + error)
 		#print event, "-", param
 		pass
@@ -1466,7 +1466,7 @@ class UpdatePlugin(Screen):
 	def exit(self):
 		if not self.ipkg.isRunning():
 			if self.packages != 0 and self.error == 0:
-				self.session.openWithCallback(self.exitAnswer, MessageBox, _("Upgrade finished.") +" "+_("Do you want to reboot your Dreambox?"))
+				self.session.openWithCallback(self.exitAnswer, MessageBox, _("Upgrade finished.") +" "+_("Do you want to reboot your Box?"))
 			else:
 				self.close()
 		else:
@@ -1824,7 +1824,7 @@ class PacketManager(Screen, NumericalTextInput):
 			self.session.openWithCallback(self.runRemoveFinished, Ipkg, cmdList = self.cmdList)
 
 	def runRemoveFinished(self):
-		self.session.openWithCallback(self.RemoveReboot, MessageBox, _("Remove finished.") +" "+_("Do you want to reboot your Dreambox?"), MessageBox.TYPE_YESNO)
+		self.session.openWithCallback(self.RemoveReboot, MessageBox, _("Remove finished.") +" "+_("Do you want to reboot your Box?"), MessageBox.TYPE_YESNO)
 
 	def RemoveReboot(self, result):
 		if result is None:
@@ -1846,7 +1846,7 @@ class PacketManager(Screen, NumericalTextInput):
 			self.session.openWithCallback(self.runUpgradeFinished, Ipkg, cmdList = self.cmdList)
 
 	def runUpgradeFinished(self):
-		self.session.openWithCallback(self.UpgradeReboot, MessageBox, _("Upgrade finished.") +" "+_("Do you want to reboot your Dreambox?"), MessageBox.TYPE_YESNO)
+		self.session.openWithCallback(self.UpgradeReboot, MessageBox, _("Upgrade finished.") +" "+_("Do you want to reboot your Box?"), MessageBox.TYPE_YESNO)
 		
 	def UpgradeReboot(self, result):
 		if result is None:

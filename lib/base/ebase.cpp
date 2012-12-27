@@ -7,7 +7,8 @@
 #include <lib/base/eerror.h>
 #include <lib/base/elock.h>
 #include <lib/gdi/grc.h>
-
+#include <lib/dvb_ci/dvbci.h>
+/*abing:0918  add by define trid_ci*/
 DEFINE_REF(eSocketNotifier);
 
 eSocketNotifier::eSocketNotifier(eMainloop *context, int fd, int requested, bool startnow): context(*context), fd(fd), state(0), requested(requested)
@@ -173,7 +174,9 @@ int eMainloop::processOneEvent(unsigned int twisted_timeout, PyObject **res, ePy
 {
 	int return_reason = 0;
 		/* get current time */
-
+#if trid_ci
+	unsigned int uiTridCi = 0;
+#endif
 	if (additional && !PyDict_Check(additional))
 		eFatal("additional, but it's not dict");
 
@@ -250,9 +253,25 @@ int eMainloop::processOneEvent(unsigned int twisted_timeout, PyObject **res, ePy
 	pollfd pfd[fdcount];  // make new pollfd array
 	std::map<int,eSocketNotifier*>::iterator it = notifiers.begin();
 
-	int i=0;
+	int i=0, j;
+	j=fdcount;
 	for (; i < nativecount; ++i, ++it)
 	{
+#if trid_ci
+		if (it->first == 0x12345678)
+		{
+			it->second->state = 1; // running and in poll
+			uiTridCi = 0x12345678;
+			++it;
+			nativecount--;
+			fdcount--;
+			//printf("-");
+			if (i >= nativecount)
+			{
+				break;
+			}
+		}
+#endif
 		it->second->state = 1; // running and in poll
 		pfd[i].fd = it->first;
 		pfd[i].events = it->second->getRequested();
@@ -335,6 +354,29 @@ int eMainloop::processOneEvent(unsigned int twisted_timeout, PyObject **res, ePy
 		else
 			return_reason = 2; /* don't assume the timeout has passed when we got a signal */
 	}
+#if trid_ci
+	if (uiTridCi == 0x12345678)
+	{
+		if (DVBCI_GetCbStatus()!=0)
+		{
+		eDebug("##############################################->call ci notify here %d.", DVBCI_GetCbStatus());
+			it = notifiers.find(uiTridCi);
+			if (it != notifiers.end()
+				&& it->second->state == 1) // added and in poll
+			{
+				m_inActivate = it->second;
+				{
+					m_inActivate->AddRef();
+					m_inActivate->activate(DVBCI_GetCbStatus());
+					m_inActivate->Release();
+				}
+				m_inActivate = 0;
+			}
+			return_reason = 0; /* don't assume the timeout has passed when we got a signal */
+		eDebug("##############-----------------##############->out ci notify here.");
+		}
+	}
+#endif
 
 	return return_reason;
 }
@@ -390,8 +432,10 @@ int eMainloop::iterate(unsigned int twisted_timeout, PyObject **res, ePyObject d
 
 int eMainloop::runLoop()
 {
-	while (!app_quit_now)
+	while (!app_quit_now) {
+		eDebug("app_quit_now(%d)", app_quit_now);
 		iterate();
+	}
 	return retval;
 }
 

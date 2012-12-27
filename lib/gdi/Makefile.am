@@ -11,6 +11,7 @@ noinst_LIBRARIES = libenigma_gdi.a
 
 libenigma_gdi_a_SOURCES = \
 	accel.cpp \
+	tridentFB.cpp \
 	bcm.cpp \
 	compositing.cpp \
 	epng.cpp \

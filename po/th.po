@@ -9,8 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-11-04 15:25+0100\n"
 "PO-Revision-Date: 2010-04-08 18:13+0700\n"
-"Last-Translator: Tony - Thaidreambox\n"
-"Language-Team: Tony @ Thai Dreambox <tonyboyth@gmail.com>\n"
+"Last-Translator: Tony - ThaiHypercube\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -34,7 +33,7 @@ msgstr ""
 
 msgid ""
 "\n"
-"Backup your Dreambox settings."
+"Backup your Hypercube settings."
 msgstr ""
 "\n"
 "สำรองการตั้งค่าดรีมบอกซ์"
@@ -48,7 +47,7 @@ msgstr ""
 
 msgid ""
 "\n"
-"Online update of your Dreambox software."
+"Online update of your Hypercube software."
 msgstr ""
 "\n"
 "ปรับปรุงดรีมบอกซ์แบบออนไลน์"
@@ -62,14 +61,14 @@ msgstr ""
 
 msgid ""
 "\n"
-"Restore your Dreambox settings."
+"Restore your Hypercube settings."
 msgstr ""
 "\n"
 "นำค่าดรีมบอกซ์ที่ตั้งไว้กลับมาใช้"
 
 msgid ""
 "\n"
-"Restore your Dreambox with a new firmware."
+"Restore your Hypercube with a new firmware."
 msgstr ""
 "\n"
 "นำสำรองกลับมาใช้กับเฟิร์มแวร์ใหม่"
@@ -322,14 +321,14 @@ msgstr ""
 
 msgid ""
 "A finished record timer wants to set your\n"
-"Dreambox to standby. Do that now?"
+"Hypercube to standby. Do that now?"
 msgstr ""
 "บันทึกรายการเสร็จแล้ว เครื่องดรีมบอกซ์\n"
 "กำลังจะ Standby ให้ทำตอนนี้หรือไม่?"
 
 msgid ""
 "A finished record timer wants to shut down\n"
-"your Dreambox. Shutdown now?"
+"your Hypercube. Shutdown now?"
 msgstr ""
 "บันทึกรายการเสร็จแล้ว เครื่องดรีมบอกซ์\n"
 "กำลังจะปิด (Shutdown) ต้องการให้ปิดตอนนี้หรือไม่?"
@@ -364,14 +363,14 @@ msgstr "ไม่พบเครื่องมือที่ต้องใช
 
 msgid ""
 "A sleep timer wants to set your\n"
-"Dreambox to standby. Do that now?"
+"Hypercube to standby. Do that now?"
 msgstr ""
 "เครื่องดรีมบอกซ์กำลังจะ Standby\n"
 "ต้องการ Standby ตอนนี้หรือไม่?"
 
 msgid ""
 "A sleep timer wants to shut down\n"
-"your Dreambox. Shutdown now?"
+"your Hypercube. Shutdown now?"
 msgstr ""
 "เครื่องดรีมบอกซ์กำลังจะปิด (Shutdown)\n"
 "ต้องการปิดตอนนี้หรือไม่?"
@@ -458,7 +457,7 @@ msgstr "เพิ่มเข้ากลุ่ม (Bouquet)"
 msgid "Add to favourites"
 msgstr "เพิ่มเข้ารายการโปรด (Favourites)"
 
-msgid "Adds enigma2 settings and dreambox model informations like SN, rev... if enabled."
+msgid "Adds enigma2 settings and Hypercube model informations like SN, rev... if enabled."
 msgstr "เติมข้อมูลการตั้งค่า รุ่นของดรีมบอกซ์ เช่น หมายเลขเครื่อง ชุดแก้ไจ ถ้าต้องการ"
 
 msgid "Adds network configuration if enabled."
@@ -488,7 +487,7 @@ msgstr "นำข้อมูลกลับมาใช้แบบขั้น
 msgid "After event"
 msgstr "หลังจากจบรายการ"
 
-msgid "After the start wizard is completed, you need to protect single services. Refer to your dreambox's manual on how to do that."
+msgid "After the start wizard is completed, you need to protect single services. Refer to your Hypercube's manual on how to do that."
 msgstr "เมื่อจบการทำงานของตัวช่วย ท่านต้องเปิดส่วนป้องกันบริการ อ่านเพิ่มเติมจากคู่มือดรีมบอกซ์"
 
 msgid "Album"
@@ -980,7 +979,7 @@ msgstr "เล่นต่อเนื่อง"
 msgid "Contrast"
 msgstr "ความเข้ม"
 
-msgid "Could not connect to Dreambox .NFI Image Feed Server:"
+msgid "Could not connect to Hypercube .NFI Image Feed Server:"
 msgstr "ติดต่อเซอร์พเวอร์ดรีมบอกซ์เพื่อโหลดอิมเมจ .NFI ไม่ได้"
 
 msgid "Could not load Medium! No disc inserted?"
@@ -1298,7 +1297,7 @@ msgstr "ท่านต้องการค้นหารายการหร
 msgid "Do you want to do another manual service scan?"
 msgstr "ท่านต้องการที่จะทำการค้นหารายการอื่นๆ ต่อหรือไม่?"
 
-msgid "Do you want to enable the parental control feature on your dreambox?"
+msgid "Do you want to enable the parental control feature on your Hypercube?"
 msgstr "ท่านต้องการที่จะใช้งานส่วนควบคุมอายุการรับชมในเครื่องดรีมบอกซ์ของท่านหรือไม่?"
 
 msgid "Do you want to install default sat lists?"
@@ -1313,7 +1312,7 @@ msgstr "ท่านต้องการที่จะเล่นแผ่น
 msgid "Do you want to preview this DVD before burning?"
 msgstr "ดูเนื้อหาดีวีดีก่อนเขียนลงแผ่นหรือไม่?"
 
-msgid "Do you want to reboot your Dreambox?"
+msgid "Do you want to reboot your Hypercube?"
 msgstr "จะให้เครื่อดรีมบอกซ์ จะเริ่มระบบใหม่ (Reboot) หรือไม่?"
 
 msgid "Do you want to remove the package:\n"
@@ -1328,11 +1327,11 @@ msgstr "ต้องการเล่นต่อจากที่เดิม
 msgid "Do you want to submit your email address and name so that we can contact you if needed?"
 msgstr "ต้องการส่งอีเมลล์และชื่อของท่านเพื่อให้เราติดต่อเมื่อต้องการหรือไม่?"
 
-msgid "Do you want to update your Dreambox?"
+msgid "Do you want to update your Hypercube?"
 msgstr "ตกลงที่จะปรับปรุงเครื่องดรีมบอกซ์ของท่านหรือไม่?"
 
 msgid ""
-"Do you want to update your Dreambox?\n"
+"Do you want to update your Hypercube?\n"
 "After pressing OK, please wait!"
 msgstr ""
 "ตกลงที่จะปรับปรุงดรีมบอกซ์ของท่านหรือไม่?\n"
@@ -1386,10 +1385,10 @@ msgstr "กำลังดาวน์โหลด"
 msgid "Downloading plugin information. Please wait..."
 msgstr "กำลังดาวน์โหลดข้อมูล Plugin กรุณารอสักครู่..."
 
-msgid "Dreambox format data DVD (HDTV compatible)"
+msgid "Hypercube format data DVD (HDTV compatible)"
 msgstr "ฟอร์เมตดีวีดีแบบข้อมูล (ใช้ได้กับ HDTV)"
 
-msgid "Dreambox software because updates are available."
+msgid "Hypercube software because updates are available."
 msgstr "มีซอพท์แวร์สำหรับปรับปรุงเครื่องดรีมบอกซ์"
 
 msgid "Dutch"
@@ -1429,10 +1428,10 @@ msgstr "แก้ไขสารบัญบริการ"
 msgid "Edit settings"
 msgstr "แก้ไขการตั้งค่า"
 
-msgid "Edit the Nameserver configuration of your Dreambox.\n"
+msgid "Edit the Nameserver configuration of your Hypercube.\n"
 msgstr "แก้ไขการตั้งค่า Nameserver บนเครื่องดรีมบอกซ์ของท่าน\n"
 
-msgid "Edit the network configuration of your Dreambox.\n"
+msgid "Edit the network configuration of your Hypercube.\n"
 msgstr "แก้ไขการตั้งค่าเครือข่ายเครื่อดรีมบอกซ์ของท่าน\n"
 
 msgid "Edit title"
@@ -2405,7 +2404,7 @@ msgstr "ไม่ - กลับไปเริ่มต้นใหม่"
 msgid "No, do nothing."
 msgstr "ไม่ - ไม่ต้องการทำ"
 
-msgid "No, just start my dreambox"
+msgid "No, just start my Hypercube"
 msgstr "ไม่ - เพิ่งเริ่มใช้งานเครื่องดรีมบอกซ์"
 
 msgid "No, not now"
@@ -2610,7 +2609,7 @@ msgstr ""
 "กรุณาตั้งค่าอินเตอร์เน็ตโดยการป้อนข้อมูลที่จำเป็น\n"
 "หากป้อนแล้วให้กดปุ่ม OK เพื่อทำงานต่อ"
 
-msgid "Please disconnect all USB devices from your Dreambox and (re-)attach the target USB stick (minimum size is 64 MB) now!"
+msgid "Please disconnect all USB devices from your Hypercube and (re-)attach the target USB stick (minimum size is 64 MB) now!"
 msgstr "กรุณาดึงไดรฟ์ USB ออกจากเครื่อง แล้วเสียบใหม่ตอนนี้เลย (อย่างน้อย 64 MB)"
 
 msgid "Please do not change any values unless you know what you are doing!"
@@ -3472,7 +3471,7 @@ msgstr "แสดงเครื่องเล่นโทรทัศน์...
 msgid "Shows the state of your wireless LAN connection.\n"
 msgstr "แสดงสถานะการเชื่อมต่อเครือข่ายไร้สาย\n"
 
-msgid "Shutdown Dreambox after"
+msgid "Shutdown Hypercube after"
 msgstr "ปิดเครื่องดรีมบอกซ์หลังจาก"
 
 msgid "Signal Strength:"
@@ -3753,7 +3752,7 @@ msgstr "ประเภทการทดสอบ"
 msgid "Test mode"
 msgstr "โหมดทดสอบ"
 
-msgid "Test the network configuration of your Dreambox.\n"
+msgid "Test the network configuration of your Hypercube.\n"
 msgstr "ทดสอบการตั้งค่าเครือข่ายของเครื่องดรีมบอกซ์\n"
 
 msgid "Test-Messagebox?"
@@ -3768,12 +3767,12 @@ msgstr ""
 
 msgid ""
 "Thank you for using the wizard. Your box is now ready to use.\n"
-"Please press OK to start using your Dreambox."
+"Please press OK to start using your Hypercube."
 msgstr ""
 "ขอขอบคุณที่ใช้บริการตัวช่วยตั้งค่า เครื่องของท่านสามารถใช้งานได้ตามปกติแล้ว\n"
 "กรุณากดปุ่ม OK เพื่อเริ่มใช้งานดรีมบอกซ์ของท่าน"
 
-msgid "The DVD standard doesn't support H.264 (HDTV) video streams. Do you want to create a Dreambox format data DVD (which will not play in stand-alone DVD players) instead?"
+msgid "The DVD standard doesn't support H.264 (HDTV) video streams. Do you want to create a Hypercube format data DVD (which will not play in stand-alone DVD players) instead?"
 msgstr "ตามมาตรฐานของดีวีดีไม่รองรับ H.264 (HDTV) ต้องการบันทึกไฟล์จากดรีมบอกซ์ในโหมดข้อมูลแทนหรือไม่ (ไม่สามารถเล่นกับเครื่องเล่นได้)?"
 
 msgid "The USB stick is now bootable. Do you want to download the latest image from the feed server and save it on the stick?"
@@ -3809,8 +3808,8 @@ msgstr ""
 msgid "The installation of the default services lists is finished."
 msgstr "การติดตั้งบริการเริ่มต้นเสร็จแล้ว"
 
-msgid "The installation of the default settings is finished. You can now continue configuring your Dreambox by pressing the OK button on the remote control."
-msgstr "การติดตั้งตามค่าเริ่มต้นเสร็จแล้ว ท่านสามารถดำเนินการตั้งค่าอื่นๆ สำหรับ Dreambox ของท่านต่อโดยกดปุ่ม OK ที่รีโมท"
+msgid "The installation of the default settings is finished. You can now continue configuring your Hypercube by pressing the OK button on the remote control."
+msgstr "การติดตั้งตามค่าเริ่มต้นเสร็จแล้ว ท่านสามารถดำเนินการตั้งค่าอื่นๆ สำหรับ Hypercube ของท่านต่อโดยกดปุ่ม OK ที่รีโมท"
 
 msgid "The md5sum validation failed, the file may be corrupted! Are you sure that you want to burn this image to flash memory? You are doing this at your own risk!"
 msgstr "ตรวจสอบด้วย MD5 ล้มเหลว ไฟล์นี้อาจไม่สมบูรณ์ ต้องการติดตั้งอิมเมจนี้หรือไม่ (เครื่องอาจเสียหายได้ ถ้าเลือกว่า ใช่)"
@@ -3910,12 +3909,12 @@ msgid "This DVD RW medium is already formatted - reformatting will erase all con
 msgstr "แผ่น DVD-RW นี้ได้รับการฟอร์แมทมาแล้ว หากทำซ้ำจะเป็นการลบข้อมูลออกทั้งหมด"
 
 #, python-format
-msgid "This Dreambox can't decode %s streams!"
-msgstr "Dreambox เครื่องนี้ไม่สามารถอ่านสัญญาณ %s ได้!"
+msgid "This Hypercube can't decode %s streams!"
+msgstr "Hypercube เครื่องนี้ไม่สามารถอ่านสัญญาณ %s ได้!"
 
 #, python-format
-msgid "This Dreambox can't decode %s video streams!"
-msgstr "Dreambox เครื่องนี้ไม่สามารถอ่านไฟล์วีดีโอ %s ได้!"
+msgid "This Hypercube can't decode %s video streams!"
+msgstr "Hypercube เครื่องนี้ไม่สามารถอ่านไฟล์วีดีโอ %s ได้!"
 
 msgid "This is step number 2."
 msgstr "ขั้นตอนที่ 2"
@@ -4063,7 +4062,7 @@ msgid "Titleset mode"
 msgstr "โหมดตั้งชื่อเรื่อง"
 
 msgid ""
-"To update your Dreambox firmware, please follow these steps:\n"
+"To update your Hypercube firmware, please follow these steps:\n"
 "1) Turn off your box with the rear power switch and plug in the bootable USB stick.\n"
 "2) Turn mains back on and hold the DOWN button on the front panel pressed for 10 seconds.\n"
 "3) Wait for bootup and follow instructions of the wizard."
@@ -4233,13 +4232,13 @@ msgstr "กำลังอัพเกรด... กรุณารอสัก�
 msgid "Upgrade finished."
 msgstr "อัพเกรดเสร็จสิ้น"
 
-msgid "Upgrade finished. Do you want to reboot your Dreambox?"
+msgid "Upgrade finished. Do you want to reboot your Hypercube?"
 msgstr "อัพเกรดเสร็จแล้ว ท่านต้องการที่จะบูทเครื่องดรีมบอกซ์หรือไม่?"
 
 msgid "Upgrading"
 msgstr "กำลังอัพเกรด"
 
-msgid "Upgrading Dreambox... Please wait"
+msgid "Upgrading Hypercube... Please wait"
 msgstr "กำลังอัพเกรดเครื่องดรีมบอกซ์... กรุณารอสักครู่"
 
 msgid "Use"
@@ -4470,26 +4469,26 @@ msgstr ""
 "\n"
 "จากนั้นทำค้นหาจุดสุดท้ายแล้วกดปุ่ม OK เพื่อกำหนดจุดสุดท้าย ('end cut') เท่านั้นเอง (That's it)"
 
-msgid "Welcome to the Image upgrade wizard. The wizard will assist you in upgrading the firmware of your Dreambox by providing a backup facility for your current settings and a short explanation of how to upgrade your firmware."
+msgid "Welcome to the Image upgrade wizard. The wizard will assist you in upgrading the firmware of your Hypercube by providing a backup facility for your current settings and a short explanation of how to upgrade your firmware."
 msgstr "ยินดีต้อนรับสู่ตัวช่วยในการอัพเกรด ตัวช่วยนี้จะช่วยท่านทำการอัพเกรดเฟริ์มแวร์บนเครื่องดรีมบอกซ์โดยที่การตั้งค่าต่างๆ ในปัตจจุบันจะถูกสำรองไว้ อีกทั้งยังแสดงรายละเอียดสั้นๆ แนะทำท่านตลอดการอัพเกรดอีกด้วย"
 
 msgid ""
 "Welcome to the cleanup wizard.\n"
 "\n"
 "We have detected that your available internal memory has dropped below 2MB.\n"
-"To ensure stable operation of your Dreambox, the internal memory should be cleaned up.\n"
+"To ensure stable operation of your Hypercube, the internal memory should be cleaned up.\n"
 "You can use this wizard to remove some extensions.\n"
 msgstr ""
 "ยินดีต้อนรับ สู่ตัวช่วยในการทำความสะอาดระบบ\n"
 "\n"
 "เราพบว่า เนื้อที่ในหน่วยความจำที่สามารถใช้งานได้ของเครื่องมีน้อยกว่า 2MB.\n"
-"เพื่อให้เครื่อง Dreambox ของท่านทำงานได้อย่างปกติ หน่วยความจำภายในต้องถูกทำความสะอาด\n"
+"เพื่อให้เครื่อง Hypercube ของท่านทำงานได้อย่างปกติ หน่วยความจำภายในต้องถูกทำความสะอาด\n"
 "โดยที่ท่านสามารถใช้ตัวช่วยนี้ลบข้อมูลที่ไม่จำเป็น เช่น ส่วนเพิ่มเติมต่างๆ \n"
 
 msgid ""
 "Welcome.\n"
 "\n"
-"If you want to connect your Dreambox to the Internet, this wizard will guide you through the basic network setup of your Dreambox.\n"
+"If you want to connect your Hypercube to the Internet, this wizard will guide you through the basic network setup of your Hypercube.\n"
 "\n"
 "Press OK to start configuring your network"
 msgstr ""
@@ -4502,7 +4501,7 @@ msgstr ""
 msgid ""
 "Welcome.\n"
 "\n"
-"This start wizard will guide you through the basic setup of your Dreambox.\n"
+"This start wizard will guide you through the basic setup of your Hypercube.\n"
 "Press the OK button on your remote control to move to the next step."
 msgstr ""
 "ยินดีต้อนรับ\n"
@@ -4631,7 +4630,7 @@ msgstr "ท่านไม่ต้องการติดตั้งค่า
 msgid "You chose not to install anything. Please press OK finish the install wizard."
 msgstr "ท่านเลือกที่จะไม่ทำการติดตั้งไฟล์ใดๆ เลย กรุณากดปุ่ม OK เพื่อจบการทำงานของตัวช่วย"
 
-msgid "You do not seem to have a harddisk in your Dreambox. So backing up to a harddisk is not an option for you."
+msgid "You do not seem to have a harddisk in your Hypercube. So backing up to a harddisk is not an option for you."
 msgstr "ไม่พบฮาร์ดดิสก์ในเครื่องของท่าน ดังนั้นการสำรองข้อมูลลงฮาร์ดดิสก์จึงไม่สามารถทำได้"
 
 msgid ""
@@ -4665,8 +4664,8 @@ msgid "You have to wait %s!"
 msgstr "ต้องรอประมาณ %s!"
 
 msgid ""
-"You need a PC connected to your dreambox. If you need further instructions, please visit the website http://www.dm7025.de\n"
-"Your dreambox will now be halted. After you have performed the update instructions from the website, your new firmware will ask you to restore your settings."
+"You need a PC connected to your Hypercube. If you need further instructions, please visit the website http://www.dm7025.de\n"
+"Your Hypercube will now be halted. After you have performed the update instructions from the website, your new firmware will ask you to restore your settings."
 msgstr ""
 "เชื่อม PC ของท่านกับดรีมบอกซ์แล้ว หากที่ต้องการคำอธิบายเพิ่มให้ติดต่อ http://www.dm7025.de\n"
 "เครื่องดรีมบอกซ์ของท่านจะแฮงค์ หลังจากที่ท่านได้ทำตามคำแนะนำตามเวบไซด์แล้ว ตัวอิมเมจใหม่จะให้ท่านนำสำรองกลับมาใช้"
@@ -4681,7 +4680,7 @@ msgstr ""
 "ท่านต้องการตั้งรหัสตอนนี้หรือไม่?"
 
 msgid ""
-"Your Dreambox is now ready to use.\n"
+"Your Hypercube is now ready to use.\n"
 "\n"
 "Your internet connection is working now.\n"
 "\n"
@@ -4693,7 +4692,7 @@ msgstr ""
 "\n"
 "กดปุ่ม OK เพื่อทำงานต่อ"
 
-msgid "Your Dreambox will restart after pressing OK on your remote control."
+msgid "Your Hypercube will restart after pressing OK on your remote control."
 msgstr "เครื่องจะทำการเริ่มระบบใหม่เมื่อท่านกดปุ่ม OK"
 
 msgid "Your TV works with 50 Hz. Good!"
@@ -4705,10 +4704,10 @@ msgstr "การสำรองข้อมูลเสร็จสิ้น �
 msgid "Your collection exceeds the size of a single layer medium, you will need a blank dual layer DVD!"
 msgstr "ข้อมูลที่เลือกใหญ่กว่าดีวีดีแบบชั้นเดียว ท่านต้องใช้ดีวีดีแบบ 2 ชั้น"
 
-msgid "Your dreambox is shutting down. Please stand by..."
+msgid "Your Hypercube is shutting down. Please stand by..."
 msgstr "กำลังจะปิดเครื่อง (Shutdown) กรุณารอสักครับ"
 
-msgid "Your dreambox isn't connected to the internet properly. Please check it and try again."
+msgid "Your Hypercube isn't connected to the internet properly. Please check it and try again."
 msgstr "เครื่องของท่านไม่สามารถเชื่อต่ออินเตอร์เน็ทได้ โปรดตรวจสอบแล้วลองใหม่"
 
 msgid "Your email address:"
@@ -5660,7 +5659,7 @@ msgstr "ใช่"
 msgid "yes (keep feeds)"
 msgstr "ใช่ (เก็บฟีดนี้ไว้)"
 
-msgid "your dreambox might be unusable now. Please consult the manual for further assistance before rebooting your dreambox."
+msgid "your Hypercube might be unusable now. Please consult the manual for further assistance before rebooting your Hypercube."
 msgstr "เครื่องของท่านไม่เสถียรพอที่จะใช้งาน แนะนำให้ศึกษาคู่มือการใช้งานก่อนบูทเครื่อง"
 
 msgid "zap"

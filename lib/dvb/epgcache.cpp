@@ -444,8 +444,11 @@ void eEPGCache::DVBChannelStateChanged(iDVBChannel *chan)
 				case iDVBChannel::state_release:
 				{
 					eDebug("[eEPGCache] remove channel %p", chan);
-					if (it->second->state >= 0)
-						messages.send(Message(Message::leaveChannel, chan));
+					//if (it->second->state >= 0)
+					//	messages.send(Message(Message::leaveChannel, chan));
+					eDebug("[eEPGCache] send message:leaveChannel");
+					//messages.send(Message(Message::leaveChannel, chan));
+					gotMessage(Message(Message::leaveChannel, chan));
 					pthread_mutex_lock(&it->second->channel_active);
 					singleLock s(channel_map_lock);
 					m_knownChannels.erase(it);
@@ -906,7 +909,7 @@ void eEPGCache::cleanLoop()
 eEPGCache::~eEPGCache()
 {
 	messages.send(Message::quit);
-	kill(); // waiting for thread shutdown
+	kill(true); // waiting for thread shutdown
 	singleLock s(cache_lock);
 	for (eventCache::iterator evIt = eventDB.begin(); evIt != eventDB.end(); evIt++)
 		for (eventMap::iterator It = evIt->second.first.begin(); It != evIt->second.first.end(); It++)

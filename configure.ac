@@ -215,6 +215,12 @@ lib/python/Plugins/Extensions/SocketMMI/meta/Makefile
 lib/python/Plugins/Extensions/SocketMMI/src/Makefile
 lib/python/Plugins/Extensions/TuxboxPlugins/Makefile
 lib/python/Plugins/Extensions/TuxboxPlugins/meta/Makefile
+lib/python/Plugins/Extensions/OscamStatus/Makefile
+lib/python/Plugins/Extensions/OscamStatus/icons/Makefile
+lib/python/Plugins/Extensions/OscamStatus/locale/de/LC_MESSAGES/Makefile
+lib/python/Plugins/Extensions/OscamStatus/locale/pl/LC_MESSAGES/Makefile
+lib/python/Plugins/Extensions/FactoryTest/Makefile
+lib/python/Plugins/Extensions/FactoryTest/icons/Makefile
 lib/python/Plugins/SystemPlugins/CleanupWizard/Makefile
 lib/python/Plugins/SystemPlugins/CleanupWizard/meta/Makefile
 lib/python/Plugins/SystemPlugins/CommonInterfaceAssignment/Makefile

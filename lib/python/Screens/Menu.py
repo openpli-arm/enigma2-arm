@@ -10,6 +10,8 @@ from Components.SystemInfo import SystemInfo
 from Tools.Directories import resolveFilename, SCOPE_SKIN
 
 import xml.etree.cElementTree
+from Plugins.Extensions.FactoryTest.plugin import FactoryTestMenu
+from Components.ActionMap import ActionMap
 
 from Screens.Setup import Setup, getSetupTitle
 
@@ -234,14 +236,22 @@ class Menu(Screen):
 				"8": self.keyNumberGlobal,
 				"9": self.keyNumberGlobal
 			})
-
+			
+		self["helpActions"] = ActionMap( [ "HelpActions" ],
+			{
+				"displayHelp": self.FactoryTest
+			})	
+			
 		a = parent.get("title", "").encode("UTF-8") or None
 		a = a and _(a)
 		if a is None:
 			a = _(parent.get("text", "").encode("UTF-8"))
 		self["title"] = StaticText(a)
 		self.menu_title = a
-
+		
+	def FactoryTest(self):
+		print "FacotyTest"
+		self.session.open(FactoryTestMenu)
 	def keyNumberGlobal(self, number):
 		print "menu keyNumber:", number
 		# Calculate index

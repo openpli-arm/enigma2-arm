@@ -170,8 +170,8 @@ void eFilePushThread::thread()
 					 gettimeofday(&starttime, NULL);
 #endif
 
-					int pr;
-					pr = syscall(SYS_fadvise64, m_fd_dest, offset_last_sync, 0, 0, 0, POSIX_FADV_DONTNEED);
+					int pr = 0;
+					//pr = syscall(SYS_fadvise64, m_fd_dest, offset_last_sync, 0, 0, 0, POSIX_FADV_DONTNEED);
 					if (pr != 0)
 					{
 						eDebug("[filepush] POSIX_FADV_DONTNEED returned %d", pr);

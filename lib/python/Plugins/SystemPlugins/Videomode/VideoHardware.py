@@ -203,7 +203,26 @@ class VideoHardware:
 
 	def isPortAvailable(self, port):
 		# fixme
-		return True
+		# add saifei.xiao
+#		print "isPortAvailable port:",port
+#		modes["Scart"] = ["PAL", "NTSC", "Multi"]
+#		modes["YPbPr"] = ["720p", "1080i", "576p", "480p", "576i", "480i"]
+#		modes["DVI"] = ["720p", "1080i", "576p", "480p", "576i", "480i"]
+#		modes["DVI-PC"] = ["PC"]
+		has_hdmi = HardwareInfo().has_hdmi()
+#		has_scart = HardwareInfo().has_scart()
+		has_ypbpy = HardwareInfo().has_ypbpy()
+		has_dvi_pc = HardwareInfo().has_dvi_pc()
+		if port == "Scart":
+			return True
+		elif port == "YPbPr":
+			return has_ypbpy
+		elif port == "DVI":
+			return has_hdmi
+		elif port == "DVI-PC":
+			return has_dvi_pc
+		
+		return False
 
 	def isPortUsed(self, port):
 		if port == "DVI":
@@ -231,6 +250,7 @@ class VideoHardware:
 	def createConfig(self, *args):
 		hw_type = HardwareInfo().get_device_name()
 		has_hdmi = HardwareInfo().has_hdmi()
+		has_cvbs = HardwareInfo().has_cvbs()
 		lst = []
 
 		config.av.videomode = ConfigSubDict()
@@ -242,6 +262,8 @@ class VideoHardware:
 			descr = port
 			if descr == 'DVI' and has_hdmi:
 				descr = 'HDMI'
+			elif descr == 'Scart' and has_cvbs:
+				descr = 'CVBS'
 			elif descr == 'DVI-PC' and has_hdmi:
 				descr = 'HDMI-PC'
 			lst.append((port, descr))
@@ -307,7 +329,9 @@ class VideoHardware:
 				aspect = "16:9"
 			else:
 				aspect = {"16_9": "16:9", "16_10": "16:10"}[config.av.aspect.value]
-			policy = {"pillarbox": "panscan", "panscan": "letterbox", "nonlinear": "nonlinear", "scale": "bestfit"}[config.av.policy_43.value]
+			#policy = {"pillarbox": "panscan", "panscan": "letterbox", "nonlinear": "nonlinear", "scale": "bestfit"}[config.av.policy_43.value]
+			#With su980 pillarbox is pillarbox, panscan is letterbox and no nonlinear mode. 
+			policy = {"pillarbox": "letterbox", "panscan": "panscan", "scale": "bestfit"}[config.av.policy_43.value]
 			policy2 = {"letterbox": "letterbox", "panscan": "panscan", "scale": "bestfit"}[config.av.policy_169.value]
 		elif is_auto:
 			aspect = "any"

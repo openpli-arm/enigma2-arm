@@ -20,6 +20,16 @@ def getProcMounts():
 		return []
 	return [line.strip().split(' ') for line in mounts]
 
+def isFileSystemSupported(filesystem):
+	try:
+		for fs in open('/proc/filesystems', 'r'):
+			if fs.strip().endswith(filesystem):
+				return True
+		return False
+	except Exception, ex:
+		print "[Harddisk] Failed to read /proc/filesystems:", ex
+		
+
 DEVTYPE_UDEV = 0
 DEVTYPE_DEVFS = 1
 
@@ -123,6 +133,10 @@ class Harddisk:
 				vendor = readFile(self.sysfsPath('device/vendor'))
 				model = readFile(self.sysfsPath('device/model'))
 				return vendor + '(' + model + ')'
+			elif self.device[:3] == "mmc":
+				devicetype = readFile(self.sysfsPath('device/type'))
+				devicename = readFile(self.sysfsPath('device/name'))
+				return devicetype +"(" +devicename+")"
 			else:
 				raise Exception, "no hdX or sdX" 
 		except Exception, e:
@@ -248,10 +262,18 @@ class Harddisk:
 		res = system(cmd)
 		return (res >> 8)
 
+	def killPartitionTable(self):
+		zero = 512 * '\0'
+		h = open(self.dev_path, 'wb')
+		# delete first 9 sectors, which will likely kill the first partition too
+		for i in range(9):
+			h.write(zero)
+		h.close()
+
 	def killPartition(self, n):
+		zero = 512 * '\0'
 		part = self.partitionPath(n)
 		h = open(part, 'wb')
-		zero = 512 * '\0'
 		for i in range(3):
 			h.write(zero)
 		h.close()
@@ -261,34 +283,86 @@ class Harddisk:
 	def createInitializeJob(self):
 		job = Task.Job(_("Initializing storage device..."))
 
-		task =  UnmountTask(job, self)
+		task = UnmountTask(job, self)
 
-		task = Task.PythonTask(job, _("Kill partition"))
-		task.work = lambda: self.killPartition("1")
+		print "UnmountTask end!!!"
+		
+		task = Task.PythonTask(job, _("Kill partition table"))
+		task.work = self.killPartitionTable
 		task.weighting = 1
+		print "Kill partition table end!!"
 
+		task = Task.LoggingTask(job, _("Reread partition table"))
+		task.weighting = 1
+		task.setTool('sfdisk')
+		task.args.append('-R')
+		task.args.append(self.disk_path)
+
+		task = Task.ConditionTask(job, _("Wait for partition"), timeoutCount=20)
+		task.check = lambda: not path.exists(self.partitionPath("1"))
+		task.weighting = 1
+		
+		size = self.diskSize()
+		print "[HD] size: %s MB" % size
+
+		task = Task.LoggingTask(job, _("Reread partition table"))
+		task.weighting = 1
+		task.setTool('sfdisk')
+		task.args.append('-R')
+		task.args.append(self.disk_path)
+
+		size = self.diskSize()
+		print "[HD] size: %s MB" % size
+		
 		task = Task.LoggingTask(job, _("Create Partition"))
 		task.weighting = 5
 		task.setTool('sfdisk')
 		task.args.append('-f')
+		task.args.append('-uS')
 		task.args.append(self.disk_path)
-		task.initial_input = "0,\n;\n;\n;\ny\n"
-		
+		if size > 128000:
+			# Start at sector 8 to better support 4k aligned disks
+			print "[HD] Detected >128GB disk, using 4k alignment"
+			task.initial_input = "8,\n;0,0\n;0,0\n;0,0\ny\n"
+		else:
+			# Smaller disks (CF cards, sticks etc) don't need that
+			task.initial_input = "0,\n;\n;\n;\ny\n"
+
+		task = Task.ConditionTask(job, _("Wait for partition"))
+		task.check = lambda: path.exists(self.partitionPath("1"))
+		task.weighting = 1
+
 		task = MkfsTask(job, _("Create Filesystem"))
-		task.setTool("mkfs.ext3")
-		size = self.diskSize()
-		if size > 16 * 1024:
+		if isFileSystemSupported("ext4"):
+			task.setTool("mkfs.ext4")
+			if size > 20000:
+				version = open("/proc/version","r").read().split(' ', 4)[2].split('.',2)[:2]
+				if (version[0] > 3) or ((version[0] > 2) and (version[1] >= 2)):
+					# Linux version 3.2 supports bigalloc and -C option, use 256k blocks
+					task.args += ["-O", "bigalloc", "-C", "262144"]
+		else:
+			task.setTool("mkfs.ext3")
+		if size > 250000:
+			# No more than 256k i-nodes (prevent problems with fsck memory requirements)
+			task.args += ["-T", "largefile", "-O", "sparse_super", "-N", "262144"]
+		elif size > 16384:
+			# between 16GB and 250GB: 1 i-node per megabyte
 			task.args += ["-T", "largefile", "-O", "sparse_super"]
-		elif size > 2 * 1024:
+		elif size > 2048:
+			# Over 2GB: 32 i-nodes per megabyte
 			task.args += ["-T", "largefile", "-N", str(size * 32)]
 		task.args += ["-m0", "-O", "dir_index", self.partitionPath("1")]
 
 		task = MountTask(job, self)
-		task.weighting = 5
+		task.weighting = 3
+
+		task = Task.ConditionTask(job, _("Wait for mount"), timeoutCount=20)
+		task.check = self.mountDevice
+		task.weighting = 1
 
 		task = Task.PythonTask(job, _("Create movie directory"))
 		task.weighting = 1
-		task.work = self.createMovieFolder
+		task.work = createMovieFolder
 
 		return job
 
@@ -525,7 +599,8 @@ class HarddiskManager:
 		try:
 			removable = bool(int(readFile(devpath + "/removable")))
 			dev = int(readFile(devpath + "/dev").split(':')[0])
-			if dev in (7, 31, 253): # loop, mtdblock, romblock
+			# what's mtdblock_robbs?
+			if dev in (7, 31, 44, 253): # loop, mtdblock, mtdblock_robbs, romblock
 				blacklisted = True
 			if blockdev[0:2] == 'sr':
 				is_cdrom = True
@@ -571,22 +646,41 @@ class HarddiskManager:
 	def addHotplugPartition(self, device, physdev = None):
 		# device is the device name, without /dev
 		# physdev is the physical device path, which we (might) use to determine the userfriendly name
+#		print "[Harddisk].addHotplugPartition().device:",device
 		if not physdev:
 			dev, part = self.splitDeviceName(device)
+#			print "[Harddisk].addHotplugPartition().dev:",dev
+#			print "[Harddisk].addHotplugPartition().part:",part
 			try:
 				physdev = path.realpath('/sys/block/' + dev + '/device')[4:]
 			except OSError:
 				physdev = dev
-				print "couldn't determine blockdev physdev for device", device
+#				print "couldn't determine blockdev physdev for device", device
 		error, blacklisted, removable, is_cdrom, partitions, medium_found = self.getBlockDevInfo(device)
+#		print "[Harddisk].addHotplugPartition().error:",error
+#		print "[Harddisk].addHotplugPartition().blacklisted:",blacklisted
+#		print "[Harddisk].addHotplugPartition().removable:",removable
+#		print "[Harddisk].addHotplugPartition().is_cdrom:",is_cdrom
+#		print "[Harddisk].addHotplugPartition().partitions:",partitions
+#		print "[Harddisk].addHotplugPartition().medium_found:",medium_found
+		
 		if not blacklisted and not is_cdrom and medium_found:
 			description = self.getUserfriendlyDeviceName(device, physdev)
+#			print "[Harddisk].addHotplugPartition().description:",description
 			p = Partition(mountpoint = self.getAutofsMountpoint(device), description = description, force_mounted = True, device = device)
 			self.partitions.append(p)
 			self.on_partition_list_change("add", p)
 			# see if this is a harddrive
 			l = len(device)
+#			print "[Harddisk].addHotplugPartition().l:",l
+#			print "[Harddisk].addHotplugPartition().device[l-1].isdigit():",device[l-1].isdigit()
 			if l and not device[l-1].isdigit():
+				print "add Storage device!!"
+				self.hdd.append(Harddisk(device))
+				self.hdd.sort()
+				SystemInfo["Harddisk"] = len(self.hdd) > 0
+			if device == "mmcblk0": #add sdcard. saifei.xaio
+				print "add Storage device!!"
 				self.hdd.append(Harddisk(device))
 				self.hdd.sort()
 				SystemInfo["Harddisk"] = len(self.hdd) > 0
@@ -606,7 +700,14 @@ class HarddiskManager:
 					self.hdd.remove(hdd)
 					break
 			SystemInfo["Harddisk"] = len(self.hdd) > 0
-
+		elif device == "mmcblk0":
+			for hdd in self.hdd:
+				if hdd.device == device:
+					hdd.stop()
+					self.hdd.remove(hdd)
+					break
+			SystemInfo["Harddisk"] = len(self.hdd) > 0
+			
 	def HDDCount(self):
 		return len(self.hdd)
 
@@ -729,7 +830,9 @@ class MkfsTask(Task.LoggingTask):
 		elif self.fsck_state == 'inode':
 			if '/' in data:
 				try:
-					d = data.strip(' \x08\r\n').split('/')
+					d = data.strip(' \x08\r\n').split('/',1)
+					if ('\x08' in d[1]):
+						d[1] = d[1].split('\x08',1)[0]
 					self.setProgress(80*int(d[0])/int(d[1]))
 				except Exception, e:
 					print "[Mkfs] E:", e

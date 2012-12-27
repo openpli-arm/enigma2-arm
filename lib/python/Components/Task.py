@@ -274,12 +274,14 @@ class LoggingTask(Task):
 
 class PythonTask(Task):
 	def _run(self):
-		from twisted.internet import threads, task
+		from twisted.internet import threads
+		from enigma import eTimer
 		self.aborted = False
 		self.pos = 0
 		threads.deferToThread(self.work).addBoth(self.onComplete)
-		self.timer = task.LoopingCall(self.onTimer)
-		self.timer.start(5, False)
+		self.timer = eTimer()
+		self.timer.callback.append(self.onTimer)
+		self.timer.start(5)
 	def work(self):
 		raise NotImplemented, "work"
 	def abort(self):
@@ -294,6 +296,43 @@ class PythonTask(Task):
 		del self.timer
 		self.finish()
 
+class ConditionTask(Task):
+	"""
+	Reactor-driven pthread_condition.
+	Wait for something to happen. Call trigger when something occurs that
+	is likely to make check() return true. Raise exception in check() to
+	signal error.
+	Default is to call trigger() once per second, override prepare/cleanup
+	to do something else (like waiting for hotplug)...
+	"""
+	def __init__(self, job, name, timeoutCount=None):
+		Task.__init__(self, job, name)
+		self.timeoutCount = timeoutCount
+	def _run(self):
+		self.triggerCount = 0
+	def prepare(self):
+		from enigma import eTimer
+		self.timer = eTimer()
+		self.timer.callback.append(self.trigger)
+		self.timer.start(1000)
+	def cleanup(self, failed):
+		if hasattr(self, 'timer'):
+			self.timer.stop()
+			del self.timer
+	def check(self):
+		# override to return True only when condition triggers
+		return True
+	def trigger(self):
+		self.triggerCount += 1
+		try:
+			if (self.timeoutCount is not None) and (self.triggerCount > self.timeoutCount):
+				raise Exception, "Timeout elapsed, sorry"
+			res = self.check()
+		except Exception, e:
+			self.postconditions.append(FailedPostcondition(e))
+			res = True
+		if res:
+			self.finish()
 
 # The jobmanager will execute multiple jobs, each after another.
 # later, it will also support suspending jobs (and continuing them after reboot etc)

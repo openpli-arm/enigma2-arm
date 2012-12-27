@@ -32,6 +32,7 @@ from Screens.RdsDisplay import RassInteractive
 from ServiceReference import ServiceReference
 from Tools.BoundFunction import boundFunction
 from os import remove
+from Components.ServiceScan import ServiceScan
 profile("ChannelSelection.py after imports")
 
 FLAG_SERVICE_NEW_FOUND = 64 #define in lib/dvb/idvb.h as dxNewFound = 64
@@ -916,9 +917,31 @@ class ChannelSelectionBase(Screen):
 				self.setTitle(titleStr)
 
 	def moveUp(self):
+#fix service content can not sen after scan,update servicelist :saifei
+		if ServiceScan.scansuccess == 1:
+			print "just updeate service after scan"
+			ServiceScan.scansuccess = 0
+			refstr = '%s ORDER BY name'%(self.service_types)
+			if not self.preEnterPath(refstr):
+				ref = eServiceReference(refstr)
+				currentRoot = self.getRoot()
+				if currentRoot is None or currentRoot == ref:
+					self.clearPath()
+					self.enterPath(ref)
 		self.servicelist.moveUp()
 
 	def moveDown(self):
+#fix service content can not sen after scan,update servicelist :saifei
+		if ServiceScan.scansuccess == 1:
+			print "just updeate service after scan"
+			ServiceScan.scansuccess = 0
+			refstr = '%s ORDER BY name'%(self.service_types)
+			if not self.preEnterPath(refstr):
+				ref = eServiceReference(refstr)
+				currentRoot = self.getRoot()
+				if currentRoot is None or currentRoot == ref:
+					self.clearPath()
+					self.enterPath(ref)
 		self.servicelist.moveDown()
 
 	def clearPath(self):

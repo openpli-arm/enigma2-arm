@@ -307,13 +307,13 @@ class RecordTimerEntry(timer.TimerEntry, object):
 				self.record_service = None
 			if self.afterEvent == AFTEREVENT.STANDBY:
 				if not Screens.Standby.inStandby: # not already in standby
-					Notifications.AddNotificationWithCallback(self.sendStandbyNotification, MessageBox, _("A finished record timer wants to set your\nDreambox to standby. Do that now?"), timeout = 20)
+					Notifications.AddNotificationWithCallback(self.sendStandbyNotification, MessageBox, _("A finished record timer wants to set your\nBox to standby. Do that now?"), timeout = 20)
 			elif self.afterEvent == AFTEREVENT.DEEPSTANDBY:
 				if not Screens.Standby.inTryQuitMainloop: # not a shutdown messagebox is open
 					if Screens.Standby.inStandby: # in standby
 						RecordTimerEntry.TryQuitMainloop() # start shutdown handling without screen
 					else:
-						Notifications.AddNotificationWithCallback(self.sendTryQuitMainloopNotification, MessageBox, _("A finished record timer wants to shut down\nyour Dreambox. Shutdown now?"), timeout = 20)
+						Notifications.AddNotificationWithCallback(self.sendTryQuitMainloopNotification, MessageBox, _("A finished record timer wants to shut down\nyour Box. Shutdown now?"), timeout = 20)
 			return True
 
 	def setAutoincreaseEnd(self, entry = None):
@@ -393,7 +393,7 @@ class RecordTimerEntry(timer.TimerEntry, object):
 				text = '\n'.join((text, _("Please note that the previously selected media could not be accessed and therefore the default directory is being used instead.")))
 
 			if config.usage.show_message_when_recording_starts.value:
-				Notifications.AddPopup(text = text, type = MessageBox.TYPE_INFO, timeout = 3)
+				Notifications.AddPopup(text = text, type = MessageBox.TYPE_INFO, timeout = 8)
 
 	# we have record_service as property to automatically subscribe to record service events
 	def setRecordService(self, service):

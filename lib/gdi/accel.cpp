@@ -9,7 +9,7 @@
 #include <lib/gdi/gpixmap.h>
 
 gAccel *gAccel::instance;
-#define BCM_ACCEL
+#define TRIDENT_ACCEL
 
 #ifdef ATI_ACCEL
 extern int ati_accel_init(void);
@@ -39,6 +39,21 @@ extern void bcm_accel_fill(
 		unsigned long color);
 extern bool bcm_accel_has_alphablending();
 #endif
+#ifdef TRIDENT_ACCEL
+extern int tridentFB_accel_init(void);
+extern void tridentFB_accel_close(void);
+extern int tridentFB_accel_blit(
+		int src_addr, int src_width, int src_height, int src_stride, int bpp,
+		int dst_addr, int dst_width, int dst_height, int dst_stride,
+		int src_x, int src_y, int width, int height,
+		int dst_x, int dst_y, int dwidth, int dheight,
+		struct fb_cmap* pal_addr, unsigned int numOfColors, int flags);
+
+extern int tridentFB_accel_fill(
+		int dst_addr, int dst_width, int dst_height, int dst_stride,
+		int x, int y, int width, int height,
+		unsigned long color);
+#endif
 
 gAccel::gAccel()
 {
@@ -48,6 +63,9 @@ gAccel::gAccel()
 	m_accel_allocation = 0;
 	instance = this;
 
+#ifdef TRIDENT_ACCEL
+	m_tridentFB_accel_state =  tridentFB_accel_init();
+#endif
 #ifdef ATI_ACCEL	
 	ati_accel_init();
 #endif
@@ -58,6 +76,10 @@ gAccel::gAccel()
 
 gAccel::~gAccel()
 {
+#ifdef TRIDENT_ACCEL
+	m_tridentFB_accel_state = -1;
+	tridentFB_accel_close();
+#endif
 #ifdef ATI_ACCEL
 	ati_accel_close();
 #endif
@@ -74,7 +96,7 @@ gAccel *gAccel::getInstance()
  
 void gAccel::setAccelMemorySpace(void *addr, int phys_addr, int size)
 {
-	if (m_accel_allocation)
+	if (m_accel_allocation && size > 0)
 	{
 		delete[] m_accel_allocation;
 		m_accel_allocation = NULL;
@@ -103,6 +125,63 @@ bool gAccel::hasAlphaBlendingSupport()
 
 int gAccel::blit(gSurface *dst, const gSurface *src, const eRect &p, const eRect &area, int flags)
 {
+#ifdef TRIDENT_ACCEL	/* TODO: blitAlphaTest flag is not clear */
+	/* unsupported flags */
+	if (flags & gPixmap::blitAlphaTest)
+	{
+		eDebug("gAccel::blit error\n");
+		return -1;
+	}
+
+	if (!m_tridentFB_accel_state)
+	{
+		if ((src->bpp == 8) && src->clut.data)
+		{
+			unsigned int numOfColors = 0;
+			int ret = -1;
+
+			struct fb_cmap cmap;
+			cmap.start = src->clut.start;
+			cmap.len = src->clut.colors;
+			numOfColors = src->clut.colors;
+
+			if(cmap.len >0)
+			{
+				cmap.red = new unsigned short[cmap.len];
+				cmap.green = new unsigned short[cmap.len];
+				cmap.blue = new unsigned short[cmap.len];
+				cmap.transp= new unsigned short[cmap.len];
+
+				for(int i= 0;i<cmap.len;i++)
+				{
+					cmap.red[i] = src->clut.data[i].r;
+					cmap.green[i] = src->clut.data[i].g;
+					cmap.blue[i] = src->clut.data[i].b;
+					//cmap.transp[i] = src->clut.data[i].a;
+					cmap.transp[i] = 0xff;
+				}
+				cmap.transp[0] = 0x00;
+			}
+			ret = tridentFB_accel_blit(
+				src->data, src->x, src->y, src->stride, src->bpp,
+				dst->data, dst->x, dst->y, dst->stride,
+				p.x(), p.y(), p.width(), p.height(),
+				area.left(), area.top(), area.width(), area.height(),
+				&cmap, numOfColors,flags);
+
+			delete[] cmap.red;
+			delete[] cmap.green;
+			delete[] cmap.blue;
+			delete[] cmap.transp;
+
+			return ret;
+		}
+		else
+		{
+			return -1;
+		}
+	}
+#endif
 #ifdef ATI_ACCEL
 	ati_accel_blit(
 		src->data_phys, src->x, src->y, src->stride,
@@ -147,6 +226,19 @@ int gAccel::fill(gSurface *dst, const eRect &area, unsigned long col)
 {
 #ifdef FORCE_NO_FILL_ACCELERATION
 	return -1;
+#endif
+#ifdef TRIDENT_ACCEL
+	if (!m_tridentFB_accel_state)
+	{
+		int ret;
+		//eDebug("fill dst dst->data:0x%x\n",dst->data);
+		ret = tridentFB_accel_fill(
+			dst->data_phys, dst->x, dst->y, dst->stride,
+			area.left(), area.top(), area.width(), area.height(),
+			col);
+		//eDebug("<gAccel::fill end\n");
+		return ret;
+	}
 #endif
 #ifdef ATI_ACCEL
 	ati_accel_fill(

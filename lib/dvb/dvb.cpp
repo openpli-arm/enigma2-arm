@@ -674,7 +674,7 @@ void eDVBResourceManager::DVBChannelStateChanged(iDVBChannel *chan)
 		case iDVBChannel::state_last_instance:
 		{
 			eDebug("start release channel timer");
-			m_releaseCachedChannelTimer->start(3000, true);
+			m_releaseCachedChannelTimer->start(10000, true);
 			break;
 		}
 		default: // ignore all other events

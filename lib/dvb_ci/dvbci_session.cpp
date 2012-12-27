@@ -141,37 +141,88 @@ void eDVBCISession::createSession(eDVBCISlot *slot, const unsigned char *resourc
 	tag|= resource_identifier[2] << 8;
 	tag|= resource_identifier[3];
 
+//资源         资源ID         级别      类型        版本
+//资源管理器   00010041       1          1           1
+//应用信息     00020041       2          1           1
+//条件接收支持 00030041       3          1           1
+//主机控制     00200041       32         1           1
+//日期-时间    00240041       36         1           1
+//MMI          00400041       64         1           1
+//低速通讯     0060***1       96         *           1
+//认证         00100041       16         1           1
+//EBU Teletext 00800041       128        1           1   电视文本资源编码
+//智能卡读取器 00700041       112        *           1
+//EPG将来事件  00780041       120        *           1
+
 	switch (tag)
 	{
-	case 0x00010041:
+	case 0x00010041://资源管理器   00010041 	  1
+		
+		printf("----->abing<----- create ResourceManagerSession .\n");
 		session=new eDVBCIResourceManagerSession;
 		eDebug("RESOURCE MANAGER");
 		break;
-	case 0x00020041:
+	case 0x00020041://应用信息     00020041       2
+		printf("----->abing<----- create ApplicationManagerSession .\n");
 		session=new eDVBCIApplicationManagerSession(slot);
 		eDebug("APPLICATION MANAGER");
 		break;
-	case 0x00030041:
+	case 0x00030041://条件接收支持 00030041       3
+		printf("----->abing<----- create CAManagerSession .\n");
 		session = new eDVBCICAManagerSession(slot);
 		eDebug("CA MANAGER");
 		break;
-	case 0x00240041:
+	case 0x00240041://日期-时间    00240041       36
+		printf("----->abing<----- create DateTimeSession .\n");
 		session=new eDVBCIDateTimeSession;
 		eDebug("DATE-TIME");
 		break;
-	case 0x00400041:
+	case 0x00400041://MMI          00400041       64
+		printf("----->abing<----- create MMISession .\n");
 		session = new eDVBCIMMISession(slot);
 		eDebug("MMI - create session");
 		break;
-	case 0x00100041:
+	case 0x00100041://认证         00100041       16         1           1
+		printf("----->abing<----- create AuthSession, but no support now .\n");
 //		session=new eDVBCIAuthSession;
-		eDebug("AuthSession");
-//		break;
-	case 0x00200041:
+//		eDebug("AuthSession no support now.\n");
+		eDebug("unknown resource type %02x %02x %02x %02x", resource_identifier[0], resource_identifier[1], resource_identifier[2],resource_identifier[3]);
+		session=0;
+		status=0xF0;
+		break;
+	case 0x00200041://主机控制     00200041       32         1           1
+		eDebug("unknown resource type %02x %02x %02x %02x", resource_identifier[0], resource_identifier[1], resource_identifier[2],resource_identifier[3]);
+		printf("----->abing<----- create hostcontrol session, but no support now .\n");
+		session=0;
+		status=0xF0;
+	    break;
+	case 0x00800041://EBU Teletext 00800041       128        1           1   电视文本资源编码
+		//eDebug("unknown resource type %02x %02x %02x %02x", resource_identifier[0], resource_identifier[1], resource_identifier[2],resource_identifier[3]);
+		printf("----->abing<----- create EBU teletext session, but no support now .\n");
+		session=0;
+		status=0xF0;
+		break;
+	case 0x00700041://智能卡读取器 00700041       112        *           1
+		eDebug("unknown resource type %02x %02x %02x %02x", resource_identifier[0], resource_identifier[1], resource_identifier[2],resource_identifier[3]);
+		printf("----->abing<----- create read ca card data session, but no support now .\n");
+		session=0;
+		status=0xF0;
+		break;
+	case 0x00780041://EPG将来事件  00780041       120        *           1
+		//eDebug("unknown resource type %02x %02x %02x %02x", resource_identifier[0], resource_identifier[1], resource_identifier[2],resource_identifier[3]);
+		printf("----->abing<----- create EPG event session, but no support now .\n");
+		session=0;
+		status=0xF0;
+		break;
+		
+	/*case 0060***1:
+		break;*/
+		
 	default:
 		eDebug("unknown resource type %02x %02x %02x %02x", resource_identifier[0], resource_identifier[1], resource_identifier[2],resource_identifier[3]);
 		session=0;
 		status=0xF0;
+		break;
 	}
 
 	if (!session)
@@ -200,10 +251,13 @@ void eDVBCISession::handleClose()
 
 int eDVBCISession::pollAll()
 {
+	printf("----->abing<----- pollAll .");
+
 	for (int session_nb=1; session_nb < SLMS; ++session_nb)
 		if (sessions[session_nb-1])
 		{
 			int r;
+			printf("%d, ", session_nb);
 
 			if (sessions[session_nb-1]->state == stateInDeletion)
 			{
@@ -216,6 +270,8 @@ int eDVBCISession::pollAll()
 			if (r)
 				return 1;
 		}
+
+	printf("\n");
 	return 0;
 }
 
@@ -227,9 +283,9 @@ void eDVBCISession::receiveData(eDVBCISlot *slot, const unsigned char *ptr, size
 
 	eDebug("slot: %p",slot);
 
-	for(unsigned int i=0;i<len;i++)
+	/*for(unsigned int i=0;i<len;i++)
 		eDebugNoNewLine("%02x ",ptr[i]);
-	eDebug("");
+	eDebug("");*/
 	
 	llen = parseLengthField(pkt, hlen);
 	pkt += llen;

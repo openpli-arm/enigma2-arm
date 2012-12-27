@@ -1,6 +1,8 @@
 #ifndef __dvbci_dvbci_h
 #define __dvbci_dvbci_h
 
+#define trid_ci 1
+
 #ifndef SWIG
 
 #include <lib/base/ebase.h>
@@ -8,6 +10,14 @@
 #include <lib/python/python.h>
 #include <set>
 #include <queue>
+
+#include <lib/ciplus/driver_dvbci.h>
+
+#include <lib/ciplus/inc/trid_datatype.h>
+#include <lib/ciplus/inc/trid_errno.h>
+#include <lib/ciplus/inc/trid_ci_types.h>
+#include <lib/ciplus/inc/trid_ci_api.h>
+#include <lib/dvb_ci/dvbci_ui.h>
 
 class eDVBCISession;
 class eDVBCIApplicationManagerSession;
@@ -52,9 +62,15 @@ class eDVBCISlot: public iObject, public Object
 	ePtr<eSocketNotifier> notifier;
 	int state;
 	std::map<uint16_t, uint8_t> running_services;
-	eDVBCIApplicationManagerSession *application_manager;
-	eDVBCICAManagerSession *ca_manager;
-	eDVBCIMMISession *mmi_session;
+#if trid_ci
+    int application_manager;
+    int ca_manager;
+    int mmi_session;
+#else
+    eDVBCIApplicationManagerSession *application_manager;
+    eDVBCICAManagerSession *ca_manager;
+    eDVBCIMMISession *mmi_session;
+#endif
 	std::priority_queue<queueData> sendqueue;
 	caidSet possible_caids;
 	serviceSet possible_services;
@@ -64,22 +80,39 @@ class eDVBCISlot: public iObject, public Object
 	data_source current_source;
 	int current_tuner;
 	bool user_mapped;
+#if  !trid_ci
 	void data(int);
+#endif
 	bool plugged;
 public:
+#if trid_ci
+    //trid_sint32 data(Trid_CI_CardStatus_t status);
+void eDVBCISlot::data(int/*Trid_CI_CardStatus_t*/ status);
+void eDVBCISlot::cdata(int/*Trid_CI_CardStatus_t*/ status);
+#endif
 	enum {stateRemoved, stateInserted, stateInvalid, stateResetted};
 	eDVBCISlot(eMainloop *context, int nr);
 	~eDVBCISlot();
 	
 	int send(const unsigned char *data, size_t len);
 
-	void setAppManager( eDVBCIApplicationManagerSession *session );
-	void setMMIManager( eDVBCIMMISession *session );
-	void setCAManager( eDVBCICAManagerSession *session );
 
-	eDVBCIApplicationManagerSession *getAppManager() { return application_manager; }
-	eDVBCIMMISession *getMMIManager() { return mmi_session; }
-	eDVBCICAManagerSession *getCAManager() { return ca_manager; }
+#if trid_ci
+    void setAppManager(int session );
+    void setMMIManager(int session );
+    void setCAManager(int session );
+
+    int getAppManager() { return application_manager; }
+    int getMMIManager() { return mmi_session; }
+    int getCAManager() { return ca_manager; }
+#else
+    void setAppManager(eDVBCIApplicationManagerSession * session );
+    void setMMIManager( eDVBCIMMISession *session );
+    void setCAManager( eDVBCICAManagerSession *session );
+    eDVBCIApplicationManagerSession *getAppManager() { return application_manager; }
+    eDVBCIMMISession *getMMIManager() { return mmi_session; }
+    eDVBCICAManagerSession *getCAManager() { return ca_manager; }
+#endif
 
 	int getState() { return state; }
 	int getSlotID();
@@ -95,6 +128,13 @@ public:
 	int getNumOfServices() { return running_services.size(); }
 	int setSource(data_source source);
 	int setClockRate(int);
+
+    
+    trid_sint32 MenuDataNotifyCallbackProcess(Trid_T_Menu* menu);
+    trid_sint32 ListDataNotifyCallbackProcess(Trid_T_List* list);
+    trid_sint32 EnqDataNotifyCallbackProcess(Trid_T_Enq* enq);
+    trid_sint32 CloseMMINotifyCallbackProcess();
+    trid_sint32 GetHostAVPIDCallback(trid_uint16 *AudioPID, trid_uint16 *VideoPID);
 };
 
 struct CIPmtHandler
@@ -156,6 +196,17 @@ public:
 	PyObject *getDescrambleRules(int slotid);
 	RESULT setDescrambleRules(int slotid, SWIG_PYOBJECT(ePyObject) );
 	PyObject *readCICaIds(int slotid);
+    
+    int CardStatusChangeNotifyCallback(int slotid, Trid_CI_CardStatus_t status);
+    
+    trid_sint32 MenuDataNotifyCallback(Trid_T_Menu* menu);
+    trid_sint32 ListDataNotifyCallback(Trid_T_List* list);
+    trid_sint32 EnqDataNotifyCallback(Trid_T_Enq* enq);
+    trid_sint32 CloseMMINotifyCallback();
+    trid_sint32 GetHostAVPIDCallback(trid_uint16 *AudioPID, trid_uint16 *VideoPID);
 };
+extern "C" {
 
+int DVBCI_GetCbStatus();
+}
 #endif

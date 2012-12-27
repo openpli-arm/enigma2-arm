@@ -5,26 +5,30 @@
 
 int eDVBCIResourceManagerSession::receivedAPDU(const unsigned char *tag,const void *data, int len)
 {
-	eDebugNoNewLine("SESSION(%d) %02x %02x %02x: ", session_nb, tag[0], tag[1], tag[2]);
+	printf("----->abing<----- eDVBCIResourceManagerSession(%d) receivedAPDU %02x %02x %02x: ", session_nb, tag[0], tag[1], tag[2]);
 	for (int i=0; i<len; i++)
-		eDebugNoNewLine("%02x ", ((const unsigned char*)data)[i]);
-	eDebug("");
+		printf("%02x ", ((const unsigned char*)data)[i]);
+	printf("\n");
 	if ((tag[0]==0x9f) && (tag[1]==0x80))
 	{
 		switch (tag[2])
 		{
 		case 0x10:  // profile enquiry
-			eDebug("cam fragt was ich kann.");
+			printf("----->abing<----- ResourceManager profile enquiry.\n");
+			//eDebug("cam fragt was ich kann.");
 			state=stateProfileEnquiry;
 			return 1;
 			break;
 		case 0x11: // Tprofile
-			eDebugNoNewLine("mein cam kann: ");
+		    printf("----->abing<----- ResourceManager Tprofile:");
 			if (!len)
-				eDebug("nichts");
+				printf("nichts\n");
 			else
+	        {
 				for (int i=0; i<len; i++)
-					eDebugNoNewLine("%02x ", ((const unsigned char*)data)[i]);
+					printf("%02x ", ((const unsigned char*)data)[i]);
+				printf("\n");
+	        }
 
 			if (state == stateFirstProfileEnquiry)
 			{
@@ -48,6 +52,7 @@ int eDVBCIResourceManagerSession::doAction()
 	case stateStarted:
 	{
 		const unsigned char tag[3]={0x9F, 0x80, 0x10}; // profile enquiry
+		printf("----->abing<----- ResourceManager doAction - profile enquiry.\n");
 		sendAPDU(tag);
 		state = stateFirstProfileEnquiry;
 		return 0;
@@ -55,6 +60,7 @@ int eDVBCIResourceManagerSession::doAction()
 	case stateFirstProfileEnquiry:
 	{
 		const unsigned char tag[3]={0x9F, 0x80, 0x12}; // profile change
+		printf("----->abing<----- ResourceManager doAction - profile change.\n");
 		sendAPDU(tag);
 		state=stateProfileChange;
 		return 0;

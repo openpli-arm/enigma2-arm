@@ -10,7 +10,7 @@
                     <shortdescription>Step by step network configuration</shortdescription>
                     <description>With the NetworkWizard you can easily configure your network step by step.
                     </description>
-                    <screenshot src="http://www.dreamboxupdate.com/preview/plugin_networkwizard_en.jpg" />
+                    <screenshot src="(http://www.dreamboxupdate.com/preview/plugin_networkwizard_en.jpg)" />
           </info>
 
 	  <files type="package"> <!-- without version, without .ipk -->

@@ -1,4 +1,4 @@
-from enigma import eTimer, eEnv
+from enigma import eTimer, eTPM, eEnv
 from Screens.Screen import Screen
 from Components.ActionMap import ActionMap, NumberActionMap
 from Components.Pixmap import Pixmap,MultiPixmap
@@ -8,17 +8,20 @@ from Components.Sources.List import List
 from Components.MenuList import MenuList
 from Components.config import config, getConfigListEntry, ConfigYesNo, NoSave, ConfigSubsection, ConfigText, ConfigSelection, ConfigPassword
 from Components.ConfigList import ConfigListScreen
-from Components.Network import Network, iNetwork
+from Components.Network import iNetwork
 from Components.Console import Console
 from Plugins.Plugin import PluginDescriptor
 from os import system, path as os_path, listdir
 from Tools.Directories import resolveFilename, SCOPE_PLUGINS, SCOPE_SKIN_IMAGE
 from Tools.LoadPixmap import LoadPixmap
 from Tools.HardwareInfo import HardwareInfo
-from Wlan import Wlan, wpaSupplicant, iStatus
-import sha
+from Wlan import iWlan, wpaSupplicant, iStatus, getWlanConfigName
+import hashlib
+from time import time
+from os import urandom, system
 
 plugin_path = eEnv.resolve("${libdir}/enigma2/python/Plugins/SystemPlugins/WirelessLan")
+
 
 list = []
 list.append("WEP")
@@ -32,7 +35,7 @@ weplist.append("HEX")
 
 config.plugins.wlan = ConfigSubsection()
 config.plugins.wlan.essid = NoSave(ConfigText(default = "home", fixed_size = False))
-config.plugins.wlan.hiddenessid = NoSave(ConfigText(default = "home", fixed_size = False))
+config.plugins.wlan.hiddenessid = NoSave(ConfigYesNo(default = False))
 
 config.plugins.wlan.encryption = ConfigSubsection()
 config.plugins.wlan.encryption.enabled = NoSave(ConfigYesNo(default = False))
@@ -217,6 +220,8 @@ class WlanScan(Screen):
 			"red": self.cancel,
 			"green": self.select,
 		})
+		iWlan.setInterface(self.iface)
+		self.w = iWlan.getInterface()
 		self.onLayoutFinish.append(self.layoutFinished)
 		self.getAccessPoints(refresh = False)
 		
@@ -226,10 +231,11 @@ class WlanScan(Screen):
 	def select(self):
 		cur = self["list"].getCurrent()
 		if cur is not None:
+			iWlan.stopGetNetworkList()
 			self.rescanTimer.stop()
 			del self.rescanTimer
 			if cur[1] is not None:
-				if cur[1] == 'hidden...':
+				if cur[1] == '<hidden>':
 					essid = cur[1]
 				else:
 					essid = cur[0]
@@ -237,31 +243,16 @@ class WlanScan(Screen):
 			else:
 				self.close(None,None)
 		else:
+			iWlan.stopGetNetworkList()
 			self.rescanTimer.stop()
 			del self.rescanTimer
 			self.close(None,None)
 	
-	def WlanSetupClosed(self, *ret):
-		if ret[0] == 2:
-			self.rescanTimer.stop()
-			del self.rescanTimer
-			self.close(None)
-	
 	def cancel(self):
-		if self.oldInterfaceState is False:
-			iNetwork.setAdapterAttribute(self.iface, "up", False)
-			iNetwork.deactivateInterface(self.iface,self.deactivateInterfaceCB)
-		else:
-			self.rescanTimer.stop()
-			del self.rescanTimer
-			self.close(None)
-
-	def deactivateInterfaceCB(self,data):
-		if data is not None:
-			if data is True:
-				self.rescanTimer.stop()
-				del self.rescanTimer
-				self.close(None)
+		iWlan.stopGetNetworkList()
+		self.rescanTimer.stop()
+		del self.rescanTimer
+		self.close(None)
 
 	def rescanTimerFired(self):
 		self.rescanTimer.stop()
@@ -270,7 +261,7 @@ class WlanScan(Screen):
 	def buildEntryComponent(self, essid, bssid, encrypted, iface, maxrate, signal):
 		divpng = LoadPixmap(cached=True, path=resolveFilename(SCOPE_SKIN_IMAGE, "skin_default/div-h.png"))
 		encryption = encrypted and _("Yes") or _("No")
-		if bssid == 'hidden...':
+		if bssid == '<hidden>':			
 			return((essid, bssid, None, None, None, None, divpng))
 		else:					
 			return((essid, bssid, _("Signal: ") + str(signal), _("Max. Bitrate: ") + str(maxrate), _("Encrypted: ") + encryption, _("Interface: ") + str(iface), divpng))
@@ -290,31 +281,29 @@ class WlanScan(Screen):
 				tmpList.append(data)
 
 		if len(tmpList):
-			if "hidden..." not in tmpList:
-				tmpList.append( ( _("enter hidden network SSID"), "hidden...", True, self.iface, _("unavailable"), "" ) )
-	
+			if "<hidden>" not in tmpList:
+				tmpList.append( ( _("enter hidden network SSID"), "<hidden>", True, self.iface, _("unavailable"), "" ) )
+
 			for entry in tmpList:
 				self.newAPList.append(self.buildEntryComponent( entry[0], entry[1], entry[2], entry[3], entry[4], entry[5] ))
 	
 			currentListEntry = self["list"].getCurrent()
-			if currentListEntry:
-				idx = 0
-				for entry in self.newAPList:
-					if entry[0] == currentListEntry[0]:
-						newListIndex = idx
-					idx +=1
-				self['list'].setList(self.newAPList)
-				self["list"].setIndex(newListIndex)
-				self["list"].updateList(self.newAPList)
-				self.listLength = len(self.newAPList)
-				self.buildWlanList()
-				self.setInfo()
+			idx = 0
+			for entry in self.newAPList:
+				if entry[0] == currentListEntry[0]:
+					newListIndex = idx
+				idx +=1
+			self['list'].setList(self.newAPList)
+			self["list"].setIndex(newListIndex)
+			self["list"].updateList(self.newAPList)
+			self.listLength = len(self.newAPList)
+			self.buildWlanList()
+			self.setInfo()
 
 	def getAccessPoints(self, refresh = False):
 		self.APList = []
 		self.cleanList = []
-		self.w = Wlan(self.iface)
-		aps = self.w.getNetworkList()
+		aps = iWlan.getNetworkList()
 		if aps is not None:
 			print "[WirelessLan.py] got Accespoints!"
 			tmpList = []
@@ -337,8 +326,8 @@ class WlanScan(Screen):
 				else:
 					self.oldlist[entry[0]]['data'] = entry
 		
-		if "hidden..." not in self.cleanList:
-			self.cleanList.append( ( _("enter hidden network SSID"), "hidden...", True, self.iface, _("unavailable"), "" ) )
+		if "<hidden>" not in self.cleanList:
+			self.cleanList.append( ( _("enter hidden network SSID"), "<hidden>", True, self.iface, _("unavailable"), "" ) )
 
 		for entry in self.cleanList:
 			self.APList.append(self.buildEntryComponent( entry[0], entry[1], entry[2], entry[3], entry[4], entry[5] ))
@@ -362,8 +351,8 @@ class WlanScan(Screen):
 	def buildWlanList(self):
 		self.WlanList = []
 		for entry in self['list'].list:
-			if entry[1] == "hidden...":
-				self.WlanList.append(( "hidden...",_("enter hidden network SSID") ))#continue
+			if entry[1] == "<hidden>":
+				continue
 			else:
 				self.WlanList.append( (entry[0], entry[0]) )
 
@@ -392,7 +381,7 @@ def decrypt_block(src, mod):
 	if len(src) != 128 and len(src) != 202:
 		return None
 	dest = rsa_pub1024(src[:128], mod)
-	hash = sha.new(dest[1:107])
+	hash = hashlib.sha1(dest[1:107])
 	if len(src) == 202:
 		hash.update(src[131:192])	
 	result = hash.digest()
@@ -400,44 +389,43 @@ def decrypt_block(src, mod):
 		return dest
 	return None
 
-def validate_cert(cert, key):
+def validate_certificate(cert, key):
 	buf = decrypt_block(cert[8:], key) 
 	if buf is None:
 		return None
 	return buf[36:107] + cert[139:196]
 
-def read_random():
+def get_random():
 	try:
-		fd = open("/dev/urandom", "r")
-		buf = fd.read(8)
-		fd.close()
-		return buf
+		xor = lambda a,b: ''.join(chr(ord(c)^ord(d)) for c,d in zip(a,b*100))
+		random = urandom(8)
+		x = str(time())[-8:]
+		result = xor(random, x)
+				
+		return result
 	except:
 		return None
 
 def WlanStatusScreenMain(session, iface):
 	session.open(WlanStatus, iface)
 
-
 def callFunction(iface):
-	w = Wlan(iface)
-	i = w.getWirelessInterfaces()
+	iWlan.setInterface(iface)
+	i = iWlan.getWirelessInterfaces()
 	if i:
-		if iface in i:
+		if iface in i or iNetwork.isWirelessInterface(iface):
 			return WlanStatusScreenMain
+		return None
 	return None
-
 
 def configStrings(iface):
 	driver = iNetwork.detectWlanModule(iface)
-	print "Found WLAN-Driver:",driver
-	if driver  in ('ralink', 'zydas'):
-		return "	pre-up /usr/sbin/wpa_supplicant -i"+iface+" -c/etc/wpa_supplicant.conf -B -D"+driver+"\n	post-down wpa_cli terminate"
-	else:
-		if config.plugins.wlan.essid.value == "hidden...":
-			return '	pre-up iwconfig '+iface+' essid "'+config.plugins.wlan.hiddenessid.value+'"\n	pre-up /usr/sbin/wpa_supplicant -i'+iface+' -c/etc/wpa_supplicant.conf -B -dd -D'+driver+'\n	post-down wpa_cli terminate'
-		else:
-			return '	pre-up iwconfig '+iface+' essid "'+config.plugins.wlan.essid.value+'"\n	pre-up /usr/sbin/wpa_supplicant -i'+iface+' -c/etc/wpa_supplicant.conf -B -dd -D'+driver+'\n	post-down wpa_cli terminate'
+	ret = ""
+	if driver == 'madwifi' and config.plugins.wlan.hiddenessid.value:
+		ret += "\tpre-up iwconfig " + iface + " essid \"" + config.plugins.wlan.essid.value + "\" || true\n"
+	ret += "\tpre-up wpa_supplicant -i" + iface + " -c" + getWlanConfigName(iface) + " -B -dd -D" + driver + " || true\n"
+	ret += "\tpre-down wpa_cli -i" + iface + " terminate || true\n"
+	return ret
 
 def Plugins(**kwargs):
 	return PluginDescriptor(name=_("Wireless LAN"), description=_("Connect to a Wireless Network"), where = PluginDescriptor.WHERE_NETWORKSETUP, needsRestart = False, fnc={"ifaceSupported": callFunction, "configStrings": configStrings, "WlanPluginEntry": lambda x: "Wireless Network Configuartion..."})

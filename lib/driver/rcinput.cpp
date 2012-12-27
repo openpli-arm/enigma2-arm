@@ -67,6 +67,7 @@ void eRCDeviceInputDev::handleCode(long rccode)
 	}
 #endif
 
+	//eDebug("[IR-EVENT] <type, value, code> = <%d, %d, %d>\n", ev->type, ev->value, ev->code);
 	switch (ev->value)
 	{
 	case 0:

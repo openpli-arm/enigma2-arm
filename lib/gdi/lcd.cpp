@@ -115,6 +115,8 @@ eDBoxLCD::eDBoxLCD()
 				{
 					if (fscanf(f, "%x", &tmp) == 1)
 						bpp = tmp;
+
+						
 					fclose(f);
 				}
 			}
@@ -123,6 +125,10 @@ eDBoxLCD::eDBoxLCD()
 	}
 #endif
 	instance=this;
+
+	bpp=8;
+	is_oled = 2;
+	eDebug("Oled(%d) %d * %d %dbpp\n", is_oled, xres, yres, bpp);
 
 	setSize(xres, yres, bpp);
 }
@@ -203,24 +209,47 @@ void eDBoxLCD::update()
 	{
 		if (!is_oled || is_oled == 2)
 		{
-			unsigned char raw[132*8];
+			unsigned char *raw= new unsigned char[res.width()*8]();
 			int x, y, yy;
 			for (y=0; y<8; y++)
 			{
-				for (x=0; x<132; x++)
+				for (x=0; x<res.width(); x++)
 				{
 					int pix=0;
 					for (yy=0; yy<8; yy++)
 					{
-						pix|=(_buffer[(y*8+yy)*132+x]>=108)<<yy;
+						pix|=(_buffer[(y*8+yy)*res.width()+x]>=108)<<yy;
 					}
-					raw[y*132+x]=(pix^inverted);
+					raw[y*res.width()+x]=(pix^inverted);
 				}
 			}
-			write(lcdfd, raw, 132*8);
+#if 0
+		   eDebug("eDBoxLCD update size = %d\n", _stride * res.height());   
+                for (int ii = 0; ii < 96*8; ii++)
+                {
+                    if(ii%96 == 0)
+                        printf("\noled[%d-%d]", ii, ii +96);
+                    printf("%02X ", raw[ii]);
+                }
+                printf("\n");
+                
+#endif                
+			write(lcdfd, raw, res.width()*8);
+			delete [ ] raw;
+			
 		}
 		else if (is_oled == 3)
-			write(lcdfd, _buffer, _stride * res.height());
+            {   
+                eDebug("eDBoxLCD update size = %d\n", _stride * res.height());   
+                for (int ii = 0; ii < _stride*res.height(); ii++)
+                {
+                    if(ii%100 == 0)
+                        printf("\noled[%d-%d]", ii, ii +20);
+                    printf("%02X ", _buffer[ii]);
+                }
+                printf("\n");
+                write(lcdfd, _buffer, _stride * res.height());
+            }
 		else
 		{
 			unsigned char raw[64*64];

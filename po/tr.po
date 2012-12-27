@@ -35,10 +35,10 @@ msgstr ""
 #
 msgid ""
 "\n"
-"Backup your Dreambox settings."
+"Backup your Hypercube settings."
 msgstr ""
 "\n"
-"Dreambox ayarlarınızı yedekleyin."
+"Hypercube ayarlarınızı yedekleyin."
 
 #
 msgid ""
@@ -51,18 +51,18 @@ msgstr ""
 #
 msgid ""
 "\n"
-"Manage extensions or plugins for your Dreambox"
+"Manage extensions or plugins for your Hypercube"
 msgstr ""
 "\n"
-"Dreambox eklentilerinizi yönetin"
+"Hypercube eklentilerinizi yönetin"
 
 #
 msgid ""
 "\n"
-"Online update of your Dreambox software."
+"Online update of your Hypercube software."
 msgstr ""
 "\n"
-"Dreambox yazılımını çevrimiçi güncelleyin."
+"Hypercube yazılımını çevrimiçi güncelleyin."
 
 #
 msgid ""
@@ -75,18 +75,18 @@ msgstr ""
 #
 msgid ""
 "\n"
-"Restore your Dreambox settings."
+"Restore your Hypercube settings."
 msgstr ""
 "\n"
-"Dreambox ayarlarınızı geri yükleyin."
+"Hypercube ayarlarınızı geri yükleyin."
 
 #
 msgid ""
 "\n"
-"Restore your Dreambox with a new firmware."
+"Restore your Hypercube with a new firmware."
 msgstr ""
 "\n"
-"Dreambox yeni bellenimini, sistem yedeğinizle birlikte geri yükleyin."
+"Hypercube yeni bellenimini, sistem yedeğinizle birlikte geri yükleyin."
 
 #
 msgid ""
@@ -120,7 +120,7 @@ msgid ""
 "System will restart after the restore!"
 msgstr ""
 "\n"
-"Dreambox geri yüklemeden sonra yeniden başlatılacak!"
+"Hypercube geri yüklemeden sonra yeniden başlatılacak!"
 
 #
 msgid ""
@@ -389,7 +389,7 @@ msgstr "<bilinmiyor>"
 #
 msgid "??"
 msgstr ""
-"Güncelleme tamamlandı. Dreambox'ın yeniden başlatılmasını istiyor musunuz?"
+"Güncelleme tamamlandı. Hypercube'ın yeniden başlatılmasını istiyor musunuz?"
 
 #
 msgid "A"
@@ -422,17 +422,17 @@ msgstr ""
 #
 msgid ""
 "A finished record timer wants to set your\n"
-"Dreambox to standby. Do that now?"
+"Hypercube to standby. Do that now?"
 msgstr ""
-"Bitmiş olan bir kayıt zamanlayıcısı Dreambox'ı\n"
+"Bitmiş olan bir kayıt zamanlayıcısı Hypercube'ı\n"
 "hazırda bekleme kipine almak istiyor. Şimdi alınsın mı?"
 
 #
 msgid ""
 "A finished record timer wants to shut down\n"
-"your Dreambox. Shutdown now?"
+"your Hypercube. Shutdown now?"
 msgstr ""
-"Bitmiş olan bir kayıt zamanlayıcısı Dreambox'ı\n"
+"Bitmiş olan bir kayıt zamanlayıcısı Hypercube'ı\n"
 "kapatmak istiyor. Şimdi kapatılsın mı?"
 
 #
@@ -518,17 +518,17 @@ msgstr ""
 #
 msgid ""
 "A sleep timer wants to set your\n"
-"Dreambox to standby. Do that now?"
+"Hypercube to standby. Do that now?"
 msgstr ""
-"Zamanlanmış bir görev Dreambox'ı\n"
+"Zamanlanmış bir görev Hypercube'ı\n"
 "hazırda bekleme kipine almak istiyor. Şimdi alınsın mı?"
 
 #
 msgid ""
 "A sleep timer wants to shut down\n"
-"your Dreambox. Shutdown now?"
+"your Hypercube. Shutdown now?"
 msgstr ""
-"Zamanlanmış bir görev Dreambox'ı\n"
+"Zamanlanmış bir görev Hypercube'ı\n"
 "kapatmak istiyor. Şimdi kapatılsın mı?"
 
 msgid "A small overview of the available icon states and actions."
@@ -640,8 +640,8 @@ msgid "Add a mark"
 msgstr "İşaret ekle"
 
 #
-msgid "Add a new NFS or CIFS mount point to your Dreambox."
-msgstr "Dreambox'ınıza yeni bir NFS veya CIFS ağ bağlantı noktası ekleyin."
+msgid "Add a new NFS or CIFS mount point to your Hypercube."
+msgstr "Hypercube'ınıza yeni bir NFS veya CIFS ağ bağlantı noktası ekleyin."
 
 #
 msgid "Add a new title"
@@ -689,10 +689,10 @@ msgstr "Eklenme tarihi: "
 
 #
 msgid ""
-"Adds enigma2 settings and dreambox model informations like SN, rev... if "
+"Adds enigma2 settings and Hypercube model informations like SN, rev... if "
 "enabled."
 msgstr ""
-"Evet derseniz, enigma2 ayarlarınız ve dreambox model bilgisi (SN, "
+"Evet derseniz, enigma2 ayarlarınız ve Hypercube model bilgisi (SN, "
 "revizyon..) gönderilecektir."
 
 #
@@ -744,7 +744,7 @@ msgid "Advanced restore"
 msgstr "Gelişmiş geri yükleme"
 
 msgid ""
-"After a reboot or power outage, StartupToStandby will bring your Dreambox to "
+"After a reboot or power outage, StartupToStandby will bring your Hypercube to "
 "standby-mode."
 msgstr ""
 
@@ -755,10 +755,10 @@ msgstr "Eylem bittikten sonra"
 #
 msgid ""
 "After the start wizard is completed, you need to protect single services. "
-"Refer to your dreambox's manual on how to do that."
+"Refer to your Hypercube's manual on how to do that."
 msgstr ""
 "Sihirbaz tamamlandıktan sonra, kanal korumasına ihtiyacınız olacak. Nasıl "
-"yapılacağını öğrenmek istiyorsanız Dreambox'ınızın kullanım kılavuzuna "
+"yapılacağını öğrenmek istiyorsanız Hypercube'ınızın kullanım kılavuzuna "
 "başvurun."
 
 msgid "Ai.HD skin-style control plugin"
@@ -1044,7 +1044,7 @@ msgstr "BA"
 msgid "BASIC-HD Skin by Ismail Demir"
 msgstr ""
 
-msgid "BASIC-HD Skin for Dreambox Images created from Ismail Demir"
+msgid "BASIC-HD Skin for Hypercube Images created from Ismail Demir"
 msgstr ""
 
 #
@@ -1294,8 +1294,8 @@ msgid "Change step size"
 msgstr "Ayar yapılırken atlama boyutu"
 
 #
-msgid "Change the hostname of your Dreambox."
-msgstr "Dreambox'ınızın konak adını değiştirin."
+msgid "Change the hostname of your Hypercube."
+msgstr "Hypercube'ınızın konak adını değiştirin."
 
 msgid "Changelog"
 msgstr ""
@@ -1603,16 +1603,16 @@ msgstr "Oynatmaya devam et"
 msgid "Contrast"
 msgstr "Kontrast"
 
-msgid "Control your Dreambox with your Web browser."
+msgid "Control your Hypercube with your Web browser."
 msgstr ""
 
-msgid "Control your Dreambox with your browser"
+msgid "Control your Hypercube with your browser"
 msgstr ""
 
-msgid "Control your dreambox with only the MUTE button"
+msgid "Control your Hypercube with only the MUTE button"
 msgstr ""
 
-msgid "Control your dreambox with only the MUTE button."
+msgid "Control your Hypercube with only the MUTE button."
 msgstr ""
 
 msgid "Control your internal system fan."
@@ -1624,12 +1624,12 @@ msgstr ""
 msgid "Control your system fan"
 msgstr ""
 
-msgid "Copy, rename, delete, move local files on your Dreambox."
+msgid "Copy, rename, delete, move local files on your Hypercube."
 msgstr ""
 
 #
-msgid "Could not connect to Dreambox .NFI Image Feed Server:"
-msgstr "Dreambox .NFI bellenim sunucusuna bağlanamıyor:"
+msgid "Could not connect to Hypercube .NFI Image Feed Server:"
+msgstr "Hypercube .NFI bellenim sunucusuna bağlanamıyor:"
 
 #
 msgid "Could not load Medium! No disc inserted?"
@@ -1700,7 +1700,7 @@ msgstr ""
 msgid "Create remote timers"
 msgstr ""
 
-msgid "Create timers on remote Dreamboxes."
+msgid "Create timers on remote Hypercubees."
 msgstr ""
 
 #
@@ -1840,12 +1840,12 @@ msgstr "DVD Başlık seti"
 msgid "DVD media toolbox"
 msgstr "DVD medya araçları"
 
-msgid "DVDPlayer plays your DVDs on your Dreambox"
+msgid "DVDPlayer plays your DVDs on your Hypercube"
 msgstr ""
 
 msgid ""
-"DVDPlayer plays your DVDs on your Dreambox.\n"
-"With the DVDPlayer you can play your DVDs on your Dreambox from a DVD or "
+"DVDPlayer plays your DVDs on your Hypercube.\n"
+"With the DVDPlayer you can play your DVDs on your Hypercube from a DVD or "
 "even from an iso file or video_ts folder on your harddisc or network."
 msgstr ""
 
@@ -1905,7 +1905,7 @@ msgstr "Varsayılan"
 msgid "Define a startup service"
 msgstr ""
 
-msgid "Define a startup service for your Dreambox."
+msgid "Define a startup service for your Hypercube."
 msgstr ""
 
 #
@@ -2150,7 +2150,7 @@ msgid "Do you want to download the image to %s ?"
 msgstr ""
 
 #
-msgid "Do you want to enable the parental control feature on your dreambox?"
+msgid "Do you want to enable the parental control feature on your Hypercube?"
 msgstr "Ebeveyn kontrolü özelliğini etkinleştirmek ister misiniz?"
 
 #
@@ -2174,8 +2174,8 @@ msgid "Do you want to preview this DVD before burning?"
 msgstr "DVD'yi yazmadan önce önizleme yapmak istiyor musunuz?"
 
 #
-msgid "Do you want to reboot your Dreambox?"
-msgstr "Dreambox'ı yeniden başlatmak istiyor musunuz?"
+msgid "Do you want to reboot your Hypercube?"
+msgstr "Hypercube'ı yeniden başlatmak istiyor musunuz?"
 
 #
 msgid "Do you want to remove the package:\n"
@@ -2202,15 +2202,15 @@ msgstr ""
 "adınızı giriniz."
 
 #
-msgid "Do you want to update your Dreambox?"
-msgstr "Dreambox'ı güncellemek istiyor musunuz?"
+msgid "Do you want to update your Hypercube?"
+msgstr "Hypercube'ı güncellemek istiyor musunuz?"
 
 #
 msgid ""
-"Do you want to update your Dreambox?\n"
+"Do you want to update your Hypercube?\n"
 "After pressing OK, please wait!"
 msgstr ""
-"Dreambox'ı güncellemek istiyor musunuz?\n"
+"Hypercube'ı güncellemek istiyor musunuz?\n"
 "Lütfen OK'a bastıktan sonra bekleyin!"
 
 #
@@ -2289,12 +2289,12 @@ msgid "Downloading screenshots. Please wait..."
 msgstr "Ekran görüntüsü indiriliyor. Lütfen bekleyin..."
 
 #
-msgid "Dreambox format data DVD (HDTV compatible)"
-msgstr "Dreambox DVD biçimi (HDTV uyumlu)"
+msgid "Hypercube format data DVD (HDTV compatible)"
+msgstr "Hypercube DVD biçimi (HDTV uyumlu)"
 
 #
-msgid "Dreambox software because updates are available."
-msgstr "Dreambox güncellemelerini yükleyin"
+msgid "Hypercube software because updates are available."
+msgstr "Hypercube güncellemelerini yükleyin"
 
 #
 msgid "Duration: "
@@ -2394,12 +2394,12 @@ msgid "Edit tags of recorded movies."
 msgstr ""
 
 #
-msgid "Edit the Nameserver configuration of your Dreambox.\n"
-msgstr "Dreambox'ınızın isim sunucu (DNS) ayarlarını yapılandırın.\n"
+msgid "Edit the Nameserver configuration of your Hypercube.\n"
+msgstr "Hypercube'ınızın isim sunucu (DNS) ayarlarını yapılandırın.\n"
 
 #
-msgid "Edit the network configuration of your Dreambox.\n"
-msgstr "Dreambox'ınızın ağ ayarlarını yapılandırın.\n"
+msgid "Edit the network configuration of your Hypercube.\n"
+msgstr "Hypercube'ınızın ağ ayarlarını yapılandırın.\n"
 
 #
 msgid "Edit title"
@@ -2425,7 +2425,7 @@ msgstr "Eğitim"
 msgid "Electronic Program Guide"
 msgstr "Elektronik Televizyon Rehberi"
 
-msgid "Emailclient is an IMAP4 e-mail viewer for the Dreambox."
+msgid "Emailclient is an IMAP4 e-mail viewer for the Hypercube."
 msgstr ""
 
 #
@@ -2540,7 +2540,7 @@ msgid "English"
 msgstr "İngilizce"
 
 msgid ""
-"Enigma2 Plugin to play AVI/DIVX/WMV/etc. videos from PC on your Dreambox. "
+"Enigma2 Plugin to play AVI/DIVX/WMV/etc. videos from PC on your Hypercube. "
 "Needs a running VLC from www.videolan.org on your pc."
 msgstr ""
 
@@ -2577,8 +2577,8 @@ msgid "Enter main menu..."
 msgstr "Ana menüyü göster..."
 
 #
-msgid "Enter new hostname for your Dreambox"
-msgstr "Dreambox'ınızın yeni konak adını girin"
+msgid "Enter new hostname for your Hypercube"
+msgstr "Hypercube'ınızın yeni konak adını girin"
 
 #
 msgid "Enter options:"
@@ -2747,7 +2747,7 @@ msgid "FEC"
 msgstr "FEC"
 
 msgid ""
-"FTPBrowser allows uploading and downloading files between your Dreambox and "
+"FTPBrowser allows uploading and downloading files between your Hypercube and "
 "a server using the file transfer protocol."
 msgstr ""
 
@@ -2922,7 +2922,7 @@ msgstr "Cuma"
 msgid "Frisian"
 msgstr "Frizyece"
 
-msgid "FritzCall shows incoming calls to your Fritz!Box on your Dreambox."
+msgid "FritzCall shows incoming calls to your Fritz!Box on your Hypercube."
 msgstr ""
 
 msgid "Frontend for /tmp/mmi.socket"
@@ -2949,7 +2949,7 @@ msgid "GUI that allows user to change the ftp- / telnet password."
 msgstr ""
 
 msgid ""
-"GUI that allows user to change the ftp-/telnet-password of the Dreambox."
+"GUI that allows user to change the ftp-/telnet-password of the Hypercube."
 msgstr ""
 
 msgid "GUI to change the ftp and telnet-password"
@@ -2983,13 +2983,13 @@ msgstr "Genel PCM gecikmesi (ms)"
 msgid "Genre"
 msgstr "Tür"
 
-msgid "Genuine Dreambox"
-msgstr "Dreambox'ınız orijinal mi?"
+msgid "Genuine Hypercube"
+msgstr "Hypercube'ınız orijinal mi?"
 
-msgid "Genuine Dreambox validation failed!"
+msgid "Genuine Hypercube validation failed!"
 msgstr ""
 
-msgid "Genuine Dreambox verification"
+msgid "Genuine Hypercube verification"
 msgstr ""
 
 #
@@ -3055,7 +3055,7 @@ msgid "Green boost"
 msgstr "Yeşil doygunluğu"
 
 msgid ""
-"Growlee allows your Dreambox to send short messages using the growl "
+"Growlee allows your Hypercube to send short messages using the growl "
 "protocol\n"
 "like Recording started notifications to a PC running a growl client"
 msgstr ""
@@ -3157,7 +3157,7 @@ msgstr "Renk tonu"
 msgid "Hungarian"
 msgstr "Macarca"
 
-msgid "IMAP4 e-mail viewer for the Dreambox"
+msgid "IMAP4 e-mail viewer for the Hypercube"
 msgstr ""
 
 #
@@ -3403,15 +3403,15 @@ msgstr "Geçersiz Konum"
 msgid "Invalid directory selected: %s"
 msgstr "Seçilen klasör geçersiz: %s"
 
-# File: tmp/enigma2_plugins/genuinedreambox/src/plugin.py, line: 304
+# File: tmp/enigma2_plugins/genuineHypercube/src/plugin.py, line: 304
 msgid "Invalid response from Security service pls restart again"
 msgstr "Güvenlik servisinden geçersiz yanıt döndü. Lütfen yeniden çalıştırın."
 
-# File: tmp/enigma2_plugins/genuinedreambox/src/plugin.py, line: 132
+# File: tmp/enigma2_plugins/genuineHypercube/src/plugin.py, line: 132
 msgid "Invalid response from server."
 msgstr "Sunucudan geçersiz yanıt döndü."
 
-# File: tmp/enigma2_plugins/genuinedreambox/src/plugin.py, line: 177
+# File: tmp/enigma2_plugins/genuineHypercube/src/plugin.py, line: 177
 #, python-format
 msgid "Invalid response from server. Please report: %s"
 msgstr "Sunucudan geçersiz yanıt döndü. Lütfen raporlayın: %s"
@@ -3459,10 +3459,10 @@ msgstr ""
 msgid "Italian"
 msgstr "İtalyanca"
 
-msgid "Italian Weather forecast on Dreambox"
+msgid "Italian Weather forecast on Hypercube"
 msgstr ""
 
-msgid "Italian Weather forecast on Dreambox from www.google.it."
+msgid "Italian Weather forecast on Hypercube from www.google.it."
 msgstr ""
 
 #
@@ -3655,7 +3655,7 @@ msgstr "Depolama Aygıtları"
 msgid "Listen and record internet radio"
 msgstr ""
 
-msgid "Listen and record shoutcast internet radio on your Dreambox."
+msgid "Listen and record shoutcast internet radio on your Hypercube."
 msgstr ""
 
 #
@@ -4118,7 +4118,7 @@ msgstr "Kullanılamaz"
 
 msgid ""
 "NCID Client shows incoming voice calls promoted by any NCID server (e.g. "
-"Vodafone Easybox) on your Dreambox."
+"Vodafone Easybox) on your Hypercube."
 msgstr ""
 
 #
@@ -4169,97 +4169,97 @@ msgstr "İsim sunucusu (DNS) ayarları"
 msgid "Nemesis BlackBox Skin"
 msgstr ""
 
-msgid "Nemesis BlackBox Skin for the Dreambox"
+msgid "Nemesis BlackBox Skin for the Hypercube"
 msgstr ""
 
 msgid "Nemesis Blueline Single Skin"
 msgstr ""
 
-msgid "Nemesis Blueline Single Skin for the Dreambox"
+msgid "Nemesis Blueline Single Skin for the Hypercube"
 msgstr ""
 
 msgid "Nemesis Blueline Skin"
 msgstr ""
 
-msgid "Nemesis Blueline Skin for the Dreambox"
+msgid "Nemesis Blueline Skin for the Hypercube"
 msgstr ""
 
 msgid "Nemesis Blueline.Extended Skin"
 msgstr ""
 
-msgid "Nemesis Blueline.Extended Skin for the Dreambox"
+msgid "Nemesis Blueline.Extended Skin for the Hypercube"
 msgstr ""
 
 msgid "Nemesis ChromeLine Cobolt Skin"
 msgstr ""
 
-msgid "Nemesis ChromeLine Cobolt Skin for the Dreambox"
+msgid "Nemesis ChromeLine Cobolt Skin for the Hypercube"
 msgstr ""
 
 msgid "Nemesis ChromeLine Skin"
 msgstr ""
 
-msgid "Nemesis ChromeLine Skin for the Dreambox"
+msgid "Nemesis ChromeLine Skin for the Hypercube"
 msgstr ""
 
 msgid "Nemesis Flatline Blue Skin"
 msgstr ""
 
-msgid "Nemesis Flatline Blue Skin for the Dreambox"
+msgid "Nemesis Flatline Blue Skin for the Hypercube"
 msgstr ""
 
 msgid "Nemesis Flatline Skin"
 msgstr ""
 
-msgid "Nemesis Flatline Skin for the Dreambox"
+msgid "Nemesis Flatline Skin for the Hypercube"
 msgstr ""
 
 msgid "Nemesis GlassLine Skin"
 msgstr ""
 
-msgid "Nemesis GlassLine Skin for the Dreambox"
+msgid "Nemesis GlassLine Skin for the Hypercube"
 msgstr ""
 
 msgid "Nemesis Greenline Extended Skin"
 msgstr ""
 
-msgid "Nemesis Greenline Extended Skin for the Dreambox"
+msgid "Nemesis Greenline Extended Skin for the Hypercube"
 msgstr ""
 
 msgid "Nemesis Greenline Single Skin"
 msgstr ""
 
-msgid "Nemesis Greenline Single Skin for the Dreambox"
+msgid "Nemesis Greenline Single Skin for the Hypercube"
 msgstr ""
 
 msgid "Nemesis Greenline Skin"
 msgstr ""
 
-msgid "Nemesis Greenline Skin for the Dreambox"
+msgid "Nemesis Greenline Skin for the Hypercube"
 msgstr ""
 
 msgid "Nemesis Greyline Extended Skin"
 msgstr ""
 
-msgid "Nemesis Greyline Extended Skin for the Dreambox"
+msgid "Nemesis Greyline Extended Skin for the Hypercube"
 msgstr ""
 
 msgid "Nemesis Greyline Single Skin"
 msgstr ""
 
-msgid "Nemesis Greyline Single Skin for the Dreambox"
+msgid "Nemesis Greyline Single Skin for the Hypercube"
 msgstr ""
 
 msgid "Nemesis Greyline Skin"
 msgstr ""
 
-msgid "Nemesis Greyline Skin for the Dreambox"
+msgid "Nemesis Greyline Skin for the Hypercube"
 msgstr ""
 
 msgid "Nemesis ShadowLine Skin"
 msgstr ""
 
-msgid "Nemesis ShadowLine Skin for the Dreambox"
+msgid "Nemesis ShadowLine Skin for the Hypercube"
 msgstr ""
 
 #
@@ -4543,8 +4543,8 @@ msgid "No, do nothing."
 msgstr "Hayır, birşey yapma"
 
 #
-msgid "No, just start my dreambox"
-msgstr "Hayır, Dreambox'ımı şimdi başlat"
+msgid "No, just start my Hypercube"
+msgstr "Hayır, Hypercube'ımı şimdi başlat"
 
 msgid "No, never"
 msgstr ""
@@ -4783,7 +4783,7 @@ msgid "Parental control type"
 msgstr "Ebeveyn kontrolü tipi"
 
 msgid ""
-"Partnerbox allows editing a remote Dreambox's record timers and stream its "
+"Partnerbox allows editing a remote Hypercube's record timers and stream its "
 "TV  program."
 msgstr ""
 
@@ -4872,7 +4872,7 @@ msgstr "Kayıtlı video dosyalarını göster..."
 msgid "Play video again"
 msgstr "Videoyu yeniden oynat"
 
-msgid "Play videos from PC on your Dreambox"
+msgid "Play videos from PC on your Hypercube"
 msgstr ""
 
 msgid "Playback of Youtube through a PC"
@@ -5181,7 +5181,7 @@ msgstr ""
 msgid "Plugins"
 msgstr "Eklentiler"
 
-msgid "PodCast streams podcasts to your Dreambox."
+msgid "PodCast streams podcasts to your Hypercube."
 msgstr ""
 
 #
@@ -5492,7 +5492,7 @@ msgstr "Yeniden başlatmak istiyor musunuz?"
 
 #
 msgid "Really shutdown now?"
-msgstr "Dreambox'ı şimdi kapatmak istiyor musunuz?"
+msgstr "Hypercube'ı şimdi kapatmak istiyor musunuz?"
 
 #
 msgid "Reboot"
@@ -5766,7 +5766,7 @@ msgstr "Geri yükleme çalışıyor"
 msgid "Restore system settings"
 msgstr "Sistem ayarlarını geri yükle"
 
-msgid "Restore your Dreambox with a USB stick"
+msgid "Restore your Hypercube with a USB stick"
 msgstr ""
 
 #
@@ -6368,7 +6368,7 @@ msgstr "Maksimum süre tanımla"
 msgid "Set this NO to disable this AutoTimer."
 msgstr ""
 
-msgid "Sets your Dreambox into Deep-Standby"
+msgid "Sets your Hypercube into Deep-Standby"
 msgstr ""
 
 #
@@ -6501,7 +6501,7 @@ msgid "Shutdown"
 msgstr "Kapat"
 
 #
-msgid "Shutdown Dreambox after"
+msgid "Shutdown Hypercube after"
 msgstr "Zamanlayıcı süresi: "
 
 #
@@ -6531,7 +6531,7 @@ msgstr ""
 msgid "Simple titleset (compatibility for legacy players)"
 msgstr "Basit başlıkseti (klasik oynatıcılarla uyumlu)"
 
-msgid "SimpleRSS allows reading RSS newsfeeds on your Dreambox."
+msgid "SimpleRSS allows reading RSS newsfeeds on your Hypercube."
 msgstr ""
 
 #
@@ -6617,7 +6617,7 @@ msgstr "Yedekle -> Bellenim güncelle"
 msgid "Software update"
 msgstr "Yazılım güncelle"
 
-msgid "SoftwareManager manages your Dreambox software"
+msgid "SoftwareManager manages your Hypercube software"
 msgstr ""
 
 msgid "Softwaremanager information"
@@ -6948,7 +6948,7 @@ msgstr "DiSEqC ayarlarınızı test edin"
 msgid "Test Type"
 msgstr "Test tipi"
 
-# File: tmp/enigma2_plugins/genuinedreambox/src/plugin.py, line: 80
+# File: tmp/enigma2_plugins/genuineHypercube/src/plugin.py, line: 80
 msgid "Test again"
 msgstr "Testi tekrarla"
 
@@ -6957,8 +6957,8 @@ msgid "Test mode"
 msgstr "Test kipi"
 
 #
-msgid "Test the network configuration of your Dreambox.\n"
-msgstr "Dreambox'ınızın ağ yapılandırmasını test edin.\n"
+msgid "Test the network configuration of your Hypercube.\n"
+msgstr "Hypercube'ınızın ağ yapılandırmasını test edin.\n"
 
 msgid "Test your DiSEqC equipment"
 msgstr ""
@@ -6978,11 +6978,11 @@ msgstr ""
 #
 msgid ""
 "Thank you for using the wizard. Your box is now ready to use.\n"
-"Please press OK to start using your Dreambox."
+"Please press OK to start using your Hypercube."
 msgstr ""
-"Sihirbazı kullandığınız için teşekkür ederiz. Dreambox'ınız kullanıma "
+"Sihirbazı kullandığınız için teşekkür ederiz. Hypercube'ınız kullanıma "
 "hazır.\n"
-"Dreambox'ınızı kullanmaya başlamak için OK tuşuna basın."
+"Hypercube'ınızı kullanmaya başlamak için OK tuşuna basın."
 
 #
 msgid ""
@@ -6995,7 +6995,7 @@ msgstr ""
 "Devam etmek için OK'a basınız."
 
 msgid ""
-"The CleanupWizard informs you when the internal free memory of your dreambox "
+"The CleanupWizard informs you when the internal free memory of your Hypercube "
 "has dropped below a definable threshold.You can use this wizard to remove "
 "some plugins."
 msgstr ""
@@ -7003,11 +7003,11 @@ msgstr ""
 #
 msgid ""
 "The DVD standard doesn't support H.264 (HDTV) video streams. Do you want to "
-"create a Dreambox format data DVD (which will not play in stand-alone DVD "
+"create a Hypercube format data DVD (which will not play in stand-alone DVD "
 "players) instead?"
 msgstr ""
 "Standart DVD biçimi H.264 (HDTV) video biçimini desteklemez. Bunun yerine "
-"Dreambox'ın DVD biçiminde (standart DVD oynatıcılarda oynatamazsınız) "
+"Hypercube'ın DVD biçiminde (standart DVD oynatıcılarda oynatamazsınız) "
 "oluşturmak ister misiniz?"
 
 msgid ""
@@ -7048,11 +7048,11 @@ msgstr ""
 
 msgid ""
 "The SkinSelector shows a menu with selectable skins.\n"
-"It's now easy to change the look and feel of your Dreambox."
+"It's now easy to change the look and feel of your Hypercube."
 msgstr ""
 
 msgid ""
-"The SoftwareManager manages your Dreambox software.\n"
+"The SoftwareManager manages your Hypercube software.\n"
 "It's easy to update your receiver's software, install or remove plugins or "
 "even backup and restore your system settings."
 msgstr ""
@@ -7163,10 +7163,10 @@ msgstr "Varsayılan kanal listesi kurulumu tamamlandı."
 #
 msgid ""
 "The installation of the default settings is finished. You can now continue "
-"configuring your Dreambox by pressing the OK button on the remote control."
+"configuring your Hypercube by pressing the OK button on the remote control."
 msgstr ""
 "Varsayılan kanal listesi kurulumu tamamlandı. OK tuşuna bastıktan sonra "
-"Dreambox'ınızı yapılandırmaya devam edebilirsiniz."
+"Hypercube'ınızı yapılandırmaya devam edebilirsiniz."
 
 #
 msgid "The match attribute is mandatory."
@@ -7290,9 +7290,9 @@ msgid "There was an error. The package:"
 msgstr "Hata oluştu. Seçilen:"
 
 #
-# File: tmp/enigma2_plugins/genuinedreambox/src/plugin.py, line: 130
+# File: tmp/enigma2_plugins/genuineHypercube/src/plugin.py, line: 130
 msgid ""
-"There's a certificate update available for your dreambox. Would you like to "
+"There's a certificate update available for your Hypercube. Would you like to "
 "apply this update now?"
 msgstr ""
 
@@ -7306,8 +7306,8 @@ msgstr ""
 
 #
 #, python-format
-msgid "This Dreambox can't decode %s streams!"
-msgstr "Dreambox %s streamlarını çözemez!"
+msgid "This Hypercube can't decode %s streams!"
+msgstr "Hypercube %s streamlarını çözemez!"
 
 #
 msgid "This Month"
@@ -7346,7 +7346,7 @@ msgstr ""
 
 msgid ""
 "This plugin creates a USB stick which can be used to update the firmware of "
-"your Dreambox without the need for a network or WLAN connection.\n"
+"your Hypercube without the need for a network or WLAN connection.\n"
 "First, a USB stick needs to be prepared so that it becomes bootable.\n"
 "In the next step, an NFI image file can be downloaded from the update server "
 "and saved on the USB stick.\n"
@@ -7568,7 +7568,7 @@ msgid "To be used as simple downloading application by other Plugins."
 msgstr ""
 
 msgid ""
-"To update your Dreambox firmware, please follow these steps:\n"
+"To update your Hypercube firmware, please follow these steps:\n"
 "1) Turn off your box with the rear power switch and make sure the bootable "
 "USB stick is plugged in.\n"
 "2) Turn mains back on and hold the DOWN button on the front panel pressed "
@@ -7819,9 +7819,9 @@ msgid "Update done..."
 msgstr "Güncelleme tamamlandı..."
 
 #
-# File: tmp/enigma2_plugins/genuinedreambox/src/plugin.py, line: 170
+# File: tmp/enigma2_plugins/genuineHypercube/src/plugin.py, line: 170
 msgid ""
-"Update done... The genuine dreambox test will now be rerun and should not "
+"Update done... The genuine Hypercube test will now be rerun and should not "
 "ask you to update again."
 msgstr ""
 
@@ -7829,7 +7829,7 @@ msgid "Updatefeed not available."
 msgstr "Güncelleme sunucusu kullanılamıyor."
 
 #
-# File: tmp/enigma2_plugins/genuinedreambox/src/plugin.py, line: 150
+# File: tmp/enigma2_plugins/genuineHypercube/src/plugin.py, line: 150
 msgid ""
 "Updating failed. Nothing is broken, just the update couldn't be applied."
 msgstr ""
@@ -7859,8 +7859,8 @@ msgid "Upgrading"
 msgstr "Yazılımı güncelle"
 
 #
-msgid "Upgrading Dreambox... Please wait"
-msgstr "Dreambox güncelleniyor... Lütfen bekleyin"
+msgid "Upgrading Hypercube... Please wait"
+msgstr "Hypercube güncelleniyor... Lütfen bekleyin"
 
 #
 msgid "Upper bound of timespan."
@@ -7896,7 +7896,7 @@ msgstr "Özel kayıt konumu seç"
 msgid "Use a gateway"
 msgstr "Ağ geçidi kullan"
 
-msgid "Use and control multiple Dreamboxes with different RCs."
+msgid "Use and control multiple Hypercubees with different RCs."
 msgstr ""
 
 #
@@ -7989,7 +7989,7 @@ msgid "Vali.HD.nano skin"
 msgstr ""
 
 msgid ""
-"Verify your Dreambox authenticity by running the genuine dreambox plugin!"
+"Verify your Hypercube authenticity by running the genuine Hypercube plugin!"
 msgstr ""
 
 #
@@ -8079,7 +8079,7 @@ msgstr "İzlenme sayısı"
 msgid "View Google maps"
 msgstr ""
 
-msgid "View Google maps with your Dreambox."
+msgid "View Google maps with your Hypercube."
 msgstr ""
 
 #
@@ -8171,9 +8171,9 @@ msgid "View teletext..."
 msgstr "Teleteksi aç..."
 
 #
-msgid "View, edit or delete mountpoints on your Dreambox."
+msgid "View, edit or delete mountpoints on your Hypercube."
 msgstr ""
-"Dreambox'ınızdaki ağ bağlantı noktalarını inceleyin, düzenleyin veya silin."
+"Hypercube'ınızdaki ağ bağlantı noktalarını inceleyin, düzenleyin veya silin."
 
 #
 msgid "View, edit or delete usernames and passwords for your network."
@@ -8248,10 +8248,10 @@ msgstr "Boş alan belirtilen eşiğin altına inince uyar (kB):"
 msgid "Watch streams from ZDF Mediathek"
 msgstr ""
 
-msgid "WeatherPlugin shows weatherforecasts on your Dreambox."
+msgid "WeatherPlugin shows weatherforecasts on your Hypercube."
 msgstr ""
 
-msgid "Weatherforecast on your Dreambox"
+msgid "Weatherforecast on your Hypercube"
 msgstr ""
 
 #
@@ -8306,10 +8306,10 @@ msgstr ""
 #
 msgid ""
 "Welcome to the Image upgrade wizard. The wizard will assist you in upgrading "
-"the firmware of your Dreambox by providing a backup facility for your "
+"the firmware of your Hypercube by providing a backup facility for your "
 "current settings and a short explanation of how to upgrade your firmware."
 msgstr ""
-"Bellenim güncelleme sihirbazına hoş geldiniz. Bu sihirbaz, Dreambox bellenim "
+"Bellenim güncelleme sihirbazına hoş geldiniz. Bu sihirbaz, Hypercube bellenim "
 "güncellemesi esnasında, geçerli ayarlarınızın yedeğini almanıza imkan "
 "sağlayacak ve kısa açıklamalarla bellenimi nasıl güncelleyeceğinizi "
 "anlatacaktır."
@@ -8368,14 +8368,14 @@ msgid ""
 "Welcome to the cleanup wizard.\n"
 "\n"
 "We have detected that your available internal memory has dropped below 2MB.\n"
-"To ensure stable operation of your Dreambox, the internal memory should be "
+"To ensure stable operation of your Hypercube, the internal memory should be "
 "cleaned up.\n"
 "You can use this wizard to remove some extensions.\n"
 msgstr ""
 "Temizlik sihirbazına hoşgeldiniz.\n"
 "\n"
 "Cihazınızın kullanılabilir dahili belleği 2MB'ın altına düşmüş durumda.\n"
-"Dreambox'ınızın sağlıklı çalışabilmesi için, kullanılabilir dahili bellek "
+"Hypercube'ınızın sağlıklı çalışabilmesi için, kullanılabilir dahili bellek "
 "alanının artırılması gerekmektedir.\n"
 "Bu sihirbazı kullanarak ihtiyaç duymadığınız eklentileri kaldırabilirsiniz.\n"
 
@@ -8383,14 +8383,14 @@ msgstr ""
 msgid ""
 "Welcome.\n"
 "\n"
-"If you want to connect your Dreambox to the Internet, this wizard will guide "
-"you through the basic network setup of your Dreambox.\n"
+"If you want to connect your Hypercube to the Internet, this wizard will guide "
+"you through the basic network setup of your Hypercube.\n"
 "\n"
 "Press OK to start configuring your network"
 msgstr ""
 "Hoşgeldiniz.\n"
 "\n"
-"Dreambox'ınızı internete bağlamak istiyorsanız, bu sihirbaz size ağ "
+"Hypercube'ınızı internete bağlamak istiyorsanız, bu sihirbaz size ağ "
 "yapılandırmanızı yapabilmeniz için rehberlik yapacaktır.\n"
 "\n"
 "Ağ yapılandırmasına başlamak için OK tuşuna basın"
@@ -8411,12 +8411,12 @@ msgstr ""
 msgid ""
 "Welcome.\n"
 "\n"
-"This start wizard will guide you through the basic setup of your Dreambox.\n"
+"This start wizard will guide you through the basic setup of your Hypercube.\n"
 "Press the OK button on your remote control to move to the next step."
 msgstr ""
 "Hoşgeldiniz.\n"
 "\n"
-"Bu sihirbaz Dreambox'ınızı yapılandırmanız için yardımcı olacaktır.\n"
+"Bu sihirbaz Hypercube'ınızı yapılandırmanız için yardımcı olacaktır.\n"
 "Kumandanızın OK tuşuna basarak sonraki adıma geçebilirsiniz."
 
 #
@@ -8484,17 +8484,17 @@ msgid ""
 msgstr ""
 
 msgid ""
-"With DVDBurn you can make compilations of records from your Dreambox hard "
+"With DVDBurn you can make compilations of records from your Hypercube hard "
 "drive.\n"
 "Optionally you can add customizable menus. You can record the compilation to "
 "a standard-compliant DVD that can be played on conventinal DVD players.\n"
-"HDTV recordings can only be burned in proprietary dreambox format."
+"HDTV recordings can only be burned in proprietary Hypercube format."
 msgstr ""
 
 msgid "With EPGSearch you can search through the EPG and create timers."
 msgstr ""
 
-msgid "With Genuine Dreambox you can verify the authenticity of your Dreambox."
+msgid "With Genuine Hypercube you can verify the authenticity of your Hypercube."
 msgstr ""
 
 msgid ""
@@ -8519,13 +8519,13 @@ msgid ""
 msgstr ""
 
 msgid ""
-"With YouTubePlayer you can watch YouTube-Videos on the Dreambox.\n"
+"With YouTubePlayer you can watch YouTube-Videos on the Hypercube.\n"
 "This plugin requires a PC with the VLC program running."
 msgstr ""
 
 msgid ""
 "With the CommonInterfaceAssignment plugin it is possible to use differentCI "
-"modules in your Dreambox and assign dedicated providers/services or caids to "
+"modules in your Hypercube and assign dedicated providers/services or caids to "
 "each of them.\n"
 "This allows watching a scrambled service while recording another one."
 msgstr ""
@@ -8547,8 +8547,8 @@ msgstr ""
 
 msgid ""
 "With the NFIFlash plugin it is possible to prepare a USB stick with an "
-"Dreambox image.\n"
-"It is then possible to flash your Dreambox with the image on that stick."
+"Hypercube image.\n"
+"It is then possible to flash your Hypercube with the image on that stick."
 msgstr ""
 
 msgid ""
@@ -8685,8 +8685,8 @@ msgid "You can install this plugin."
 msgstr "Bu eklentiyi yükleyebilirsiniz."
 
 #
-msgid "You can only burn Dreambox recordings!"
-msgstr "Yalnızca Dreambox'ta kaydettiğiniz videoları yazabilirsiniz!"
+msgid "You can only burn Hypercube recordings!"
+msgstr "Yalnızca Hypercube'ta kaydettiğiniz videoları yazabilirsiniz!"
 
 #
 msgid "You can remove this plugin."
@@ -8781,16 +8781,16 @@ msgstr "Bekleme süresi : %s!"
 
 #
 msgid ""
-"You need a PC connected to your dreambox. If you need further instructions, "
+"You need a PC connected to your Hypercube. If you need further instructions, "
 "please visit the website http://www.dm7025.de.\n"
-"Your dreambox will now be halted. After you have performed the update "
+"Your Hypercube will now be halted. After you have performed the update "
 "instructions from the website, your new firmware will ask you to restore "
 "your settings."
 msgstr ""
-"Dreambox'ınızın PC bağlantısına ihtiyacı var. Daha fazla açıklamaya "
+"Hypercube'ınızın PC bağlantısına ihtiyacı var. Daha fazla açıklamaya "
 "ihtiyacınız varsa, lütfen http://www.dream-multimedia-tv.de adresini ziyaret "
 "edin.\n"
-"Dreambox'ınız şimdi kapatılıyor. Web sitesinde belirtilen güncelleme "
+"Hypercube'ınız şimdi kapatılıyor. Web sitesinde belirtilen güncelleme "
 "talimatlarını yerine getirdikten sonra yeni bellenim, ayarlarınızı geri "
 "yüklemek isteyip istemediğiniz sorusunu soracaktır."
 
@@ -8822,7 +8822,7 @@ msgstr ""
 
 #
 msgid ""
-"Your Dreambox is now ready to use.\n"
+"Your Hypercube is now ready to use.\n"
 "\n"
 "Your internet connection is working now.\n"
 "\n"
@@ -8834,7 +8834,7 @@ msgstr ""
 
 #
 msgid ""
-"Your Dreambox is now ready to use.\n"
+"Your Hypercube is now ready to use.\n"
 "\n"
 "Your internet connection is working now.\n"
 "\n"
@@ -8847,9 +8847,9 @@ msgstr ""
 "Devam etmek için lütfen OK tuşuna basın."
 
 #
-msgid "Your Dreambox will restart after pressing OK on your remote control."
+msgid "Your Hypercube will restart after pressing OK on your remote control."
 msgstr ""
-"Kumandanızda OK tuşuna bastıktan sonra Dreambox'ınız yeniden başlatılacak."
+"Kumandanızda OK tuşuna bastıktan sonra Hypercube'ınız yeniden başlatılacak."
 
 #
 msgid ""
@@ -8879,15 +8879,15 @@ msgid "Your current collection will get lost!"
 msgstr ""
 
 #
-msgid "Your dreambox is shutting down. Please stand by..."
-msgstr "Dreambox'ınız kapatılıyor. Lütfen bekleyin..."
+msgid "Your Hypercube is shutting down. Please stand by..."
+msgstr "Hypercube'ınız kapatılıyor. Lütfen bekleyin..."
 
 #
 msgid ""
-"Your dreambox isn't connected to the internet properly. Please check it and "
+"Your Hypercube isn't connected to the internet properly. Please check it and "
 "try again."
 msgstr ""
-"Dreambox'ınız internete bağlı değil. Kontrol ettikten sonra tekrar deneyin."
+"Hypercube'ınız internete bağlı değil. Kontrol ettikten sonra tekrar deneyin."
 
 #
 msgid "Your email address:"
@@ -9248,7 +9248,7 @@ msgstr "bağlı"
 msgid "continue"
 msgstr "devam et"
 
-msgid "control multiple Dreamboxes with different RCs"
+msgid "control multiple Hypercubees with different RCs"
 msgstr ""
 
 #
@@ -10169,10 +10169,10 @@ msgstr "h.bekle/y.başlatana kadar"
 msgid "use as HDD replacement"
 msgstr "Sabitdisk gibi kullan"
 
-msgid "use your Dreambox as Web proxy"
+msgid "use your Hypercube as Web proxy"
 msgstr ""
 
-msgid "use your Dreambox as Web proxy."
+msgid "use your Hypercube as Web proxy."
 msgstr ""
 
 #
@@ -10233,10 +10233,10 @@ msgstr "evet (beslemeleri tut)"
 
 #
 msgid ""
-"your dreambox might be unusable now. Please consult the manual for further "
-"assistance before rebooting your dreambox."
+"your Hypercube might be unusable now. Please consult the manual for further "
+"assistance before rebooting your Hypercube."
 msgstr ""
-"Dreambox'ınız şu an kullanılamaz durumda. Lütfen Dreambox'ınızı yeniden "
+"Hypercube'ınız şu an kullanılamaz durumda. Lütfen Hypercube'ınızı yeniden "
 "açmadan önce kullanım kılavuzundan yardım alın."
 
 #
@@ -10351,11 +10351,11 @@ msgstr "kanal değiştirildi"
 #
 #~ msgid ""
 #~ "Are you sure you want to enable WLAN support?\n"
-#~ "Connect your Wlan USB Stick to your Dreambox and press OK.\n"
+#~ "Connect your Wlan USB Stick to your Hypercube and press OK.\n"
 #~ "\n"
 #~ msgstr ""
 #~ "WLAN desteğini açmak istediğinizden emin misiniz?\n"
-#~ "WLAN USB donanımını Dreambox'unuza takın ve OK'e basın.\n"
+#~ "WLAN USB donanımını Hypercube'unuza takın ve OK'e basın.\n"
 #~ "\n"
 
 #
@@ -10665,10 +10665,10 @@ msgstr "kanal değiştirildi"
 
 #
 #~ msgid ""
-#~ "Enable the local network of your Dreambox.\n"
+#~ "Enable the local network of your Hypercube.\n"
 #~ "\n"
 #~ msgstr ""
-#~ "Dreambox'un yerel ağ bağlantısını aç.\n"
+#~ "Hypercube'un yerel ağ bağlantısını aç.\n"
 #~ "\n"
 
 #~ msgid "Encrypted: %s"
@@ -10822,8 +10822,8 @@ msgstr "kanal değiştirildi"
 #~ msgstr "Dil ayarları"
 
 #
-#~ msgid "Lets you view/edit files in your Dreambox"
-#~ msgstr "Dreambox'ınızdaki dosyaları görün/düzenleyin"
+#~ msgid "Lets you view/edit files in your Hypercube"
+#~ msgstr "Hypercube'ınızdaki dosyaları görün/düzenleyin"
 
 #
 #~ msgid "Max. Bitrate: %s"
@@ -10969,11 +10969,11 @@ msgstr "kanal değiştirildi"
 #
 #~ msgid ""
 #~ "Please attach your Zydas ZD1211B chipset compatibe WLAN USB Stick to your "
-#~ "Dreambox and press the OK button on your remote control to enable the "
+#~ "Hypercube and press the OK button on your remote control to enable the "
 #~ "built in wireless network support"
 #~ msgstr ""
 #~ "Lütfen dahili kablosuz ağ desteğini etkinleştirmek için, Zydas ZD1211B "
-#~ "çipset uyumlu WLAN USB donanımını Dreambox'ınıza takın ve kumandanızdan "
+#~ "çipset uyumlu WLAN USB donanımını Hypercube'ınıza takın ve kumandanızdan "
 #~ "OK tuşuna basın..."
 
 #
@@ -11000,10 +11000,10 @@ msgstr "kanal değiştirildi"
 
 #
 #~ msgid ""
-#~ "Please disconnect all USB devices from your Dreambox and (re-)attach the "
+#~ "Please disconnect all USB devices from your Hypercube and (re-)attach the "
 #~ "target USB stick (minimum size is 64 MB) now!"
 #~ msgstr ""
-#~ "Lütfen tüm USB aygıtlarını Dreambox'ınızdan çıkarın ve işlem yapmak "
+#~ "Lütfen tüm USB aygıtlarını Hypercube'ınızdan çıkarın ve işlem yapmak "
 #~ "istediğiniz USB belleği (min. 64MB kapasiteli) tekrar takın!"
 
 #
@@ -11048,17 +11048,17 @@ msgstr "kanal değiştirildi"
 
 #
 #~ msgid ""
-#~ "Pressing OK enables the built in wireless LAN support of your Dreambox.\n"
+#~ "Pressing OK enables the built in wireless LAN support of your Hypercube.\n"
 #~ "Wlan USB Sticks with Zydas ZD1211B and RAlink RT73 Chipset are "
 #~ "supported.\n"
-#~ "Connect your Wlan USB Stick to your Dreambox before pressing OK.\n"
+#~ "Connect your Wlan USB Stick to your Hypercube before pressing OK.\n"
 #~ "\n"
 #~ msgstr ""
-#~ "Dreambox'ınızda kablosuz ağ desteğini aktif hale getirmek için OK'a "
+#~ "Hypercube'ınızda kablosuz ağ desteğini aktif hale getirmek için OK'a "
 #~ "basın.\n"
 #~ "WLAN USB donanımlarında, Zydas ZD1211B ve RAlink RT73 çipsetleri "
 #~ "desteklenmektedir.\n"
-#~ "OK'a basmadan önce WLAN USB donanımınızı Dreambox'ınıza takın.\n"
+#~ "OK'a basmadan önce WLAN USB donanımınızı Hypercube'ınıza takın.\n"
 
 #
 #~ msgid "RSS Feed URI"
@@ -11325,13 +11325,13 @@ msgstr "kanal değiştirildi"
 
 #
 #~ msgid ""
-#~ "Thank you for using the wizard. Your Dreambox is now ready to use.\n"
+#~ "Thank you for using the wizard. Your Hypercube is now ready to use.\n"
 #~ "\n"
 #~ "Your local LAN internet connection is working now.\n"
 #~ "\n"
 #~ "Please press OK to continue."
 #~ msgstr ""
-#~ "Sihirbazı kullandığınız için teşekkür ederiz. Dreambox'ınız kullanıma "
+#~ "Sihirbazı kullandığınız için teşekkür ederiz. Hypercube'ınız kullanıma "
 #~ "hazır.\n"
 #~ "\n"
 #~ "Yerel ağ bağlantınız çalışıyor.\n"
@@ -11340,13 +11340,13 @@ msgstr "kanal değiştirildi"
 
 #
 #~ msgid ""
-#~ "Thank you for using the wizard. Your Dreambox is now ready to use.\n"
+#~ "Thank you for using the wizard. Your Hypercube is now ready to use.\n"
 #~ "\n"
 #~ "Your wireless internet connection is working now.\n"
 #~ "\n"
 #~ "Please press OK to continue."
 #~ msgstr ""
-#~ "Sihirbazı kullandığınız için teşekkür ederiz. Dreambox'ınız kullanıma "
+#~ "Sihirbazı kullandığınız için teşekkür ederiz. Hypercube'ınız kullanıma "
 #~ "hazır.\n"
 #~ "\n"
 #~ "Kablosuz ağ bağlantınız çalışıyor.\n"
@@ -11355,21 +11355,21 @@ msgstr "kanal değiştirildi"
 
 #
 #~ msgid ""
-#~ "Thank you for using the wizard. Your Dreambox is now ready to use.\n"
-#~ "Please press OK to start using your Dreambox."
+#~ "Thank you for using the wizard. Your Hypercube is now ready to use.\n"
+#~ "Please press OK to start using your Hypercube."
 #~ msgstr ""
-#~ "Sihirbazı kullandığınız için teşekkür ederiz. Dreambox'ınız kullanıma "
+#~ "Sihirbazı kullandığınız için teşekkür ederiz. Hypercube'ınız kullanıma "
 #~ "hazır.\n"
-#~ "Dreambox'ınızı kullanmak için hazırsanız OK tuşuna basın."
+#~ "Hypercube'ınızı kullanmak için hazırsanız OK tuşuna basın."
 
 #
 #~ msgid ""
 #~ "Thank you for using the wizard. Your box is now ready to use.\n"
-#~ "Please press OK to start using you Dreambox."
+#~ "Please press OK to start using you Hypercube."
 #~ msgstr ""
-#~ "Sihirbazı kullandığınız için teşekkür ederiz. Dreambox'ınız kullanıma "
+#~ "Sihirbazı kullandığınız için teşekkür ederiz. Hypercube'ınız kullanıma "
 #~ "hazır.\n"
-#~ "Dreambox'ınızı kullanmak için OK tuşuna basın."
+#~ "Hypercube'ınızı kullanmak için OK tuşuna basın."
 
 #
 #~ msgid ""
@@ -11438,8 +11438,8 @@ msgstr "kanal değiştirildi"
 #~ "programlamaya devam etmek istiyor musunuz?"
 
 #
-#~ msgid "This Dreambox can't decode %s video streams!"
-#~ msgstr "Dreambox %s video dosyalarını gösteremez!"
+#~ msgid "This Hypercube can't decode %s video streams!"
+#~ msgstr "Hypercube %s video dosyalarını gösteremez!"
 
 #
 #~ msgid "This is unsupported at the moment."
@@ -11465,16 +11465,16 @@ msgstr "kanal değiştirildi"
 
 #
 #~ msgid ""
-#~ "To update your Dreambox firmware, please follow these steps:\n"
+#~ "To update your Hypercube firmware, please follow these steps:\n"
 #~ "1) Turn off your box with the rear power switch and plug in the bootable "
 #~ "USB stick.\n"
 #~ "2) Turn mains back on and hold the DOWN button on the front panel pressed "
 #~ "for 10 seconds.\n"
 #~ "3) Wait for bootup and follow instructions of the wizard."
 #~ msgstr ""
-#~ "Lütfen Dreambox bellenimini güncellemek için, aşağıdaki adımları takip "
+#~ "Lütfen Hypercube bellenimini güncellemek için, aşağıdaki adımları takip "
 #~ "edin:\n"
-#~ "1) Dreambox'ınızı, arkasındaki kapama anahtarından kapayın ve önyükleme "
+#~ "1) Hypercube'ınızı, arkasındaki kapama anahtarından kapayın ve önyükleme "
 #~ "yapabilir USB belleği takın.\n"
 #~ "2) Ön panelde yer alan AŞAĞI tuşuna basın ve cihazı tekrar açın. 10 "
 #~ "saniye boyunca AŞAĞI tuşunu bırakmayın.\n"
@@ -11486,10 +11486,10 @@ msgstr "kanal değiştirildi"
 #~ msgstr "USB"
 
 #~ msgid ""
-#~ "USB stick wizard finished. Your dreambox will now restart with your new "
+#~ "USB stick wizard finished. Your Hypercube will now restart with your new "
 #~ "image!"
 #~ msgstr ""
-#~ "USB bellek sihirbazı tamamlandı. Dreambox'ınız şimdi yeni bellenim ile "
+#~ "USB bellek sihirbazı tamamlandı. Hypercube'ınız şimdi yeni bellenim ile "
 #~ "başlatılacak."
 
 #
@@ -11517,9 +11517,9 @@ msgstr "kanal değiştirildi"
 #~ msgstr "Uydu Alıcınızın yazılımını güncelleyin"
 
 #
-#~ msgid "Upgrade finished. Do you want to reboot your Dreambox?"
+#~ msgid "Upgrade finished. Do you want to reboot your Hypercube?"
 #~ msgstr ""
-#~ "Güncelleme tamamlandı. Dreambox'ınızı yeniden başlatmak istiyor musunuz?"
+#~ "Güncelleme tamamlandı. Hypercube'ınızı yeniden başlatmak istiyor musunuz?"
 
 #
 #
@@ -11577,14 +11577,14 @@ msgstr "kanal değiştirildi"
 #~ msgid ""
 #~ "Welcome.\n"
 #~ "\n"
-#~ "If you want to connect your Dreambox to the Internet, this wizard will "
-#~ "guide you through the basic network setup of your Dreambox.\n"
+#~ "If you want to connect your Hypercube to the Internet, this wizard will "
+#~ "guide you through the basic network setup of your Hypercube.\n"
 #~ "\n"
 #~ "Press the OK button on your remote control to move to the next step."
 #~ msgstr ""
 #~ "Hoşgeldiniz.\n"
 #~ "\n"
-#~ "Bu sihirbaz Dreambox'ınızın ağ ayarlarını yapabilmeniz için yardımcı "
+#~ "Bu sihirbaz Hypercube'ınızın ağ ayarlarını yapabilmeniz için yardımcı "
 #~ "olacaktır.\n"
 #~ "\n"
 #~ "Kumandanızın OK tuşuna basarak sonraki adıma geçebilirsiniz."
@@ -11611,10 +11611,10 @@ msgstr "kanal değiştirildi"
 
 #
 #~ msgid ""
-#~ "You do not seem to have a harddisk in your Dreambox. So backing up to a "
+#~ "You do not seem to have a harddisk in your Hypercube. So backing up to a "
 #~ "harddisk is not an option for you."
 #~ msgstr ""
-#~ "Dreambox'a bağlı bir sabit disk görünmüyor. Bu işlem için sabit diski "
+#~ "Hypercube'a bağlı bir sabit disk görünmüyor. Bu işlem için sabit diski "
 #~ "kullanma opsiyonunuz bulunmamaktadır."
 
 #
@@ -11701,19 +11701,19 @@ msgstr "kanal değiştirildi"
 #
 #~ msgid ""
 #~ "Your wired LAN Adapter could not be started.\n"
-#~ "Do you want to reboot your Dreambox to apply the new configuration?\n"
+#~ "Do you want to reboot your Hypercube to apply the new configuration?\n"
 #~ msgstr ""
 #~ "Kablolu Ağ donanımınız başlatılamadı.\n"
-#~ "Yeni ayarların geçerli olabilmesi için Dreambox'u yeniden başlatmak ister "
+#~ "Yeni ayarların geçerli olabilmesi için Hypercube'u yeniden başlatmak ister "
 #~ "misiniz?\n"
 
 #
 #~ msgid ""
 #~ "Your wireless LAN Adapter could not be started.\n"
-#~ "Do you want to reboot your Dreambox to apply the new configuration?\n"
+#~ "Do you want to reboot your Hypercube to apply the new configuration?\n"
 #~ msgstr ""
 #~ "Kablosuz Ağ donanımınız başlatılamadı.\n"
-#~ "Yeni ayarların geçerli olabilmesi için Dreambox'u yeniden başlatmak ister "
+#~ "Yeni ayarların geçerli olabilmesi için Hypercube'u yeniden başlatmak ister "
 #~ "misiniz?\n"
 
 #

@@ -283,13 +283,13 @@ class MediaPlayer(Screen, InfoBarBase, InfoBarSeek, InfoBarAudioSelection, InfoB
 		currPlay = self.session.nav.getCurrentService()
 		sTagAudioCodec = currPlay.info().getInfoString(iServiceInformation.sTagAudioCodec)
 		print "[__evAudioDecodeError] audio-codec %s can't be decoded by hardware" % (sTagAudioCodec)
-		self.session.open(MessageBox, _("This Dreambox can't decode %s streams!") % sTagAudioCodec, type = MessageBox.TYPE_INFO,timeout = 20 )
+		self.session.open(MessageBox, _("This Box can't decode %s streams!") % sTagAudioCodec, type = MessageBox.TYPE_INFO,timeout = 20 )
 
 	def __evVideoDecodeError(self):
 		currPlay = self.session.nav.getCurrentService()
 		sTagVideoCodec = currPlay.info().getInfoString(iServiceInformation.sTagVideoCodec)
 		print "[__evVideoDecodeError] video-codec %s can't be decoded by hardware" % (sTagVideoCodec)
-		self.session.open(MessageBox, _("This Dreambox can't decode %s streams!") % sTagVideoCodec, type = MessageBox.TYPE_INFO,timeout = 20 )
+		self.session.open(MessageBox, _("This Box can't decode %s streams!") % sTagVideoCodec, type = MessageBox.TYPE_INFO,timeout = 20 )
 
 	def __evPluginError(self):
 		currPlay = self.session.nav.getCurrentService()
@@ -998,10 +998,22 @@ def audioCD_open(list, session, **kwargs):
 	from enigma import eServiceReference
 
 	mp = session.open(MediaPlayer)
-	mp.cdAudioTrackFiles = []
-	for file in list:
-		mp.cdAudioTrackFiles.append(file.path)
+	mp.cdAudioTrackFiles = [f.path for f in list]
 	mp.playAudioCD()
+
+def movielist_open(list, session, **kwargs):
+	if not list:
+		# sanity
+		return
+	from enigma import eServiceReference
+	from Screens.InfoBar import InfoBar
+	f = list[0]
+	if f.mimetype == "video/MP2T":
+		stype = 1
+	else:
+		stype = 4097
+	if InfoBar.instance:
+		InfoBar.instance.showMovies(eServiceReference(stype, 0, f.path))
 
 def filescan(**kwargs):
 	from Components.Scanner import Scanner, ScanPath
@@ -1013,7 +1025,7 @@ def filescan(**kwargs):
 				],
 			name = "Movie",
 			description = _("View Movies..."),
-			openfnc = filescan_open,
+			openfnc = movielist_open,
 		),
 		Scanner(mimetypes = ["video/x-vcd"],
 			paths_to_scan =

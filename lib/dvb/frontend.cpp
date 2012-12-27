@@ -932,6 +932,12 @@ int eDVBFrontend::readFrontendData(int type)
 					default: break;
 				}
 			}
+			else if (!strcmp(m_description, "Typhoon(internal)") || !strcmp(m_description, "DS3103"))
+			{
+			    //eDebug("typhon read snr = %d\n", snr);
+			    ret = (int)snr * 10; //snr unit is x10 db, change it to x100 db.
+			    sat_max = 1600; // we assume a max of 16db here
+			}
 
 			if (type == signalQuality)
 			{
@@ -1112,10 +1118,10 @@ static void fillDictWithSatelliteData(ePyObject dict, const FRONTENDPARAMETERS &
 	{
 		switch (p[2].u.data)
 		{
-		default: eDebug("got unsupported rolloff from frontend! report as 0_20!");
 		case ROLLOFF_20: tmp = eDVBFrontendParametersSatellite::RollOff_alpha_0_20; break;
 		case ROLLOFF_25: tmp = eDVBFrontendParametersSatellite::RollOff_alpha_0_25; break;
 		case ROLLOFF_35: tmp = eDVBFrontendParametersSatellite::RollOff_alpha_0_35; break;
+		case ROLLOFF_AUTO: tmp = eDVBFrontendParametersSatellite::RollOff_auto; break;
 		}
 		PutToDict(dict, "rolloff", tmp);
 
@@ -1192,7 +1198,7 @@ static void fillDictWithSatelliteData(ePyObject dict, const FRONTENDPARAMETERS &
 	{
 		switch(parm_inversion & 0xc)
 		{
-		default: // unknown rolloff
+		default: tmp = eDVBFrontendParametersSatellite::RollOff_auto; break;
 		case 0: tmp = eDVBFrontendParametersSatellite::RollOff_alpha_0_35; break;
 		case 4: tmp = eDVBFrontendParametersSatellite::RollOff_alpha_0_25; break;
 		case 8: tmp = eDVBFrontendParametersSatellite::RollOff_alpha_0_20; break;
@@ -1961,6 +1967,7 @@ void eDVBFrontend::setFrontend(bool recvEvents)
 			case eDVBFrontendParametersSatellite::RollOff_alpha_0_20: rolloff = ROLLOFF_20; break;
 			case eDVBFrontendParametersSatellite::RollOff_alpha_0_25: rolloff = ROLLOFF_25; break;
 			case eDVBFrontendParametersSatellite::RollOff_alpha_0_35: rolloff = ROLLOFF_35; break;
+			case eDVBFrontendParametersSatellite::RollOff_auto: rolloff = ROLLOFF_AUTO; break;
 			};
 			struct dtv_property p[10];
 			struct dtv_properties cmdseq;
@@ -2743,5 +2750,35 @@ bool eDVBFrontend::setSlotInfo(ePyObject obj)
 arg_error:
 	PyErr_SetString(PyExc_StandardError,
 		"eDVBFrontend::setSlotInfo must get a tuple with first param slotid, second param slot description and third param enabled boolean");
+	return false;
+}
+
+bool eDVBFrontend::setDefSlotInfo(void)
+{
+	int Id, Descr, Enabled, IsDVBS2, frontendId;
+	Id = 0;
+	Enabled = 1;
+	IsDVBS2 = 0;
+	frontendId = 0;
+	m_slotid = 0;
+	strcpy(m_description, "Alps BSBE1");
+	if (frontendId != m_dvbid) {
+		eDebug("skip slotinfo for slotid %d, descr %s",
+			m_slotid, m_description);
+		return false;
+	}
+	m_enabled = Enabled == 1;
+	// HACK.. the rotor workaround is neede for all NIMs with LNBP21 voltage regulator...
+	m_need_rotor_workaround = !!strstr(m_description, "Alps BSBE1") ||
+		!!strstr(m_description, "Alps BSBE2") ||
+		!!strstr(m_description, "Alps -S") ||
+		!!strstr(m_description, "BCM4501");
+	m_can_handle_dvbs2 = IsDVBS2 == 1;
+	eDebug("setSlotInfo for dvb frontend %d to slotid %d, descr %s, need rotorworkaround %s, enabled %s, DVB-S2 %s",
+		m_dvbid, m_slotid, m_description, m_need_rotor_workaround ? "Yes" : "No", m_enabled ? "Yes" : "No", m_can_handle_dvbs2 ? "Yes" : "No" );
+	return true;
+
+arg_error:
+	eDebug("arg_error\n");
 	return false;
 }
