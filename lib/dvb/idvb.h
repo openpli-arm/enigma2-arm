@@ -537,6 +537,7 @@ public:
 	{
 		capDecode = 1,
 		/* capCI = 2 */
+		capRecord =2   //Added by Warm 2013-01-10
 	};
 	virtual RESULT setCIRouting(const eDVBCIRouting &routing)=0;
 	virtual RESULT getDemux(ePtr<iDVBDemux> &demux, int cap=0)=0;

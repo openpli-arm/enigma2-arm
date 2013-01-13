@@ -274,7 +274,7 @@ public:
 	int reserveDemux();
 private:
 	ePtr<eDVBAllocatedFrontend> m_frontend;
-	ePtr<eDVBAllocatedDemux> m_demux, m_decoder_demux;
+	ePtr<eDVBAllocatedDemux> m_demux, m_decoder_demux, m_recorder_demux;
 	
 	ePtr<iDVBFrontendParameters> m_current_frontend_parameters;
 	eDVBChannelID m_channel_id;
