@@ -362,7 +362,7 @@ class Harddisk:
 
 		task = Task.PythonTask(job, _("Create movie directory"))
 		task.weighting = 1
-		task.work = createMovieFolder
+		task.work = self.createMovieFolder
 
 		return job
 
