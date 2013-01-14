@@ -1644,14 +1644,6 @@ class InfoBarInstantRecord:
 				entry.autoincrease = False
 			entry.end = int(time()) + 60 * int(value)
 			self.session.nav.RecordTimer.timeChanged(entry)
-	def checkpath(self,path):
-		pathlist = path.split("/")
-		if len(pathlist)<= 3:
-			return False
-		if pathlist[1] == "autofs":
-			return True
-		mountpath = "/"+pathlist[1]+"/"+pathlist[2]
-		return isMount(mountpath)
 
 	def instantRecord(self):
 		dir = preferredInstantRecordPath()
@@ -1664,8 +1656,8 @@ class InfoBarInstantRecord:
 			self.session.open(MessageBox, _("Missing ") + dir + "\n" + _("No HDD found or HDD not initialized!"), MessageBox.TYPE_ERROR)
 			return
 		#check is storage device mount on this dir
-		if not self.checkpath(dir):
-			self.session.open(MessageBox, _("Record Path: ") + dir + "\n" + _("Please check is inserted an external storage device and  select the right record Directory?\nUSB storage device: /media/usb/movie\n"), MessageBox.TYPE_ERROR)
+		if not isMount(dir) or dir == "/":
+			self.session.open(MessageBox, _("Record Path: ") + dir + "\n" + _("Please check is inserted an external storage device and  select the right record Directory?\nUSB storage device: /media/usb\n"), MessageBox.TYPE_ERROR)
 			return
 		if self.isInstantRecordRunning():
 			self.session.openWithCallback(self.recordQuestionCallback, ChoiceBox, \
