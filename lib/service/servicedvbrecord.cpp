@@ -33,7 +33,24 @@ eDVBServiceRecord::eDVBServiceRecord(const eServiceReferenceDVB &ref): m_ref(ref
 
 void eDVBServiceRecord::serviceEvent(int event)
 {
-	eDebug("RECORD service event %d", event);
+	char * serviceEventStr[] =
+	{
+		"eventNoResources",  // a requested resource couldn't be allocated
+		"eventTuneFailed",   // tune failed
+		"eventNoPAT",        // no pat could be received (timeout)
+		"eventNoPATEntry",   // no pat entry for the corresponding SID could be found
+		"eventNoPMT",        // no pmt could be received (timeout)
+		"eventNewProgramInfo", // we just received a PMT
+		"eventTuned",        // a channel was sucessfully (re-)tuned in, you may start additional filters now
+		
+		"eventPreStart",     // before start filepush thread
+		"eventSOF",          // seek pre start
+		"eventEOF",          // a file playback did end
+		
+		"eventMisconfiguration", // a channel was not found in any list, or no frontend was found which could provide this channel
+	};
+	
+	eDebug("RECORD service event: %s\n", serviceEventStr[event]);
 	switch (event)
 	{
 	case eDVBServicePMTHandler::eventTuned:
@@ -91,7 +108,8 @@ RESULT eDVBServiceRecord::prepare(const char *filename, time_t begTime, time_t e
 {
 	m_filename = filename;
 	m_streaming = 0;
-	
+
+	eDebug("\n####Prepare to record!! filemane=%s, name=%s\n",filename,name);
 	if (m_state == stateIdle)
 	{
 		int ret = doPrepare();
@@ -188,6 +206,7 @@ RESULT eDVBServiceRecord::prepareStreaming()
 {
 	m_filename = "";
 	m_streaming = 1;
+	eDebug("###<prepareStreaming>:m_state=%d",m_state);
 	if (m_state == stateIdle)
 		return doPrepare();
 	return -1;
@@ -198,6 +217,7 @@ RESULT eDVBServiceRecord::start(bool simulate)
 	m_simulate = simulate;
 	m_want_record = 1;
 		/* when tune wasn't yet successfully, doRecord stays in "prepared"-state which is fine. */
+	eDebug("###eDVBServiceRecord::start: simulate=%d\n",simulate);
 	m_event((iRecordableService*)this, evStart);
 	return doRecord();
 }
@@ -233,10 +253,14 @@ RESULT eDVBServiceRecord::stop()
 int eDVBServiceRecord::doPrepare()
 {
 		/* allocate a ts recorder if we don't already have one. */
+	char * recordStateStr[3] = {"stateIdle", "statePrepared", "stateRecording"};
 	if (m_state == stateIdle)
 	{
+		eDebug("###Do prepare for recording! m_simulate=%d,Record_state=%s\n",m_simulate,recordStateStr[m_state]);
+
 		m_pids_active.clear();
 		m_state = statePrepared;
+		
 		return m_service_handler.tune(m_ref, 0, 0, m_simulate);
 	}
 	return 0;
@@ -244,14 +268,17 @@ int eDVBServiceRecord::doPrepare()
 
 int eDVBServiceRecord::doRecord()
 {
+	eDebug("###%s: call doPrepare() now!\n",__func__);
 	int err = doPrepare();
 	if (err)
 	{
+		eDebug("###<doRecord>:doPrepare return failed!");
 		m_error = errTuneFailed;
 		m_event((iRecordableService*)this, evRecordFailed);
 		return err;
 	}
-	
+
+	eDebug("###<doRecord>: m_tuned=%d, m_streaming=%d, m_simulate=%d\n",m_tuned ,m_streaming,m_simulate);
 	if (!m_tuned)
 		return 0; /* try it again when we are tuned in */
 	
@@ -274,7 +301,12 @@ int eDVBServiceRecord::doRecord()
 		eDebug("POSIX_FADV_RANDOM returned %d", pr);
 
 		ePtr<iDVBDemux> demux;
-		if (m_service_handler.getDataDemux(demux))
+		/*
+			Should get a demux for record, so I think we should use another function to get the demux. Warm 2013-01-10
+		*/
+		//if (m_service_handler.getDataDemux(demux))
+			
+		if (m_service_handler.getRecordDemux(demux))	
 		{
 			eDebug("eDVBServiceRecord - NO DEMUX available!");
 			m_error = errNoDemuxAvailable;

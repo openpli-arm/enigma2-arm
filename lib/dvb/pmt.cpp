@@ -46,7 +46,8 @@ void eDVBServicePMTHandler::channelStateChanged(iDVBChannel *channel)
 {
 	int state;
 	channel->getState(state);
-	
+
+	eDebug("###<channelStateChanged>:state=%d, m_use_decode_demux=%d\n",state,m_use_decode_demux);
 	if ((m_last_channel_state != iDVBChannel::state_ok)
 		&& (state == iDVBChannel::state_ok) && (!m_demux))
 	{
@@ -54,11 +55,23 @@ void eDVBServicePMTHandler::channelStateChanged(iDVBChannel *channel)
 		{
 			if (m_pvr_demux_tmp)
 			{
+				eDebug("###<channelStateChanged>: m_pvr_demux_tmp have been allocated, use it.");
 				m_demux = m_pvr_demux_tmp;
 				m_pvr_demux_tmp = NULL;
 			}
-			else if (m_channel->getDemux(m_demux, (!m_use_decode_demux) ? 0 : iDVBChannel::capDecode))
-				eDebug("Allocating %s-decoding a demux for now tuned-in channel failed.", m_use_decode_demux ? "" : "non-");
+			else
+			{
+				eDebug("###%s: m_demux is NULL, call getDemux to get a demux!\n",__func__);
+				if (m_channel->getDemux(m_demux, (!m_use_decode_demux) ? 0 : iDVBChannel::capDecode))
+					eDebug("Allocating %s-decoding a demux for now tuned-in channel failed.", m_use_decode_demux ? "" : "non-");
+				else
+				{
+					uint8_t  id;
+
+					 m_demux->getCADemuxID( id);
+					eDebug("###%s:Allocate a demux successfully, demux id=%d\n",__func__,id);
+				}
+			}
 		}
 		
 		serviceEvent(eventTuned);
@@ -69,6 +82,7 @@ void eDVBServicePMTHandler::channelStateChanged(iDVBChannel *channel)
 
 			if (!m_service || m_service->usePMT())
 			{
+				eDebug("###%:To get PAT or PMT, m_pmt_pid=%d\n",m_pmt_pid);
 				if (m_pmt_pid == -1)
 					m_PAT.begin(eApp, eDVBPATSpec(), m_demux);
 				else
@@ -875,6 +889,22 @@ int eDVBServicePMTHandler::getDecodeDemux(ePtr<iDVBDemux> &demux)
 	return ret;
 }
 
+/*-------------Added by Warm 2013-01-10----------------*/
+
+int eDVBServicePMTHandler::getRecordDemux(ePtr<iDVBDemux> &demux)
+{
+	int ret=0;
+		
+	ASSERT(m_channel); /* calling without a previous ::tune is certainly bad. */
+
+	ret = m_channel->getDemux(demux, iDVBChannel::capRecord);
+
+
+	return ret;
+}
+
+/*-----------------------------------------------------*/
+
 int eDVBServicePMTHandler::getPVRChannel(ePtr<iDVBPVRChannel> &pvr_channel)
 {
 	pvr_channel = m_pvr_channel;
@@ -916,6 +946,7 @@ void eDVBServicePMTHandler::SDTScanEvent(int event)
 int eDVBServicePMTHandler::tune(eServiceReferenceDVB &ref, int use_decode_demux, eCueSheet *cue, bool simulate, eDVBService *service)
 {
 	ePtr<iTsSource> s;
+	eDebug("###Tune use_decode_demux=%d, simulate=%d\n",use_decode_demux,simulate);
 	return tuneExt(ref, use_decode_demux, s, NULL, cue, simulate, service);
 }
 
@@ -928,14 +959,16 @@ int eDVBServicePMTHandler::tuneExt(eServiceReferenceDVB &ref, int use_decode_dem
 
 		/* use given service as backup. This is used for timeshift where we want to clone the live stream using the cache, but in fact have a PVR channel */
 	m_service = service;
-	
+
+	eDebug("###<tuneExt>: ref.path=%s, simulate=%d\n",ref.path.c_str(),simulate);
 		/* is this a normal (non PVR) channel? */
 	if (ref.path.empty())
 	{
+	       eDebug("###<tuneExt>: The ref.path is empty, so we go to allocate a channel!\n");
 		eDVBChannelID chid;
 		ref.getChannelID(chid);
 		res = m_resourceManager->allocateChannel(chid, m_channel, simulate);
-		if (!simulate)
+		//if (!simulate)
 			eDebug("allocate Channel: res %d", res);
 
 		ePtr<iDVBChannelList> db;
@@ -964,7 +997,7 @@ int eDVBServicePMTHandler::tuneExt(eServiceReferenceDVB &ref, int use_decode_dem
 				}
 			}
 			else
-				eWarning("no valid source to find PMT pid!");
+				eDebug("no valid source to find PMT pid!");
 		}
 		eDebug("alloc PVR");
 			/* allocate PVR */
@@ -1016,6 +1049,7 @@ int eDVBServicePMTHandler::tuneExt(eServiceReferenceDVB &ref, int use_decode_dem
 		{
 			m_pvr_channel->setCueSheet(cue);
 
+			eDebug("###pvr channel get demux, m_use_decode_demux=%d\n",m_use_decode_demux);
 			if (m_pvr_channel->getDemux(m_pvr_demux_tmp, (!m_use_decode_demux) ? 0 : iDVBChannel::capDecode))
 				eDebug("Allocating %s-decoding a demux for PVR channel failed.", m_use_decode_demux ? "" : "non-");
 			else if (source)

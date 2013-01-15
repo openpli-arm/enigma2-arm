@@ -360,9 +360,9 @@ class Harddisk:
 		task.check = self.mountDevice
 		task.weighting = 1
 
-		task = Task.PythonTask(job, _("Create movie directory"))
-		task.weighting = 1
-		task.work = createMovieFolder
+		#task = Task.PythonTask(job, _("Create movie directory"))
+		#task.weighting = 1
+		#task.work = createMovieFolder
 
 		return job
 

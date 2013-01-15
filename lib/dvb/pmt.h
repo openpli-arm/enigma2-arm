@@ -158,6 +158,8 @@ public:
 	int getProgramInfo(program &program);
 	int getDataDemux(ePtr<iDVBDemux> &demux);
 	int getDecodeDemux(ePtr<iDVBDemux> &demux);
+	int getRecordDemux(ePtr<iDVBDemux> &demux);  //Added by Warm 2013-01-10
+
 	PyObject *getCaIds(bool pair=false); // caid / ecmpid pair
 	
 	int getPVRChannel(ePtr<iDVBPVRChannel> &pvr_channel);
