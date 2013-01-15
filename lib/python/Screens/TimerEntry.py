@@ -18,7 +18,7 @@ from RecordTimer import AFTEREVENT
 from enigma import eEPGCache, eServiceReference
 from time import localtime, mktime, time, strftime
 from datetime import datetime
-from Tools.Directories import fileExists,isMount
+from Tools.Directories import fileExists,isMount,checkRecordPath
 
 class TimerEntry(Screen, ConfigListScreen):
 	def __init__(self, session, timer):
@@ -282,7 +282,7 @@ class TimerEntry(Screen, ConfigListScreen):
 	#check record path
 		print "self.timerentry_dirname.value:",self.timerentry_dirname.value
 		if self.timerentry_justplay.value == "record":
-			if not isMount(self.timerentry_dirname.value) or self.timerentry_dirname.value == "/":
+			if not checkRecordPath(self.timerentry_dirname.value):
 				self["config"].setCurrentIndex(8)
 				self.session.open(MessageBox, _("Record Path: ") + self.timerentry_dirname.value + "\n" + _("Please check is inserted an external storage device and  select the right record Directory?\nUSB storage device: /media/usb\n"), MessageBox.TYPE_ERROR)
 				return
