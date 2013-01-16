@@ -50,7 +50,7 @@ defaultPaths = {
 
 		SCOPE_SKIN: (eEnv.resolve("${datadir}/enigma2/"), PATH_DONTCREATE),
 		SCOPE_SKIN_IMAGE: (eEnv.resolve("${datadir}/enigma2/"), PATH_DONTCREATE),
-		SCOPE_HDD: ("/media/usb/movie", PATH_DONTCREATE),
+		SCOPE_HDD: ("/media/usb/", PATH_DONTCREATE),
 		SCOPE_MEDIA: ("/media/", PATH_DONTCREATE),
 		SCOPE_PLAYLIST: (eEnv.resolve("${sysconfdir}/enigma2/playlist/"), PATH_CREATE),
 		
@@ -152,6 +152,15 @@ def pathExists(path):
 
 def isMount(path):
 	return os_path.ismount(path)
+
+def checkRecordPath(path):
+	pathlist = path.split("/")
+	if len(pathlist) < 3:
+		return False
+	if pathlist[1] == "autofs":
+		return True
+	mountpath = "/"+pathlist[1]+"/"+pathlist[2]
+	return isMount(mountpath)
 
 def createDir(path, makeParents = False):
 	try:

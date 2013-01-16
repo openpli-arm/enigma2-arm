@@ -67,18 +67,18 @@ custidlist = [\
 class About(Screen):
 	def __init__(self, session):
 		Screen.__init__(self, session)
-		logoname = "SU980";
+		logoname = "Hypercube";
 		# show
-		try:
-			fd = open("/proc/stb/info/eeprom/customer_id",'r');
-			costomid = fd.read(8)
-			print costomid
-			for cust in custidlist:
-				if cust["custid"] == costomid:
-					logoname = cust["custname"]
-					break
-		except:
-			pass
+#		try:
+#			fd = open("/proc/stb/info/eeprom/customer_id",'r');
+#			costomid = fd.read(8)
+#			print costomid
+#			for cust in custidlist:
+#				if cust["custid"] == costomid:
+#					logoname = cust["custname"]
+#					break
+#		except:
+#			pass
 			
 		self["AboutTitle"] = StaticText("About "+logoname);
 #		AboutText = _("Hardware: ") + about.getHardwareTypeString() + "\n"
