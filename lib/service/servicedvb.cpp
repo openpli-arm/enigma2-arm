@@ -973,6 +973,8 @@ eDVBServicePlay::~eDVBServicePlay()
 			meta.updateMeta(m_reference.path);
 		}
 	}
+	
+	   
 	delete m_subtitle_widget;
 }
 
@@ -1933,9 +1935,11 @@ int eDVBServicePlay::selectAudioStream(int i)
 	if (position != -1)
 		eDebug("seekTo ret %d", seekTo(position));
 
-	int rdsPid = apid;
+#if 0    //igrone RDS
+     int rdsPid = apid;
 
 		/* if we are not in PVR mode, timeshift is not active and we are not in pip mode, check if we need to enable the rds reader */
+		
 	if (!(m_is_pvr || m_timeshift_active || !m_is_primary || m_have_video_pid))
 	{
 		int different_pid = program.videoStreams.empty() && program.audioStreams.size() == 1 && program.audioStreams[stream].rdsPid != -1;
@@ -1953,7 +1957,7 @@ int eDVBServicePlay::selectAudioStream(int i)
 			}
 		}
 	}
-
+#endif
 			/* store new pid as default only when:
 				a.) we have an entry in the service db for the current service,
 				b.) we are not playing back something,
@@ -2193,7 +2197,10 @@ RESULT eDVBServicePlay::startTimeshift()
 		return -1;
 	
 		/* start recording with the data demux. */
-	if (m_service_handler.getDataDemux(demux))
+	//if (m_service_handler.getDataDemux(demux))
+
+	/*For Trident platform, we should start recordig with the Record demux*/
+	if (m_service_handler.getRecordDemux(demux))
 		return -2;
 
 	demux->createTSRecorder(m_record);

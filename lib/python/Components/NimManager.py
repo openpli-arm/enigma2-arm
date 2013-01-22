@@ -1483,7 +1483,7 @@ def InitNimManager(nimmgr):
 					"enabled": _("enabled"),
 					"nothing": _("nothing connected"),
 					},
-				default = "enabled")
+				default = "nothing")
 			list = []
 			n = 0
 			for x in nimmgr.terrestrialsList:
