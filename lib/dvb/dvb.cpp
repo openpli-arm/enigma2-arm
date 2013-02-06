@@ -1105,7 +1105,7 @@ class eDVBChannelFilePush: public eFilePushThread
 {
 public:
 	eDVBChannelFilePush():
-		eFilePushThread(IOPRIO_CLASS_BE, 0, 188, 10*512*188), // 64k buffer for playback
+		eFilePushThread(IOPRIO_CLASS_BE, 0, 188, 16*512*188), // 64k buffer for playback
 		m_iframe_search(0),
 		m_iframe_state(0),
 		m_pid(0),
