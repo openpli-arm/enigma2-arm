@@ -54,8 +54,8 @@ class VideoHardware:
 	}
 
 	modes["Scart"] = ["PAL", "NTSC", "Multi"]
-	modes["YPbPr"] = ["720p", "1080i", "576p", "480p", "576i", "480i"]
-	modes["DVI"] = ["720p", "1080i", "576p", "480p", "576i", "480i"]
+	modes["YPbPr"] = ["720p", "1080i", "576p", "480p"]
+	modes["DVI"] = ["720p", "1080i", "576p", "480p"]
 	modes["DVI-PC"] = ["PC"]
 
 	widescreen_modes = set(["720p", "1080i"])

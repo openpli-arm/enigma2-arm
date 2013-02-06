@@ -811,7 +811,7 @@ int eDVBSubtitleParser::subtitle_process_segment(__u8 *segment)
 //			eDebug("version %d, window_flag %d, display_width %d, display_height %d",
 //				dds_version_number, display_window_flag, display_width, display_height);
 			processed_length += 5;
-			m_display_size = eSize(display_width+1, display_height+1);
+			m_display_size = eSize(1280, display_height+1);
 			if (display_window_flag)
 			{
 				if (segment_length > 12)
@@ -1248,7 +1248,7 @@ void eDVBSubtitleParser::subtitle_redraw(int page_id)
 DEFINE_REF(eDVBSubtitleParser);
 
 eDVBSubtitleParser::eDVBSubtitleParser(iDVBDemux *demux)
-	:m_pages(0), m_display_size(1280,720)
+	:m_pages(0), m_display_size(1280,576)
 {
 	setStreamID(0xBD);
 
