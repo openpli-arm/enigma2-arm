@@ -2615,9 +2615,9 @@ void eDVBServicePlay::updateDecoder(bool sendSeekableStateChanged)
 
 		if (m_is_primary)
 		{
-			//disable Teletext subtitle
-			//m_decoder->setTextPID(tpid);
-			//if (m_teletext_parser) m_teletext_parser->start(program.textPid);
+			//disable Teletext subtitle (enable it again because works by Teletext)
+			m_decoder->setTextPID(tpid);
+			if (m_teletext_parser) m_teletext_parser->start(program.textPid);
 		}
 
 		if (vpid > 0 && vpid < 0x2000)
