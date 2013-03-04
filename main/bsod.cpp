@@ -18,7 +18,7 @@
 
 /************************************************/
 
-#define CRASH_EMAILADDR "crashlog@dream-multimedia-tv.de"
+#define CRASH_EMAILADDR "crashlog@hypercube.de"
 #define INFOFILE "/maintainer.info"
 
 #define RINGBUFFER_SIZE 16384
@@ -173,7 +173,7 @@ void bsodFatal(const char *component)
 
 		XmlGenerator xml(f);
 
-		xml.open("opendreambox");
+		xml.open("openenigma");
 
 		xml.open("enigma2");
 		xml.string("crashdate", tm_str);
@@ -189,11 +189,11 @@ void bsodFatal(const char *component)
 		xml.close();
 
 		xml.open("image");
-		xml.stringFromFile("dreamboxmodel", "/proc/stb/info/model");
+		xml.stringFromFile("receiverboxmodel", "/etc/hostname");
 		xml.stringFromFile("kernelcmdline", "/proc/cmdline");
 		xml.stringFromFile("nimsockets", "/proc/bus/nim_sockets");
 		if (!getConfigBool("config.plugins.crashlogautosubmit.sendAnonCrashlog", true)) {
-			xml.cDataFromFile("dreamboxca", "/proc/stb/info/ca");
+			xml.cDataFromFile("receiverboxca", "/proc/stb/info/ca");
 			xml.cDataFromFile("enigma2settings", eEnv::resolve("${sysconfdir}/enigma2/settings"), ".password=");
 		}
 		if (getConfigBool("config.plugins.crashlogautosubmit.addNetwork", false)) {
@@ -211,7 +211,7 @@ void bsodFatal(const char *component)
 		{
 			xml.open("software");
 			xml.cDataFromCmd("enigma2software", "opkg list_installed 'enigma2*'");
-			xml.cDataFromCmd("dreamboxsoftware", "opkg list_installed 'dream*'");
+			xml.cDataFromCmd("receiversoftware", "opkg list_installed 'dream*'");
 			xml.cDataFromCmd("gstreamersoftware", "opkg list_installed 'gst*'");
 			xml.close();
 		}
