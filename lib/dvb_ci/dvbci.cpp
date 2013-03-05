@@ -2437,11 +2437,11 @@ int eDVBCISlot::cancelEnq()
 	return 0;
 }
 
-void PackDesc(unsigned char *pack, unsigned char *Desc)
+int PackDesc(unsigned char *pack, unsigned char *Desc)
 {
 	int len, i, j, k;
-	len = (Desc[0]<<8) | (Desc[1]);
-	eDebugCI("Desc len is %d.\n", len);
+	len = ((Desc[0]&0xF)<<8) | (Desc[1]);
+	eDebug("Desc len is %d.\n", len);
 	i=2;j=2;
 	while (i<len)
 	{
@@ -2453,6 +2453,8 @@ void PackDesc(unsigned char *pack, unsigned char *Desc)
 	j-=2;
 	pack[0]=(j>>8) & 0xff;
 	pack[1]=j & 0xff;
+
+    return len+2;
 }
 
 int eDVBCISlot::sendCAPMT(eDVBServicePMTHandler *pmthandler, const std::vector<uint16_t> &ids)
@@ -2555,14 +2557,6 @@ int eDVBCISlot::sendCAPMT(eDVBServicePMTHandler *pmthandler, const std::vector<u
 
 			//dont need tag and lenfield
 
-/*
-47 41 93 16 00 02 b0 48 01 93 f7 00 00 e1 f7 f0 0c 09 04 05 
-00 f9 c9 09 04 0b 00 f7 71 02 e1 f7 f0 00 03 e2 5b f0 0a 0a
-08 65 6e 67 00 64 61 6e 00 03 e2 65 f0 0a 0a 08 73 77 65 00
-6e 6f 72 00 06 e2 bf f0 07 56 05 64 61 6e 09 00 e5 36 f5 bf
-ff ff ff ff ff ff ff 
-*/
-
 #if trid_ci
             int ipack, iraw;
             unsigned char *pPack, *pRaw;
@@ -2577,8 +2571,11 @@ ff ff ff ff ff ff ff
 
             pack_data[0] = 0x02;
 
-			pack_data[3] = raw_data[5];
-			pack_data[4] = raw_data[6];
+            pRaw = raw_data+hlen;
+            wp -= hlen;
+
+			pack_data[3] = pRaw[1];
+			pack_data[4] = pRaw[2];
 			
 			pack_data[5] = (pmt_version<<1) | 0xC1;
 			
@@ -2589,11 +2586,11 @@ ff ff ff ff ff ff ff
 			pack_data[9] = 0x00;
 
 			pPack = pack_data+10;
-			pRaw = raw_data+8;
-			wp -= 8;
+			pRaw += 4;
+			wp -= 4;
 
-			PackDesc(pPack, pRaw);
-			wp -= (((pRaw[0]&0xF)<<8) | pRaw[1])+2;
+			wp -= PackDesc(pPack, pRaw);
+			//(((pRaw[0]&0xF)<<8) | pRaw[1])+2;
 			pRaw += (((pRaw[0]&0xF)<<8) | pRaw[1])+2;
 			pPack += (((pPack[0]&0xF)<<8) | pPack[1])+2;
 
@@ -2618,8 +2615,8 @@ ff ff ff ff ff ff ff
 				wp-=3;
 				pRaw+=3;
 				pPack+=3;
-				PackDesc(pPack, pRaw);
-				wp -= (((pRaw[0]&0xF)<<8) | pRaw[1])+2;
+				wp -= PackDesc(pPack, pRaw);
+				//(((pRaw[0]&0xF)<<8) | pRaw[1])+2;
 				pRaw += (((pRaw[0]&0xF)<<8) | pRaw[1])+2;
 				pPack += (((pPack[0]&0xF)<<8) | pPack[1])+2;
             }
@@ -2628,7 +2625,7 @@ ff ff ff ff ff ff ff
 			
 			pack_data[1] = 0xB0 | (((wp-3)>>8)&0x0F);
 			pack_data[2] = (wp-3)&0xFF;
-/**/			
+			
 			DVBCI_SendCAPMT(pack_data, wp);//(raw_data + hlen, wp - hlen);//
 #else
 			ca_manager->sendCAPMT(raw_data + hlen, wp - hlen);
