@@ -428,6 +428,7 @@ from Screens.Ci import CiHandler
 
 profile("Load:VolumeControl")
 from Components.VolumeControl import VolumeControl
+from Screens.ChangeSystem import SwitchSystemContrl
 
 def runScreenTest():
 	config.misc.startCounter.value += 1
@@ -479,7 +480,8 @@ def runScreenTest():
 	vol = VolumeControl(session)
 	profile("Init:PowerKey")
 	power = PowerKey(session)
-
+	profile("Init:SwitchSystem")
+	switch = SwitchSystemContrl(session)
 	# we need session.scart to access it from within menu.xml
 	session.scart = AutoScartControl(session)
 

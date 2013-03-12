@@ -4,7 +4,18 @@ from Screens.MessageBox import MessageBox
 from time import time
 from Components.Task import job_manager
 from enigma import eTimer
-	
+from GlobalActions import globalActionMap
+
+class SwitchSystemContrl:
+	"""change system"""
+	def __init__(self, session):
+		global globalActionMap
+		globalActionMap.actions["change_android"]=self.openSwitchmenu
+		self.session = session;
+
+	def openSwitchmenu(self):
+		self.session.open(SwicthSystem)
+
 class SwicthSystem(MessageBox):
 	def __init__(self, session, timeout=-1, default_yes = True):
 #		self.retval = retvalue
@@ -15,7 +26,7 @@ class SwicthSystem(MessageBox):
 		next_rec_time = -1
 		self.testTimer = eTimer()
 		self.testTimer.callback.append(self.switchAndroid)
-		
+
 		if not recordings:
 			next_rec_time = session.nav.RecordTimer.getNextRecordingTime()	
 		if recordings or (next_rec_time > 0 and (next_rec_time - time()) < 360):
@@ -26,7 +37,7 @@ class SwicthSystem(MessageBox):
 				reason += "%s: %s (%d%%)\n" % (job.getStatustext(), job.name, int(100*job.progress/float(job.end)))
 			else:
 				reason += (_("%d jobs are running in the background!") % jobs) + '\n'
-				
+
 		if reason:
 			text = "Really switch system now?"
 			MessageBox.__init__(self, session, reason+text, type = MessageBox.TYPE_YESNO, timeout = timeout, default = default_yes)
@@ -74,13 +85,13 @@ class SwicthSystem(MessageBox):
 			self.testTimer.start(2000)
 		else:
 			MessageBox.close(self, True)
-			
+
 	def switchAndroid(self):
 		self.testTimer.stop()
 		#from os import system, _exit
 		#_exit(10)
 		quitMainloop(10)
-		
+
 	def __onShow(self):
 		global inTryQuitMainloop
 		inTryQuitMainloop = True

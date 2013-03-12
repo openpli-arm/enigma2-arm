@@ -231,6 +231,8 @@
 		<key id="KEY_POWER" mapto="power_down" flags="m" />
 		<key id="KEY_POWER" mapto="power_up" flags="b" />
 		<key id="KEY_KP0" mapto="discrete_off" flags="m" />
+		<key id="KEY_GOTO" mapto="change_android" flags="m" />
+
 		<device name="dreambox front panel">
 			<key id="KEY_POWER" mapto="deepstandby" flags="l" />
 		</device>
