@@ -39,7 +39,7 @@ class SwicthSystem(MessageBox):
 				reason += (_("%d jobs are running in the background!") % jobs) + '\n'
 
 		if reason:
-			text = "Really switch system now?"
+			text = "Are you sure you want to switch to Android now?"
 			MessageBox.__init__(self, session, reason+text, type = MessageBox.TYPE_YESNO, timeout = timeout, default = default_yes)
 			self.skinName = "MessageBox"
 			session.nav.record_event.append(self.getRecordEvent)
@@ -48,7 +48,7 @@ class SwicthSystem(MessageBox):
 			self.onHide.append(self.__onHide)
 			return
 		else:
-			text = "Really switch system now?"
+			text = "Are you sure you want to switch to Android now?"
 			MessageBox.__init__(self, session, text, type = MessageBox.TYPE_YESNO, timeout = timeout, default = default_yes)
 			self.skinName = "MessageBox"
 			self.onShow.append(self.__onShow)
