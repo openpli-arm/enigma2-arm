@@ -14,12 +14,9 @@ class VideoHardware:
 	modes = { }  # a list of (high-level) modes for a certain port.
 
 	rates["PAL"] =			{ "50Hz":		{ 50: "pal" },
-								"60Hz":		{ 60: "pal60" },
-								"multi":	{ 50: "pal", 60: "pal60" } }
+								"60Hz":		{ 60: "pal60" } }
 
 	rates["NTSC"] =			{ "60Hz": 	{ 60: "ntsc" } }
-
-	rates["Multi"] =		{ "multi": 	{ 50: "pal", 60: "ntsc" } }
 
 	rates["480i"] =			{ "60Hz": 	{ 60: "480i" } }
 
@@ -30,12 +27,16 @@ class VideoHardware:
 	rates["576p"] =			{ "50Hz": 	{ 50: "576p" } }
 
 	rates["720p"] =			{ "50Hz": 	{ 50: "720p50" },
-								"60Hz": 	{ 60: "720p" },
-								"multi": 	{ 50: "720p50", 60: "720p" } }
+								"60Hz": 	{ 60: "720p" } }
 
 	rates["1080i"] =		{ "50Hz":		{ 50: "1080i50" },
-								"60Hz":		{ 60: "1080i" },
-								"multi":	{ 50: "1080i50", 60: "1080i" } }
+								"60Hz":		{ 60: "1080i" } }
+	rates["1080p"] =		{ "23Hz":	{ 50: "1080p23" },
+					  "24Hz":	{ 60: "1080p24" },
+					  "25Hz":	{ 60: "1080p25" },
+					  "29Hz":	{ 60: "1080p29" },
+					  "30Hz":	{ 60: "1080p30" },
+					  "50Hz":	{ 60: "1080p50" } }								
 
 	rates["PC"] = { 
 		"1024x768": { 60: "1024x768" }, # not possible on DM7025
@@ -53,12 +54,12 @@ class VideoHardware:
 		"640x480" : { 60: "640x480" }
 	}
 
-	modes["Scart"] = ["PAL", "NTSC", "Multi"]
-	modes["YPbPr"] = ["720p", "1080i", "576p", "480p"]
-	modes["DVI"] = ["720p", "1080i", "576p", "480p"]
+	modes["Scart"] = ["PAL", "NTSC"]
+	modes["YPbPr"] = ["720p", "1080i", "576p", "480p", "1080p"]
+	modes["DVI"] = ["720p", "1080i", "1080p", "576p", "480p"]
 	modes["DVI-PC"] = ["PC"]
 
-	widescreen_modes = set(["720p", "1080i"])
+	widescreen_modes = set(["720p", "1080i", "1080p"])
 
 	def getOutputAspect(self):
 		ret = (16,9)
