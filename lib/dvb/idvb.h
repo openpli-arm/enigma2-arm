@@ -535,9 +535,11 @@ public:
 		/* demux capabilities */
 	enum
 	{
-		capDecode = 1,
+		capDecode = 1, // demux can be used for ca decode, in trident, first 3 demux can do this
 		/* capCI = 2 */
-		capRecord =2   //Added by Warm 2013-01-10
+		capRecord = 2,   // demux used for ts record, support ts descramble.
+		capStream = 4,   // demux used for ts input, include support ts descramble and not.
+		dmaInput = 8   // demux only use for dma input, as for playback
 	};
 	virtual RESULT setCIRouting(const eDVBCIRouting &routing)=0;
 	virtual RESULT getDemux(ePtr<iDVBDemux> &demux, int cap=0)=0;

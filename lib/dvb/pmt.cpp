@@ -29,6 +29,7 @@
 eDVBServicePMTHandler::eDVBServicePMTHandler()
 	:m_ca_servicePtr(0), m_dvb_scan(0), m_decode_demux_num(0xFF), m_no_pat_entry_delay(eTimer::create())
 {
+    //m_record_demux = 0;
 	m_use_decode_demux = 0;
 	m_pmt_pid = -1;
 	eDVBResourceManager::getInstance(m_resourceManager);
@@ -61,14 +62,14 @@ void eDVBServicePMTHandler::channelStateChanged(iDVBChannel *channel)
 			}
 			else
 			{
-				eDebug("###%s: m_demux is NULL, call getDemux to get a demux!\n",__func__);
+				eDebug("abing--------------------->###%s: m_demux is NULL, call getDemux to get a demux!\n",__func__);
 				if (m_channel->getDemux(m_demux, (!m_use_decode_demux) ? 0 : iDVBChannel::capDecode))
 					eDebug("Allocating %s-decoding a demux for now tuned-in channel failed.", m_use_decode_demux ? "" : "non-");
 				else
 				{
 					uint8_t  id;
 
-					 m_demux->getCADemuxID( id);
+					 m_demux->getCADemuxID(id);
 					eDebug("###%s:Allocate a demux successfully, demux id=%d\n",__func__,id);
 				}
 			}
@@ -120,6 +121,7 @@ void eDVBServicePMTHandler::channelEvent(iDVBChannel *channel, int event)
 
 void eDVBServicePMTHandler::PMTready(int error)
 {
+	eDebug("PMTready");
 	if (error)
 		serviceEvent(eventNoPMT);
 	else
@@ -134,13 +136,27 @@ void eDVBServicePMTHandler::PMTready(int error)
 				int demuxes[2] = {0,0};
 				uint8_t demuxid;
 				uint8_t adapterid;
-				m_demux->getCADemuxID(demuxid);
-				m_demux->getCAAdapterID(adapterid);
-				demuxes[0]=demuxid;
-				if (m_decode_demux_num != 0xFF)
-					demuxes[1]=m_decode_demux_num;
-				else
-					demuxes[1]=demuxes[0];
+
+                if (m_record_demux)
+                {
+                    m_demux->getCADemuxID(demuxid);
+                    m_demux->getCAAdapterID(adapterid);
+                    demuxes[0]=demuxid;
+                    m_record_demux->getCADemuxID(demuxid);
+                    m_record_demux->getCAAdapterID(adapterid);
+                    demuxes[1]=demuxid;
+                    eDebug("<*******************Very surprise! come here for record.(%d/%d)*********************>", demuxes[0], demuxes[1]);
+                }
+                else
+                {
+                    m_demux->getCADemuxID(demuxid);
+                    m_demux->getCAAdapterID(adapterid);
+                    demuxes[0]=demuxid;
+                    if (m_decode_demux_num != 0xFF)
+                        demuxes[1]=m_decode_demux_num;
+                    else
+                        demuxes[1]=demuxes[0];
+                }
 				eDVBCAHandler::getInstance()->registerService(m_reference, adapterid, demuxes, m_ca_servicePtr);
 				eDVBCIInterfaces::getInstance()->recheckPMTHandlers();
 			}
@@ -854,6 +870,7 @@ int eDVBServicePMTHandler::getProgramInfo(program &program)
 int eDVBServicePMTHandler::getChannel(eUsePtr<iDVBChannel> &channel)
 {
 	channel = m_channel;
+    eDebug("eDVBServicePMTHandler::getChannel!m_use_decode_demux(%d)", m_use_decode_demux);
 	if (channel)
 		return 0;
 	else
@@ -862,7 +879,13 @@ int eDVBServicePMTHandler::getChannel(eUsePtr<iDVBChannel> &channel)
 
 int eDVBServicePMTHandler::getDataDemux(ePtr<iDVBDemux> &demux)
 {
+    uint8_t id;
+
 	demux = m_demux;
+    
+    m_demux->getCADemuxID(id);
+    eDebug("abing------------->eDVBServicePMTHandler::getDataDemux!m_use_decode_demux(%d) demux_num(%d)", m_use_decode_demux, id);
+    
 	if (demux)
 		return 0;
 	else
@@ -872,11 +895,18 @@ int eDVBServicePMTHandler::getDataDemux(ePtr<iDVBDemux> &demux)
 int eDVBServicePMTHandler::getDecodeDemux(ePtr<iDVBDemux> &demux)
 {
 	int ret=0;
-		/* if we're using the decoding demux as data source
-		   (for example in pvr playbacks), return that one. */
+    uint8_t id;
+    
+	/* if we're using the decoding demux as data source
+	   (for example in pvr playbacks), return that one. */
+	
+    eDebug("abing------------->eDVBServicePMTHandler::getDecodeDemux!m_use_decode_demux(%d)", m_use_decode_demux);
+    
 	if (m_use_decode_demux)
 	{
 		demux = m_demux;
+        m_demux->getCADemuxID(id);
+        eDebug(" demux_num(%d)", id);
 		return ret;
 	}
 	
@@ -885,6 +915,8 @@ int eDVBServicePMTHandler::getDecodeDemux(ePtr<iDVBDemux> &demux)
 	ret = m_channel->getDemux(demux, iDVBChannel::capDecode);
 	if (!ret)
 		demux->getCADemuxID(m_decode_demux_num);
+    
+    eDebug(" demux_num(%d)->m_decode_demux_num", m_decode_demux_num);
 
 	return ret;
 }
@@ -894,12 +926,34 @@ int eDVBServicePMTHandler::getDecodeDemux(ePtr<iDVBDemux> &demux)
 int eDVBServicePMTHandler::getRecordDemux(ePtr<iDVBDemux> &demux)
 {
 	int ret=0;
-		
+    uint8_t id;
+
+    eDebug("abing------------->int eDVBServicePMTHandler::getRecordDemux(ePtr<iDVBDemux> &demux)!");
+	demux = m_record_demux;
+	if (demux)
+    {
+        m_record_demux->getCADemuxID(id);
+        eDebug(" demux_num(%d)->m_record_demux", id);
+        
+        eDebug("int eDVBServicePMTHandler::getRecordDemux already exisit!");
+		return 0;
+    }   
+	
 	ASSERT(m_channel); /* calling without a previous ::tune is certainly bad. */
 
-	ret = m_channel->getDemux(demux, iDVBChannel::capRecord);
-
-
+	ret = m_channel->getDemux(m_record_demux, iDVBChannel::capRecord);
+    if (!ret)
+    {
+        if (m_record_demux)
+        {
+            m_record_demux->getCADemuxID(id);
+            eDebug(" demux_num(%d)->m_record_demux", id);
+            
+            eDebug("int eDVBServicePMTHandler::getRecordDemux  allocate ok!");
+        }
+        demux = m_record_demux;
+    }
+    
 	return ret;
 }
 
@@ -964,7 +1018,7 @@ int eDVBServicePMTHandler::tuneExt(eServiceReferenceDVB &ref, int use_decode_dem
 		/* is this a normal (non PVR) channel? */
 	if (ref.path.empty())
 	{
-	       eDebug("###<tuneExt>: The ref.path is empty, so we go to allocate a channel!\n");
+	    eDebug("###<tuneExt>: The ref.path is empty, so we go to allocate a channel!\n");
 		eDVBChannelID chid;
 		ref.getChannelID(chid);
 		res = m_resourceManager->allocateChannel(chid, m_channel, simulate);
@@ -977,7 +1031,8 @@ int eDVBServicePMTHandler::tuneExt(eServiceReferenceDVB &ref, int use_decode_dem
 
 		if (!res && !simulate)
 			eDVBCIInterfaces::getInstance()->addPMTHandler(this);
-	} else if (!simulate) // no simulation of playback services
+	} 
+    else if (!simulate) // no simulation of playback services
 	{
 		if (!ref.getServiceID().get() /* incorrect sid in meta file or recordings.epl*/ )
 		{
@@ -1098,7 +1153,9 @@ void eDVBServicePMTHandler::free()
 	m_service = 0;
 	m_channel = 0;
 	m_pvr_channel = 0;
+    eDebug("eDVBServicePMTHandler::free %d\n",m_use_decode_demux);
 	m_demux = 0;
+    m_record_demux = 0;
 }
 
 static PyObject *createTuple(int pid, const char *type)

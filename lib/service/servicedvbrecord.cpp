@@ -60,6 +60,7 @@ void eDVBServiceRecord::serviceEvent(int event)
 
 			/* start feeding EIT updates */
 		ePtr<iDVBDemux> m_demux;
+        eDebug("abing---------------------------->void eDVBServiceRecord::serviceEvent(int event)  !m_service_handler.getDataDemux(m_demux)");
 		if (!m_service_handler.getDataDemux(m_demux))
 		{
 			eServiceReferenceDVB &ref = (eServiceReferenceDVB&) m_ref;
@@ -304,9 +305,10 @@ int eDVBServiceRecord::doRecord()
 		/*
 			Should get a demux for record, so I think we should use another function to get the demux. Warm 2013-01-10
 		*/
-		//if (m_service_handler.getDataDemux(demux))
+	//	if (m_service_handler.getDataDemux(demux))
 			
-		if (m_service_handler.getRecordDemux(demux))	
+        eDebug("abing---------------------------->int eDVBServiceRecord::doRecord()  m_service_handler.getRecordDemux(demux)");
+		if (m_service_handler.getRecordDemux(demux))
 		{
 			eDebug("eDVBServiceRecord - NO DEMUX available!");
 			m_error = errNoDemuxAvailable;
@@ -488,7 +490,8 @@ PyObject *eDVBServiceRecord::getStreamingData()
 
 	ePyObject r = program.createPythonObject();
 	ePtr<iDVBDemux> demux;
-	if (!m_service_handler.getDataDemux(demux))
+    eDebug("abing---------------------------->PyObject *eDVBServiceRecord::getStreamingData()  !m_service_handler.getRecordDemux(m_demux)");
+	if (!m_service_handler.getRecordDemux(demux))
 	{
 		uint8_t demux_id;
 		if (!demux->getCADemuxID(demux_id))

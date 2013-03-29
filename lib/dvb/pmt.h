@@ -40,7 +40,7 @@ class eDVBServicePMTHandler: public Object
 	eUsePtr<iDVBChannel> m_channel;
 	eUsePtr<iDVBPVRChannel> m_pvr_channel;
 	ePtr<eDVBResourceManager> m_resourceManager;
-	ePtr<iDVBDemux> m_demux, m_pvr_demux_tmp;
+	ePtr<iDVBDemux> m_demux, m_pvr_demux_tmp, m_record_demux;
 
 	void channelStateChanged(iDVBChannel *);
 	ePtr<eConnection> m_channelStateChanged_connection;
