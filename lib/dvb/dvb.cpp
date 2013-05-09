@@ -180,7 +180,7 @@ eDVBAdapterLinux::eDVBAdapterLinux(int nr): m_nr(nr)
 		if (stat(filename, &s))
 			break;
 		ePtr<eDVBDemux> demux;
-		eDebug("###Detect demux %s\n",filename);
+
 		demux = new eDVBDemux(m_nr, num_demux);
 		m_demux.push_back(demux);
 
@@ -478,7 +478,7 @@ RESULT eDVBResourceManager::allocateDemux(eDVBRegisteredFrontend *fe, ePtr<eDVBA
 		iDVBAdapter *adapter = fe ? fe->m_adapter : m_adapter.begin(); /* look for a demux on the same adapter as the frontend, or the first adapter for dvr playback */
 		int source = fe ? fe->m_frontend->getDVBID() : -1;
 		
-		eDebug("###<allocate demux>: source=%d\n",source);
+		//eDebug("###<allocate demux>: source=%d\n",source);
 		cap |= capHoldDecodeReference; // this is checked in eDVBChannel::getDemux
 		if (!fe)
 		{
@@ -488,7 +488,7 @@ RESULT eDVBResourceManager::allocateDemux(eDVBRegisteredFrontend *fe, ePtr<eDVBA
 			 * so we should try to leave the first demuxes for live tv,
 			 * and start with the last for pvr playback
 			 */
-			eDebug("For pvr playback, start with the last demux!\n");
+			//eDebug("For pvr playback, start with the last demux!\n");
 			i = m_demux.end();
 			--i;
 		}
@@ -500,10 +500,7 @@ RESULT eDVBResourceManager::allocateDemux(eDVBRegisteredFrontend *fe, ePtr<eDVBA
 				if (!i->m_inuse)
 				{
 					/* mark the first unused demux, we'll use that when we do not find a better match */
-					if (!unused)
-					{
-						unused = i;
-					}
+					if (!unused) unused = i;
 				}
 #if 0
 				else
@@ -537,7 +534,7 @@ RESULT eDVBResourceManager::allocateDemux(eDVBRegisteredFrontend *fe, ePtr<eDVBA
 	if (unused)
 	{
 		unused->m_demux->getCADemuxID(id);
-		eDebug("###<allocateDemux>: Allocare a new demux, id=%d\n",id);
+		//eDebug("###<allocateDemux>: Allocare a new demux, id=%d\n",id);
 		demux = new eDVBAllocatedDemux(unused);
 		if (fe)
 			demux->get().setSourceFrontend(fe->m_frontend->getDVBID());
@@ -633,7 +630,7 @@ RESULT eDVBResourceManager::allocateChannel(const eDVBChannelID &channelid, eUse
 
 	RESULT res;
 	ePtr<eDVBChannel> ch = new eDVBChannel(this, fe);
-	eDebug("###<allocateChannel>: Allocate new channel, and go to set the channel!");
+	//eDebug("###<allocateChannel>: Allocate new channel, and go to set the channel!");
 	res = ch->setChannel(channelid, feparm);
 	if (res)
 	{
@@ -1397,7 +1394,7 @@ void eDVBChannel::getNextSourceSpan(off_t current_offset, size_t bytes_read, off
 		int relative = seek.first;
 		pts_t pts = seek.second;
 
-		eDebug("###<getNextSourceSpan>: relative=%d, pts=%llx\n",relative,pts);
+		//eDebug("###<getNextSourceSpan>: relative=%d, pts=%llx\n",relative,pts);
 		pts_t now = 0;
 		if (relative)
 		{
@@ -1732,10 +1729,10 @@ RESULT eDVBChannel::getDemux(ePtr<iDVBDemux> &demux, int cap)
     else
     {
         demux = *our_demux;
-        eDebug("\n###<getDemux>: There is a allocated demux, use it!");
+        //eDebug("\n###<getDemux>: There is a allocated demux, use it!");
     }
     demux->getCADemuxID(id);
-    eDebug("###return demux[id=%d], use it!\n", id);
+    //eDebug("###return demux[id=%d], use it!\n", id);
 
 	return 0;
 }
@@ -1948,7 +1945,7 @@ eCueSheet::eCueSheet()
 
 void eCueSheet::seekTo(int relative, const pts_t &pts)
 {
-	eDebug("###<eCueSheet::seekTo>: pts=%lld\n",pts);
+	//eDebug("###<eCueSheet::seekTo>: pts=%lld\n",pts);
 	m_lock.WrLock();
 	m_seek_requests.push_back(std::pair<int, pts_t>(relative, pts));
 	m_lock.Unlock();

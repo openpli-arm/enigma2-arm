@@ -973,8 +973,6 @@ eDVBServicePlay::~eDVBServicePlay()
 			meta.updateMeta(m_reference.path);
 		}
 	}
-	
-	   
 	delete m_subtitle_widget;
 }
 
@@ -1058,7 +1056,6 @@ void eDVBServicePlay::serviceEvent(int event)
 			|| show_eit_nownext != "False")
 		{
 			ePtr<iDVBDemux> m_demux;
-            eDebug("abing---------------------------->eDVBServicePlay::serviceEvent(int event)  !m_service_handler.getDataDemux(m_demux)");
 			if (!m_service_handler.getDataDemux(m_demux))
 			{
 				eServiceReferenceDVB &ref = (eServiceReferenceDVB&) m_reference;
@@ -1937,10 +1934,9 @@ int eDVBServicePlay::selectAudioStream(int i)
 		eDebug("seekTo ret %d", seekTo(position));
 
 #if 0    //igrone RDS
-     int rdsPid = apid;
+	int rdsPid = apid;
 
 		/* if we are not in PVR mode, timeshift is not active and we are not in pip mode, check if we need to enable the rds reader */
-		
 	if (!(m_is_pvr || m_timeshift_active || !m_is_primary || m_have_video_pid))
 	{
 		int different_pid = program.videoStreams.empty() && program.audioStreams.size() == 1 && program.audioStreams[stream].rdsPid != -1;
@@ -2201,7 +2197,7 @@ RESULT eDVBServicePlay::startTimeshift()
 	//if (m_service_handler.getDataDemux(demux))
 
 	/*For Trident platform, we should start recordig with the Record demux*/
-    eDebug("abing---------------------------->eDVBServicePlay::startTimeshift()  m_service_handler.getRecordDemux(demux)");
+    //eDebug("abing---------------------------->eDVBServicePlay::startTimeshift()  m_service_handler.getRecordDemux(demux)");
 	if (m_service_handler.getRecordDemux(demux))
 		return -2;
 
@@ -2530,7 +2526,6 @@ void eDVBServicePlay::updateDecoder(bool sendSeekableStateChanged)
 
 	if (!m_decoder)
 	{
-        eDebug("abing---------------------------->eDVBServicePlay::updateDecoder(bool sendSeekableStateChanged)  h.getDecodeDemux(m_decode_demux);");
 		h.getDecodeDemux(m_decode_demux);
 		if (m_decode_demux)
 		{
@@ -3064,7 +3059,7 @@ void eDVBServicePlay::newSubtitlePage(const eDVBTeletextSubtitlePage &page)
 //		eDebug("got new subtitle page %lld %lld %d", pos, page.m_pts, page.m_have_pts);
 		if ( !page.m_have_pts && (m_is_pvr || m_timeshift_enabled))
 		{
-			//eDebug("Subtitle without PTS and recording");
+			eDebug("Subtitle without PTS and recording");
 
 			std::string configvalue;
 			int subtitledelay = 315000;
@@ -3123,19 +3118,19 @@ void eDVBServicePlay::checkSubtitleTiming()
 		{
 			if (type == TELETEXT)
 			{
-				//eDebug("display teletext subtitle page %lld", show_time);
+				eDebug("display teletext subtitle page %lld", show_time);
 				m_subtitle_widget->setPage(page);
 				m_subtitle_pages.pop_front();
 			}
 			else
 			{
-				//eDebug("display dvb subtitle Page %lld", show_time);
+				eDebug("display dvb subtitle Page %lld", show_time);
 				m_subtitle_widget->setPage(dvb_page);
 				m_dvb_subtitle_pages.pop_front();
 			}
 		} else
 		{
-			//eDebug("start subtitle delay %d", diff / 90);
+			eDebug("start subtitle delay %d", diff / 90);
 			m_subtitle_sync_timer->start(diff / 90, 1);
 			break;
 		}
@@ -3149,7 +3144,7 @@ void eDVBServicePlay::newDVBSubtitlePage(const eDVBSubtitlePage &p)
 		pts_t pos = 0;
 		if (m_decoder)
 			m_decoder->getPTS(0, pos);
-		//eDebug("got new subtitle page %lld %lld", pos, p.m_show_time);
+		eDebug("got new subtitle page %lld %lld", pos, p.m_show_time);
 		m_dvb_subtitle_pages.push_back(p);
 		checkSubtitleTiming();
 	}
@@ -3236,7 +3231,7 @@ PyObject *eDVBServicePlay::getStreamingData()
 
 	ePyObject r = program.createPythonObject();
 	ePtr<iDVBDemux> demux;
-    eDebug("abing---------------------------->PyObject *eDVBServicePlay::getStreamingData()  !m_service_handler.getRecordDemux(m_demux)");
+    //eDebug("abing---------------------------->PyObject *eDVBServicePlay::getStreamingData()  !m_service_handler.getRecordDemux(m_demux)");
 	if (!m_service_handler.getRecordDemux(demux))
 	{
 		uint8_t demux_id;

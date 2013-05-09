@@ -60,7 +60,6 @@ void eDVBServiceRecord::serviceEvent(int event)
 
 			/* start feeding EIT updates */
 		ePtr<iDVBDemux> m_demux;
-        eDebug("abing---------------------------->void eDVBServiceRecord::serviceEvent(int event)  !m_service_handler.getDataDemux(m_demux)");
 		if (!m_service_handler.getDataDemux(m_demux))
 		{
 			eServiceReferenceDVB &ref = (eServiceReferenceDVB&) m_ref;
@@ -109,8 +108,7 @@ RESULT eDVBServiceRecord::prepare(const char *filename, time_t begTime, time_t e
 {
 	m_filename = filename;
 	m_streaming = 0;
-
-	eDebug("\n####Prepare to record!! filemane=%s, name=%s\n",filename,name);
+	
 	if (m_state == stateIdle)
 	{
 		int ret = doPrepare();
@@ -207,7 +205,6 @@ RESULT eDVBServiceRecord::prepareStreaming()
 {
 	m_filename = "";
 	m_streaming = 1;
-	eDebug("###<prepareStreaming>:m_state=%d",m_state);
 	if (m_state == stateIdle)
 		return doPrepare();
 	return -1;
@@ -218,7 +215,6 @@ RESULT eDVBServiceRecord::start(bool simulate)
 	m_simulate = simulate;
 	m_want_record = 1;
 		/* when tune wasn't yet successfully, doRecord stays in "prepared"-state which is fine. */
-	eDebug("###eDVBServiceRecord::start: simulate=%d\n",simulate);
 	m_event((iRecordableService*)this, evStart);
 	return doRecord();
 }
@@ -257,7 +253,7 @@ int eDVBServiceRecord::doPrepare()
 	char * recordStateStr[3] = {"stateIdle", "statePrepared", "stateRecording"};
 	if (m_state == stateIdle)
 	{
-		eDebug("###Do prepare for recording! m_simulate=%d,Record_state=%s\n",m_simulate,recordStateStr[m_state]);
+		//eDebug("###Do prepare for recording! m_simulate=%d,Record_state=%s\n",m_simulate,recordStateStr[m_state]);
 
 		m_pids_active.clear();
 		m_state = statePrepared;
@@ -269,17 +265,17 @@ int eDVBServiceRecord::doPrepare()
 
 int eDVBServiceRecord::doRecord()
 {
-	eDebug("###%s: call doPrepare() now!\n",__func__);
+	//eDebug("###%s: call doPrepare() now!\n",__func__);
 	int err = doPrepare();
 	if (err)
 	{
-		eDebug("###<doRecord>:doPrepare return failed!");
+		//eDebug("###<doRecord>:doPrepare return failed!");
 		m_error = errTuneFailed;
 		m_event((iRecordableService*)this, evRecordFailed);
 		return err;
 	}
 
-	eDebug("###<doRecord>: m_tuned=%d, m_streaming=%d, m_simulate=%d\n",m_tuned ,m_streaming,m_simulate);
+	//eDebug("###<doRecord>: m_tuned=%d, m_streaming=%d, m_simulate=%d\n",m_tuned ,m_streaming,m_simulate);
 	if (!m_tuned)
 		return 0; /* try it again when we are tuned in */
 	
@@ -307,7 +303,7 @@ int eDVBServiceRecord::doRecord()
 		*/
 	//	if (m_service_handler.getDataDemux(demux))
 			
-        eDebug("abing---------------------------->int eDVBServiceRecord::doRecord()  m_service_handler.getRecordDemux(demux)");
+        //eDebug("abing---------------------------->int eDVBServiceRecord::doRecord()  m_service_handler.getRecordDemux(demux)");
 		if (m_service_handler.getRecordDemux(demux))
 		{
 			eDebug("eDVBServiceRecord - NO DEMUX available!");
@@ -490,7 +486,7 @@ PyObject *eDVBServiceRecord::getStreamingData()
 
 	ePyObject r = program.createPythonObject();
 	ePtr<iDVBDemux> demux;
-    eDebug("abing---------------------------->PyObject *eDVBServiceRecord::getStreamingData()  !m_service_handler.getRecordDemux(m_demux)");
+    //eDebug("abing---------------------------->PyObject *eDVBServiceRecord::getStreamingData()  !m_service_handler.getRecordDemux(m_demux)");
 	if (!m_service_handler.getRecordDemux(demux))
 	{
 		uint8_t demux_id;
